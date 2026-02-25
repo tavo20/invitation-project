@@ -1,0 +1,195 @@
+.invitation-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+  font-family: 'Georgia', serif;
+}
+
+.invitation-card {
+  background: white;
+  max-width: 600px;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  padding: 3rem 2.5rem;
+  animation: fadeIn 0.8s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.ornament {
+  color: #d4af37;
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #666;
+  margin: 1rem 0;
+}
+
+.couple-names {
+  text-align: center;
+  margin: 2rem 0;
+  
+  h2 {
+    font-size: 3rem;
+    font-weight: 300;
+    color: #2c3e50;
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+  }
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #d4af37, transparent);
+  margin: 2.5rem 0;
+}
+
+.event-details {
+  margin: 2rem 0;
+}
+
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+  
+  .icon {
+    font-size: 2rem;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  .detail-content {
+    flex: 1;
+    
+    h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin: 0 0 0.5rem 0;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+    
+    p {
+      margin: 0.25rem 0;
+      color: #555;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    
+    .address {
+      font-size: 0.95rem;
+      color: #777;
+    }
+  }
+}
+
+.message {
+  text-align: center;
+  margin: 2.5rem 0;
+  
+  .quote {
+    font-style: italic;
+    color: #666;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  
+  .subtitle {
+    color: #888;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+}
+
+.rsvp {
+  text-align: center;
+  margin: 2.5rem 0 2rem 0;
+}
+
+.rsvp-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.footer {
+  text-align: center;
+  margin-top: 2rem;
+  
+  p {
+    color: #999;
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .invitation-card {
+    padding: 2rem 1.5rem;
+  }
+  
+  .couple-names h2 {
+    font-size: 2.5rem;
+  }
+  
+  .detail-item {
+    padding: 0;
+    
+    .icon {
+      font-size: 1.5rem;
+      margin-right: 1rem;
+    }
+  }
+  
+  .rsvp-button {
+    padding: 0.875rem 2rem;
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,9 @@
+<div *ngIf="templatesAvailable[templateComponent]">
+    <ng-container [ngComponentOutlet]="templatesAvailable[templateComponent]"></ng-container>
+
+
+</div>
+
+<div *ngIf="noDataFound">
+    <p>No se encontró la invitación</p>
+</div>

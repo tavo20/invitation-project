@@ -1,0 +1,130 @@
+/* Import Google Font - Playfair Display */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
+
+.countdown-container {
+    text-align: center;
+    padding: 0 0 10px 0;
+    /* Optional: box-shadow or background if you want it to stand out */
+    /* box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
+}
+
+.countdown-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.countdown-numbers {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align numbers and colons at the baseline */
+    font-family: 'Playfair Display', serif; /* Use a classic serif font */
+    font-size: 5em; /* Large size for numbers */
+    font-weight: 400;
+    color: #A38C7B; /* Golden/brown color for numbers */
+    gap: 15px; /* Space between number groups */
+}
+
+.countdown-numbers span {
+    /* Specific styling for numbers if needed, e.g., min-width */
+    min-width: 50px; /* Adjust if numbers jump too much, e.g., for 3 digits */
+    text-align: right; /* Align numbers to the right within their space */
+}
+
+.countdown-numbers .colon {
+    font-size: 0.8em; /* Make colons slightly smaller */
+    color: #A38C7B; /* Same color as numbers */
+    line-height: 1.2; /* Adjust line height to align vertically */
+    position: relative;
+    top: -0.05em; /* Fine-tune vertical alignment */
+    min-width: 15px; /* Ensure colon takes minimal space */
+    text-align: center; /* Center the colon */
+}
+
+
+.countdown-labels {
+    display: flex;
+    justify-content: center;
+    font-size: 1em; /* Smaller size for labels */
+    color: #555; /* Slightly darker than numbers for contrast */
+    margin-top: 10px; /* Space between numbers and labels */
+    gap: 15px; /* Match gap with numbers for alignment */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Playfair Display', serif; /* Consistent font for labels */
+}
+
+.countdown-labels div {
+    /* Adjust width to align labels exactly under numbers.
+       These values are approximate and might need fine-tuning based on font and number length. */
+    width: 65px; /* Default width for labels */
+    text-align: right; /* Match text alignment with numbers above */
+}
+
+/* Specific adjustments for first number (days) label to align with potentially wider numbers */
+.countdown-labels div:nth-child(1) {
+    min-width: 50px; /* Adjust based on max expected days */
+    text-align: right;
+}
+
+/* Adjust the spacer width to align with the colon above */
+.countdown-labels .spacer {
+    width: 15px; /* Matches colon width */
+    min-width: 15px; /* Ensure it stays fixed */
+}
+
+
+#countdown-message {
+    margin-top: 30px;
+    font-size: 1.5em;
+    color: #8B4513; /* A strong brown for the message */
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+}
+
+@media (max-width: 424px) {
+    .countdown-numbers {
+        font-size: 4em;
+    }
+
+    .countdown-labels {
+        font-size: 0.8em;
+    }
+}
+
+
+
+@media (max-width: 550px) {
+    .countdown-numbers {
+        font-size: 3.8em;
+    }
+
+    .countdown-labels {
+        font-size: 0.9em;
+            gap: 8px;
+    }
+
+}
+
+
+
+
+@media (max-width: 426px) {
+    .countdown-numbers {
+        font-size: 3.2em;
+    }
+
+    .countdown-labels {
+        font-size: 0.65em;
+    }
+}
+
+@media (max-width: 380px) {
+    .countdown-numbers {
+        font-size: 2.7em;
+    }
+
+    .countdown-labels {
+        font-size: 0.5em;
+    }
+}

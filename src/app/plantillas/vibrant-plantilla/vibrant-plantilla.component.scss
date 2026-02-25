@@ -1,0 +1,1138 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;700;900&display=swap');
+
+// Variables de colores terracota
+$primary: #c67c5c;
+$secondary: #a86f50;
+$accent1: #d4a574;
+$accent2: #8b6f47;
+$accent3: #c19a7d;
+$accent4: #6d5638;
+$accent5: #e8b89a;
+$bg-light: #fdfbf7;
+$text-dark: #3d3128;
+
+// Animaciones de fondo con blobs más dinámicos
+@keyframes blobFloat1 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  25% {
+    transform: translate(100px, -80px) scale(1.2) rotate(90deg);
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  50% {
+    transform: translate(-80px, 100px) scale(0.9) rotate(180deg);
+    border-radius: 80% 20% 60% 40% / 40% 80% 20% 60%;
+  }
+  75% {
+    transform: translate(120px, 60px) scale(1.1) rotate(270deg);
+    border-radius: 40% 80% 20% 60% / 70% 30% 80% 20%;
+  }
+}
+
+@keyframes blobFloat2 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    border-radius: 40% 60% 70% 30% / 40% 60% 30% 70%;
+  }
+  33% {
+    transform: translate(-120px, 80px) scale(1.3) rotate(120deg);
+    border-radius: 70% 30% 40% 60% / 60% 40% 70% 30%;
+  }
+  66% {
+    transform: translate(90px, -100px) scale(0.8) rotate(240deg);
+    border-radius: 20% 80% 40% 60% / 30% 70% 40% 60%;
+  }
+}
+
+@keyframes blobFloat3 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+  }
+  20% {
+    transform: translate(100px, 100px) scale(1.4) rotate(72deg);
+    border-radius: 80% 20% 80% 20% / 20% 80% 20% 80%;
+  }
+  40% {
+    transform: translate(-100px, -80px) scale(0.7) rotate(144deg);
+    border-radius: 20% 80% 20% 80% / 80% 20% 80% 20%;
+  }
+  60% {
+    transform: translate(80px, -120px) scale(1.2) rotate(216deg);
+    border-radius: 60% 40% 60% 40% / 40% 60% 40% 60%;
+  }
+  80% {
+    transform: translate(-120px, 90px) scale(0.9) rotate(288deg);
+    border-radius: 40% 60% 40% 60% / 60% 40% 60% 40%;
+  }
+}
+
+@keyframes blobFloat4 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(-150px, -150px) scale(1.5) rotate(180deg);
+  }
+}
+
+@keyframes blobFloat5 {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate(150px, 150px) scale(1.3) rotate(-180deg);
+  }
+}
+
+// Animación de brillos más intensa
+@keyframes sparkleIntense {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.5) rotate(180deg);
+  }
+}
+
+// Partículas flotantes más rápidas
+@keyframes particleFloatFast {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+// Animación de entrada explosiva para cards
+@keyframes cardExplode {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(-180deg);
+  }
+  60% {
+    transform: scale(1.2) rotate(10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+// Badge pulsante más dramático
+@keyframes badgePulseIntense {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    box-shadow: 0 0 0 0 rgba(255, 20, 147, 0.7);
+  }
+  50% {
+    transform: scale(1.3) rotate(5deg);
+    box-shadow: 0 0 40px 20px rgba(255, 20, 147, 0);
+  }
+}
+
+// Burst lines más rápido
+@keyframes burstRotate {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: rotate(360deg) scale(1.2);
+    opacity: 1;
+  }
+}
+
+// Heading con bounce
+@keyframes headingBounce {
+  0% {
+    opacity: 0;
+    transform: translateY(-100px) scale(0.5);
+  }
+  60% {
+    transform: translateY(20px) scale(1.1);
+  }
+  80% {
+    transform: translateY(-10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Nombres con efecto wave
+@keyframes nameWave {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-15px) rotate(5deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(-5deg);
+  }
+}
+
+// Corazón latiendo más fuerte
+@keyframes heartBeatStrong {
+  0%, 100% {
+    transform: scale(1);
+  }
+  10% {
+    transform: scale(1.4) rotate(-10deg);
+  }
+  20% {
+    transform: scale(1.2) rotate(10deg);
+  }
+  30% {
+    transform: scale(1.5) rotate(-5deg);
+  }
+  40% {
+    transform: scale(1.1) rotate(5deg);
+  }
+}
+
+// Pulso del corazón con ondas
+@keyframes heartPulseWave {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+// Burbujas rebotando
+@keyframes bubbleBounce {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.3);
+  }
+  50% {
+    transform: translateY(-20px) scale(1.1);
+  }
+  70% {
+    transform: translateY(10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// Iconos bailando
+@keyframes iconDance {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-10px) rotate(10deg) scale(1.2);
+  }
+  50% {
+    transform: translateY(0) rotate(-10deg) scale(0.9);
+  }
+  75% {
+    transform: translateY(-10px) rotate(5deg) scale(1.1);
+  }
+}
+
+// Estrellas centelleando
+@keyframes starsTwinkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5) rotate(180deg);
+    opacity: 0.5;
+  }
+}
+
+// Palabras destacadas con efecto neón
+@keyframes neonGlow {
+  0%, 100% {
+    text-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 20px currentColor, 0 0 30px currentColor, 0 0 40px currentColor;
+    transform: scale(1.1);
+  }
+}
+
+// Badge de dress code rotando
+@keyframes dresscodeRotate {
+  0% {
+    transform: rotate(-5deg) scale(1);
+  }
+  50% {
+    transform: rotate(5deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(-5deg) scale(1);
+  }
+}
+
+// Badge brillante
+@keyframes badgeShine {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+// Botón con efecto de presión
+@keyframes buttonPress {
+  0%, 100% {
+    transform: scale(1) translateY(0);
+    box-shadow: 0 10px 30px rgba(255, 20, 147, 0.4);
+  }
+  50% {
+    transform: scale(1.1) translateY(-5px);
+    box-shadow: 0 20px 50px rgba(255, 20, 147, 0.6);
+  }
+}
+
+// Confetti explosivo
+@keyframes confettiExplode {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-200px) rotate(720deg) scale(0);
+    opacity: 0;
+  }
+}
+
+// Iconos del footer flotando
+@keyframes footerIconsFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(5deg);
+  }
+  66% {
+    transform: translateY(-5px) rotate(-5deg);
+  }
+}
+
+// Wrapper principal
+.vibrant-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, $bg-light 0%, #f5ede5 100%);
+  overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
+  padding: 20px;
+}
+
+// Fondo animado con blobs más grandes y rápidos
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+
+  .blob {
+    position: absolute;
+    filter: blur(100px);
+    opacity: 0.7;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+
+    &.blob-1 {
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, $primary, $accent5);
+      top: -100px;
+      left: -100px;
+      animation: blobFloat1 8s infinite;
+    }
+
+    &.blob-2 {
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, $secondary, $accent3);
+      top: 30%;
+      right: -150px;
+      animation: blobFloat2 10s infinite;
+    }
+
+    &.blob-3 {
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, $accent1, $accent2);
+      bottom: -100px;
+      left: 10%;
+      animation: blobFloat3 7s infinite;
+    }
+
+    &.blob-4 {
+      width: 550px;
+      height: 550px;
+      background: radial-gradient(circle, $accent4, $primary);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: blobFloat4 12s infinite;
+    }
+
+    &.blob-5 {
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, $accent3, $accent1);
+      bottom: 20%;
+      right: 20%;
+      animation: blobFloat5 9s infinite;
+    }
+  }
+}
+
+// Brillos más intensos
+.sparkles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+
+  .sparkle {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle, $accent1, transparent);
+    border-radius: 50%;
+    animation: sparkleIntense 2s infinite;
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, $accent1, transparent);
+      border-radius: 50%;
+    }
+
+    &::before {
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+// Partículas más rápidas y coloridas
+.particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+
+  .particle {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    animation: particleFloatFast 6s linear infinite;
+
+    @for $i from 1 through 8 {
+      &:nth-child(#{$i}) {
+        left: random(100) * 1%;
+        animation-delay: -#{$i * 0.8}s;
+        width: #{10 + random(15)}px;
+        height: #{10 + random(15)}px;
+
+        @if $i % 4 == 0 {
+          background: radial-gradient(circle, $primary, transparent);
+        } @else if $i % 4 == 1 {
+          background: radial-gradient(circle, $secondary, transparent);
+        } @else if $i % 4 == 2 {
+          background: radial-gradient(circle, $accent1, transparent);
+        } @else {
+          background: radial-gradient(circle, $accent4, transparent);
+        }
+      }
+    }
+  }
+}
+
+// Card principal
+.invitation-card {
+  position: relative;
+  z-index: 3;
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 40px;
+  box-shadow: 0 30px 100px rgba(255, 20, 147, 0.3);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 3px solid rgba(255, 255, 255, 0.8);
+}
+
+// Olas decorativas más dinámicas
+.wave-top,
+.wave-bottom {
+  position: relative;
+  width: 100%;
+  height: 120px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+.wave-top {
+  .wave-path-1 {
+    fill: $primary;
+    opacity: 0.8;
+    animation: waveMove1 4s ease-in-out infinite;
+  }
+
+  .wave-path-2 {
+    fill: $secondary;
+    opacity: 0.6;
+    animation: waveMove2 5s ease-in-out infinite;
+  }
+}
+
+.wave-bottom {
+  .wave-path-3 {
+    fill: $accent1;
+    opacity: 0.8;
+    animation: waveMove1 4s ease-in-out infinite reverse;
+  }
+
+  .wave-path-4 {
+    fill: $accent4;
+    opacity: 0.6;
+    animation: waveMove2 5s ease-in-out infinite reverse;
+  }
+}
+
+@keyframes waveMove1 {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-20px);
+  }
+}
+
+@keyframes waveMove2 {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(20px);
+  }
+}
+
+// Contenido
+.content {
+  padding: 40px 30px;
+}
+
+// Header badge super animado
+.header-badge {
+  position: relative;
+  display: inline-block;
+  padding: 15px 30px;
+  background: linear-gradient(135deg, $primary, $accent2);
+  border-radius: 50px;
+  margin-bottom: 30px;
+  animation: badgePulseIntense 2s infinite;
+  box-shadow: 0 10px 40px rgba(255, 20, 147, 0.5);
+
+  .badge-burst {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+    height: 150px;
+    pointer-events: none;
+
+    .burst-line {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 4px;
+      height: 60px;
+      background: linear-gradient(to top, transparent, $accent1);
+      transform-origin: bottom;
+      animation: burstRotate 3s linear infinite;
+
+      @for $i from 1 through 8 {
+        &:nth-child(#{$i}) {
+          transform: translate(-50%, -100%) rotate(#{$i * 45}deg);
+          animation-delay: #{$i * 0.1}s;
+        }
+      }
+    }
+  }
+
+  .badge-text {
+    position: relative;
+    z-index: 1;
+    color: white;
+    font-weight: 900;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// Heading principal con bounce
+.main-heading {
+  font-family: 'Pacifico', cursive;
+  font-size: 4rem;
+  color: $primary;
+  text-align: center;
+  margin: 30px 0;
+  line-height: 1.2;
+  text-shadow: 3px 3px 6px rgba(255, 20, 147, 0.3);
+
+  .heading-line {
+    display: block;
+    animation: headingBounce 1s ease-out;
+
+    &.line-1 {
+      animation-delay: 0.2s;
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+
+    &.line-2 {
+      animation-delay: 0.5s;
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+  }
+}
+
+// Nombres con wave effect
+.names-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  margin: 50px 0;
+
+  .name-block {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    animation: nameWave 3s ease-in-out infinite;
+
+    .name-decoration {
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, $accent1, $accent2);
+      border-radius: 10px;
+
+      &.left {
+        animation: decorationPulse 2s infinite;
+      }
+
+      &.right {
+        animation: decorationPulse 2s infinite 0.5s;
+      }
+    }
+
+    .name {
+      font-size: 3rem;
+      font-weight: 900;
+      color: $text-dark;
+      font-family: 'Pacifico', cursive;
+      background: linear-gradient(135deg, $primary, $accent4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    &:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 1.5s;
+    }
+  }
+
+  .heart-symbol {
+    position: relative;
+    font-size: 4rem;
+    margin: 20px 0;
+
+    .heart-pulse {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100px;
+      height: 100px;
+      border: 3px solid $primary;
+      border-radius: 50%;
+      animation: heartPulseWave 2s infinite;
+    }
+
+    .heart {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      animation: heartBeatStrong 1.5s infinite;
+      filter: drop-shadow(0 0 20px rgba(255, 20, 147, 0.6));
+    }
+  }
+}
+
+@keyframes decorationPulse {
+  0%, 100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleX(1.5);
+    opacity: 0.7;
+  }
+}
+
+// Info section con burbujas
+.info-section {
+  margin: 50px 0;
+
+  .info-bubble {
+    background: linear-gradient(135deg, $accent3, $secondary);
+    padding: 30px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    animation: bubbleBounce 1s ease-out;
+    box-shadow: 0 10px 40px rgba(78, 205, 196, 0.4);
+
+    .bubble-icon {
+      font-size: 4rem;
+      animation: iconDance 2s infinite;
+    }
+
+    .bubble-content {
+      flex: 1;
+
+      h3 {
+        font-size: 2rem;
+        font-weight: 900;
+        color: white;
+        margin: 0 0 10px 0;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      p {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.95);
+        margin: 0;
+      }
+    }
+  }
+
+  .details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+
+    .detail-card {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 25px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      animation: cardExplode 0.8s ease-out;
+      transition: transform 0.3s, box-shadow 0.3s;
+
+      &:hover {
+        transform: translateY(-10px) rotate(2deg) scale(1.05);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      }
+
+      &.card-date {
+        background: linear-gradient(135deg, rgba(255, 20, 147, 0.1), rgba(255, 107, 107, 0.1));
+        animation-delay: 0.2s;
+        border: 3px solid $primary;
+      }
+
+      &.card-time {
+        background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(78, 205, 196, 0.1));
+        animation-delay: 0.4s;
+        border: 3px solid $secondary;
+      }
+
+      &.card-place {
+        background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(162, 89, 255, 0.1));
+        animation-delay: 0.6s;
+        border: 3px solid $accent1;
+      }
+
+      .card-icon {
+        font-size: 3rem;
+        margin-bottom: 15px;
+        animation: iconDance 2s infinite;
+      }
+
+      h4 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: $text-dark;
+        margin: 0 0 10px 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .detail-main {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: $primary;
+        margin: 10px 0;
+      }
+
+      .detail-sub {
+        font-size: 1rem;
+        color: $text-dark;
+        opacity: 0.7;
+        margin: 5px 0 0 0;
+      }
+    }
+  }
+}
+
+// Mensaje con efectos especiales
+.message-container {
+  margin: 50px 0;
+
+  .message-box {
+    background: linear-gradient(135deg, rgba(162, 89, 255, 0.1), rgba(255, 159, 243, 0.1));
+    padding: 40px;
+    border-radius: 30px;
+    text-align: center;
+    border: 3px dashed $accent4;
+    position: relative;
+
+    .message-stars {
+      font-size: 2rem;
+      margin: 20px 0;
+      animation: starsTwinkle 2s infinite;
+    }
+
+    .message-text {
+      font-size: 1.4rem;
+      line-height: 2;
+      color: $text-dark;
+      font-weight: 600;
+      margin: 20px 0;
+
+      .highlight-word {
+        font-weight: 900;
+        font-size: 1.6rem;
+        display: inline-block;
+        margin: 0 5px;
+        animation: neonGlow 2s infinite;
+
+        &.amor {
+          color: $primary;
+        }
+
+        &.musica {
+          color: $accent4;
+        }
+
+        &.alegria {
+          color: $accent1;
+        }
+      }
+    }
+  }
+}
+
+// Dress code badge con rotación
+.dresscode-section {
+  margin: 40px 0;
+  text-align: center;
+
+  .dresscode-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 40px;
+    background: linear-gradient(135deg, $accent2, $primary, $accent2);
+    background-size: 200% 200%;
+    animation: dresscodeRotate 3s infinite, badgeShine 3s linear infinite;
+    border-radius: 50px;
+    box-shadow: 0 10px 40px rgba(255, 107, 107, 0.5);
+    border: 3px solid white;
+
+    .dresscode-icon {
+      font-size: 2.5rem;
+      animation: iconDance 2s infinite;
+    }
+
+    .dresscode-text {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      letter-spacing: 1px;
+    }
+  }
+}
+
+// CTA Section con botón super animado
+.cta-section {
+  text-align: center;
+  margin: 50px 0;
+
+  .confirm-btn {
+    position: relative;
+    padding: 25px 50px;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: white;
+    background: linear-gradient(135deg, $primary, $accent4);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(255, 20, 147, 0.5);
+    animation: buttonPress 2s infinite;
+    transition: transform 0.2s;
+
+    &:hover {
+      transform: scale(1.15) rotate(-2deg);
+
+      .btn-confetti span {
+        animation: confettiExplode 1s ease-out forwards;
+      }
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    .btn-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      animation: badgeShine 2s linear infinite;
+    }
+
+    .btn-text {
+      position: relative;
+      z-index: 1;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-confetti {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+
+      span {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+
+        &:nth-child(1) {
+          left: 20%;
+          top: 50%;
+          background: $primary;
+        }
+
+        &:nth-child(2) {
+          left: 40%;
+          top: 50%;
+          background: $secondary;
+        }
+
+        &:nth-child(3) {
+          left: 60%;
+          top: 50%;
+          background: $accent4;
+        }
+
+        &:nth-child(4) {
+          left: 80%;
+          top: 50%;
+          background: $accent2;
+        }
+
+        &:nth-child(5) {
+          left: 50%;
+          top: 50%;
+          background: $accent1;
+        }
+      }
+    }
+  }
+
+  .cta-note {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: $text-dark;
+    opacity: 0.7;
+    font-weight: 600;
+  }
+}
+
+// Footer con iconos flotantes
+.footer-fun {
+  margin-top: 50px;
+  text-align: center;
+
+  .footer-icons {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    letter-spacing: 10px;
+    animation: footerIconsFloat 3s infinite;
+  }
+
+  .hashtag {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $primary;
+    font-family: 'Pacifico', cursive;
+    text-shadow: 2px 2px 4px rgba(255, 20, 147, 0.2);
+  }
+}
+
+// Responsivo para móvil
+@media (max-width: 768px) {
+  .vibrant-wrapper {
+    padding: 10px;
+  }
+
+  .animated-background .blob {
+    filter: blur(60px);
+
+    &.blob-1 { width: 300px; height: 300px; }
+    &.blob-2 { width: 350px; height: 350px; }
+    &.blob-3 { width: 280px; height: 280px; }
+    &.blob-4 { width: 320px; height: 320px; }
+    &.blob-5 { width: 250px; height: 250px; }
+  }
+
+  .content {
+    padding: 30px 20px;
+  }
+
+  .main-heading {
+    font-size: 2.5rem;
+  }
+
+  .names-container {
+    .name-block .name {
+      font-size: 2rem;
+    }
+
+    .heart-symbol {
+      font-size: 3rem;
+    }
+  }
+
+  .info-section {
+    .info-bubble {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .details-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .message-container .message-box {
+    padding: 30px 20px;
+
+    .message-text {
+      font-size: 1.1rem;
+
+      .highlight-word {
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  .dresscode-section .dresscode-badge {
+    padding: 15px 25px;
+
+    .dresscode-icon {
+      font-size: 2rem;
+    }
+
+    .dresscode-text {
+      font-size: 1rem;
+    }
+  }
+
+  .cta-section .confirm-btn {
+    padding: 20px 40px;
+    font-size: 1.2rem;
+  }
+}
+
+// Reducir animaciones si el usuario prefiere menos movimiento
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

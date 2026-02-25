@@ -1,0 +1,404 @@
+.container-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+
+}
+
+.container-invitado {
+    text-align: center;
+    margin: 100px 0 30px 0;
+
+    .invitado-name {
+        font-size: 30px;
+    }
+}
+
+.main-image {
+    img {
+        width: 100%;
+        max-width: 700px;
+        height: 200px;
+    }
+}
+
+
+.logo-container {
+    position: relative;
+    width: 100%;
+    /* Adjust size as needed */
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Optional: if you want a border to visually represent the circle */
+    /* border: 1px solid #ccc; */
+    border-radius: 50%;
+}
+
+.names-top,
+.date-bottom {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2em;
+    /* Adjust font size */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.names-top span,
+.date-bottom span {
+    position: absolute;
+    transform-origin: 0 100%;
+    /* Pivot point for rotation */
+}
+
+/* Styling for the top curved text (Names) */
+.names-top {
+    color: #333;
+    /* Darker color for names */
+}
+
+/* Positioning for each letter in the top text */
+.names-top span {
+    /* These values are highly dependent on font, size, and container.
+               You'll likely need to fine-tune them. */
+    transform: rotate(var(--angle)) translateY(-130px);
+    /* Adjust translateY for distance from center */
+}
+
+/* Styling for the bottom curved text (Date) */
+.date-bottom {
+    color: #333;
+    /* Darker color for date */
+    transform: rotate(180deg);
+    /* Rotate the whole container to place text upside down for bottom curve */
+}
+
+/* Positioning for each letter in the bottom text */
+.date-bottom span {
+    transform: rotate(var(--angle)) translateY(-130px);
+    /* Same translateY as top, but container is rotated */
+}
+
+.initials {
+    font-family: auto;
+    font-size: 3.5em;
+    /* Larger font size for initials */
+    font-weight: 700;
+    color: #A38C7B;
+    /* A golden/brown color similar to the image */
+    position: relative;
+    z-index: 1;
+    /* Ensure initials are on top */
+}
+
+.initials .ampersand {
+    font-size: 0.7em;
+    /* Smaller ampersand */
+    vertical-align: super;
+    /* Raise the ampersand slightly */
+}
+
+
+/// fecha
+
+.date-display-container {
+    display: flex;
+    align-items: flex-start;
+    /* Align items to the top to better control vertical alignment */
+    gap: 20px;
+    /* Space between the main columns */
+    text-align: center;
+}
+
+.date-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.day-of-week,
+.month {
+    font-size: 1.2em;
+    /* Adjust as needed */
+    font-weight: 400;
+    color: #333;
+    /* Darker color */
+    margin-bottom: 5px;
+    /* Space between text and line */
+    letter-spacing: 1px;
+    /* To match the image's spacing */
+}
+
+.month {
+    letter-spacing: 2px;
+    /* More prominent spacing for DIC */
+}
+
+.line {
+    width: 80px;
+    /* Adjust line length as needed */
+    height: 1px;
+    background-color: #A38C7B;
+    /* Color matching the initial brown/gold */
+    margin-top: 0;
+    /* Ensures line is right under the text */
+}
+
+.day-number-year {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    /* Prevent extra space between number and year */
+}
+
+.day-number {
+    font-size: 4em;
+    /* Much larger for the "20" */
+    font-weight: 400;
+    color: #A38C7B;
+    /* The golden/brown color */
+}
+
+.year {
+    font-size: 1.2em;
+    /* Size for "2025" */
+    font-weight: 400;
+    color: #333;
+    /* Darker color */
+    margin-top: 20px;
+    /* Pull year up slightly to be closer to the number */
+}
+
+
+
+//// music
+.container-music {
+    margin: 90px 0 50px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    img {
+        width: 45px;
+    }
+
+    .sound-play {}
+}
+
+//planta
+.names-container {
+    position: relative;
+    width: 100%;
+    height: 177px;
+    display: grid;
+    /* grid-template-rows: 72px 70px 70px; */
+    align-items: center;
+    grid-template-columns: 1fr 50px 1fr;
+}
+
+.plant-image {
+    position: absolute;
+    top: 45%;
+    right: -16px;
+    transform: translateY(-50%);
+    width: 63%;
+    height: auto;
+    z-index: 1;
+    opacity: 0.6;
+
+}
+
+.name-row {
+    // position: relative;
+    /* Needed for z-index to work against plant */
+    z-index: 2;
+    /* Text should be above the plant */
+    font-family: 'Dancing Script', cursive;
+    /* Script font for names */
+    font-size: 4em;
+    /* Adjust size for "Pamela" and "Oscar" */
+    color: #A38C7B;
+    /* Golden/brown color */
+    line-height: 0.8;
+    /* Reduce space between lines */
+    text-align: center;
+    width: 100%;
+    /* Ensure text takes full width for alignment */
+}
+
+.start {
+    display: flex;
+    /* width: 400px; */
+    /* justify-content: flex-end; */
+    align-items: flex-start;
+    height: 100%;
+    justify-content: flex-end;
+}
+
+.end {
+    display: flex;
+    /* width: 400px; */
+    /* justify-content: flex-end; */
+    align-items: flex-end;
+    height: 100%;
+}
+
+
+
+.ampersand2 {
+    font-size: 2.5em;
+    display: block;
+    font-weight: 400;
+}
+
+
+//time
+.container-time {
+    display: grid;
+    justify-items: center;
+    margin: 100px 0 0 0;
+
+    .text {
+        font-size: 34px;
+        margin: 30px 0 0 0;
+    }
+
+    img {
+        width: 55px;
+    }
+}
+
+// sobre
+
+.sobres {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    margin: 100px 0 0 0;
+
+    img {
+        width: 70px;
+    }
+}
+
+
+/// dress code
+.main-dress-code {
+    margin: 50px 0;
+    display: grid;
+    justify-items: center;
+
+    .container-dress-images {
+        display: flex;
+        gap: 50px;
+
+        .box {
+            .dress {
+                width: 60px
+            }
+
+            img {
+                width: 50px
+            }
+        }
+    }
+}
+
+// mesage
+.container-qu {
+    margin: 60px 0 15px 0;
+    display: grid;
+    justify-items: center;
+
+    .message {
+        padding: 0 91px;
+        font-size: 18px;
+    }
+
+    .from {}
+}
+
+// confirma
+.confirma {
+    display: grid;
+    margin: 70px;
+    justify-items: center;
+
+    img {
+        width: 300px;
+        filter: hue-rotate(199deg);
+    }
+
+    .message {
+        text-align: center;
+
+        span {
+            font-weight: 600;
+            color: #947a3b;
+        }
+    }
+
+    .btn {
+        width: 200px;
+        margin: 10px;
+        outline: none;
+        border: none;
+        height: 30px;
+        background: rgb(155 126 38 / 30%);
+        font-family: "Edu NSW ACT Hand Pre", cursive;
+        font-size: 17px;
+
+        a {
+            cursor: pointer;
+            color: black;
+            outline: none;
+            text-decoration: none;
+        }
+    }
+}
+
+
+@media (max-width: 550px) {
+    .name-row {
+        font-size: 3.2em;
+    }
+
+    .container-qu {
+        .message {
+            padding: 0 60px;
+        }
+    }
+}
+
+@media (max-width: 424px) {
+    .name-row {
+        font-size: 2.5em;
+    }
+
+    .container-qu {
+        .message {
+            padding: 0 50px;
+        }
+    }
+}
+
+.last-main-image {
+    img {
+        width: 100%;
+        max-width: 700px;
+        height: 200px;
+        transform: rotate(180deg);
+    }
+}

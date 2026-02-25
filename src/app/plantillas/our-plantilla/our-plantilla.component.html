@@ -1,0 +1,173 @@
+<section class="container-main">
+    <!-- <div> -->
+    <div class="main-image">
+        <!-- <img src="../../../assets/images/test123.svg" alt=""> -->
+        <img src="assets/images/main-photo.png" alt="floe">
+    </div>
+
+    <div class="logo-container">
+        <div class="names-top">
+            <span style="--angle: -80deg;">G</span>
+            <span style="--angle: -70deg;">U</span>
+            <span style="--angle: -60deg;">S</span>
+            <span style="--angle: -50deg;">T</span>
+            <span style="--angle: -40deg;">A</span>
+            <span style="--angle: -30deg;">V</span>
+            <span style="--angle: -20deg;">0</span>
+            <span style="--angle: 0deg;">&</span>
+            <span style="--angle: 20deg;">G</span>
+            <span style="--angle: 30deg;">I</span>
+            <span style="--angle: 40deg;">S</span>
+            <span style="--angle: 50deg;">S</span>
+            <span style="--angle: 60deg;">E</span>
+            <span style="--angle: 70deg;">L</span>
+        </div>
+
+        <div class="initials">
+            <span>G</span> <span class="ampersand">&</span> <span>G</span>
+        </div>
+    </div>
+
+    <div class="date-display-container">
+        <div class="date-segment">
+            <div class="day-of-week">SÁBADO</div>
+            <div class="line"></div>
+        </div>
+
+        <div class="day-number-year">
+            <div class="day-number">9</div>
+            <div class="year">2025</div>
+        </div>
+
+        <div class="date-segment">
+            <div class="month">A G O</div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="container-music" (click)="togglePlayPause()">
+        <img src="../../assets/images/icon-music.png" alt="">
+        <p class="sound-play">Toca aquí</p>
+    </div>
+    <audio #audioPlayer src="../../assets/songs/fonseca-que-suerte-tenerte.mp3"></audio>
+
+
+
+    <div class="names-container">
+        <img src="../../assets/images/planta.png" alt="Decorative plant leaves" class="plant-image">
+
+        <div class="name-row start">Gustavo</div>
+        <div class="name-row ampersand2">&</div>
+        <div class="name-row end">Gissel</div>
+    </div>
+
+
+
+    <div class="container-invitado" *ngIf="showInvitado">
+       Bienvenid&commat;s a nuestra Boda. <br>
+       <span class="invitado-name">{{ invitado.name}}</span> 
+    </div>
+
+
+    <section class="container-qu">
+        <p class="message">"El amor es paciente, es bondadoso. El amor no es envidioso ni orgulloso. No se comporta con
+            rudeza, no es egoísta, no se enoja fácilmente, no guarda rencor."</p>
+        <div>1 Corintios 13:4-5</div>
+    </section>
+
+    <div class="container-time">
+        <img src="../../assets/images/clock.png" alt="">
+        <div class="text">Falta poco</div>
+        <app-count-down [targetDate]="weddingDate"></app-count-down>
+    </div>
+
+    <section>
+        <app-event />
+    </section>
+
+
+    <section class="main-dress-code">
+        <p>DRESS CODE</p>
+        <div class="container-dress-images">
+            <div class=" box container-women">
+                <img class="dress" src="../../assets/images/w-dress.png" alt=""> <br>
+                <img src="../../assets/images/w-shoes.png" alt="">
+            </div>
+            <div class="box container-men">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                    preserveAspectRatio="xMidYMid meet" version="1.0" viewBox="160.0 152.5 383.5 819.5"
+                    zoomAndPan="magnify" style="fill: rgb(0, 0, 0);" original_string_length="1861">
+                    <g>
+                        <g id="__id3_s3rgzqmwrq">
+                            <path
+                                d="m177.7 201.45c8.1029 6.3378 162.51 1.758 214.44 2.7862 32.644 0.6463 63.24-1.7707 63.24-1.7707-53.88 11.553-109.86 16.428-153.77 17.263-41.303-6.0929-108.78-0.53279-123.91-18.279z"
+                                transform="translate(58.718 -48.931)" style="fill: rgb(119, 0, 17);" />
+                        </g>
+                        <g id="__id4_s3rgzqmwrq">
+                            <path d="m176.8 201.85c85.944 11.429 180.98 7.1882 277.73 0v36.39h-277.73z"
+                                fill-opacity=".954" transform="translate(58.718 -48.931)"
+                                style="fill: rgb(43, 17, 0);" />
+                        </g>
+                        <g id="__id5_s3rgzqmwrq">
+                            <path
+                                d="m454.24 221.22c-114.64 12.446-165.9 13.544-277.3 2.9983-42.072 5.6488-63.382 626.87-75.645 796.77h159.31c12.867-156.41 31.375-300.29 54.377-537.33 6.1674 193.43 8.6547 367.02 4.3018 537.33h162.16c-2.6241-179.49 3.3066-754.58-27.213-799.77z"
+                                transform="translate(58.718 -48.931)" style="fill: rgb(34, 28, 22);" />
+                        </g>
+                        <path d="m314.62 392.6c1.258 30.292 3.563 91.082 0.0325 91.082" stroke="#411813"
+                            stroke-opacity=".553" stroke-width="2.13" transform="translate(58.718 -48.931)"
+                            style="fill: none;" />
+                        <g id="__id6_s3rgzqmwrq">
+                            <path d="M302.05 211H327.47V228.185H302.05z" fill-opacity=".954" stroke="#cf9b18"
+                                stroke-width="4.498" transform="translate(58.718 -48.931)"
+                                style="fill: rgb(40, 23, 11);" />
+                        </g>
+                        <g id="__id7_s3rgzqmwrq">
+                            <path d="m378.31 206.8 6.6895-1.2575v22.215l-5.7976 0.41915z"
+                                transform="translate(58.718 -48.931)" style="fill: rgb(206, 144, 83);" />
+                        </g>
+                        <g id="__id8_s3rgzqmwrq">
+                            <path d="m237.38 207.64h6.6895v21.377l-7.1355-0.41915z"
+                                transform="translate(58.718 -48.931)" style="fill: rgb(206, 144, 83);" />
+                        </g>
+                        <g id="__id9_s3rgzqmwrq">
+                            <path d="m312.46 231.44 16.398-1.1855v152.93l-13.875 10.67-12.614-14.226z" stroke="#110c0d"
+                                stroke-opacity=".507" stroke-width="1.5" transform="translate(58.718 -48.931)"
+                                style="fill: rgb(206, 144, 83);" />
+                        </g>
+                    </g>
+                </svg> <br>
+                <img src="../../assets/images/m-shoes.png" alt="">
+            </div>
+        </div>
+        <p>ELLAS</p>
+        <div style="padding: 0 9px;">Ellas Divinas (Se reserva el color verde oliva)</div>
+        <p>ELLOS</p>
+        <div>Ellos Guapos</div>
+    </section>
+
+
+    <section class="confirma">
+        <img src="../../assets/images/img-confirm.png" alt="">
+        <p class="message">Hemos pensado en ti <span>porque has sido importante en nuestras vidas,</span> queremos
+            contar contigo.</p>
+        <!-- <div class="confirma-title">Confirma</div> -->
+        <button class="btn">
+
+            <a href="https://forms.gle/rZkQ7R6z6bAi4o3fA" target="_blank">Confirma aquí</a>
+        </button>
+    </section>
+
+
+    <section class="sobres">
+        <img src="../../assets/images/fold.png" alt="">
+        <p>lluvia de sobres.</p>
+    </section>
+
+    <div class="last-main-image">
+        <img src="assets/images/main-photo.png" alt="floe">
+    </div>
+
+
+
+    <!-- </div> -->
+</section>

@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%; /* Use 100% for html, vw/vh for body if you prefer */
+    height: 100%;
+}
+
+body {
+    background: rgb(230 229 229);
+font-family: "Edu NSW ACT Hand Pre", cursive;
+    /* width: 100vw; */ /* Often not needed if html/body are 100% */
+    /* height: 100vh; */ /* Often not needed if html/body are 100% */
+}

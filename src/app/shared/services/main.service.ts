@@ -1,0 +1,36 @@
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class MainService {
+  public data: any = [
+    {
+      id: 1,
+      name: "gus-gi",
+      data: {
+
+      },
+      template: "xyz",
+      active: true
+    },
+    {
+      id: 2,
+      name: "our",
+      data: {
+
+      },
+      template: "our",
+      active: true
+    }
+  ]
+  constructor() { }
+
+  public getData() {
+    return this.data;
+  }
+
+  public getDataByName({ name }: { name: string }) {
+    return this.data.find((item: any) => (item.name === name && item.active));
+  }
+}

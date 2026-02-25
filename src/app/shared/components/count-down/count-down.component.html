@@ -1,0 +1,25 @@
+<div class="countdown-container">
+    <div *ngIf="!hasEnded; else endedMessage" class="countdown-display">
+        <div class="countdown-numbers">
+            <span>{{ days }}</span>
+            <span class="colon">:</span>
+            <span>{{ formatNumber(hours) }}</span>
+            <span class="colon">:</span>
+            <span>{{ formatNumber(minutes) }}</span>
+            <span class="colon">:</span>
+            <span>{{ formatNumber(seconds) }}</span>
+        </div>
+        <div class="countdown-labels">
+            <div>DÍAS</div>
+            <div class="spacer"></div>
+            <div>HORAS</div>
+            <div class="spacer"></div>
+            <div>MINUTOS</div>
+            <div class="spacer"></div>
+            <div>SEGUNDOS</div>
+        </div>
+    </div>
+    <ng-template #endedMessage>
+        <div id="countdown-message">¡EL DÍA HA LLEGADO!</div>
+    </ng-template>
+</div>
