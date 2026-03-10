@@ -22,6 +22,13 @@ export class MainService {
       },
       template: "our",
       active: true
+    },
+    {
+      id: 3,
+      name: "red",
+      data: {},
+      template: "red",
+      active: true
     }
   ]
   constructor() { }

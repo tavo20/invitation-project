@@ -4,12 +4,13 @@ import { CommonModule } from '@angular/common';
 import { MainService } from '../shared/services/main.service';
 import { FlowPlantillaComponent } from '../plantillas/flow-plantilla/flow-plantilla.component';
 import { OurPlantillaComponent } from '../plantillas/our-plantilla/our-plantilla.component';
+import { BlankPlantillaComponent } from '../plantillas/blank-plantilla/blank-plantilla.component';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FlowPlantillaComponent, OurPlantillaComponent],
+  imports: [CommonModule, FlowPlantillaComponent, OurPlantillaComponent, BlankPlantillaComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   providers: [MainService]
@@ -20,6 +21,7 @@ export class HomeComponent {
   public templateAvailable: string = '';  public templatesAvailable: any = {
     "xyz": FlowPlantillaComponent,
     "our": OurPlantillaComponent,
+    "red": BlankPlantillaComponent,
   }
   public templateComponent: any = null;
 
