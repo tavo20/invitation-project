@@ -5,6 +5,7 @@ import { MainService } from '../shared/services/main.service';
 import { FlowPlantillaComponent } from '../plantillas/flow-plantilla/flow-plantilla.component';
 import { OurPlantillaComponent } from '../plantillas/our-plantilla/our-plantilla.component';
 import { BlankPlantillaComponent } from '../plantillas/blank-plantilla/blank-plantilla.component';
+import { OurPlantillaNatalyComponent } from '../plantillas/our-plantilla copy/our-plantilla.component';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class HomeComponent {
     "xyz": FlowPlantillaComponent,
     "our": OurPlantillaComponent,
     "red": BlankPlantillaComponent,
+    "g-n": OurPlantillaNatalyComponent,
   }
   public templateComponent: any = null;
 

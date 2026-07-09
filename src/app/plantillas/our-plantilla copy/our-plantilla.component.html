@@ -1,0 +1,142 @@
+<section class="container-main">
+    <!-- <div> -->
+    <div class="main-image">
+        <img src="assets/our-nataly/main.jpeg" alt="Franco y Anabelle">
+        <div class="container-music" (click)="togglePlayPause()">
+            <img src="../../assets/images/icon-music.png" alt="">
+            <p class="sound-play">Toca aquí</p>
+        </div>
+    </div>
+
+    <div class="hero-section">
+        <div class="hero-names">Gerson <span class="hero-ampersand">&</span> Nataly</div>
+        <div class="hero-title">NOS CASAMOS</div>
+        <p class="hero-message">
+            El amor nos encontró, Dios bendijo nuestro camino y hoy nuestros corazones laten con una misma ilusión. Queremos compartir contigo el día más importante de nuestras vidas, cuando uniremos nuestras almas en matrimonio y celebraremos el inicio de nuestra historia para siempre.
+        </p>
+    </div>
+
+    <div class="date-display-container">
+        <div class="date-segment">
+            <div class="day-of-week">SÁBADO</div>
+            <div class="line"></div>
+        </div>
+
+        <div class="day-number-year">
+            <div class="day-number">14</div>
+            <div class="year">2026</div>
+        </div>
+
+        <div class="date-segment">
+            <div class="month">N O V</div>
+            <div class="line"></div>
+        </div>
+    </div>
+    <audio #audioPlayer src="../../../assets/songs/hermoso_carino.mp3"></audio>
+
+
+
+    <div class="names-container">
+        <img src="../../assets/images/planta.png" alt="Decorative plant leaves" class="plant-image">
+
+        <div class="name-row start">Gerson</div>
+        <div class="name-row ampersand2">&</div>
+        <div class="name-row end">Nataly</div>
+    </div>
+
+
+
+    <div class="container-invitado" *ngIf="showInvitado">
+       Bienvenid&commat;s a nuestra Boda. <br>
+       <span class="invitado-name">{{ invitado.name}}</span> 
+    </div>
+
+
+    <section class="container-qu">
+        <p class="message">"El amor es paciente, es bondadoso. El amor no es envidioso ni orgulloso. No se comporta con
+            rudeza, no es egoísta, no se enoja fácilmente, no guarda rencor."</p>
+        <div>1 Corintios 13:4-5</div>
+    </section>
+
+    <section class="padres-section">
+        <h2 class="padres-titulo">Nuestros Padres</h2>
+        <div class="padres-divider"></div>
+
+        <div class="padres-grid">
+            <div class="padres-grupo">
+                <h3 class="padres-subtitulo">Padres del Novio</h3>
+                <p class="padre-nombre">Juan Ortiz</p>
+                <p class="padre-nombre">Isabel Canamejoy</p>
+            </div>
+
+            <div class="padres-grupo">
+                <h3 class="padres-subtitulo">Padres de la Novia</h3>
+                <p class="padre-nombre">Jesús Castro</p>
+                <p class="padre-nombre">María del Carmen Pantoja</p>
+            </div>
+        </div>
+
+        <div class="padres-divider"></div>
+
+        <div class="padrinos-grupo">
+            <h3 class="padres-subtitulo">Padrinos</h3>
+            <p class="padre-nombre">Darío Montenegro</p>
+            <p class="padre-nombre">Keila Ortiz</p>
+        </div>
+    </section>
+
+    <div class="container-time">
+        <img src="../../assets/images/clock.png" alt="">
+        <div class="text">Falta poco</div>
+        <app-count-down [targetDate]="weddingDate"></app-count-down>
+    </div>
+
+    <section>
+        <app-event />
+    </section>
+
+
+    <section class="dress-code-section">
+        <h2 class="dress-code-titulo">Elegante</h2>
+        <div class="dress-code-divider"></div>
+
+        <div class="dress-code-grid">
+            <div class="dress-code-grupo">
+                <h3 class="dress-code-subtitulo">Ellas</h3>
+                <p class="dress-code-desc">Vestido largo o vestido c&oacute;ctel.</p>
+            </div>
+            <div class="dress-code-grupo">
+                <h3 class="dress-code-subtitulo">Ellos</h3>
+                <p class="dress-code-desc">Traje elegante.</p>
+            </div>
+        </div>
+
+        <p class="dress-code-nota">Por favor, evita vestir de color blanco o amarillo pastel.</p>
+    </section>
+
+    <section class="confirma">
+        <img src="../../assets/images/img-confirm.png" alt="">
+        <p class="message">Hemos pensado en ti <span>porque has sido importante en nuestras vidas,</span> queremos
+            contar contigo.</p>
+        <button class="btn">
+            <a href="https://forms.gle/rZkQ7R6z6bAi4o3fA" target="_blank">Confirma aqu&iacute;</a>
+        </button>
+    </section>
+
+    <section class="sobres-section">
+        <h2 class="sobres-titulo">Lluvia de Sobres</h2>
+        <div class="sobres-divider"></div>
+        <p class="sobres-mensaje">El mejor regalo ser&aacute; compartir este momento contigo. Si deseas tener un detalle con nosotros, agradecemos tu aporte en nuestra lluvia de sobres.</p>
+    </section>
+
+    <section class="cierre-section">
+        <p class="cierre-highlight">A ponerse guapos, que nos vamos a casar!</p>
+
+        <p class="cierre-texto">Tenemos el traje, el fot&oacute;grafo, las flores y cada detalle preparado&hellip;</p>
+
+        <p class="cierre-texto">Pero nos hace falta lo m&aacute;s importante: <br>contar con tu presencia en este d&iacute;a tan especial.</p>
+
+        <p class="cierre-final">Te esperamos para celebrar juntos <br>el comienzo de nuestra historia de amor!</p>
+    </section>
+
+</section>
