@@ -534,13 +534,14 @@
 
 // mesage
 .container-qu {
-    margin: 60px 0 15px 0;
+    margin: 0px 0 15px 0;
     display: grid;
     justify-items: center;
 
     .message {
         padding: 0 91px;
         font-size: 18px;
+        line-height: 1.7;
     }
 
     .from {}
@@ -582,6 +583,25 @@
     &:hover {
         background-color: #444;
     }
+}
+
+.confirma-nota {
+    font-size: 0.95em;
+    color: #555;
+    text-align: center;
+    margin-top: 30px;
+    line-height: 1.6;
+
+    strong {
+        color: #222;
+    }
+}
+
+.confirma-nota-sub {
+    font-style: italic;
+    font-size: 0.85em;
+    color: #888;
+    margin-top: 6px;
 }
 
 
