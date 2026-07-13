@@ -1,10 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+
 .container-main {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-
-
+    font-family: 'Cormorant Garamond', serif;
 }
 
 .container-invitado {
@@ -41,15 +42,17 @@
 }
 
 .hero-names {
-    font-family: 'Dancing Script', cursive;
-    font-size: 3.2em;
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.6em;
     color: #222;
-    font-weight: 700;
+    font-weight: 400;
     line-height: 1.2;
-
+    letter-spacing: 1px;
+    white-space: nowrap;
+    margin: 16px 0 60px 0;
     .hero-ampersand {
-        font-style: italic;
-        margin: 0 4px;
+        font-size: 0.6em;
+        margin: 0 6px;
     }
 }
 
@@ -62,14 +65,60 @@
 }
 
 .hero-message {
-    font-size: 1em;
+    font-size: 1.1em;
     color: #444;
     line-height: 1.7;
     max-width: 380px;
     margin-top: 24px;
-    font-style: italic;
 }
 
+
+// parallax
+.parallax-image {
+    width: 100%;
+    height: 58vh;
+    overflow: hidden;
+    position: relative;
+    margin-top: 90px;
+
+    img {
+        width: 120%;
+        height: 130%;
+        object-fit: cover;
+        object-position: center top;
+        position: absolute;
+        top: 0;
+        left: 0;
+        will-change: transform;
+    }
+}
+.parallax-image_2 {
+    width: 100%;
+    height: 58vh;
+    overflow: hidden;
+    position: relative;
+    margin-top: 20px;
+
+    img {
+        width: 100%;
+        height: 130%;
+        object-fit: cover;
+        object-position: center top;
+        position: absolute;
+        top: 0;
+        left: 0;
+        will-change: transform;
+    }
+}
+
+.section-phrase {
+    font-size: 1.4em;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: #222;
+    margin-top: 16px;
+    text-transform: uppercase;
+}
 
 /// fecha
 
@@ -80,6 +129,7 @@
     gap: 20px;
     /* Space between the main columns */
     text-align: center;
+    margin-top: 20px;
 }
 
 .date-segment {
@@ -233,7 +283,14 @@
     font-weight: 400;
 }
 
-
+.padres-titulo-general {
+    font-size: 0.9em;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: #222;
+    margin-top: 16px;
+    text-transform: uppercase;
+}
 // padres
 .padres-section {
     display: flex;
@@ -246,11 +303,15 @@
 }
 
 .padres-titulo {
-    font-family: 'Dancing Script', cursive;
+    // font-family: 'Dancing Script', cursive;
     font-size: 2.4em;
-    color: #A38C7B;
+    // color: #A38C7B;
     font-weight: 700;
     margin: 0;
+    font-size: 1.4em;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: #222;
 }
 
 .padres-divider {
@@ -274,17 +335,18 @@
 }
 
 .padres-subtitulo {
-    font-size: 0.85em;
-    font-weight: 600;
+    font-size: 1.5em;
+    font-weight: 800;
     letter-spacing: 3px;
-    text-transform: uppercase;
-    color: #555;
+    /* text-transform: uppercase; */
+    /* color: #555; */
     margin: 0 0 12px 0;
+    font-family: "Great Vibes", cursive;
 }
 
 .padre-nombre {
-    font-family: 'Dancing Script', cursive;
-    font-size: 1.5em;
+    // font-family: 'Dancing Script', cursive;
+    font-size: 1.0rem;
     color: #333;
     margin: 2px 0;
     line-height: 1.4;
@@ -297,11 +359,48 @@
     }
 }
 
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-80px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(80px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 //time
 .container-time {
     display: grid;
     justify-items: center;
-    margin: 100px 0 0 0;
+    font-family: "Great Vibes", cursive;
+    letter-spacing: 2px;
+
+    &.animate {
+        img {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+        .text {
+            animation: slideInLeft 0.8s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+        app-count-down {
+            animation: slideInLeft 0.8s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+    }
 
     .text {
         font-size: 34px;
@@ -313,13 +412,29 @@
     }
 }
 
+.event-wrapper {
+    overflow: hidden;
+
+    &.animate {
+        app-event {
+            display: block;
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+    }
+
+    app-event {
+        display: block;
+        opacity: 0;
+    }
+}
+
 // sobre
 .sobres-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 60px 30px;
+    padding: 0px 30px;
     width: 100%;
     box-sizing: border-box;
 }
@@ -346,6 +461,11 @@
     max-width: 380px;
     margin: 0;
     font-style: italic;
+}
+
+.sobres-img {
+    width: 70px;
+    margin-top: 24px;
 }
 
 
@@ -376,9 +496,10 @@
 }
 
 .dress-code-grid {
-    display: flex;
+    display: grid;
     gap: 50px;
     margin: 10px 0 20px 0;
+    grid-template-columns: 1fr 1fr;
 }
 
 .dress-code-grupo {
@@ -388,11 +509,11 @@
 }
 
 .dress-code-subtitulo {
-    font-size: 0.85em;
-    font-weight: 600;
-    letter-spacing: 3px;
+    font-size: 0.90em;
+    font-weight: 900;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    color: #555;
+    color: #0f0f0f;
     margin: 0 0 8px 0;
 }
 
@@ -436,31 +557,30 @@
         filter: hue-rotate(199deg);
     }
 
-    .message {
-        text-align: center;
-
-        span {
-            font-weight: 600;
-            color: #947a3b;
-        }
+    .confirma-img {
+        margin-top: 30px;
+        width: 60px;
+        filter: none;
     }
+}
 
-    .btn {
-        width: 200px;
-        margin: 10px;
-        outline: none;
-        border: none;
-        height: 30px;
-        background: rgb(155 126 38 / 30%);
-        font-family: "Edu NSW ACT Hand Pre", cursive;
-        font-size: 17px;
+.confirma-button {
+    display: inline-block;
+    font-family: 'Cormorant Garamond', serif;
+    background-color: #c0a486;
+    color: #ffffff;
+    padding: 14px 32px;
+    border-radius: 0;
+    text-decoration: none;
+    font-size: 0.75em;
+    font-weight: 600;
+    margin-top: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease;
 
-        a {
-            cursor: pointer;
-            color: black;
-            outline: none;
-            text-decoration: none;
-        }
+    &:hover {
+        background-color: #444;
     }
 }
 
@@ -495,15 +615,15 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    padding: 70px 40px 80px;
+    padding: 10px 40px 80px;
     width: 100%;
     box-sizing: border-box;
 }
 
 .cierre-highlight {
     font-family: 'Dancing Script', cursive;
-    font-size: 2em;
-    color: #A38C7B;
+    font-size: 1.6em;
+    color: #121110;
     font-weight: 700;
     margin: 0 0 30px 0;
 }
@@ -519,7 +639,7 @@
 .cierre-final {
     font-family: 'Dancing Script', cursive;
     font-size: 1.6em;
-    color: #A38C7B;
+    color: #121110;
     font-weight: 700;
     line-height: 1.4;
     max-width: 380px;

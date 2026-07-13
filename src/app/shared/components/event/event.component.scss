@@ -1,100 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap');
+
 .container {
     text-align: center;
-    padding: 81px 0 20px 0;
-    border-radius: 10px;
+    padding: 60px 0 20px 0;
+    font-family: 'Cormorant Garamond', serif;
 
     .icon {
         width: 90px;
     }
 }
 
-
-/* Optional: If there's a logo at the top */
-/* .logo-placeholder {
-    width: 100px;
-    height: 50px;
-    background-color: #ccc;
-    margin: 0 auto 30px;
-    border-radius: 5px;
-} */
-
 .event-title {
+    color: #222;
     margin: 30px 0 10px 0;
-    font-family: "Dancing Script", cursive;
-    /* Use a script font for elegance */
-    font-size: 3.5em;
-    /* Adjust size as needed */
-    color: #5e4a3b;
-    /* A dark brown/sepia color */
-    margin-bottom: 10px;
     line-height: 1;
-    /* Adjust line height for script fonts */
+    font-size: 34px;
+    font-family: "Great Vibes", cursive;
+    letter-spacing: 2px;
+
+
 }
 
 .venue-name {
-    font-family: "Dancing Script", cursive;
-    /* Or a simple sans-serif font */
-    font-size: 1.5em;
-    /* Adjust size */
-    color: #7b6f63;
-    /* A slightly lighter brown/gray */
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3em;
+    color: #222;
     margin-top: 0;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-    /* Slight letter spacing for uppercase text */
+    margin-bottom: 16px;
+    letter-spacing: 3px;
     text-transform: uppercase;
+    font-weight: 600;
 }
 
 .address-line {
-    font-family: "Dancing Script", cursive;
-    /* Or a simple sans-serif font */
-    font-size: 1.1em;
-    /* Adjust size */
-    color: #7b6f63;
-    /* Same color as venue name */
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95em;
+    color: #444;
     margin: 5px 0;
-    /* Space between address lines */
     line-height: 1.4;
+}
+
+p {
+    font-family: 'Cormorant Garamond', serif;
+    color: #333;
 }
 
 .location-button {
     display: inline-block;
-    /* Allows padding and margin */
-    background-color: #8c725d;
-    /* Brownish button color */
+    font-family: 'Cormorant Garamond', serif;
+    background-color: #c0a486;
     color: #ffffff;
-    /* White text */
-    padding: 15px 30px;
-    border-radius: 30px;
-    /* Highly rounded corners for a pill shape */
+    padding: 14px 32px;
+    border-radius: 0;
     text-decoration: none;
-    /* Remove underline from link */
-    font-size: 0.8em;
-    margin-top: 40px;
-    /* Space above the button */
-    transition: background-color 0.3s ease;
-    /* Smooth hover effect */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    /* Subtle shadow for depth */
-    letter-spacing: 1px;
+    font-size: 0.75em;
+    font-weight: 600;
+    margin-top: 30px;
+    letter-spacing: 2px;
     text-transform: uppercase;
+    transition: background-color 0.3s ease;
 }
 
 .location-button:hover {
-    background-color: #7a6350;
-    /* Darker shade on hover */
+    background-color: #444;
 }
 
 @media (max-width: 424px) {
-    .countdown-numbers {
-        font-size: 4em;
-    }
-
-    .countdown-labels {
-        font-size: 0.8em;
-    }
-
     .event-title {
-            font-size: 3em;
+        font-size: 34px;
     }
 }

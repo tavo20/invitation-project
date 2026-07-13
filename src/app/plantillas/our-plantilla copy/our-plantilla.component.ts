@@ -1,6 +1,5 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-// import { invitados } from '../../assets/data/invitados'
 import { CommonModule } from '@angular/common';
 import { CountDownComponent } from '../../shared/components/count-down/count-down.component';
 import { EventComponent } from '../../shared/components/event/event.component';
@@ -9,10 +8,10 @@ import { EventComponent } from '../../shared/components/event/event.component';
   selector: 'app-our-plantilla-nataly',
   standalone: true,
   imports: [CountDownComponent, EventComponent, CommonModule],
-  templateUrl: './our-plantilla.component.html',
+  templateUrl: './our-plantilla-copy.component.html',
   styleUrl: './our-plantilla.component.scss'
 })
-export class OurPlantillaNatalyComponent {
+export class OurPlantillaNatalyComponent implements AfterViewInit {
 
 showInvitado = false;
   invitado: any = {};
@@ -40,7 +39,7 @@ showInvitado = false;
 
 
   }
-  weddingDate: string = "November 14, 2026 10:00:00";
+  weddingDate: string = "November 14, 2026 15:00:00";
   @ViewChild('audioPlayer') audioPlayerRef!: ElementRef<HTMLAudioElement>;
   isPlaying: boolean = false;
 
@@ -52,6 +51,38 @@ showInvitado = false;
       this.audioPlayerRef.nativeElement.play();
     }
     this.isPlaying = !this.isPlaying;
+  }
+
+  @ViewChild('parallaxImg') parallaxImgRef!: ElementRef<HTMLImageElement>;
+  @ViewChild('countdownSection') countdownSectionRef!: ElementRef<HTMLDivElement>;
+  @ViewChild('eventSection') eventSectionRef!: ElementRef<HTMLElement>;
+
+  ngAfterViewInit(): void {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    if (this.countdownSectionRef) observer.observe(this.countdownSectionRef.nativeElement);
+    if (this.eventSectionRef) observer.observe(this.eventSectionRef.nativeElement);
+  }
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    if (!this.parallaxImgRef) return;
+    const container = this.parallaxImgRef.nativeElement.parentElement!;
+    const rect = container.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    if (rect.bottom < 0 || rect.top > windowHeight) return;
+    const progress = (windowHeight - rect.top) / (windowHeight + rect.height);
+    const offset = (progress - 0.5) * 100;
+    this.parallaxImgRef.nativeElement.style.transform = `translateY(${offset}px)`;
   }
 }
 

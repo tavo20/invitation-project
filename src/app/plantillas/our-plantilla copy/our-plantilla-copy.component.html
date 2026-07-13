@@ -16,6 +16,7 @@
         </p>
     </div>
 
+    <!-- <div class="section-phrase">El gran día empieza en</div> -->
     <div class="date-display-container">
         <div class="date-segment">
             <div class="day-of-week">SÁBADO</div>
@@ -32,17 +33,22 @@
             <div class="line"></div>
         </div>
     </div>
+
+    <div class="parallax-image">
+        <img #parallaxImg src="assets/our-nataly/faces.jpeg" alt="Gerson y Nataly">
+    </div>
+
     <audio #audioPlayer src="../../../assets/songs/hermoso_carino.mp3"></audio>
 
 
 
-    <div class="names-container">
+    <!-- <div class="names-container">
         <img src="../../assets/images/planta.png" alt="Decorative plant leaves" class="plant-image">
 
         <div class="name-row start">Gerson</div>
         <div class="name-row ampersand2">&</div>
         <div class="name-row end">Nataly</div>
-    </div>
+    </div> -->
 
 
 
@@ -58,8 +64,10 @@
         <div>1 Corintios 13:4-5</div>
     </section>
 
+    
+    
     <section class="padres-section">
-        <h2 class="padres-titulo">Nuestros Padres</h2>
+        <div class="padres-titulo-general">Con la bendición de nuestros padres</div>
         <div class="padres-divider"></div>
 
         <div class="padres-grid">
@@ -85,20 +93,23 @@
         </div>
     </section>
 
-    <div class="container-time">
+    <div #countdownSection class="container-time">
         <img src="../../assets/images/clock.png" alt="">
-        <div class="text">Falta poco</div>
+        <div class="text">El gran día empieza en</div>
         <app-count-down [targetDate]="weddingDate"></app-count-down>
     </div>
 
-    <section>
+    <section #eventSection class="event-wrapper">
         <app-event />
     </section>
 
+    <div class="parallax-image_2">
+        <img src="assets/our-nataly/caballo.jpeg" alt="Gerson y Nataly">
+    </div>
+
 
     <section class="dress-code-section">
-        <h2 class="dress-code-titulo">Elegante</h2>
-        <div class="dress-code-divider"></div>
+        <h2 class="dress-code-titulo">Dress code</h2>
 
         <div class="dress-code-grid">
             <div class="dress-code-grupo">
@@ -110,23 +121,29 @@
                 <p class="dress-code-desc">Traje elegante.</p>
             </div>
         </div>
+        <div class="dress-code-divider"></div>
 
         <p class="dress-code-nota">Por favor, evita vestir de color blanco o amarillo pastel.</p>
     </section>
 
-    <section class="confirma">
-        <img src="../../assets/images/img-confirm.png" alt="">
-        <p class="message">Hemos pensado en ti <span>porque has sido importante en nuestras vidas,</span> queremos
-            contar contigo.</p>
-        <button class="btn">
-            <a href="https://forms.gle/rZkQ7R6z6bAi4o3fA" target="_blank">Confirma aqu&iacute;</a>
-        </button>
-    </section>
+
 
     <section class="sobres-section">
         <h2 class="sobres-titulo">Lluvia de Sobres</h2>
         <div class="sobres-divider"></div>
         <p class="sobres-mensaje">El mejor regalo ser&aacute; compartir este momento contigo. Si deseas tener un detalle con nosotros, agradecemos tu aporte en nuestra lluvia de sobres.</p>
+        <img src="../../assets/images/fold.png" alt="" class="sobres-img">
+    </section>
+
+    <div class="parallax-image">
+        <img src="assets/our-nataly/see_each_other.jpeg" alt="Gerson y Nataly">
+    </div>
+
+    <section class="confirma">
+        <img src="../../assets/images/img-confirm.png" alt="">
+        <!-- <p class="message">El mejor regalo será compartir este momento contigo. Si deseas tener un detalle con nosotros, agradecemos tu aporte en nuestra lluvia de sobres.</p> -->
+        <a href="https://forms.gle/SwbxVg4tacKMWCEx7" target="_blank" class="confirma-button">CONFIRMA AQU&Iacute;</a>
+        <a href="https://forms.gle/aKaBRQB39VnoQHf29" target="_blank" class="confirma-button">CONFIRMA Hospedaje</a>
     </section>
 
     <section class="cierre-section">
@@ -138,5 +155,8 @@
 
         <p class="cierre-final">Te esperamos para celebrar juntos <br>el comienzo de nuestra historia de amor!</p>
     </section>
+
+
+
 
 </section>
