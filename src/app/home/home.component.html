@@ -1,7 +1,7 @@
+<app-showcase *ngIf="showShowcase"></app-showcase>
+
 <div *ngIf="templatesAvailable[templateComponent]">
     <ng-container [ngComponentOutlet]="templatesAvailable[templateComponent]"></ng-container>
-
-
 </div>
 
 <div *ngIf="noDataFound">

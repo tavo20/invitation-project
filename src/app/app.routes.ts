@@ -6,5 +6,23 @@ export const routes: Routes = [
     {
         path: '',
         component: HomeComponent
+    },
+    {
+        path: 'Gustavo-Gissel',
+        loadComponent: () =>
+            import('./plantillas/gustavo-gissel/gustavo-gissel.component')
+                .then(m => m.GustavoGisselComponent)
+    },
+    {
+        path: 'Laura-Juan',
+        loadComponent: () =>
+            import('./plantillas/laura-juan/laura-juan.component')
+                .then(m => m.LauraJuanComponent)
+    },
+    {
+        path: 'Mis-XV',
+        loadComponent: () =>
+            import('./plantillas/xv-elegante/xv-elegante.component')
+                .then(m => m.XvEleganteComponent)
     }
 ];

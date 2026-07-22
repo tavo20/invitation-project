@@ -1,0 +1,640 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+// ===== Tema: Elegante Champagne =====
+$accent: #B49157;
+$accent-suave: rgba(180, 145, 87, 0.15);
+$text-dark: #2B2620;
+$text-body: #4A4238;
+$text-secondary: #6B6055;
+$text-muted: #9C9184;
+$bg: #FAF7F2;
+$blanco: #FFFFFF;
+$font-cursive: 'Great Vibes', cursive;
+$font-caps: 'Cinzel', serif;
+$font-body: 'Cormorant Garamond', serif;
+
+.xv-main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: $bg;
+    font-family: $font-body;
+    overflow-x: hidden;
+}
+
+// ===== Secciones base =====
+.seccion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 70px 30px;
+    width: 100%;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+
+    &.animate {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.seccion-titulo {
+    font-family: $font-cursive;
+    font-size: 3em;
+    color: $accent;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.1;
+}
+
+.titulo-divider {
+    width: 60px;
+    height: 1px;
+    background-color: $accent;
+    margin: 22px 0;
+}
+
+.seccion-subtitulo {
+    font-family: $font-caps;
+    font-size: 1em;
+    color: $text-dark;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.boton-solido {
+    display: inline-block;
+    font-family: $font-caps;
+    background-color: $accent;
+    color: $blanco;
+    border: none;
+    cursor: pointer;
+    padding: 13px 30px;
+    font-size: 0.72em;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: darken(#B49157, 12%);
+    }
+}
+
+.ornamento {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: $accent;
+    margin-bottom: 30px;
+
+    .ornamento-linea {
+        display: block;
+        width: 70px;
+        height: 1px;
+        background: linear-gradient(to right, transparent, $accent);
+
+        &:last-child {
+            background: linear-gradient(to left, transparent, $accent);
+        }
+    }
+}
+
+// ===== Hero =====
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-foto {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+}
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(30, 24, 16, 0.35) 0%, rgba(30, 24, 16, 0.15) 45%, rgba(30, 24, 16, 0.55) 100%);
+}
+
+.hero-contenido {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: $blanco;
+    padding: 0 24px;
+}
+
+.hero-pretitulo {
+    font-family: $font-caps;
+    font-size: 1em;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin: 0 0 10px 0;
+    animation: heroFade 1.4s ease both;
+}
+
+.hero-nombre {
+    font-family: $font-cursive;
+    font-size: 5.5em;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.1;
+    animation: heroFade 1.4s ease 0.3s both;
+}
+
+.hero-linea {
+    width: 70px;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.7);
+    margin: 22px auto;
+    animation: heroFade 1.4s ease 0.6s both;
+}
+
+.hero-fecha {
+    font-family: $font-body;
+    font-size: 1.15em;
+    letter-spacing: 2px;
+    margin: 0;
+    animation: heroFade 1.4s ease 0.8s both;
+}
+
+@keyframes heroFade {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-scroll {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    color: rgba(255, 255, 255, 0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+
+    p {
+        font-family: $font-body;
+        font-size: 0.85em;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin: 0;
+    }
+
+    svg {
+        animation: scrollBounce 2s ease-in-out infinite;
+    }
+}
+
+@keyframes scrollBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+}
+
+.hero-musica {
+    position: absolute;
+    bottom: 28px;
+    right: 24px;
+    z-index: 2;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(4px);
+    color: $blanco;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+}
+
+// ===== Bienvenida =====
+.bienvenida-texto {
+    font-size: 1.25em;
+    color: $text-body;
+    line-height: 1.8;
+    max-width: 380px;
+    font-style: italic;
+    margin: 0;
+}
+
+// ===== Padres y padrinos =====
+.padres-intro {
+    font-size: 1.15em;
+    color: $text-secondary;
+    font-style: italic;
+    margin: 0 0 40px 0;
+    max-width: 360px;
+}
+
+.padres-grid {
+    display: flex;
+    gap: 50px;
+}
+
+.padres-columna {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.padres-divider {
+    width: 40px;
+    height: 1px;
+    background-color: $accent;
+    margin: 14px 0 16px 0;
+}
+
+.padres-nombre {
+    font-size: 1.1em;
+    color: $text-body;
+    margin: 4px 0;
+}
+
+// ===== Countdown =====
+.countdown-grid {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-top: 34px;
+}
+
+.countdown-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 58px;
+}
+
+.countdown-numero {
+    font-family: $font-caps;
+    font-size: 2.3em;
+    color: $text-dark;
+    font-weight: 500;
+    line-height: 1;
+}
+
+.countdown-label {
+    font-family: $font-caps;
+    font-size: 0.65em;
+    color: $text-muted;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.countdown-sep {
+    font-family: $font-caps;
+    font-size: 2em;
+    color: $accent;
+    line-height: 1.15;
+}
+
+.countdown-para {
+    font-size: 1.15em;
+    color: $text-secondary;
+    font-style: italic;
+    margin: 34px 0 0 0;
+}
+
+// ===== Donde y cuando =====
+.lugares-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    max-width: 420px;
+}
+
+.lugar-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $blanco;
+    border: 1px solid $accent-suave;
+    box-shadow: 0 4px 24px rgba(43, 38, 32, 0.06);
+    padding: 40px 28px;
+}
+
+.lugar-icono {
+    color: $accent;
+    margin-bottom: 16px;
+}
+
+.lugar-titulo {
+    font-family: $font-caps;
+    font-size: 0.95em;
+    color: $text-dark;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 0 0 14px 0;
+}
+
+.lugar-nombre {
+    font-size: 1.3em;
+    color: $text-body;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+}
+
+.lugar-hora {
+    font-family: $font-caps;
+    font-size: 0.85em;
+    color: $accent;
+    letter-spacing: 2px;
+    margin: 0 0 10px 0;
+}
+
+.lugar-direccion {
+    font-size: 1em;
+    color: $text-secondary;
+    line-height: 1.5;
+    margin: 0 0 24px 0;
+    max-width: 280px;
+}
+
+// ===== Itinerario =====
+.itinerario-intro {
+    font-size: 1.1em;
+    color: $text-secondary;
+    font-style: italic;
+    margin: 0 0 40px 0;
+}
+
+.timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+    padding-left: 8px;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 5px;
+        top: 8px;
+        bottom: 8px;
+        width: 1px;
+        background: linear-gradient(to bottom, transparent, $accent, transparent);
+    }
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+}
+
+.timeline-punto {
+    position: relative;
+    z-index: 1;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background-color: $bg;
+    border: 2px solid $accent;
+    flex-shrink: 0;
+    margin-left: -7px;
+}
+
+.timeline-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.timeline-hora {
+    font-family: $font-caps;
+    font-size: 0.75em;
+    color: $accent;
+    letter-spacing: 2px;
+}
+
+.timeline-titulo {
+    font-size: 1.25em;
+    color: $text-dark;
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+// ===== Dress code =====
+.dresscode-valor {
+    font-family: $font-caps;
+    font-size: 1.6em;
+    color: $text-dark;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin: 10px 0 0 0;
+}
+
+.dresscode-nota {
+    font-size: 1.05em;
+    color: $text-muted;
+    font-style: italic;
+    margin: 18px 0 0 0;
+}
+
+// ===== Regalos =====
+.regalos-texto {
+    font-size: 1.15em;
+    color: $text-body;
+    line-height: 1.7;
+    max-width: 360px;
+    font-style: italic;
+    margin: 0 0 34px 0;
+}
+
+.cuenta-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: $blanco;
+    border: 1px solid $accent-suave;
+    box-shadow: 0 4px 24px rgba(43, 38, 32, 0.06);
+    padding: 34px 40px;
+    width: 100%;
+    max-width: 340px;
+    box-sizing: border-box;
+}
+
+.cuenta-banco {
+    font-family: $font-caps;
+    font-size: 0.8em;
+    color: $text-muted;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin: 0 0 10px 0;
+}
+
+.cuenta-numero {
+    font-family: $font-caps;
+    font-size: 1.15em;
+    color: $text-dark;
+    letter-spacing: 2px;
+    margin: 0 0 6px 0;
+}
+
+.cuenta-titular {
+    font-size: 1.05em;
+    color: $text-secondary;
+    margin: 0 0 24px 0;
+}
+
+.regalos-sobres {
+    font-size: 1.05em;
+    color: $text-muted;
+    font-style: italic;
+    margin: 30px 0 0 0;
+}
+
+// ===== Confirmacion =====
+.rsvp-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 340px;
+    margin-top: 10px;
+}
+
+.rsvp-input {
+    font-family: $font-body;
+    font-size: 1.05em;
+    color: $text-dark;
+    background-color: $blanco;
+    border: 1px solid rgba(180, 145, 87, 0.35);
+    padding: 13px 16px;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    resize: none;
+    transition: border-color 0.3s ease;
+
+    &::placeholder {
+        color: $text-muted;
+    }
+
+    &:focus {
+        border-color: $accent;
+    }
+}
+
+.rsvp-boton {
+    margin-top: 6px;
+}
+
+// ===== Hashtag =====
+.hashtag {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.hashtag-texto {
+    font-size: 1.1em;
+    color: $text-secondary;
+    font-style: italic;
+    margin: 0 0 10px 0;
+}
+
+.hashtag-valor {
+    font-family: $font-caps;
+    font-size: 1.3em;
+    color: $accent;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+// ===== Cierre =====
+.cierre {
+    padding-bottom: 90px;
+}
+
+.cierre-texto {
+    font-size: 1.25em;
+    color: $text-body;
+    font-style: italic;
+    max-width: 340px;
+    line-height: 1.7;
+    margin: 0 0 20px 0;
+}
+
+.cierre-firma {
+    font-family: $font-cursive;
+    font-size: 3em;
+    color: $accent;
+    margin: 0;
+}
+
+// ===== Responsive =====
+@media (max-width: 550px) {
+    .hero-nombre {
+        font-size: 4.2em;
+    }
+
+    .seccion {
+        padding: 60px 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .padres-grid {
+        flex-direction: column;
+        gap: 40px;
+    }
+}
+
+@media (max-width: 424px) {
+    .hero-nombre {
+        font-size: 3.6em;
+    }
+
+    .seccion-titulo {
+        font-size: 2.6em;
+    }
+
+    .countdown-grid {
+        gap: 8px;
+    }
+
+    .countdown-item {
+        min-width: 50px;
+    }
+
+    .countdown-numero {
+        font-size: 2em;
+    }
+}

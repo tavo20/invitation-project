@@ -6,12 +6,14 @@ import { FlowPlantillaComponent } from '../plantillas/flow-plantilla/flow-planti
 import { OurPlantillaComponent } from '../plantillas/our-plantilla/our-plantilla.component';
 import { BlankPlantillaComponent } from '../plantillas/blank-plantilla/blank-plantilla.component';
 import { OurPlantillaNatalyComponent } from '../plantillas/our-plantilla copy/our-plantilla.component';
+import { GustavoGisselComponent } from '../plantillas/gustavo-gissel/gustavo-gissel.component';
+import { ShowcaseComponent } from '../showcase/showcase.component';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FlowPlantillaComponent, OurPlantillaComponent, BlankPlantillaComponent],
+  imports: [CommonModule, FlowPlantillaComponent, OurPlantillaComponent, BlankPlantillaComponent, ShowcaseComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   providers: [MainService]
@@ -24,20 +26,26 @@ export class HomeComponent {
     "our": OurPlantillaComponent,
     "red": BlankPlantillaComponent,
     "g-n": OurPlantillaNatalyComponent,
+    "g-g": GustavoGisselComponent,
   }
   public templateComponent: any = null;
 
   public dataInvitation: any = null;
 
   public noDataFound: boolean = false;
+  public showShowcase: boolean = false;
   constructor(private route: ActivatedRoute, private router: Router, private mainService: MainService) {
-    console.log('query param', this.getQueryParam('n'));
+    console.log('query param', this.getQueryParam('n'),2222);
   }
 
 
 
   ngOnInit() {
-    const nameInvitation = this.getQueryParam('n') ?? '';
+    const nameInvitation = this.getQueryParam('n');
+    if (!nameInvitation) {
+      this.showShowcase = true;
+      return;
+    }
     const data = this.mainService.getDataByName({name: nameInvitation});
     if (data) {
       this.templateComponent = data.template;

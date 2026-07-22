@@ -1,0 +1,187 @@
+<section class="container-main">
+
+    <div class="main-image">
+        <img src="assets/new-claude-our/portada.jpg" alt="Gustavo y Gissel">
+        <div class="container-music" (click)="togglePlayPause()">
+            <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" />
+                <circle cx="18" cy="16" r="3" />
+            </svg>
+            <p class="sound-play">Toca aqu&iacute;</p>
+        </div>
+    </div>
+    <audio #audioPlayer src="../../../assets/songs/hermoso_carino.mp3"></audio>
+
+    <div class="hero-section">
+        <div class="hero-names">Gustavo <span class="hero-ampersand">&</span> Gissel</div>
+        <div class="hero-title">NOS CASAMOS</div>
+        <p class="hero-message">
+            El amor nos encontr&oacute; y hoy nuestros corazones laten con una misma ilusi&oacute;n.
+            Queremos compartir contigo el d&iacute;a m&aacute;s importante de nuestras vidas,
+            cuando uniremos nuestras almas y celebraremos el inicio de nuestra historia para siempre.
+        </p>
+    </div>
+
+    <div class="date-display-container">
+        <div class="date-segment">
+            <div class="day-of-week">S&Aacute;BADO</div>
+            <div class="line"></div>
+        </div>
+
+        <div class="day-number-year">
+            <div class="day-number">10</div>
+            <div class="year">2026</div>
+        </div>
+
+        <div class="date-segment">
+            <div class="month">O C T</div>
+            <div class="line"></div>
+        </div>
+    </div>
+
+    <div class="parallax-image">
+        <img #parallaxImg src="assets/new-claude-our/basic_01.jpg" alt="Gustavo y Gissel">
+    </div>
+
+    <section class="container-qu">
+        <p class="message">"Amar no es mirarse el uno al otro, es mirar juntos en la misma direcci&oacute;n."</p>
+        <div>Antoine de Saint-Exup&eacute;ry</div>
+    </section>
+
+    <section class="padres-section">
+        <h2 class="padres-titulo">Nuestros Padres</h2>
+        <svg class="divider-leaf" viewBox="0 0 160 28" fill="none">
+            <path d="M15 14 H145" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+            <g fill="currentColor">
+                <path d="M55 14 q-6 -10 -16 -9 q2 10 16 9" />
+                <path d="M55 14 q-6 10 -16 9 q2 -10 16 -9" />
+                <path d="M105 14 q6 -10 16 -9 q-2 10 -16 9" />
+                <path d="M105 14 q6 10 16 9 q-2 -10 -16 -9" />
+                <circle cx="80" cy="14" r="2.5" />
+            </g>
+        </svg>
+
+        <div class="padres-grid">
+            <div class="padres-grupo">
+                <h3 class="padres-subtitulo">Padres del Novio</h3>
+                <p class="padre-nombre">Gustavo Jimenez</p>
+                <p class="padre-nombre">Dennis Lievano</p>
+            </div>
+
+            <div class="padres-grupo">
+                <h3 class="padres-subtitulo">Padres de la Novia</h3>
+                <p class="padre-nombre">Alicia Insuasty</p>
+                <p class="padre-nombre">Guillermo Acosta</p>
+            </div>
+        </div>
+    </section>
+
+    <div #countdownSection class="container-time">
+        <svg class="icon-svg icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"
+            stroke-linecap="round">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3.5 2" />
+        </svg>
+        <div class="text">El gran d&iacute;a empieza en</div>
+        <app-count-down [targetDate]="weddingDate"></app-count-down>
+    </div>
+
+    <section #eventSection class="event-section">
+        <svg class="event-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2v3M10.5 3.5h3" />
+            <path d="M7 21V11l5-4 5 4v10" />
+            <path d="M4 21h16" />
+            <path d="M10 21v-3.5a2 2 0 0 1 4 0V21" />
+        </svg>
+        <h1 class="event-titulo">Ceremonia y Recepci&oacute;n</h1>
+        <p class="event-venue">HACIENDA LOS FAROLES</p>
+        <p class="event-address">Ch&iacute;a, Cundinamarca</p>
+        <p class="event-hora">3:00 PM</p>
+        <!-- TODO: reemplazar con el link real de Google Maps -->
+        <a target="_blank" href="#" class="theme-button">CLICK UBICACI&Oacute;N</a>
+    </section>
+
+    <section class="dress-code-section">
+        <h2 class="dress-code-titulo">Dress Code</h2>
+        <svg class="divider-leaf" viewBox="0 0 160 28" fill="none">
+            <path d="M15 14 H145" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+            <g fill="currentColor">
+                <path d="M55 14 q-6 -10 -16 -9 q2 10 16 9" />
+                <path d="M55 14 q-6 10 -16 9 q2 -10 16 -9" />
+                <path d="M105 14 q6 -10 16 -9 q-2 10 -16 9" />
+                <path d="M105 14 q6 10 16 9 q-2 -10 -16 -9" />
+                <circle cx="80" cy="14" r="2.5" />
+            </g>
+        </svg>
+
+        <div class="dress-code-grid">
+            <div class="dress-code-grupo">
+                <h3 class="dress-code-subtitulo">Ellas</h3>
+                <p class="dress-code-desc">Divinas y elegantes.</p>
+            </div>
+            <div class="dress-code-grupo">
+                <h3 class="dress-code-subtitulo">Ellos</h3>
+                <p class="dress-code-desc">Traje elegante.</p>
+            </div>
+        </div>
+
+        <p class="dress-code-nota">Por favor, evita vestir de color verde claro, est&aacute; reservado para la novia.</p>
+    </section>
+
+    <section class="confirma-section">
+        <h2 class="confirma-titulo">Confirma tu Asistencia</h2>
+        <svg class="divider-leaf" viewBox="0 0 160 28" fill="none">
+            <path d="M15 14 H145" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+            <g fill="currentColor">
+                <path d="M55 14 q-6 -10 -16 -9 q2 10 16 9" />
+                <path d="M55 14 q-6 10 -16 9 q2 -10 16 -9" />
+                <path d="M105 14 q6 -10 16 -9 q-2 10 -16 9" />
+                <path d="M105 14 q6 10 16 9 q-2 -10 -16 -9" />
+                <circle cx="80" cy="14" r="2.5" />
+            </g>
+        </svg>
+        <p class="confirma-mensaje">Hemos pensado en ti porque has sido importante en nuestras vidas, queremos contar contigo.</p>
+        <!-- TODO: reemplazar con el link real de Google Forms -->
+        <a href="#" target="_blank" class="theme-button">CONFIRMA AQU&Iacute;</a>
+    </section>
+
+    <section class="sobres-section">
+        <h2 class="sobres-titulo">Lluvia de Sobres</h2>
+        <svg class="divider-leaf" viewBox="0 0 160 28" fill="none">
+            <path d="M15 14 H145" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+            <g fill="currentColor">
+                <path d="M55 14 q-6 -10 -16 -9 q2 10 16 9" />
+                <path d="M55 14 q-6 10 -16 9 q2 -10 16 -9" />
+                <path d="M105 14 q6 -10 16 -9 q-2 10 -16 9" />
+                <path d="M105 14 q6 10 16 9 q-2 -10 -16 -9" />
+                <circle cx="80" cy="14" r="2.5" />
+            </g>
+        </svg>
+        <p class="sobres-mensaje">El mejor regalo ser&aacute; compartir este momento contigo. Si deseas tener un detalle con nosotros, agradecemos tu aporte en nuestra lluvia de sobres.</p>
+        <svg class="sobres-img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="6" width="18" height="13" rx="1.5" />
+            <path d="M3 7.5l9 6.5 9-6.5" />
+            <path fill="currentColor" stroke="none"
+                d="M12 17.8c-1.1-.9-2.2-1.7-2.2-2.7 0-.8.6-1.3 1.3-1.3.5 0 .9.3.9.3s.4-.3.9-.3c.7 0 1.3.5 1.3 1.3 0 1-1.1 1.8-2.2 2.7z" />
+        </svg>
+    </section>
+
+    <div class="parallax-image">
+        <img #parallaxImg src="assets/new-claude-our/basic_02.jpg" alt="Gustavo y Gissel">
+    </div>
+
+    <section class="cierre-section">
+        <p class="cierre-highlight">A ponerse guapos, que nos vamos a casar!</p>
+
+        <p class="cierre-texto">Tenemos el traje, el fot&oacute;grafo, las flores y cada detalle preparado&hellip;</p>
+
+        <p class="cierre-texto">Pero nos hace falta lo m&aacute;s importante: <br>contar con tu presencia en este d&iacute;a tan especial.</p>
+
+        <p class="cierre-final">Te esperamos para celebrar juntos <br>el comienzo de nuestra historia de amor!</p>
+    </section>
+
+</section>

@@ -36,6 +36,13 @@ export class MainService {
       data: {},
       template: "g-n",
       active: true
+    },
+    {
+      id: 5,
+      name: "g-g",
+      data: {},
+      template: "g-g",
+      active: true
     }
   ]
   constructor() { }
