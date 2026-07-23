@@ -39,6 +39,20 @@ export class MainService {
     },
     {
       id: 5,
+      name: "xv-carmesi",
+      data: {},
+      template: "xv-carmesi",
+      active: true
+    },
+    {
+      id: 6,
+      name: "xv-deluxe-black",
+      data: {},
+      template: "xv-deluxe-black",
+      active: true
+    },
+    {
+      id: 7,
       name: "g-g",
       data: {},
       template: "g-g",

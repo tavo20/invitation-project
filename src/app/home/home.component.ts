@@ -7,6 +7,8 @@ import { OurPlantillaComponent } from '../plantillas/our-plantilla/our-plantilla
 import { BlankPlantillaComponent } from '../plantillas/blank-plantilla/blank-plantilla.component';
 import { OurPlantillaNatalyComponent } from '../plantillas/our-plantilla copy/our-plantilla.component';
 import { GustavoGisselComponent } from '../plantillas/gustavo-gissel/gustavo-gissel.component';
+import { XvCarmesiComponent } from '../plantillas/xv-carmesi/xv-carmesi.component';
+import { XvDeluxeBlackComponent } from '../plantillas/xv-deluxe-black/xv-deluxe-black.component';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 
 
@@ -27,6 +29,8 @@ export class HomeComponent {
     "red": BlankPlantillaComponent,
     "g-n": OurPlantillaNatalyComponent,
     "g-g": GustavoGisselComponent,
+    "xv-carmesi": XvCarmesiComponent,
+    "xv-deluxe-black": XvDeluxeBlackComponent,
   }
   public templateComponent: any = null;
 

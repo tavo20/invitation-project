@@ -24,5 +24,17 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./plantillas/xv-elegante/xv-elegante.component')
                 .then(m => m.XvEleganteComponent)
+    },
+    {
+        path: 'Mis-XV-Carmesi',
+        loadComponent: () =>
+            import('./plantillas/xv-carmesi/xv-carmesi.component')
+                .then(m => m.XvCarmesiComponent)
+    },
+    {
+        path: 'Mis-XV-Deluxe-Black',
+        loadComponent: () =>
+            import('./plantillas/xv-deluxe-black/xv-deluxe-black.component')
+                .then(m => m.XvDeluxeBlackComponent)
     }
 ];

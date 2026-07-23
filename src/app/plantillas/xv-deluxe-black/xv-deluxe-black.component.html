@@ -1,0 +1,266 @@
+<main class="xv-main">
+    <section class="hero">
+        <img class="hero-foto" src="assets/15_02/Portada_2.jpeg" alt="Portada de los XV">
+        <div class="hero-overlay"></div>
+        <div class="hero-glow glow-left"></div>
+        <div class="hero-glow glow-right"></div>
+
+        <div class="hero-contenido">
+            <p class="hero-pretitle">Bienvenidos a la invitación de</p>
+            <h1 class="hero-name">{{ quinceanera }}</h1>
+            <p class="hero-subtitle">{{ subtitle }}</p>
+            <div class="hero-divider"></div>
+            <p class="hero-date">{{ fechaTexto }}</p>
+            <p class="hero-copy">La música de fondo es parte de la experiencia.</p>
+
+            <div class="hero-actions">
+                <button class="hero-btn hero-btn-primary" type="button" (click)="togglePlayPause()">
+                    {{ isMusicReady && isPlaying ? 'Pausar música' : 'Ingresar con música' }}
+                </button>
+                <button class="hero-btn hero-btn-secondary" type="button" (click)="openRSVPModal()">
+                    Confirmar asistencia
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-scroll">
+            <span>Desliza</span>
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.4">
+                <path d="M4 9l8 8 8-8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </div>
+
+        <button class="music-pill" type="button" (click)="togglePlayPause()" aria-label="Reproducir música">
+            <svg *ngIf="!isPlaying" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+            </svg>
+            <svg *ngIf="isPlaying" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
+            </svg>
+        </button>
+        <audio #audioPlayer src="assets/songs/hermoso_carino.mp3"></audio>
+    </section>
+
+    <section class="section guest-section" #revealSection>
+        <div class="section-ornament">
+            <span></span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.2-6.3-4.5-6.3 4.5L8 13.6l-6-4.4h7.6z" />
+            </svg>
+            <span></span>
+        </div>
+
+        <p class="guest-intro">INVITADOS</p>
+        <div class="guest-card">
+            <p class="guest-main">{{ acompanteLabel }}</p>
+            <ul class="guest-list">
+                <li *ngFor="let invitado of invitados">{{ invitado }}</li>
+            </ul>
+        </div>
+        <p class="guest-note">Tu presencia es lo más importante. ¡No faltes!</p>
+    </section>
+
+    <section class="section countdown-section" #revealSection>
+        <h2 class="section-title">Faltan</h2>
+        <div class="countdown-grid">
+            <div class="count-box">
+                <span class="count-number">{{ dias }}</span>
+                <span class="count-label">días</span>
+            </div>
+            <div class="count-box">
+                <span class="count-number">{{ horas }}</span>
+                <span class="count-label">hs</span>
+            </div>
+            <div class="count-box">
+                <span class="count-number">{{ minutos }}</span>
+                <span class="count-label">min</span>
+            </div>
+            <div class="count-box">
+                <span class="count-number">{{ segundos }}</span>
+                <span class="count-label">seg</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section event-section" #revealSection>
+        <h2 class="section-title">Fiesta</h2>
+        <div class="section-divider"></div>
+
+        <article class="event-card">
+            <div class="event-head">
+                <div class="event-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <path d="M12 2v4" stroke-linecap="round" />
+                        <path d="M7 6h10M5 9h14v12H5z" />
+                        <path d="M9 13h6M9 16h4" stroke-linecap="round" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="event-label">Día</p>
+                    <h3>{{ evento.dia }}</h3>
+                </div>
+            </div>
+
+            <div class="event-meta">
+                <div>
+                    <p class="meta-label">Lugar</p>
+                    <p class="meta-value">{{ evento.lugar }}</p>
+                </div>
+                <div>
+                    <p class="meta-label">Dirección</p>
+                    <p class="meta-value">{{ evento.direccion }}</p>
+                </div>
+            </div>
+
+            <a class="black-link" [href]="evento.mapa" target="_blank">¿Cómo llegar?</a>
+        </article>
+    </section>
+
+    <section class="section rsvp-section" #revealSection>
+        <h2 class="section-title">Confirmación de asistencia</h2>
+        <p class="section-copy">Es importante que confirmes tu asistencia</p>
+        <button class="outline-btn" type="button" (click)="openRSVPModal()">Confirmar asistencia</button>
+    </section>
+
+    <section class="section itinerary-section" #revealSection>
+        <h2 class="section-title">Un recorrido de estos 15 años</h2>
+        <p class="section-copy">Junto a personas que son muy importantes en mi vida</p>
+
+        <div class="timeline">
+            <article class="timeline-item" *ngFor="let step of itinerario">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-hour">{{ step.hora }}</span>
+                    <h3 class="timeline-title">{{ step.titulo }}</h3>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="section details-section" #revealSection>
+        <h2 class="section-title">Fiesta</h2>
+        <p class="section-copy">Hagamos juntos una fiesta épica. Aquí algunos detalles a tener en cuenta.</p>
+
+        <div class="details-grid">
+            <button class="detail-card" type="button" (click)="openInfoModal('song')">
+                <span class="detail-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <path d="M9 19a2 2 0 104 0V5l7-2v11" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M5 17a2 2 0 104 0V7l7-2" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </span>
+                <span class="detail-title">Música</span>
+                <span class="detail-text">Sugerir canción</span>
+            </button>
+
+            <button class="detail-card" type="button" (click)="openInfoModal('dress')">
+                <span class="detail-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <path d="M8 3l4 4 4-4 3 3-4 5v10H9V11L5 6l3-3z" stroke-linejoin="round" />
+                    </svg>
+                </span>
+                <span class="detail-title">Dress Code</span>
+                <span class="detail-text">Ver más</span>
+            </button>
+
+            <button class="detail-card" type="button" (click)="openInfoModal('tips')">
+                <span class="detail-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                        <path d="M12 3l7 4v10l-7 4-7-4V7z" stroke-linejoin="round" />
+                        <path d="M12 8v6" stroke-linecap="round" />
+                        <path d="M12 17h.01" stroke-linecap="round" />
+                    </svg>
+                </span>
+                <span class="detail-title">Tips y Notas</span>
+                <span class="detail-text">+ Info</span>
+            </button>
+        </div>
+    </section>
+
+    <section class="section gifts-section" #revealSection>
+        <h2 class="section-title">Regalos</h2>
+        <p class="section-copy">Si deseas regalarme algo más que tu hermosa presencia...</p>
+        <button class="outline-btn" type="button" (click)="openInfoModal('gifts')">Abrir detalles</button>
+    </section>
+
+    <section class="section share-section" #revealSection>
+        <h2 class="section-title">Una gran fiesta junto a vos</h2>
+        <p class="section-copy">Compartí tus fotos y videos de ese hermoso día</p>
+        <button class="hash-btn" type="button" (click)="copiarHashtag()">{{ copyFeedback ? 'Hashtag copiado' : hashtag }}</button>
+        <p class="hash-link">Ver en Instagram</p>
+    </section>
+
+    <section class="section closing-section" #revealSection>
+        <div class="section-ornament">
+            <span></span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.2-6.3-4.5-6.3 4.5L8 13.6l-6-4.4h7.6z" />
+            </svg>
+            <span></span>
+        </div>
+
+        <p class="closing-message">{{ closingMessage }}</p>
+        <p class="closing-signature">{{ quinceanera }}</p>
+    </section>
+
+    <div class="photo-strip">
+        <img src="assets/15_02/dos.jpeg" alt="Foto final">
+    </div>
+</main>
+
+<div class="modal-backdrop" *ngIf="showRSVPModal" (click)="closeRSVPModal()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+        <button type="button" class="modal-close" (click)="closeRSVPModal()">×</button>
+        <p class="modal-kicker">Confirmación de asistencia</p>
+        <h3 class="modal-title">Es importante que confirmes tu asistencia</h3>
+
+        <div class="modal-form">
+            <input class="modal-input" type="text" placeholder="Nombre y apellido" [(ngModel)]="rsvpNombre">
+            <select class="modal-input" [(ngModel)]="rsvpAsistentes">
+                <option value="1">1 acompañante</option>
+                <option value="2">2 acompañantes</option>
+                <option value="3">3 acompañantes</option>
+                <option value="4">4 acompañantes</option>
+                <option value="No podré asistir">No podré asistir</option>
+            </select>
+            <textarea class="modal-input" rows="3" placeholder="Deja un mensaje" [(ngModel)]="rsvpMensaje"></textarea>
+            <button class="modal-btn" type="button" (click)="confirmarAsistencia()">Confirmar asistencia</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop" *ngIf="currentInfoModal" (click)="closeInfoModal()">
+    <div class="modal-card info-card" (click)="$event.stopPropagation()">
+        <button type="button" class="modal-close" (click)="closeInfoModal()">×</button>
+
+        <ng-container [ngSwitch]="currentInfoModal">
+            <ng-container *ngSwitchCase="'song'">
+                <p class="modal-kicker">Sugerir Canción</p>
+                <h3 class="modal-title">{{ songPrompt }}</h3>
+                <div class="modal-form">
+                    <input class="modal-input" type="text" placeholder="Tu nombre" [(ngModel)]="songName">
+                    <textarea class="modal-input" rows="3" placeholder="Escribe la canción" [(ngModel)]="songSuggestion"></textarea>
+                    <button class="modal-btn" type="button" (click)="sugerirCancion()">Sugerir canción</button>
+                </div>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'dress'">
+                <p class="modal-kicker">Dress Code</p>
+                <h3 class="modal-title">Contenido Dress Code</h3>
+                <p class="modal-copy">Una orientación elegante para tu vestuario. Ellas: negro, dorado o tonos joya. Ellos: traje oscuro, camisa clara y accesorios sobrios.</p>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'tips'">
+                <p class="modal-kicker">Tips y Notas</p>
+                <h3 class="modal-title">Contenido Tips y Notas</h3>
+                <p class="modal-copy">Llega con tiempo, prepara tu cámara para capturar la entrada y guarda esta noche para bailar, sonreír y celebrar hasta el final.</p>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'gifts'">
+                <p class="modal-kicker">Regalos</p>
+                <h3 class="modal-title">Contenido modal regalos</h3>
+                <p class="modal-copy">Si deseas tener un detalle conmigo, la lluvia de sobres será la mejor forma de acompañarme en esta celebración.</p>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

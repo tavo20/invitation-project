@@ -8,8 +8,19 @@
             Explora nuestros estilos y encuentra el tuyo.</p>
     </header>
 
+    <nav class="category-filter" aria-label="Filtro por categoría">
+        <button
+            type="button"
+            class="filter-chip"
+            *ngFor="let category of categories"
+            [class.active]="selectedCategory === category"
+            (click)="setCategory(category)">
+            {{ category }}
+        </button>
+    </nav>
+
     <section class="grid">
-        <a class="card" *ngFor="let p of plantillas" [href]="p.link">
+        <a class="card" *ngFor="let p of filteredPlantillas" [href]="p.link">
             <div class="card-img">
                 <img [src]="p.imagen" [alt]="p.nombre">
                 <span class="card-estilo">{{ p.estilo }}</span>

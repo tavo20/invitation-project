@@ -1,0 +1,210 @@
+<main class="xv-main">
+    <section class="hero">
+        <img class="hero-foto" src="assets/15_02/Portada_2.jpeg" alt="Portada de XV años">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-contenido">
+            <p class="hero-pretitulo">Mis XV Años</p>
+            <h1 class="hero-nombre">{{ quinceanera }}</h1>
+            <div class="hero-linea"></div>
+            <p class="hero-fecha">{{ fechaTexto }}</p>
+        </div>
+
+        <div class="hero-scroll">
+            <p>Desliza hacia abajo</p>
+            <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 9l8 8 8-8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+        </div>
+
+        <button class="hero-musica" (click)="togglePlayPause()" aria-label="Reproducir música">
+            <svg *ngIf="!isPlaying" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+            </svg>
+            <svg *ngIf="isPlaying" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M6 5h4v14H6zM14 5h4v14h-4z" />
+            </svg>
+        </button>
+        <audio #audioPlayer src="assets/songs/hermoso_carino.mp3"></audio>
+    </section>
+
+    <section class="seccion bienvenida" #animSection>
+        <div class="ornamento">
+            <span class="ornamento-linea"></span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.2-6.3-4.5-6.3 4.5L8 13.6l-6-4.4h7.6z" />
+            </svg>
+            <span class="ornamento-linea"></span>
+        </div>
+        <p class="bienvenida-texto">
+            Hoy celebro un sueño hecho realidad, una nueva etapa llena de ilusión, alegría y amor.
+            Quiero compartir contigo este día tan especial.
+        </p>
+    </section>
+
+    <section class="seccion padres" #animSection>
+        <p class="padres-intro">Con la bendición de Dios y en compañía de</p>
+
+        <div class="padres-grid">
+            <div class="padres-columna">
+                <h3 class="seccion-subtitulo">Mis Padres</h3>
+                <div class="padres-divider"></div>
+                <p class="padres-nombre">Nombre del papá</p>
+                <p class="padres-nombre">Nombre de la mamá</p>
+            </div>
+
+            <div class="padres-columna">
+                <h3 class="seccion-subtitulo">Mis Padrinos</h3>
+                <div class="padres-divider"></div>
+                <p class="padres-nombre">Nombre del padrino</p>
+                <p class="padres-nombre">Nombre de la madrina</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion countdown" #animSection>
+        <h2 class="seccion-titulo">Faltan</h2>
+
+        <div class="countdown-grid">
+            <div class="countdown-item">
+                <span class="countdown-numero">{{ dias }}</span>
+                <span class="countdown-label">Días</span>
+            </div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-item">
+                <span class="countdown-numero">{{ horas }}</span>
+                <span class="countdown-label">Hrs</span>
+            </div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-item">
+                <span class="countdown-numero">{{ minutos }}</span>
+                <span class="countdown-label">Min</span>
+            </div>
+            <span class="countdown-sep">:</span>
+            <div class="countdown-item">
+                <span class="countdown-numero">{{ segundos }}</span>
+                <span class="countdown-label">Seg</span>
+            </div>
+        </div>
+
+        <p class="countdown-para">para mis XV años</p>
+    </section>
+
+    <section class="seccion lugares" #animSection>
+        <h2 class="seccion-titulo">Dónde y Cuándo</h2>
+        <div class="titulo-divider"></div>
+
+        <div class="lugares-grid">
+            <div class="lugar-card">
+                <svg class="lugar-icono" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.3">
+                    <path d="M12 2v4M10 4h4M12 6l-5 4v12h10V10l-5-4z" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M10 22v-5a2 2 0 014 0v5" stroke-linecap="round" />
+                </svg>
+                <h3 class="lugar-titulo">Ceremonia Religiosa</h3>
+                <p class="lugar-nombre">{{ ceremonia.lugar }}</p>
+                <p class="lugar-hora">{{ ceremonia.hora }}</p>
+                <p class="lugar-direccion">{{ ceremonia.direccion }}</p>
+                <a class="boton-solido" [href]="ceremonia.mapa" target="_blank">Ver mapa</a>
+            </div>
+
+            <div class="lugar-card">
+                <svg class="lugar-icono" viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.3">
+                    <path d="M8 21h8M12 21v-6M12 15a5 5 0 005-5V4a10 10 0 01-10 0v6a5 5 0 005 5z" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <h3 class="lugar-titulo">Recepción</h3>
+                <p class="lugar-nombre">{{ recepcion.lugar }}</p>
+                <p class="lugar-hora">{{ recepcion.hora }}</p>
+                <p class="lugar-direccion">{{ recepcion.direccion }}</p>
+                <a class="boton-solido" [href]="recepcion.mapa" target="_blank">Ver mapa</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion itinerario" #animSection>
+        <h2 class="seccion-titulo">Itinerario</h2>
+        <div class="titulo-divider"></div>
+        <p class="itinerario-intro">Te comparto los detalles de la celebración</p>
+
+        <div class="timeline">
+            <div class="timeline-item" *ngFor="let item of itinerario">
+                <div class="timeline-punto"></div>
+                <div class="timeline-info">
+                    <span class="timeline-hora">{{ item.hora }}</span>
+                    <span class="timeline-titulo">{{ item.titulo }}</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="seccion dresscode" #animSection>
+        <h2 class="seccion-titulo">Código de Vestimenta</h2>
+        <div class="titulo-divider"></div>
+        <p class="dresscode-valor">Formal</p>
+        <p class="dresscode-nota">Ellas: {{ dressCodeLadies }}. {{ dressCodeNote }}</p>
+        <p class="dresscode-nota">Ellos: {{ dressCodeGentlemen }}.</p>
+    </section>
+
+    <section class="seccion confirmacion" #animSection>
+        <h2 class="seccion-titulo">Confirma tu Asistencia</h2>
+        <div class="titulo-divider"></div>
+        <p class="regalos-texto">
+            Hemos pensado en ti porque tu presencia es importante en este día especial.
+            Haz clic en el botón para confirmar por WhatsApp.
+        </p>
+        <button class="boton-solido rsvp-open" type="button" (click)="openRsvpModal()">
+            Confirmar asistencia
+        </button>
+    </section>
+
+    <div class="rsvp-modal-backdrop" *ngIf="showRsvpModal" (click)="closeRsvpModal()">
+        <div class="rsvp-modal" (click)="$event.stopPropagation()">
+            <button type="button" class="rsvp-close" aria-label="Cerrar" (click)="closeRsvpModal()">×</button>
+            <p class="rsvp-pretitle">Confirmación</p>
+            <h2 class="rsvp-title">Confirma tu asistencia</h2>
+            <p class="rsvp-text">Completa tus datos y te redirigimos a WhatsApp para confirmar tu presencia.</p>
+
+            <div class="rsvp-form">
+                <input class="rsvp-input" type="text" placeholder="Nombre y apellido" [(ngModel)]="rsvpNombre">
+                <select class="rsvp-input" [(ngModel)]="rsvpAsistentes">
+                    <option value="1">1 asistente</option>
+                    <option value="2">2 asistentes</option>
+                    <option value="3">3 asistentes</option>
+                    <option value="4">4 asistentes</option>
+                    <option value="No podré asistir">No podré asistir</option>
+                </select>
+                <textarea class="rsvp-input" rows="3" placeholder="Deja un mensaje (opcional)" [(ngModel)]="rsvpMensaje"></textarea>
+                <button class="rsvp-submit" type="button" (click)="confirmarAsistencia()">Confirmar por WhatsApp</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="seccion regalos" #animSection>
+        <h2 class="seccion-titulo">Regalos</h2>
+        <div class="titulo-divider"></div>
+        <div class="sobres-card">
+            <p class="sobres-title">Lluvia de sobres</p>
+            <p class="sobres-text">{{ sobresMessage }}</p>
+        </div>
+    </section>
+
+    <section class="seccion hashtag" #animSection>
+        <p class="hashtag-texto">Etiquétame en tus fotos y videos con</p>
+        <p class="hashtag-valor">{{ hashtag }}</p>
+    </section>
+
+    <section class="seccion cierre" #animSection>
+        <div class="ornamento">
+            <span class="ornamento-linea"></span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                <path d="M12 2l2.4 7.2H22l-6 4.4 2.3 7.2-6.3-4.5-6.3 4.5L8 13.6l-6-4.4h7.6z" />
+            </svg>
+            <span class="ornamento-linea"></span>
+        </div>
+        <p class="closing-message">{{ closingMessage }}</p>
+        <p class="closing-signature">{{ quinceanera }}</p>
+    </section>
+
+    <div class="last-main-image">
+        <img src="assets/15_02/dos.jpeg" alt="Foto final de XV años">
+    </div>
+</main>

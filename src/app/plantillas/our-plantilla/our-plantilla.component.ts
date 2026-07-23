@@ -3,12 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 // import { invitados } from '../../assets/data/invitados'
 import { CommonModule } from '@angular/common';
 import { CountDownComponent } from '../../shared/components/count-down/count-down.component';
-import { EventComponent } from '../../shared/components/event/event.component';
 
 @Component({
   selector: 'app-our-plantilla',
   standalone: true,
-  imports: [CountDownComponent, EventComponent, CommonModule],
+  imports: [CountDownComponent, CommonModule],
   templateUrl: './our-plantilla.component.html',
   styleUrl: './our-plantilla.component.scss'
 })
@@ -40,7 +39,7 @@ showInvitado = false;
 
 
   }
-  weddingDate: string = "August 9, 2025 10:00:00";
+  weddingDate: string = "August 9, 2027 10:00:00";
   @ViewChild('audioPlayer') audioPlayerRef!: ElementRef<HTMLAudioElement>;
   isPlaying: boolean = false;
 
