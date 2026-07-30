@@ -25,6 +25,8 @@
         // width: 100%;
         max-width: 700px;
         height: 200px;
+        width: 100dvw;
+        object-fit: cover;
     }
 }
 
@@ -194,7 +196,8 @@
     cursor: pointer;
 
     img {
-        width: 45px;
+        width: 30px;
+        filter: contrast(0.8)
     }
 
 }
@@ -208,6 +211,7 @@
     /* grid-template-rows: 72px 70px 70px; */
     align-items: center;
     grid-template-columns: 1fr 50px 1fr;
+    font-family: "Great Vibes", cursive;
 }
 
 .plant-image {
@@ -221,6 +225,7 @@
     opacity: 0.6;
 
 }
+
 .plant-image_2 {
     position: absolute;
     top: 40%;
@@ -232,6 +237,7 @@
     opacity: 0.6;
 
 }
+
 .plant-image_3 {
     position: absolute;
     top: -100%;
@@ -249,7 +255,6 @@
     /* Needed for z-index to work against plant */
     z-index: 2;
     /* Text should be above the plant */
-    // font-family: 'Dancing Script', cursive;
     /* Script font for names */
     font-size: 4em;
     /* Adjust size for "Pamela" and "Oscar" */
@@ -295,12 +300,19 @@
     margin: 100px 0 0 0;
 
     .text {
-        font-size: 34px;
-        margin: 30px 0 0 0;
+
+        font-family: "Cormorant Garamond", serif;
+        font-size: 25px;
+        font-weight: 400;
+        letter-spacing: 4px;
+        color: #222;
+        margin-top: 16px;
+        margin-bottom: 15px;
+
     }
 
     img {
-        width: 55px;
+        width: 43px;
     }
 }
 
@@ -324,11 +336,22 @@
     margin: 50px 0;
     display: grid;
     justify-items: center;
+    position: relative;
+    overflow: visible;
+
+    .dress-code-title {
+        text-align: center;
+        letter-spacing: 4px;
+        color: #222;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 25px;
+        z-index: 10;
+    }
 
     .container-dress-images {
         display: flex;
         gap: 50px;
-
+        z-index: 12;
         .box {
             .dress {
                 width: 60px
@@ -339,6 +362,40 @@
             }
         }
     }
+
+}
+
+.dress-plant-image {
+    position: absolute;
+    top: 6%;
+    left: -110px;
+    transform: translateY(-50%) scaleX(-1);
+    width: 72%;
+    height: auto;
+    z-index: 1;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.dress-plant-image_2 {
+    position: absolute;
+    top: 49%;
+    left: -72px;
+    transform: translateY(-50%) scaleX(-1);
+    width: 72%;
+    height: auto;
+    z-index: 1;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.dress-code-title_2 {
+    text-align: center;
+    letter-spacing: 4px;
+    color: #222;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 19px;
+    font-weight: 800;
 }
 
 // mesage
@@ -349,7 +406,12 @@
 
     .message {
         padding: 0 91px;
-        font-size: 18px;
+        font-size: 1.0em;
+        color: #444;
+        line-height: 1.9;
+        max-width: 380px;
+        margin-top: 24px;
+        font-family: "Cormorant Garamond", serif;
     }
 
 }
@@ -424,16 +486,18 @@
         max-width: 700px;
         height: 200px;
         transform: rotate(180deg);
+        object-fit: cover;
+        width: 100dvw;
     }
 }
 
 .event-inline {
     text-align: center;
     padding: 60px 0 20px 0;
-    font-family: 'Cormorant Garamond', serif;
+    // font-family: 'Cormorant Garamond', serif;
 
     .event-icon {
-        width: 90px;
+        width: 75px;
     }
 }
 
@@ -445,15 +509,17 @@
 
 .event-title {
     margin: 30px 0 10px 0;
-    font-size: 34px;
-    font-family: 'Great Vibes', cursive;
+
+    // font-family: 'Great Vibes', cursive;
     letter-spacing: 4px;
     color: #222;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 25px;
 }
 
 .venue-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.3em;
+    // font-family: 'Cormorant Garamond', serif;
+    font-size: 0.8em;
     color: #222;
     margin-top: 0;
     margin-bottom: 16px;
@@ -463,7 +529,7 @@
 }
 
 .address-line {
-    font-family: 'Cormorant Garamond', serif;
+    // font-family: 'Cormorant Garamond', serif;
     font-size: 0.95em;
     color: #444;
     margin: 5px 0;
@@ -471,14 +537,14 @@
 }
 
 .event-hour {
-    font-family: 'Cormorant Garamond', serif;
+    // font-family: 'Cormorant Garamond', serif;
     color: #333;
     margin: 5px 0;
 }
 
 .location-button {
     display: inline-block;
-    font-family: 'Cormorant Garamond', serif;
+    // font-family: 'Cormorant Garamond', serif;
     background-color: #c0a486;
     color: #ffffff;
     padding: 14px 32px;
@@ -498,6 +564,6 @@
 
 @media (max-width: 424px) {
     .event-title {
-        font-size: 34px;
+        font-size: 25px;
     }
 }
