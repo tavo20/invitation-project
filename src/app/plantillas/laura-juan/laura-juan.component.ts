@@ -1,17 +1,17 @@
 import { Component, ElementRef, HostListener, QueryList, ViewChild, ViewChildren, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CountDownComponent } from '../../shared/components/count-down/count-down.component';
+import { LauraJuanCountDownComponent } from './components/count-down/laura-juan-count-down.component';
 
 @Component({
   selector: 'app-laura-juan',
   standalone: true,
-  imports: [CountDownComponent, CommonModule],
+  imports: [LauraJuanCountDownComponent, CommonModule],
   templateUrl: './laura-juan.component.html',
   styleUrl: './laura-juan.component.scss'
 })
 export class LauraJuanComponent implements AfterViewInit {
 
-  weddingDate: string = "July 18, 2026 16:00:00";
+  weddingDate: string = "December 18, 2026 16:00:00";
 
   @ViewChild('audioPlayer') audioPlayerRef!: ElementRef<HTMLAudioElement>;
   isPlaying: boolean = false;

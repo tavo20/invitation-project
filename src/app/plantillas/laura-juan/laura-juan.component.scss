@@ -43,7 +43,7 @@ $border-soft: rgba(175, 193, 221, 0.35);
 }
 
 .hero-pre {
-    font-size: 0.85em;
+    font-size: 1em;
     letter-spacing: 6px;
     text-transform: uppercase;
     color: $silver;
@@ -157,12 +157,13 @@ $border-soft: rgba(175, 193, 221, 0.35);
 }
 
 .quote-message {
-    font-size: 1.15em;
+    font-size: 1em;
     font-style: italic;
     color: $text-light;
     line-height: 1.9;
     max-width: 400px;
     margin: 0;
+    letter-spacing: 1px;
 }
 
 // parallax
@@ -190,6 +191,8 @@ $border-soft: rgba(175, 193, 221, 0.35);
 }
 
 :host ::ng-deep app-count-down {
+
+
     .countdown-numbers,
     .countdown-numbers .colon {
         color: $silver;
@@ -202,6 +205,10 @@ $border-soft: rgba(175, 193, 221, 0.35);
     #countdown-message {
         color: $silver;
     }
+}
+
+.countdown-numbers {
+    color: #ffffff;
 }
 
 // evento + timeline
