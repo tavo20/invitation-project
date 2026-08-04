@@ -8,6 +8,10 @@ export const routes: Routes = [
         component: HomeComponent
     },
     {
+        path: ':slug',
+        component: HomeComponent
+    },
+    {
         path: 'Gustavo-Gissel',
         loadComponent: () =>
             import('./plantillas/gustavo-gissel/gustavo-gissel.component')

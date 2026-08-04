@@ -1,11 +1,11 @@
 <section class="container-main">
 
     <div class="main-image">
-        <img src="assets/new-claude-our/portada.jpg" alt="Gustavo y Gissel">
+        <img *ngIf="data.heroImage" [src]="data.heroImage" alt="Gustavo y Gissel">
         <div class="hero-overlay"></div>
         <div class="hero-animated-content">
-            <p class="hero-pretitle">Gustavo <span class="hero-ampersand"><br>& <br></span> Gissel</p>
-            <div class="hero-title hero-title--overlay">NOS CASAMOS</div>
+            <p class="hero-pretitle">{{ data.heroPretitle }}</p>
+            <div class="hero-title hero-title--overlay">{{ data.heroTitle }}</div>
         </div>
         <div class="hero-scroll">
             <p>Desliza hacia abajo</p>
@@ -27,36 +27,34 @@
 
     <div class="hero-section">
         <p class="hero-message">
-            El amor nos encontr&oacute; y hoy nuestros corazones laten con una misma ilusi&oacute;n.
-            Queremos compartir contigo el d&iacute;a m&aacute;s importante de nuestras vidas,
-            cuando uniremos nuestras almas y celebraremos el inicio de nuestra historia para siempre.
+            {{ data.heroMessage }}
         </p>
     </div>
 
     <div class="date-display-container">
         <div class="date-segment">
-            <div class="day-of-week">S&Aacute;BADO</div>
+            <div class="day-of-week">{{ data.dayOfWeek }}</div>
             <div class="line"></div>
         </div>
 
         <div class="day-number-year">
-            <div class="day-number">10</div>
-            <div class="year">2026</div>
+            <div class="day-number">{{ data.dayNumber }}</div>
+            <div class="year">{{ data.year }}</div>
         </div>
 
         <div class="date-segment">
-            <div class="month">O C T</div>
+            <div class="month">{{ data.month }}</div>
             <div class="line"></div>
         </div>
     </div>
 
-    <div class="parallax-image">
-        <img #parallaxImg src="assets/new-claude-our/basic_01.jpg" alt="Gustavo y Gissel">
+    <div class="parallax-image" *ngIf="data.parallaxImage1">
+        <img  #parallaxImg [src]="data.parallaxImage1" alt="Gustavo y Gissel">
     </div>
 
     <section class="container-qu">
-        <p class="message">"Amar no es mirarse el uno al otro, es mirar juntos en la misma direcci&oacute;n."</p>
-        <div>Antoine de Saint-Exup&eacute;ry</div>
+        <p class="message">{{ data.quote }}</p>
+        <div>{{ data.quoteAuthor }}</div>
     </section>
 
     <section class="padres-section">
@@ -75,14 +73,14 @@
         <div class="padres-grid">
             <div class="padres-grupo">
                 <h3 class="padres-subtitulo">Padres del Novio</h3>
-                <p class="padre-nombre">Gustavo Jimenez</p>
-                <p class="padre-nombre">Dennis Lievano</p>
+                <p class="padre-nombre">{{ data.fatherGroom }}</p>
+                <p class="padre-nombre">{{ data.motherGroom }}</p>
             </div>
 
             <div class="padres-grupo">
                 <h3 class="padres-subtitulo">Padres de la Novia</h3>
-                <p class="padre-nombre">Alicia Insuasty</p>
-                <p class="padre-nombre">Guillermo Acosta</p>
+                <p class="padre-nombre">{{ data.fatherBride }}</p>
+                <p class="padre-nombre">{{ data.motherBride }}</p>
             </div>
         </div>
     </section>
@@ -105,10 +103,10 @@
             <path d="M4 21h16" />
             <path d="M10 21v-3.5a2 2 0 0 1 4 0V21" />
         </svg>
-        <h1 class="event-titulo">Ceremonia y Recepci&oacute;n</h1>
-        <p class="event-venue">HACIENDA LOS FAROLES</p>
-        <p class="event-address">Ch&iacute;a, Cundinamarca</p>
-        <p class="event-hora">3:00 PM</p>
+        <h1 class="event-titulo">{{ data.eventTitle }}</h1>
+        <p class="event-venue">{{ data.eventVenue }}</p>
+        <p class="event-address">{{ data.eventAddress }}</p>
+        <p class="event-hora">{{ data.eventHour }}</p>
         <!-- TODO: reemplazar con el link real de Google Maps -->
         <a target="_blank" href="#" class="theme-button">CLICK UBICACI&Oacute;N</a>
     </section>
@@ -129,15 +127,15 @@
         <div class="dress-code-grid">
             <div class="dress-code-grupo">
                 <h3 class="dress-code-subtitulo">Ellas</h3>
-                <p class="dress-code-desc">Divinas y elegantes.</p>
+                <p class="dress-code-desc">{{ data.dressWomen }}</p>
             </div>
             <div class="dress-code-grupo">
                 <h3 class="dress-code-subtitulo">Ellos</h3>
-                <p class="dress-code-desc">Traje elegante.</p>
+                <p class="dress-code-desc">{{ data.dressMen }}</p>
             </div>
         </div>
 
-        <p class="dress-code-nota">Por favor, evita vestir de color verde claro, est&aacute; reservado para la novia.</p>
+        <p class="dress-code-nota">{{ data.dressNote }}</p>
     </section>
 
     <section class="confirma-section">
@@ -152,7 +150,7 @@
                 <circle cx="80" cy="14" r="2.5" />
             </g>
         </svg>
-        <p class="confirma-mensaje">Hemos pensado en ti porque has sido importante en nuestras vidas, queremos contar contigo.</p>
+        <p class="confirma-mensaje">{{ data.confirmMessage }}</p>
         <!-- TODO: reemplazar con el link real de Google Forms -->
         <a href="#" target="_blank" class="theme-button">CONFIRMA AQU&Iacute;</a>
     </section>
@@ -169,7 +167,7 @@
                 <circle cx="80" cy="14" r="2.5" />
             </g>
         </svg>
-        <p class="sobres-mensaje">El mejor regalo ser&aacute; compartir este momento contigo. Si deseas tener un detalle con nosotros, agradecemos tu aporte en nuestra lluvia de sobres.</p>
+        <p class="sobres-mensaje">{{ data.sobresMessage }}</p>
         <svg class="sobres-img" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.1"
             stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="6" width="18" height="13" rx="1.5" />
@@ -179,18 +177,18 @@
         </svg>
     </section>
 
-    <div class="parallax-image">
-        <img #parallaxImg src="assets/new-claude-our/basic_02.jpg" alt="Gustavo y Gissel">
+    <div class="parallax-image" *ngIf="data.parallaxImage2">
+        <img  #parallaxImg [src]="data.parallaxImage2" alt="Gustavo y Gissel ---">
     </div>
 
     <section class="cierre-section">
-        <p class="cierre-highlight">A ponerse guapos, que nos vamos a casar!</p>
+        <p class="cierre-highlight">{{ data.closingHighlight }}</p>
 
-        <p class="cierre-texto">Tenemos el traje, el fot&oacute;grafo, las flores y cada detalle preparado&hellip;</p>
+        <p class="cierre-texto">{{ data.closingText1 }}</p>
 
-        <p class="cierre-texto">Pero nos hace falta lo m&aacute;s importante: <br>contar con tu presencia en este d&iacute;a tan especial.</p>
+        <p class="cierre-texto" [innerHTML]="data.closingText2"></p>
 
-        <p class="cierre-final">Te esperamos para celebrar juntos <br>el comienzo de nuestra historia de amor!</p>
+        <p class="cierre-final" [innerHTML]="data.closingFinal"></p>
     </section>
 
 </section>

@@ -27,8 +27,10 @@ export class HomeComponent {
   public templateAvailable: string = '';  public templatesAvailable: any = {
     "xyz": FlowPlantillaComponent,
     "our": OurPlantillaComponent,
+    "ana-pedro": OurPlantillaComponent,
     "red": BlankPlantillaComponent,
     "g-n": OurPlantillaNatalyComponent,
+    "gerson-nataly": OurPlantillaNatalyComponent,
     "g-g": GustavoGisselComponent,
     "xv-carmesi": XvCarmesiComponent,
     "xv-deluxe-black": XvDeluxeBlackComponent,
@@ -47,13 +49,14 @@ export class HomeComponent {
 
 
   ngOnInit() {
-    const nameInvitation = this.getQueryParam('n');
-    console.log('nameInvitation', nameInvitation,);
-    if (!nameInvitation) {
+    const slugInvitation = this.route.snapshot.paramMap.get('slug') || this.getQueryParam('n');
+    console.log('slugInvitation', slugInvitation);
+    if (!slugInvitation) {
       this.showShowcase = true;
       return;
     }
-    const data = this.mainService.getDataByName({name: nameInvitation});
+    const data = this.mainService.getDataBySlug({ slug: slugInvitation });
+    console.log('data', data);
     if (data) {
       this.templateComponent = data.template;
       this.dataInvitation = data;

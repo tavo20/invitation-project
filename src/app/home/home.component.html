@@ -1,7 +1,10 @@
 <app-showcase *ngIf="showShowcase"></app-showcase>
 
 <div *ngIf="templatesAvailable[templateComponent]">
-    <ng-container [ngComponentOutlet]="templatesAvailable[templateComponent]"></ng-container>
+    <ng-container
+        [ngComponentOutlet]="templatesAvailable[templateComponent]"
+        [ngComponentOutletInputs]="{ invitationData: dataInvitation?.data }">
+    </ng-container>
 </div>
 
 <div *ngIf="noDataFound">

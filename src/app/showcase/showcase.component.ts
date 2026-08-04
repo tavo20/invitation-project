@@ -27,7 +27,7 @@ export class ShowcaseComponent {
       estilo: 'Negro & Dorado',
       descripcion: 'Caligrafía romántica, fotos a pantalla completa con efecto parallax y detalles dorados. Perfecta para bodas clásicas y sofisticadas.',
       imagen: 'assets/our-nataly/main.jpeg',
-      link: '/?n=g-n',
+      link: '/gerson-nataly',
       tags: ['Parallax', 'Música', 'Countdown', 'Animaciones'],
       category: 'Boda'
     },
@@ -36,7 +36,7 @@ export class ShowcaseComponent {
       estilo: 'Verde Oliva',
       descripcion: 'Tonos verdes terrosos, iconos artesanales y ramitas decorativas. Ideal para bodas campestres y al aire libre.',
       imagen: 'assets/new-claude-our/portada.jpg',
-      link: '/Gustavo-Gissel',
+      link: '/g-g',
       tags: ['Parallax', 'Música', 'Countdown', 'Iconos SVG'],
       category: 'Boda'
     },
@@ -45,7 +45,7 @@ export class ShowcaseComponent {
       estilo: 'Azul Noche & Plata',
       descripcion: 'Fondo azul noche con detalles plateados, foto enmarcada en arco, timeline del evento e iconos estelares. Para bodas nocturnas y elegantes.',
       imagen: 'assets/new-claude-our/basic_02.jpg',
-      link: '/Laura-Juan',
+      link: '/laura-juan',
       tags: ['Fondo Oscuro', 'Arco Decorativo', 'Timeline', 'Iconos Estelares'],
       category: 'Boda'
     },
@@ -54,7 +54,7 @@ export class ShowcaseComponent {
       estilo: 'Dorado & Hojas',
       descripcion: 'Monograma circular con las iniciales de la pareja, nombres en caligrafía sobre hojas decorativas y tonos dorados cálidos. Un clásico romántico.',
       imagen: 'assets/images/main-photo.png',
-      link: '/?n=our',
+      link: '/our',
       tags: ['Monograma', 'Música', 'Countdown', 'Dress Code'],
       category: 'Boda'
     },
@@ -63,7 +63,7 @@ export class ShowcaseComponent {
       estilo: 'Borgoña & Oro Rosa',
       descripcion: 'Una propuesta de XV años con portada cinematográfica, tonos rojizos elegantes, RSVP en modal y lluvia de sobres con estilo. Pensada para un look sofisticado y actual.',
       imagen: 'assets/15_02/Portada_2.jpeg',
-      link: '/?n=xv-carmesi',
+      link: '/xv-carmesi',
       tags: ['XV Años', 'Modal RSVP', 'Reveal Scroll', 'Lluvia de Sobres'],
       category: 'Quinceañera'
     },
@@ -72,7 +72,7 @@ export class ShowcaseComponent {
       estilo: 'Negro & Dorado',
       descripcion: 'Inspirada en una invitación premium tipo deluxe: hero oscuro, cartas elegantes, modales interactivos y animaciones suaves para una experiencia más sofisticada.',
       imagen: 'assets/15_02/Portada_2.jpeg',
-      link: '/?n=xv-deluxe-black',
+      link: '/xv-deluxe-black',
       tags: ['Deluxe', 'Black Theme', 'Modals', 'Animaciones'],
       category: 'Quinceañera'
     },
@@ -81,7 +81,7 @@ export class ShowcaseComponent {
       estilo: 'Rosa & Salvia',
       descripcion: 'Estilo acuarela con flores botánicas, sello circular, arco fotográfico, countdown, itinerario tipo grid, sobre animado para confirmación y cuenta para lluvia de sobres.',
       imagen: 'assets/images/main-photo.png',
-      link: '/Aquarelle',
+      link: '/aquarelle',
       tags: ['Acuarela', 'Floral', 'Countdown', 'Itinerario', 'Sobre Animado'],
       category: 'Boda'
     },
@@ -90,7 +90,7 @@ export class ShowcaseComponent {
       estilo: 'Champagne & Marfil',
       descripcion: 'Diseñada para quinceañeras: itinerario con horarios, confirmación interactiva por WhatsApp, botón para copiar cuenta y hashtag para redes. Elegancia en tonos champagne.',
       imagen: 'assets/15_01/gabi_portada.jpeg',
-      link: '/Mis-XV',
+      link: '/laura-juan-2',
       tags: ['XV Años', 'Itinerario', 'RSVP Interactivo', 'Copiar Cuenta'],
       category: 'Quinceañera'
     }
