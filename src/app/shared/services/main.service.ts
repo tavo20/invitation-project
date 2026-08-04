@@ -57,6 +57,20 @@ export class MainService {
       data: {},
       template: "g-g",
       active: true
+    },
+    {
+      id: 8,
+      name: "laura-juan",
+      data: {},
+      template: "laura-juan",
+      active: true
+    },
+    {
+      id: 9,
+      name: "laura-juan-2",
+      data: {},
+      template: "laura-juan-2",
+      active: true
     }
   ]
   constructor() { }

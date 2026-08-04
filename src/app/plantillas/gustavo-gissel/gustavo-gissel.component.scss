@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Josefin+Sans:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap');
 
 // Tema Rustico Natural
 $accent: #7A8B5C;
@@ -15,7 +15,7 @@ $bg: #F5F2EC;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background: $bg;
 }
 
@@ -33,6 +33,37 @@ $bg: #F5F2EC;
     }
 }
 
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(44, 51, 24, 0.2), rgba(44, 51, 24, 0.55));
+    z-index: 1;
+}
+
+.hero-animated-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    padding: 40px 24px;
+    box-sizing: border-box;
+    animation: heroFadeUp 1.2s ease both;
+}
+
+.hero-pretitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8em;
+    font-weight: 700;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+}
+
 // music
 .container-music {
     position: absolute;
@@ -42,7 +73,7 @@ $bg: #F5F2EC;
     flex-direction: column;
     align-items: center;
     cursor: pointer;
-    z-index: 2;
+    z-index: 3;
     color: #fff;
 
     .icon-svg {
@@ -53,6 +84,28 @@ $bg: #F5F2EC;
     .sound-play {
         font-size: 0.85em;
         margin-top: 4px;
+    }
+}
+
+.hero-scroll {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #fff;
+    z-index: 3;
+    pointer-events: none;
+    animation: scrollPulse 1.8s ease-in-out infinite;
+
+    p {
+        margin: 0;
+        font-size: 0.72em;
+        letter-spacing: 2px;
+        text-transform: uppercase;
     }
 }
 
@@ -76,7 +129,7 @@ $bg: #F5F2EC;
 }
 
 .hero-names {
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 4em;
     color: $text-dark;
     font-weight: 700;
@@ -97,6 +150,14 @@ $bg: #F5F2EC;
     margin-top: 16px;
 }
 
+.hero-title--overlay {
+    margin-top: 0;
+    color: #fff;
+    font-size: 1.45em;
+    letter-spacing: 7px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.28);
+}
+
 .hero-message {
     font-size: 1em;
     color: $text-secondary;
@@ -105,6 +166,30 @@ $bg: #F5F2EC;
     margin-top: 24px;
     font-style: italic;
     font-weight: 300;
+}
+
+@keyframes heroFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scrollPulse {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 0.78;
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(6px);
+        opacity: 1;
+    }
 }
 
 // fecha
@@ -145,7 +230,7 @@ $bg: #F5F2EC;
 }
 
 .day-number {
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 4.5em;
     font-weight: 700;
     color: $accent;
@@ -208,7 +293,7 @@ $bg: #F5F2EC;
 }
 
 .padres-titulo {
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 3em;
     color: $accent;
     font-weight: 700;
@@ -296,7 +381,7 @@ $bg: #F5F2EC;
     }
 
     .text {
-        font-family: 'Amatic SC', cursive;
+        font-family: 'Cormorant Garamond', serif;
         font-size: 2.2em;
         color: $text-dark;
         margin: 20px 0 0 0;
@@ -340,7 +425,7 @@ $bg: #F5F2EC;
 }
 
 .event-titulo {
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 3em;
     color: $text-dark;
     font-weight: 700;
@@ -371,7 +456,7 @@ $bg: #F5F2EC;
 // boton del tema
 .theme-button {
     display: inline-block;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     background-color: $btn-solid;
     color: #ffffff;
     padding: 14px 32px;
@@ -400,7 +485,7 @@ $bg: #F5F2EC;
 }
 
 .dress-code-titulo {
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 3em;
     color: $accent;
     font-weight: 700;
@@ -456,7 +541,7 @@ $bg: #F5F2EC;
 }
 
 .confirma-titulo {
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 3em;
     color: $accent;
     font-weight: 700;
@@ -484,7 +569,7 @@ $bg: #F5F2EC;
 }
 
 .sobres-titulo {
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 3em;
     color: $accent;
     font-weight: 700;
@@ -520,7 +605,7 @@ $bg: #F5F2EC;
 }
 
 .cierre-highlight {
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 2.6em;
     color: $accent;
     font-weight: 700;
@@ -538,7 +623,7 @@ $bg: #F5F2EC;
 }
 
 .cierre-final {
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Cormorant Garamond', serif;
     font-size: 2.2em;
     color: $accent;
     font-weight: 700;

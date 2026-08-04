@@ -10,6 +10,7 @@ import { GustavoGisselComponent } from '../plantillas/gustavo-gissel/gustavo-gis
 import { XvCarmesiComponent } from '../plantillas/xv-carmesi/xv-carmesi.component';
 import { XvDeluxeBlackComponent } from '../plantillas/xv-deluxe-black/xv-deluxe-black.component';
 import { ShowcaseComponent } from '../showcase/showcase.component';
+import { LauraJuanComponent } from '../plantillas/laura-juan/laura-juan.component';
 
 
 @Component({
@@ -31,6 +32,8 @@ export class HomeComponent {
     "g-g": GustavoGisselComponent,
     "xv-carmesi": XvCarmesiComponent,
     "xv-deluxe-black": XvDeluxeBlackComponent,
+    "laura-juan": LauraJuanComponent,
+    "laura-juan-2": XvDeluxeBlackComponent,
   }
   public templateComponent: any = null;
 
@@ -39,13 +42,13 @@ export class HomeComponent {
   public noDataFound: boolean = false;
   public showShowcase: boolean = false;
   constructor(private route: ActivatedRoute, private router: Router, private mainService: MainService) {
-    console.log('query param', this.getQueryParam('n'),2222);
   }
 
 
 
   ngOnInit() {
     const nameInvitation = this.getQueryParam('n');
+    console.log('nameInvitation', nameInvitation,);
     if (!nameInvitation) {
       this.showShowcase = true;
       return;

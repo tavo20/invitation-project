@@ -36,5 +36,11 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./plantillas/xv-deluxe-black/xv-deluxe-black.component')
                 .then(m => m.XvDeluxeBlackComponent)
+    },
+    {
+        path: 'Aquarelle ',
+        loadComponent: () =>
+            import('./plantillas/aquarelle/aquarelle.component')
+                .then(m => m.AquarelleComponent)
     }
 ];

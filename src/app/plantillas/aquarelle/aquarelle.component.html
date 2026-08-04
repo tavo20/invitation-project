@@ -1,0 +1,331 @@
+<div class="aq-wrap">
+
+    <!-- ══════════════════════ HERO / PORTADA ══════════════════════ -->
+    <header class="aq-hero">
+
+        <!-- Flores decorativas esquina superior izquierda -->
+        <img src="assets/images/planta.png" alt="" class="aq-flor aq-flor--tl" aria-hidden="true">
+        <!-- Flores esquina superior derecha (volteada) -->
+        <img src="assets/images/planta.png" alt="" class="aq-flor aq-flor--tr" aria-hidden="true">
+
+        <p class="aq-pre">Nos casamos</p>
+
+        <!-- Sello circular tipo stamp -->
+        <div class="aq-stamp">
+            <svg class="aq-stamp__ring" viewBox="0 0 140 140">
+                <defs>
+                    <path id="topArc" d="M 20,70 a50,50 0 1,1 100,0" />
+                    <path id="botArc" d="M 20,70 a50,50 0 0,0 100,0" />
+                </defs>
+                <text class="aq-stamp__text">
+                    <textPath href="#topArc" startOffset="15%">Nerea &amp; Paula</textPath>
+                </text>
+                <text class="aq-stamp__text">
+                    <textPath href="#botArc" startOffset="15%">07 · 01 · 2027</textPath>
+                </text>
+            </svg>
+            <span class="aq-stamp__initials">N&amp;P</span>
+        </div>
+
+        <h1 class="aq-names">
+            <span class="aq-name">Nerea</span>
+            <span class="aq-amp">&amp;</span>
+            <span class="aq-name">Paula</span>
+        </h1>
+
+        <p class="aq-fecha">07 &middot; 01 &middot; 2027</p>
+
+        <!-- Divisor floral SVG -->
+        <svg class="aq-divider" viewBox="0 0 200 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="10" x2="75" y2="10" stroke="currentColor" stroke-width="0.8" />
+            <circle cx="100" cy="10" r="4" fill="currentColor" />
+            <circle cx="90" cy="10" r="2" fill="currentColor" opacity="0.5" />
+            <circle cx="110" cy="10" r="2" fill="currentColor" opacity="0.5" />
+            <line x1="125" y1="10" x2="200" y2="10" stroke="currentColor" stroke-width="0.8" />
+        </svg>
+
+        <p class="aq-tagline">¡NOS CASAMOS!</p>
+    </header>
+
+    <!-- ══════════════════════ FOTO PRINCIPAL ══════════════════════ -->
+    <div class="aq-photo-wrap reveal">
+        <div class="aq-photo-frame">
+            <img src="assets/images/main-photo.png" alt="Foto de la pareja" class="aq-photo">
+        </div>
+        <img src="assets/images/planta.png" alt="" class="aq-flor aq-flor--photo-l" aria-hidden="true">
+        <img src="assets/images/planta.png" alt="" class="aq-flor aq-flor--photo-r" aria-hidden="true">
+    </div>
+
+    <!-- ══════════════════════ QUOTE ══════════════════════ -->
+    <section class="aq-quote reveal">
+        <svg class="aq-quote__icon" viewBox="0 0 32 32" fill="currentColor">
+            <path d="M9.3 6C5.3 8.7 3 12.2 3 16.5c0 3.6 2 6.5 5.1 6.5 2.6 0 4.4-1.9 4.4-4.4 0-2.4-1.6-4.1-3.9-4.1-.4 0-.8.1-1.1.2.6-2.6 2.5-4.9 5-6.5L9.3 6zm13.4 0c-4 2.7-6.3 6.2-6.3 10.5 0 3.6 2 6.5 5.1 6.5 2.6 0 4.4-1.9 4.4-4.4 0-2.4-1.6-4.1-3.9-4.1-.4 0-.8.1-1.1.2.6-2.6 2.5-4.9 5-6.5L22.7 6z" />
+        </svg>
+        <p class="aq-quote__text">El amor es lo único que se multiplica cuando se comparte</p>
+    </section>
+
+    <!-- ══════════════════════ COUNTDOWN ══════════════════════ -->
+    <section class="aq-countdown reveal">
+        <p class="aq-section-label">Faltan</p>
+        <div class="aq-cd-grid" *ngIf="!hasEnded">
+            <div class="aq-cd-unit">
+                <span class="aq-cd-num">{{ fmt(days) }}</span>
+                <span class="aq-cd-label">Días</span>
+            </div>
+            <span class="aq-cd-sep">:</span>
+            <div class="aq-cd-unit">
+                <span class="aq-cd-num">{{ fmt(hours) }}</span>
+                <span class="aq-cd-label">Horas</span>
+            </div>
+            <span class="aq-cd-sep">:</span>
+            <div class="aq-cd-unit">
+                <span class="aq-cd-num">{{ fmt(minutes) }}</span>
+                <span class="aq-cd-label">Minutos</span>
+            </div>
+            <span class="aq-cd-sep">:</span>
+            <div class="aq-cd-unit">
+                <span class="aq-cd-num">{{ fmt(seconds) }}</span>
+                <span class="aq-cd-label">Segundos</span>
+            </div>
+        </div>
+        <p class="aq-cd-ended" *ngIf="hasEnded">¡El gran día ha llegado!</p>
+    </section>
+
+    <!-- ══════════════════════ CEREMONIA ══════════════════════ -->
+    <section class="aq-event reveal">
+        <img src="assets/images/planta.png" alt="" class="aq-flor aq-flor--sec-l" aria-hidden="true">
+
+        <div class="aq-event__icon">
+            <!-- Icono iglesia SVG -->
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="24" y1="2" x2="24" y2="10" />
+                <line x1="20" y1="6" x2="28" y2="6" />
+                <path d="M8 46V22l16-12 16 12v24" />
+                <rect x="18" y="32" width="12" height="14" rx="1" />
+                <path d="M14 22v-4" />
+                <path d="M34 22v-4" />
+                <rect x="12" y="26" width="8" height="8" rx="1" />
+                <rect x="28" y="26" width="8" height="8" rx="1" />
+            </svg>
+        </div>
+
+        <p class="aq-event__tipo">Ceremonia</p>
+        <h2 class="aq-event__lugar">Catedral de Palma</h2>
+        <p class="aq-event__dir">Plaça de la Seu, Centro<br>07001 Palma</p>
+        <p class="aq-event__hora">18:00 h</p>
+
+        <svg class="aq-divider" viewBox="0 0 200 20" fill="none">
+            <line x1="0" y1="10" x2="75" y2="10" stroke="currentColor" stroke-width="0.8" />
+            <circle cx="100" cy="10" r="4" fill="currentColor" />
+            <circle cx="90" cy="10" r="2" fill="currentColor" opacity="0.5" />
+            <circle cx="110" cy="10" r="2" fill="currentColor" opacity="0.5" />
+            <line x1="125" y1="10" x2="200" y2="10" stroke="currentColor" stroke-width="0.8" />
+        </svg>
+
+        <a href="#" target="_blank" class="aq-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+            </svg>
+            Ver en Maps
+        </a>
+    </section>
+
+    <!-- ══════════════════════ CELEBRACIÓN ══════════════════════ -->
+    <section class="aq-event aq-event--alt reveal">
+        <img src="assets/images/planta.png" alt="" class="aq-flor aq-flor--sec-r" aria-hidden="true">
+
+        <div class="aq-event__icon">
+            <!-- Icono copa SVG -->
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 6h20l-4 16a6 6 0 0 1-12 0L14 6z" />
+                <line x1="24" y1="28" x2="24" y2="40" />
+                <line x1="16" y1="40" x2="32" y2="40" />
+                <path d="M14 6H8l4 10" />
+                <path d="M34 6h6l-4 10" />
+            </svg>
+        </div>
+
+        <p class="aq-event__tipo">Celebración</p>
+        <h2 class="aq-event__lugar">Restaurante S'Olivaret</h2>
+        <p class="aq-event__dir">Carretera Alaró-Orient, Km 3<br>07340 Alaró</p>
+        <p class="aq-event__hora">19:30 h</p>
+
+        <svg class="aq-divider" viewBox="0 0 200 20" fill="none">
+            <line x1="0" y1="10" x2="75" y2="10" stroke="currentColor" stroke-width="0.8" />
+            <circle cx="100" cy="10" r="4" fill="currentColor" />
+            <circle cx="90" cy="10" r="2" fill="currentColor" opacity="0.5" />
+            <circle cx="110" cy="10" r="2" fill="currentColor" opacity="0.5" />
+            <line x1="125" y1="10" x2="200" y2="10" stroke="currentColor" stroke-width="0.8" />
+        </svg>
+
+        <a href="#" target="_blank" class="aq-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+            </svg>
+            Ver en Maps
+        </a>
+    </section>
+
+    <!-- ══════════════════════ DRESS CODE ══════════════════════ -->
+    <section class="aq-dress reveal">
+        <p class="aq-section-label">Dress Code</p>
+        <p class="aq-dress__tipo">Formal</p>
+
+        <div class="aq-dress__grid">
+            <div class="aq-dress__col">
+                <img src="assets/images/w-dress.png" alt="Vestido" class="aq-dress__img">
+                <img src="assets/images/w-shoes.png" alt="Zapatos" class="aq-dress__shoes">
+                <p class="aq-dress__label">Ellas</p>
+            </div>
+            <div class="aq-dress__col">
+                <img src="assets/images/m-shoes.png" alt="Zapatos" class="aq-dress__shoes">
+                <p class="aq-dress__label">Ellos</p>
+            </div>
+        </div>
+
+        <p class="aq-dress__nota">El blanco está reservado para la novia,<br>¡nos encantará verte en otros colores!</p>
+    </section>
+
+    <!-- ══════════════════════ ITINERARIO ══════════════════════ -->
+    <section class="aq-itinerario reveal">
+        <p class="aq-section-label">Itinerario</p>
+
+        <div class="aq-timeline">
+            <div class="aq-tl-item">
+                <div class="aq-tl-icon">
+                    <!-- Iglesia -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+                        <line x1="12" y1="1" x2="12" y2="5" /><line x1="10" y1="3" x2="14" y2="3" />
+                        <path d="M4 23V11l8-6 8 6v12" /><rect x="9" y="16" width="6" height="7" rx="0.5" />
+                        <rect x="6" y="13" width="4" height="4" rx="0.5" /><rect x="14" y="13" width="4" height="4" rx="0.5" />
+                    </svg>
+                </div>
+                <p class="aq-tl-hora">18:00 h</p>
+                <p class="aq-tl-desc">Ceremonia</p>
+            </div>
+
+            <div class="aq-tl-item">
+                <div class="aq-tl-icon">
+                    <!-- Copa cóctel -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+                        <path d="M7 3h10l-2 8a3 3 0 0 1-6 0L7 3z" />
+                        <line x1="12" y1="14" x2="12" y2="20" />
+                        <line x1="8" y1="20" x2="16" y2="20" />
+                    </svg>
+                </div>
+                <p class="aq-tl-hora">19:00 h</p>
+                <p class="aq-tl-desc">Cóctel</p>
+            </div>
+
+            <div class="aq-tl-item">
+                <div class="aq-tl-icon">
+                    <!-- Plato -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+                        <ellipse cx="12" cy="13" rx="8" ry="4" />
+                        <path d="M4 13c0-4.4 3.6-8 8-8s8 3.6 8 8" />
+                        <line x1="12" y1="5" x2="12" y2="3" />
+                    </svg>
+                </div>
+                <p class="aq-tl-hora">20:00 h</p>
+                <p class="aq-tl-desc">Banquete</p>
+            </div>
+
+            <div class="aq-tl-item">
+                <div class="aq-tl-icon">
+                    <!-- Música / fiesta -->
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round">
+                        <path d="M9 18V6l10-2v12" />
+                        <circle cx="6.5" cy="18" r="2.5" />
+                        <circle cx="16.5" cy="16" r="2.5" />
+                    </svg>
+                </div>
+                <p class="aq-tl-hora">21:30 h</p>
+                <p class="aq-tl-desc">Fiesta</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════════════ ASISTENCIA ══════════════════════ -->
+    <section class="aq-asistencia reveal">
+        <img src="assets/images/planta.png" alt="" class="aq-flor aq-flor--asist-l" aria-hidden="true">
+        <img src="assets/images/planta.png" alt="" class="aq-flor aq-flor--asist-r" aria-hidden="true">
+
+        <p class="aq-section-label">Asistencia</p>
+        <p class="aq-asistencia__texto">Contar con tu presencia hará este día aún más especial</p>
+
+        <!-- Sobre animado -->
+        <div class="aq-envelope" (click)="openEnvelope()">
+            <div class="aq-envelope__body">
+                <div class="aq-envelope__flap"></div>
+                <div class="aq-envelope__content">
+                    <span>&#9829;</span>
+                </div>
+            </div>
+            <p class="aq-envelope__hint">Pulsa para confirmar</p>
+        </div>
+    </section>
+
+    <!-- Modal confirmación -->
+    <div class="aq-modal-bg" *ngIf="showEnvelopeModal" (click)="closeModal()">
+        <div class="aq-modal" (click)="$event.stopPropagation()">
+            <button class="aq-modal__close" (click)="closeModal()">&#10005;</button>
+            <p class="aq-modal__title">¿Nos acompañas?</p>
+            <p class="aq-modal__texto">Confirma tu asistencia antes del 1 de diciembre de 2026.</p>
+            <a href="#" target="_blank" class="aq-btn">CONFIRMAR ASISTENCIA</a>
+        </div>
+    </div>
+
+    <!-- ══════════════════════ LLUVIA DE SOBRES ══════════════════════ -->
+    <section class="aq-sobres reveal">
+        <div class="aq-sobres__icon">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="12" width="40" height="28" rx="2" />
+                <path d="M4 14l20 14 20-14" />
+                <path d="M4 40l14-12" />
+                <path d="M44 40L30 28" />
+            </svg>
+        </div>
+        <p class="aq-section-label">Lluvia de Sobres</p>
+        <p class="aq-sobres__texto">Nuestro mejor regalo es que estéis con nosotros en nuestro día, pero si queréis hacernos un obsequio, ¡aquí está nuestro número de cuenta!</p>
+        <div class="aq-sobres__cuenta">
+            <p class="aq-sobres__nombre">Nerea García</p>
+            <p class="aq-sobres__iban">ES00 0000 0000 0000 0000 0000</p>
+            <button class="aq-btn aq-btn--outline" onclick="navigator.clipboard.writeText('ES00000000000000000000')">Copiar cuenta</button>
+        </div>
+    </section>
+
+    <!-- ══════════════════════ CIERRE ══════════════════════ -->
+    <footer class="aq-cierre reveal">
+        <img src="assets/images/planta.png" alt="" class="aq-flor aq-flor--cierre-l" aria-hidden="true">
+        <img src="assets/images/planta.png" alt="" class="aq-flor aq-flor--cierre-r" aria-hidden="true">
+
+        <svg class="aq-divider" viewBox="0 0 200 20" fill="none">
+            <line x1="0" y1="10" x2="75" y2="10" stroke="currentColor" stroke-width="0.8" />
+            <circle cx="100" cy="10" r="4" fill="currentColor" />
+            <circle cx="90" cy="10" r="2" fill="currentColor" opacity="0.5" />
+            <circle cx="110" cy="10" r="2" fill="currentColor" opacity="0.5" />
+            <line x1="125" y1="10" x2="200" y2="10" stroke="currentColor" stroke-width="0.8" />
+        </svg>
+
+        <p class="aq-cierre__pre">Nos vemos en...</p>
+        <p class="aq-cierre__names">Nerea &amp; Paula</p>
+        <p class="aq-cierre__fecha">07 · 01 · 2027</p>
+
+        <!-- Corazón -->
+        <svg class="aq-cierre__heart" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+        </svg>
+    </footer>
+
+    <!-- ══════════════════════ FAB MÚSICA ══════════════════════ -->
+    <button class="aq-music-fab" (click)="togglePlayPause()" [class.playing]="isPlaying" aria-label="Música">
+        <svg *ngIf="!isPlaying" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <path d="M9 18V6l10-2v12" /><circle cx="6.5" cy="18" r="2.5" /><circle cx="16.5" cy="16" r="2.5" />
+        </svg>
+        <svg *ngIf="isPlaying" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <rect x="6" y="4" width="4" height="16" rx="1" /><rect x="14" y="4" width="4" height="16" rx="1" />
+        </svg>
+    </button>
+    <audio #audioPlayer src="../../../assets/songs/hermoso_carino.mp3"></audio>
+
+</div>

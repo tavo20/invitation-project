@@ -77,6 +77,15 @@ export class ShowcaseComponent {
       category: 'Quinceañera'
     },
     {
+      nombre: 'Aquarelle',
+      estilo: 'Rosa & Salvia',
+      descripcion: 'Estilo acuarela con flores botánicas, sello circular, arco fotográfico, countdown, itinerario tipo grid, sobre animado para confirmación y cuenta para lluvia de sobres.',
+      imagen: 'assets/images/main-photo.png',
+      link: '/Aquarelle',
+      tags: ['Acuarela', 'Floral', 'Countdown', 'Itinerario', 'Sobre Animado'],
+      category: 'Boda'
+    },
+    {
       nombre: 'XV Años Elegante',
       estilo: 'Champagne & Marfil',
       descripcion: 'Diseñada para quinceañeras: itinerario con horarios, confirmación interactiva por WhatsApp, botón para copiar cuenta y hashtag para redes. Elegancia en tonos champagne.',

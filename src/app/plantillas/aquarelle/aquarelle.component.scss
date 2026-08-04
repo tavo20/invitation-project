@@ -1,0 +1,877 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap');
+
+// ── Paleta Acuarela ──────────────────────────────────────────────
+$cream:      #FDF6EE;
+$cream-alt:  #F7EEE3;
+$rose:       #C9889A;
+$rose-light: #E8C4CE;
+$sage:       #7A9E7E;
+$sage-light: #B5CCB5;
+$mauve:      #9E7A8A;
+$brown:      #6B4F3A;
+$text:       #3D2B1F;
+$text-soft:  #7A6258;
+$border:     rgba(163, 126, 100, 0.25);
+
+// ── Base ─────────────────────────────────────────────────────────
+.aq-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: $cream;
+    color: $text;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+}
+
+// ── Scroll Reveal ────────────────────────────────────────────────
+.reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.85s ease, transform 0.85s ease;
+
+    &.visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// ── Flores decorativas (posicionamiento por clase BEM modifier) ──
+.aq-flor {
+    position: absolute;
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+
+    &--tl {
+        top: -20px;
+        left: -80px;
+        width: 55%;
+        transform: scaleX(-1) rotate(-10deg);
+    }
+
+    &--tr {
+        top: -20px;
+        right: -80px;
+        width: 55%;
+        transform: rotate(-10deg);
+    }
+
+    &--photo-l {
+        bottom: -30px;
+        left: -60px;
+        width: 45%;
+        transform: scaleX(-1) rotate(10deg);
+    }
+
+    &--photo-r {
+        bottom: -30px;
+        right: -60px;
+        width: 45%;
+        transform: rotate(10deg);
+    }
+
+    &--sec-l {
+        top: 50%;
+        left: -90px;
+        width: 55%;
+        transform: scaleX(-1) translateY(-50%);
+    }
+
+    &--sec-r {
+        top: 50%;
+        right: -90px;
+        width: 55%;
+        transform: translateY(-50%);
+    }
+
+    &--asist-l {
+        bottom: 0;
+        left: -80px;
+        width: 50%;
+        transform: scaleX(-1);
+    }
+
+    &--asist-r {
+        bottom: 0;
+        right: -80px;
+        width: 50%;
+    }
+
+    &--cierre-l {
+        top: 0;
+        left: -80px;
+        width: 50%;
+        transform: scaleX(-1);
+    }
+
+    &--cierre-r {
+        top: 0;
+        right: -80px;
+        width: 50%;
+    }
+}
+
+// ── Divisor floral ───────────────────────────────────────────────
+.aq-divider {
+    width: 180px;
+    color: $rose;
+    margin: 18px 0;
+}
+
+// ── Botón ────────────────────────────────────────────────────────
+.aq-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 11px 28px;
+    border: 1px solid $rose;
+    background: transparent;
+    color: $rose;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72em;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+
+    &:hover {
+        background: $rose;
+        color: #fff;
+    }
+
+    &--outline {
+        border-color: $sage;
+        color: $sage;
+
+        &:hover {
+            background: $sage;
+            color: #fff;
+        }
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────
+// HERO / PORTADA
+// ─────────────────────────────────────────────────────────────────
+.aq-hero {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 80px 30px 60px;
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+.aq-pre {
+    font-size: 0.72em;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: $text-soft;
+    margin: 0 0 36px;
+    position: relative;
+    z-index: 1;
+}
+
+// Sello circular
+.aq-stamp {
+    position: relative;
+    z-index: 1;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+
+    &__ring {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    &__text {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 11px;
+        fill: $rose;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+
+    &__initials {
+        font-family: 'Great Vibes', cursive;
+        font-size: 2.4em;
+        color: $rose;
+        line-height: 1;
+        z-index: 1;
+    }
+}
+
+.aq-names {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    margin: 0 0 12px;
+}
+
+.aq-name {
+    font-family: 'Great Vibes', cursive;
+    font-size: 4.2em;
+    font-weight: 400;
+    color: $brown;
+    line-height: 1.1;
+}
+
+.aq-amp {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2em;
+    color: $rose;
+    font-weight: 300;
+    line-height: 1;
+}
+
+.aq-fecha {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8em;
+    letter-spacing: 5px;
+    color: $text-soft;
+    margin: 0 0 16px;
+    position: relative;
+    z-index: 1;
+}
+
+.aq-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5em;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: $mauve;
+    margin: 4px 0 0;
+    position: relative;
+    z-index: 1;
+}
+
+// ─────────────────────────────────────────────────────────────────
+// FOTO PRINCIPAL
+// ─────────────────────────────────────────────────────────────────
+.aq-photo-wrap {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 40px 0 50px;
+}
+
+.aq-photo-frame {
+    width: min(80vw, 320px);
+    aspect-ratio: 3 / 4;
+    border: 1px solid $border;
+    border-radius: 160px 160px 8px 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: -6px;
+        border: 1px solid $rose-light;
+        border-radius: 166px 166px 12px 12px;
+        opacity: 0.5;
+    }
+}
+
+.aq-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 152px 152px 4px 4px;
+    display: block;
+}
+
+// ─────────────────────────────────────────────────────────────────
+// QUOTE
+// ─────────────────────────────────────────────────────────────────
+.aq-quote {
+    width: 100%;
+    background: $cream-alt;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 40px;
+    box-sizing: border-box;
+    text-align: center;
+
+    &__icon {
+        width: 36px;
+        color: $rose-light;
+        margin-bottom: 18px;
+    }
+
+    &__text {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 1.35em;
+        color: $text-soft;
+        line-height: 1.7;
+        max-width: 320px;
+        margin: 0;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────
+// COUNTDOWN
+// ─────────────────────────────────────────────────────────────────
+.aq-countdown {
+    padding: 55px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.aq-section-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.68em;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: $rose;
+    margin: 0;
+}
+
+.aq-cd-grid {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+}
+
+.aq-cd-unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.aq-cd-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4em;
+    font-weight: 300;
+    color: $brown;
+    line-height: 1;
+}
+
+.aq-cd-label {
+    font-size: 0.6em;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: $text-soft;
+    margin-top: 4px;
+}
+
+.aq-cd-sep {
+    font-size: 2.5em;
+    color: $rose-light;
+    margin-bottom: 14px;
+    padding: 0 2px;
+}
+
+.aq-cd-ended {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2em;
+    color: $rose;
+}
+
+// ─────────────────────────────────────────────────────────────────
+// EVENTO (Ceremonia / Celebración)
+// ─────────────────────────────────────────────────────────────────
+.aq-event {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 60px 40px;
+    box-sizing: border-box;
+    overflow: visible;
+
+    &--alt {
+        background: $cream-alt;
+    }
+
+    &__icon {
+        width: 52px;
+        color: $rose;
+        margin-bottom: 14px;
+    }
+
+    &__tipo {
+        font-size: 0.68em;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: $rose;
+        margin: 0 0 6px;
+    }
+
+    &__lugar {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.8em;
+        font-weight: 400;
+        color: $brown;
+        margin: 0 0 10px;
+        letter-spacing: 2px;
+    }
+
+    &__dir {
+        font-size: 0.85em;
+        color: $text-soft;
+        line-height: 1.7;
+        margin: 0 0 6px;
+    }
+
+    &__hora {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.3em;
+        color: $mauve;
+        margin: 0 0 10px;
+        letter-spacing: 3px;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────
+// DRESS CODE
+// ─────────────────────────────────────────────────────────────────
+.aq-dress {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 30px;
+    box-sizing: border-box;
+    text-align: center;
+    gap: 16px;
+
+    &__tipo {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.6em;
+        color: $brown;
+        letter-spacing: 4px;
+        margin: 0;
+    }
+
+    &__grid {
+        display: flex;
+        gap: 48px;
+        align-items: flex-end;
+        margin: 20px 0 10px;
+    }
+
+    &__col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+
+    &__img {
+        width: 55px;
+    }
+
+    &__shoes {
+        width: 48px;
+    }
+
+    &__label {
+        font-size: 0.75em;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: $text-soft;
+        margin: 0;
+    }
+
+    &__nota {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 1em;
+        color: $text-soft;
+        line-height: 1.7;
+        max-width: 300px;
+        margin: 8px 0 0;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────
+// ITINERARIO
+// ─────────────────────────────────────────────────────────────────
+.aq-itinerario {
+    width: 100%;
+    background: $cream-alt;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 30px;
+    box-sizing: border-box;
+    gap: 30px;
+}
+
+.aq-timeline {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 20px;
+    width: 100%;
+    max-width: 360px;
+}
+
+.aq-tl-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+    padding: 20px 10px;
+    border: 1px solid $border;
+    background: $cream;
+}
+
+.aq-tl-icon {
+    width: 34px;
+    color: $rose;
+}
+
+.aq-tl-hora {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2em;
+    color: $brown;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.aq-tl-desc {
+    font-size: 0.7em;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: $text-soft;
+    margin: 0;
+}
+
+// ─────────────────────────────────────────────────────────────────
+// ASISTENCIA / SOBRE
+// ─────────────────────────────────────────────────────────────────
+.aq-asistencia {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 70px 30px 80px;
+    box-sizing: border-box;
+    text-align: center;
+    gap: 16px;
+    overflow: visible;
+
+    &__texto {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 1.15em;
+        color: $text-soft;
+        max-width: 300px;
+        line-height: 1.7;
+        margin: 0;
+    }
+}
+
+// Sobre animado
+.aq-envelope {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    position: relative;
+    z-index: 1;
+
+    &__body {
+        position: relative;
+        width: 90px;
+        height: 65px;
+        background: $rose-light;
+        border-radius: 2px;
+        box-shadow: 0 4px 16px rgba($rose, 0.2);
+        transition: transform 0.3s ease;
+
+        &:hover {
+            transform: scale(1.05) translateY(-4px);
+        }
+    }
+
+    &__flap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 45px solid transparent;
+        border-right: 45px solid transparent;
+        border-top: 32px solid darken($rose-light, 8%);
+        transform-origin: top center;
+        transition: transform 0.4s ease;
+    }
+
+    &__body:hover &__flap {
+        transform: rotateX(-180deg);
+    }
+
+    &__content {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 10px;
+        font-size: 1.4em;
+        color: $rose;
+    }
+
+    &__hint {
+        font-size: 0.65em;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: $text-soft;
+        margin: 0;
+    }
+}
+
+// Modal
+.aq-modal-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.aq-modal {
+    background: $cream;
+    max-width: 340px;
+    width: 100%;
+    padding: 48px 32px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+    position: relative;
+
+    &__close {
+        position: absolute;
+        top: 14px;
+        right: 18px;
+        background: none;
+        border: none;
+        font-size: 1em;
+        color: $text-soft;
+        cursor: pointer;
+    }
+
+    &__title {
+        font-family: 'Great Vibes', cursive;
+        font-size: 2.4em;
+        color: $brown;
+        margin: 0;
+    }
+
+    &__texto {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        color: $text-soft;
+        font-size: 1em;
+        line-height: 1.7;
+        margin: 0;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────
+// LLUVIA DE SOBRES / REGALO
+// ─────────────────────────────────────────────────────────────────
+.aq-sobres {
+    width: 100%;
+    background: $cream-alt;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 30px;
+    box-sizing: border-box;
+    text-align: center;
+    gap: 14px;
+
+    &__icon {
+        width: 50px;
+        color: $rose;
+    }
+
+    &__texto {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 1em;
+        color: $text-soft;
+        line-height: 1.7;
+        max-width: 300px;
+        margin: 0;
+    }
+
+    &__cuenta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 20px 24px;
+        border: 1px solid $border;
+        background: $cream;
+        width: 100%;
+        max-width: 300px;
+        box-sizing: border-box;
+    }
+
+    &__nombre {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 1.2em;
+        color: $brown;
+        margin: 0;
+        letter-spacing: 1px;
+    }
+
+    &__iban {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.78em;
+        color: $text-soft;
+        letter-spacing: 1px;
+        margin: 0;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────
+// CIERRE / FOOTER
+// ─────────────────────────────────────────────────────────────────
+.aq-cierre {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 80px 30px 90px;
+    box-sizing: border-box;
+    text-align: center;
+    overflow: visible;
+
+    &__pre {
+        font-size: 0.68em;
+        letter-spacing: 5px;
+        text-transform: uppercase;
+        color: $text-soft;
+        margin: 0 0 12px;
+        position: relative;
+        z-index: 1;
+    }
+
+    &__names {
+        font-family: 'Great Vibes', cursive;
+        font-size: 3.6em;
+        color: $brown;
+        margin: 0 0 8px;
+        position: relative;
+        z-index: 1;
+    }
+
+    &__fecha {
+        font-size: 0.8em;
+        letter-spacing: 4px;
+        color: $text-soft;
+        margin: 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    &__heart {
+        width: 22px;
+        color: $rose;
+        margin-top: 28px;
+        position: relative;
+        z-index: 1;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────
+// FAB MÚSICA
+// ─────────────────────────────────────────────────────────────────
+.aq-music-fab {
+    position: fixed;
+    bottom: 28px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid $rose;
+    background: $cream;
+    color: $rose;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 800;
+    box-shadow: 0 2px 12px rgba($rose, 0.25);
+    transition: background 0.2s, color 0.2s;
+
+    svg {
+        width: 20px;
+    }
+
+    &.playing {
+        background: $rose;
+        color: #fff;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────────
+// RESPONSIVE
+// ─────────────────────────────────────────────────────────────────
+@media (max-width: 480px) {
+    .aq-name {
+        font-size: 3.2em;
+    }
+
+    .aq-cd-num {
+        font-size: 3em;
+    }
+
+    .aq-timeline {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+
+    .aq-flor {
+        &--tl { left: -100px; }
+        &--tr { right: -100px; }
+        &--sec-l { left: -110px; }
+        &--sec-r { right: -110px; }
+    }
+}
+
+@media (max-width: 360px) {
+    .aq-name { font-size: 2.6em; }
+    .aq-cd-num { font-size: 2.4em; }
+}
