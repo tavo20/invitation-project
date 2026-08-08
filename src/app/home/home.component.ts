@@ -11,6 +11,7 @@ import { XvCarmesiComponent } from '../plantillas/xv-carmesi/xv-carmesi.componen
 import { XvDeluxeBlackComponent } from '../plantillas/xv-deluxe-black/xv-deluxe-black.component';
 import { ShowcaseComponent } from '../showcase/showcase.component';
 import { LauraJuanComponent } from '../plantillas/laura-juan/laura-juan.component';
+import { NeblinaComponent } from '../plantillas/neblina/neblina.component';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class HomeComponent {
     "xv-deluxe-black": XvDeluxeBlackComponent,
     "laura-juan": LauraJuanComponent,
     "laura-juan-2": XvDeluxeBlackComponent,
+    "neblina": NeblinaComponent,
   }
   public templateComponent: any = null;
 

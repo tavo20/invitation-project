@@ -1,0 +1,890 @@
+@import url('https://fonts.googleapis.com/css2?family=Rouge+Script&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+
+:host {
+    display: block;
+    --neblina-page-bg: #e3e3e3;
+    background: var(--neblina-page-bg);
+}
+
+.neblina-hero {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    background: #0f0f0f;
+}
+
+.neblina-hero__photo {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    filter: saturate(0.92) contrast(0.92);
+}
+
+.neblina-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.45) 45%, rgba(0, 0, 0, 0.6) 100%),
+        rgba(0, 0, 0, 0.14);
+}
+
+.neblina-hero__content {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: 50% 30% 20%;
+    align-content: center;
+    justify-items: center;
+    row-gap: 10px;
+    text-align: center;
+    padding: 40px 24px;
+    box-sizing: border-box;
+    color: #ececec;
+}
+
+.neblina-hero__monogram {
+    position: relative;
+    align-self: end;
+    width: 220px;
+    height: 150px;
+    margin: 0 auto;
+    margin-bottom: 130px;
+}
+
+.neblina-hero__initial {
+    position: absolute;
+    font-family: 'Rouge Script', cursive;
+    line-height: 1;
+    color: #ececec;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.38);
+    opacity: 0.92;
+}
+
+.neblina-hero__initial--one {
+    top: 0;
+    left: 42px;
+    font-size: 6.2rem;
+    transform: rotate(-4deg);
+    z-index: 2;
+}
+
+.neblina-hero__initial--two {
+    right: 39px;
+    bottom: -18px;
+    font-size: 5.9rem;
+    transform: rotate(-21deg);
+    z-index: 1;
+}
+
+.neblina-hero__names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.2rem, 8vw, 5.2rem);
+    font-weight: 400;
+    line-height: 0.95;
+    margin: 0;
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.38);
+    text-transform: uppercase;
+}
+
+.neblina-hero__ampersand {
+    display: inline-block;
+    font-family: 'Rouge Script', cursive;
+    font-size: 1.35em;
+    line-height: 1;
+    margin: 0.05em 0;
+}
+
+.neblina-hero__date-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.neblina-hero__divider {
+    width: 120px;
+    height: 1px;
+    background: rgba(247, 241, 235, 0.78);
+    margin-top: 4px;
+}
+
+.neblina-hero__date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.neblina-hero__location {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 10px 0 0;
+    opacity: 0.92;
+}
+
+.neblina-hero__scroll {
+    position: absolute;
+    left: 50%;
+    bottom: 22px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    color: #ececec;
+    pointer-events: none;
+    transform: translateX(-50%);
+    animation: neblinaScroll 1.8s ease-in-out infinite;
+}
+
+.neblina-hero__scroll p {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+@keyframes neblinaScroll {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+        opacity: 0.78;
+    }
+
+    50% {
+        transform: translateX(-50%) translateY(6px);
+        opacity: 1;
+    }
+}
+
+.neblina-hero__music {
+    position: absolute;
+    right: 20px;
+    bottom: 18px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(247, 241, 235, 0.12);
+    color: #ececec;
+    cursor: pointer;
+    padding: 0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    backdrop-filter: blur(4px);
+}
+
+.neblina-hero__music svg {
+    width: 20px;
+    height: 20px;
+}
+
+@media (max-width: 480px) {
+    .neblina-hero__monogram {
+        width: 150px;
+        height: 105px;
+    }
+
+    .neblina-hero__initial--one {
+        font-size: 4.8rem;
+    }
+
+    .neblina-hero__initial--two {
+        font-size: 4.5rem;
+    }
+
+    .neblina-hero__divider {
+        width: 90px;
+        margin-top: 4px;
+    }
+
+    .neblina-hero__date {
+        font-size: 0.95rem;
+        letter-spacing: 0.35em;
+    }
+
+    .neblina-hero__location {
+        font-size: 0.82rem;
+    }
+
+    .neblina-hero__scroll {
+        bottom: 16px;
+    }
+}
+
+.neblina-quote {
+    min-height: 48vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 42px 24px 0;
+    box-sizing: border-box;
+    text-align: center;
+    color: #6f6f6f;
+}
+
+.neblina-quote__mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(6.5rem, 8vw, 4.6rem);
+    line-height: 1;
+    color: #8a8a8a;
+    opacity: 0;
+    transform: translateX(44px);
+    will-change: transform, opacity;
+}
+
+.neblina-quote__mark--top {
+    margin-bottom: 10px;
+}
+
+.neblina-quote__mark--bottom {
+    margin-top: 10px;
+}
+
+.neblina-quote__text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 3.2vw, 1.5rem);
+    line-height: 1.7;
+    max-width: 420px;
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    transform: translateX(44px);
+    will-change: transform, opacity;
+}
+
+.neblina-quote.is-visible .neblina-quote__mark {
+    animation: neblinaQuoteIn 1.6s ease forwards;
+}
+
+.neblina-quote.is-visible .neblina-quote__mark--top {
+    animation-delay: 0s;
+}
+
+.neblina-quote.is-visible .neblina-quote__text {
+    animation: neblinaQuoteIn 1.6s ease forwards;
+    animation-delay: 0.5s;
+}
+
+.neblina-quote.is-visible .neblina-quote__mark--bottom {
+    animation: neblinaQuoteIn 1.6s ease forwards;
+    animation-delay: 1s;
+}
+
+@keyframes neblinaQuoteIn {
+    from {
+        opacity: 0;
+        transform: translateX(44px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.neblina-save-date {
+    min-height: 72vh;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    background: transparent;
+    padding: 44px 18px 56px;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(34px);
+    transition: opacity 1.1s ease, transform 1.1s ease;
+}
+
+.neblina-save-date.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.neblina-save-date__card {
+    display: grid;
+    width: min(100%, 300px);
+    background: transparent;
+    border: 2px solid rgba(120, 120, 120, 0.42);
+    border-radius: 20px;
+    padding: 28px 22px 26px;
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 0 18px 34px rgba(80, 80, 80, 0.06);
+}
+
+.neblina-save-date__heart {
+    font-size: 2.25rem;
+    line-height: 1;
+    color: #8a8a8a;
+    margin-bottom: 12px;
+    display: inline-block;
+    transform-origin: center;
+    animation: neblinaHeartBeat 1.5s ease-in-out infinite;
+}
+
+.neblina-save-date__title {
+    font-family: 'Rouge Script', cursive;
+    font-size: clamp(2.5rem, 7vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1;
+    color: #000000;
+    margin: 0 0 18px;
+}
+
+.neblina-save-date__countdown {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.neblina-save-date__unit {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    opacity: 0;
+    transform: translateY(18px);
+    will-change: transform, opacity;
+}
+
+.neblina-save-date.is-visible .neblina-save-date__unit {
+    animation: neblinaSaveUp 1.5s ease forwards;
+}
+
+.neblina-save-date.is-visible .neblina-save-date__unit--days {
+    animation-delay: 0s;
+}
+
+.neblina-save-date.is-visible .neblina-save-date__unit--hours {
+    animation-delay: 0.18s;
+}
+
+.neblina-save-date.is-visible .neblina-save-date__unit--minutes {
+    animation-delay: 0.36s;
+}
+
+.neblina-save-date.is-visible .neblina-save-date__unit--seconds {
+    animation-delay: 0.54s;
+}
+
+.neblina-save-date__value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 5vw, 2.5rem);
+    font-weight: 500;
+    color: #5f5f5f;
+    line-height: 1;
+}
+
+.neblina-save-date__label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #7f7f7f;
+}
+
+.neblina-save-date__date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    letter-spacing: 0.18em;
+    color: #6f6f6f;
+    margin: 0 0 16px;
+    text-transform: uppercase;
+}
+
+.neblina-save-date__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: #8a8a8a;
+    color: #fff;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 0.86rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 12px 26px rgba(142, 157, 112, 0.28);
+    height: 30px;
+}
+.neblina-save-date__flower {
+    width: 150px;
+    margin: 60px 0 0 0;
+    transform: rotate(-10deg);
+}
+
+.neblina-parents {
+    min-height: 56vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 52px 24px 64px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #6f6f6f;
+    opacity: 0;
+    transform: translateY(34px);
+    transition: opacity 1.1s ease, transform 1.1s ease;
+}
+
+.neblina-parents.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.neblina-parents__title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.15rem, 3.2vw, 1.6rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0;
+    color: #686868;
+}
+
+.neblina-parents__line {
+    width: 120px;
+    height: 1px;
+    background: rgba(110, 110, 110, 0.42);
+    margin: 18px 0 28px;
+}
+
+.neblina-parents__group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transform: translateX(34px);
+    will-change: transform, opacity;
+}
+
+.neblina-parents.is-visible .neblina-parents__group {
+    animation: neblinaParentsIn 1.4s ease forwards;
+}
+
+.neblina-parents.is-visible .neblina-parents__group:nth-of-type(1) {
+    animation-delay: 0.15s;
+}
+
+.neblina-parents.is-visible .neblina-parents__group:nth-of-type(2) {
+    animation-delay: 0.55s;
+}
+
+.neblina-parents.is-visible .neblina-parents__group:nth-of-type(3) {
+    animation-delay: 0.95s;
+}
+
+.neblina-parents__group + .neblina-parents__group {
+    margin-top: 42px;
+}
+
+.neblina-parents__label {
+    font-family: 'Rouge Script', cursive;
+    font-size: clamp(2rem, 6vw, 2.8rem);
+    line-height: 1;
+    margin: 0 0 6px;
+    color: #858585;
+}
+
+.neblina-parents__name {
+    font-family: 'Cormorant Garamond', serif;
+    
+    font-size: clamp(1.1rem, 3vw, 1.45rem);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0;
+    color: #707070;
+}
+
+@keyframes neblinaParentsIn {
+    from {
+        opacity: 0;
+        transform: translateX(34px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.neblina-story {
+    min-height: 84vh;
+    background: linear-gradient(180deg, #929292 0%, #808080 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 56px 24px 68px;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(34px);
+    transition: opacity 1.1s ease, transform 1.1s ease;
+    color: #f2f2f2;
+}
+
+.neblina-story.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.neblina-story__panel {
+    width: min(100%, 430px);
+    text-align: center;
+}
+
+.neblina-story__title {
+    font-family: 'Rouge Script', cursive;
+    font-size: clamp(2.8rem, 7vw, 3.8rem);
+    font-weight: 400;
+    line-height: 1;
+    margin: 0 0 20px;
+    color: #f7f7f7;
+    opacity: 0;
+    transform: translateY(18px);
+}
+
+.neblina-story__carousel {
+    width: min(100%, 380px);
+    margin: 0 auto 24px;
+    overflow: hidden;
+    border-radius: 26px;
+    box-shadow: 0 18px 34px rgba(30, 30, 30, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.neblina-story__carousel-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.8s ease;
+}
+
+.neblina-story__carousel-slide {
+    flex: 0 0 100%;
+    aspect-ratio: 3 / 4;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.neblina-story__carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.neblina-story__dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.neblina-story__dot {
+    width: 8px;
+    height: 8px;
+    border: 0;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.38);
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.neblina-story__dot.is-active {
+    background: #f7f7f7;
+    transform: scale(1.25);
+}
+
+.neblina-story.is-visible .neblina-story__title {
+    animation: neblinaStoryIn 1.2s ease forwards;
+}
+
+.neblina-story__text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.12rem, 2.9vw, 1.42rem);
+    line-height: 1.7;
+    letter-spacing: 0.025em;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.94);
+    opacity: 0;
+    transform: translateY(18px);
+}
+
+.neblina-story__text + .neblina-story__text {
+    margin-top: 22px;
+}
+
+.neblina-story.is-visible .neblina-story__text:nth-of-type(1) {
+    animation: neblinaStoryIn 1.2s ease forwards;
+    animation-delay: 0.35s;
+}
+
+.neblina-story.is-visible .neblina-story__text:nth-of-type(2) {
+    animation: neblinaStoryIn 1.2s ease forwards;
+    animation-delay: 0.8s;
+}
+
+.neblina-story__signature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 28px;
+    opacity: 0;
+    transform: translateY(18px);
+}
+
+.neblina-story.is-visible .neblina-story__signature {
+    animation: neblinaStoryIn 1.2s ease forwards;
+    animation-delay: 1.25s;
+}
+
+.neblina-story__signature-name {
+    font-family: 'Rouge Script', cursive;
+    font-size: clamp(1.9rem, 5vw, 2.5rem);
+    line-height: 1;
+    color: #f7f7f7;
+}
+
+.neblina-story__signature-heart {
+    font-size: clamp(2rem, 2.5vw, 1.35rem);
+    color: #f7f7f7;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center;
+    animation: neblinaHeartBeat 1.4s ease-in-out infinite;
+}
+
+@keyframes neblinaStoryIn {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.neblina-ceremony {
+    min-height: 52vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 24px 0px;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.1s ease, transform 1.1s ease;
+}
+
+.neblina-ceremony.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.neblina-ceremony__card {
+    width: min(100%, 360px);
+    padding: 0px 24px 20px;
+    text-align: center;
+    border: 1px solid rgba(170, 170, 170, 0.42);
+    background: rgba(250, 248, 243, 0.95);
+    box-shadow: 0 18px 34px rgba(55, 55, 55, 0.08);
+    color: #7b7b7b;
+}
+
+.neblina-ceremony__icon {
+    width: 110px;
+    margin: 0 auto 18px;
+    color: #9b9b9b;
+    opacity: 0;
+    transform: translateY(14px);
+}
+
+.neblina-ceremony.is-visible .neblina-ceremony__icon {
+    animation: neblinaStoryIn 1.2s ease forwards;
+}
+
+.neblina-ceremony__icon svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.neblina-ceremony__title {
+    font-family: 'Rouge Script', cursive;
+    font-size: clamp(2.1rem, 5.4vw, 2.9rem);
+    line-height: 1;
+    margin: 0 0 12px;
+    color: #7a7a7a;
+}
+
+.neblina-ceremony__time {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 4.8vw, 2.25rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin: 0 0 16px;
+    color: #6d6d6d;
+}
+
+.neblina-ceremony__place {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.8vw, 1.2rem);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+    color: #7a7a7a;
+}
+
+.neblina-ceremony__address {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.95rem, 2.6vw, 1.08rem);
+    margin: 0 0 24px;
+    color: #8b8b8b;
+}
+
+.neblina-ceremony__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 18px;
+    border: 1px solid rgba(150, 150, 150, 0.5);
+    text-decoration: none;
+    color: #8a8a8a;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.neblina-final {
+    min-height: 45vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 24px 84px;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.1s ease, transform 1.1s ease;
+}
+
+.neblina-final.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.neblina-final__card {
+    width: min(100%, 380px);
+    text-align: center;
+    background: rgba(248, 247, 244, 0.96);
+    border: 1px solid rgba(170, 170, 170, 0.4);
+    box-shadow: 0 18px 34px rgba(55, 55, 55, 0.08);
+    padding: 34px 24px 30px;
+    color: #6f6f6f;
+}
+
+.neblina-final__message {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.15rem, 3vw, 1.45rem);
+    line-height: 1.7;
+    margin: 0 0 28px;
+    color: #6f6f6f;
+}
+
+.neblina-final__gift {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.neblina-final__gift-icon {
+    width: 72px;
+    color: #9b9b9b;
+    opacity: 0;
+    transform: translateY(14px);
+}
+
+.neblina-final.is-visible .neblina-final__gift-icon {
+    animation: neblinaStoryIn 1.2s ease forwards;
+    animation-delay: 0.2s;
+}
+
+.neblina-final__gift-icon svg {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.neblina-final__gift-title {
+    font-family: 'Rouge Script', cursive;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    line-height: 1;
+    margin: 0;
+    color: #7a7a7a;
+}
+
+.neblina-final__gift-message {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.6vw, 1.12rem);
+    line-height: 1.7;
+    margin: 0;
+    color: #7c7c7c;
+}
+
+@keyframes neblinaSaveUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes neblinaHeartBeat {
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.18);
+    }
+}
+
+@media (max-width: 480px) {
+    .neblina-save-date {
+        min-height: 66vh;
+    }
+
+    .neblina-save-date__card {
+        padding: 24px 18px 22px;
+    }
+
+    .neblina-save-date__countdown {
+        gap: 8px;
+    }
+}

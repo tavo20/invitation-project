@@ -84,6 +84,9 @@ export class GustavoGisselComponent implements AfterViewInit {
   };
 
   get data(): GustavoGisselInvitationData {
+
+    console.log('this.invitationData', this.invitationData);
+
     return { ...this.defaultData, ...(this.invitationData ?? {}) };
   }
 
@@ -103,6 +106,10 @@ export class GustavoGisselComponent implements AfterViewInit {
   @ViewChildren('parallaxImg') parallaxImgs!: QueryList<ElementRef<HTMLImageElement>>;
   @ViewChild('countdownSection') countdownSectionRef!: ElementRef<HTMLDivElement>;
   @ViewChild('eventSection') eventSectionRef!: ElementRef<HTMLElement>;
+  @ViewChild('dressCodeSection') dressCodeSectionRef!: ElementRef<HTMLElement>;
+  @ViewChild('confirmSection') confirmSectionRef!: ElementRef<HTMLElement>;
+  @ViewChild('sobresSection') sobresSectionRef!: ElementRef<HTMLElement>;
+  @ViewChild('cierreSection') cierreSectionRef!: ElementRef<HTMLElement>;
 
   ngAfterViewInit(): void {
     const observer = new IntersectionObserver(
@@ -118,6 +125,10 @@ export class GustavoGisselComponent implements AfterViewInit {
     );
     if (this.countdownSectionRef) observer.observe(this.countdownSectionRef.nativeElement);
     if (this.eventSectionRef) observer.observe(this.eventSectionRef.nativeElement);
+    if (this.dressCodeSectionRef) observer.observe(this.dressCodeSectionRef.nativeElement);
+    if (this.confirmSectionRef) observer.observe(this.confirmSectionRef.nativeElement);
+    if (this.sobresSectionRef) observer.observe(this.sobresSectionRef.nativeElement);
+    if (this.cierreSectionRef) observer.observe(this.cierreSectionRef.nativeElement);
   }
 
   @HostListener('window:scroll')

@@ -1,0 +1,174 @@
+<section class="neblina-hero">
+    <img *ngIf="data.heroImage" [src]="data.heroImage" alt="Portada Neblina" class="neblina-hero__photo">
+    <div class="neblina-hero__overlay"></div>
+
+    <div class="neblina-hero__content">
+        <div class="neblina-hero__monogram" *ngIf="data.inicial_1 || data.inicial_2">
+            <span class="neblina-hero__initial neblina-hero__initial--one" *ngIf="data.inicial_1">{{ data.inicial_1 }}</span>
+            <span class="neblina-hero__initial neblina-hero__initial--two" *ngIf="data.inicial_2">{{ data.inicial_2 }}</span>
+        </div>
+        <h1 class="neblina-hero__names">
+            {{ data.names1 }} <br>
+            <span class="neblina-hero__ampersand">&amp;</span><br>
+            {{ data.names2 }}
+        </h1>
+        <div class="neblina-hero__date-block">
+            <div class="neblina-hero__divider"></div>
+            <p class="neblina-hero__date">{{ data.date }}</p>
+            <div class="neblina-hero__divider"></div>
+
+        </div>
+    </div>
+
+    <div class="neblina-hero__scroll">
+        <p>Desliza hacia abajo</p>
+        <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M4 9l8 8 8-8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+    </div>
+
+    <button class="neblina-hero__music" (click)="togglePlayPause()" aria-label="Reproducir música">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+            stroke-linejoin="round">
+            <path d="M9 18V5l12-2v13" />
+            <circle cx="6" cy="18" r="3" />
+            <circle cx="18" cy="16" r="3" />
+        </svg>
+    </button>
+</section>
+
+<audio #audioPlayer src="assets/songs/thinking_out.mp3"></audio>
+
+<section class="neblina-quote" #quoteSection>
+    <div class="neblina-quote__mark neblina-quote__mark--top">“</div>
+    <p class="neblina-quote__text">{{ data.quote }}</p>
+    <div class="neblina-quote__mark neblina-quote__mark--bottom">”</div>
+</section>
+
+<section class="neblina-save-date" #saveDateSection>
+    <div class="neblina-save-date__card">
+        <div class="neblina-save-date__heart">♥</div>
+        <h2 class="neblina-save-date__title">Falta el gran día</h2>
+
+        <div class="neblina-save-date__countdown">
+            <div class="neblina-save-date__unit neblina-save-date__unit--days">
+                <span class="neblina-save-date__value">{{ days }}</span>
+                <span class="neblina-save-date__label">Días</span>
+            </div>
+
+            <div class="neblina-save-date__unit neblina-save-date__unit--hours">
+                <span class="neblina-save-date__value">{{ formatNumber(hours) }}</span>
+                <span class="neblina-save-date__label">Hrs</span>
+            </div>
+
+            <div class="neblina-save-date__unit neblina-save-date__unit--minutes">
+                <span class="neblina-save-date__value">{{ formatNumber(minutes) }}</span>
+                <span class="neblina-save-date__label">Min</span>
+            </div>
+
+            <div class="neblina-save-date__unit neblina-save-date__unit--seconds">
+                <span class="neblina-save-date__value">{{ formatNumber(seconds) }}</span>
+                <span class="neblina-save-date__label">Seg</span>
+            </div>
+        </div>
+
+        <p class="neblina-save-date__date">14 DE FEB DEL 2027</p>
+        <a href="#" class="neblina-save-date__button">Confirmar asistencia</a>
+
+        <div>
+            <img class="neblina-save-date__flower" src="assets/neblina/flor_4.png" alt="Mapa">
+        </div>
+    </div>
+</section>
+
+<section class="neblina-parents" #parentsSection>
+    <p class="neblina-parents__title">{{ data.parentsTitle }}</p>
+    <div class="neblina-parents__line"></div>
+
+    <div class="neblina-parents__group">
+        <p class="neblina-parents__label">{{ data.brideLabel }}</p>
+        <p class="neblina-parents__name">{{ data.brideParent1 }}</p>
+        <p class="neblina-parents__name">{{ data.brideParent2 }}</p>
+    </div>
+
+    <div class="neblina-parents__group">
+        <p class="neblina-parents__label">{{ data.groomLabel }}</p>
+        <p class="neblina-parents__name">{{ data.groomParent1 }}</p>
+        <p class="neblina-parents__name">{{ data.groomParent2 }}</p>
+    </div>
+
+    <div class="neblina-parents__group">
+        <p class="neblina-parents__label">{{ data.padrinosLabel }}</p>
+        <p class="neblina-parents__name">{{ data.padrino1 }}</p>
+        <p class="neblina-parents__name">{{ data.padrino2 }}</p>
+    </div>
+</section>
+
+<section class="neblina-story" #storySection>
+    <div class="neblina-story__panel">
+        <h2 class="neblina-story__title">{{ data.storyTitle }}</h2>
+        <div class="neblina-story__carousel" *ngIf="data.storyImages.length">
+            <div
+                class="neblina-story__carousel-track"
+                [style.transform]="'translateX(-' + (currentStorySlide * 100) + '%)'">
+                <div class="neblina-story__carousel-slide" *ngFor="let image of data.storyImages; let i = index">
+                    <img [src]="image" [alt]="'Historia de Lucía y Santiago ' + (i + 1)">
+                </div>
+            </div>
+        </div>
+        <div class="neblina-story__dots" *ngIf="data.storyImages.length > 1">
+            <button
+                type="button"
+                class="neblina-story__dot"
+                *ngFor="let image of data.storyImages; let i = index"
+                [class.is-active]="currentStorySlide === i"
+                (click)="setStorySlide(i)"
+                [attr.aria-label]="'Ver foto ' + (i + 1)">
+            </button>
+        </div>
+        <p class="neblina-story__text">{{ data.storyText1 }}</p>
+        <p class="neblina-story__text">{{ data.storyText2 }}</p>
+        <div class="neblina-story__signature">
+            <span class="neblina-story__signature-name">{{ data.names1 }}</span>
+            <span class="neblina-story__signature-heart">♥</span>
+            <span class="neblina-story__signature-name">{{ data.names2 }}</span>
+        </div>
+    </div>
+</section>
+
+<section class="neblina-ceremony" #ceremonySection>
+    <div class="neblina-ceremony__card">
+        <div class="neblina-ceremony__icon" aria-hidden="true">
+            <svg viewBox="0 0 120 120" role="presentation">
+                <path d="M28 94V56l14-11V31h11v6l7-6 16 13V42h11v12l15 12v28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M47 94V66h26v28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M53 42h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
+                <path d="M60 32v20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
+                <path d="M28 94h64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
+            </svg>
+        </div>
+        <p class="neblina-ceremony__title">{{ data.ceremonyTitle }}</p>
+        <p class="neblina-ceremony__time">{{ data.ceremonyTime }}</p>
+        <p class="neblina-ceremony__place">{{ data.ceremonyPlace }}</p>
+        <p class="neblina-ceremony__address">{{ data.ceremonyAddress }}</p>
+        <a href="#" class="neblina-ceremony__button">{{ data.ceremonyButton }}</a>
+    </div>
+</section>
+
+<section class="neblina-final" #finalSection>
+    <div class="neblina-final__card">
+        <p class="neblina-final__message">{{ data.finalMessage }}</p>
+
+        <div class="neblina-final__gift">
+            <div class="neblina-final__gift-icon" aria-hidden="true">
+                <svg viewBox="0 0 120 90" role="presentation">
+                    <path d="M16 28h88v44H16z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"></path>
+                    <path d="M16 28l44 28 44-28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M16 72l30-22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path>
+                    <path d="M104 72L74 50" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"></path>
+                </svg>
+            </div>
+            <p class="neblina-final__gift-title">{{ data.giftTitle }}</p>
+        </div>
+    </div>
+</section>

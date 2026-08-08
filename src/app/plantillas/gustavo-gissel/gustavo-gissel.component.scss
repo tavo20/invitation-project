@@ -294,7 +294,7 @@ $bg: #F5F2EC;
 
 .padres-titulo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3em;
+    font-size: 2em;
     color: $accent;
     font-weight: 700;
     margin: 0;
@@ -382,7 +382,7 @@ $bg: #F5F2EC;
 
     .text {
         font-family: 'Cormorant Garamond', serif;
-        font-size: 2.2em;
+        font-size: 2em;
         color: $text-dark;
         margin: 20px 0 0 0;
         letter-spacing: 2px;
@@ -426,7 +426,7 @@ $bg: #F5F2EC;
 
 .event-titulo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3em;
+    font-size: 2em;
     color: $text-dark;
     font-weight: 700;
     margin: 24px 0 10px 0;
@@ -434,7 +434,7 @@ $bg: #F5F2EC;
 }
 
 .event-venue {
-    font-size: 1.2em;
+    font-size: 1em;
     color: $text-dark;
     margin: 0 0 10px 0;
     letter-spacing: 3px;
@@ -473,6 +473,25 @@ $bg: #F5F2EC;
     }
 }
 
+.section-reveal {
+  opacity: 0;
+  transition: opacity 1s ease, transform 1s ease;
+  will-change: transform, opacity;
+}
+
+.section-reveal--left {
+  transform: translateX(-60px);
+}
+
+.section-reveal--right {
+  transform: translateX(60px);
+}
+
+.section-reveal.animate {
+  opacity: 1;
+  transform: translateX(0);
+}
+
 // dress code
 .dress-code-section {
     display: flex;
@@ -486,7 +505,7 @@ $bg: #F5F2EC;
 
 .dress-code-titulo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3em;
+    font-size: 2em;
     color: $accent;
     font-weight: 700;
     margin: 0;
@@ -542,7 +561,7 @@ $bg: #F5F2EC;
 
 .confirma-titulo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3em;
+    font-size: 2em;
     color: $accent;
     font-weight: 700;
     margin: 0;
@@ -570,7 +589,7 @@ $bg: #F5F2EC;
 
 .sobres-titulo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3em;
+    font-size: 2em;
     color: $accent;
     font-weight: 700;
     margin: 0;
@@ -604,9 +623,41 @@ $bg: #F5F2EC;
     box-sizing: border-box;
 }
 
+.cierre-section > * {
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: opacity 1s ease, transform 1s ease;
+    will-change: transform, opacity;
+}
+
+.cierre-section > *:nth-of-type(even) {
+    transform: translateX(60px);
+}
+
+.cierre-section.animate > * {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.cierre-section.animate > *:nth-of-type(1) {
+    transition-delay: 0.1s;
+}
+
+.cierre-section.animate > *:nth-of-type(2) {
+    transition-delay: 0.35s;
+}
+
+.cierre-section.animate > *:nth-of-type(3) {
+    transition-delay: 0.6s;
+}
+
+.cierre-section.animate > *:nth-of-type(4) {
+    transition-delay: 0.85s;
+}
+
 .cierre-highlight {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.6em;
+    font-size: 2em;
     color: $accent;
     font-weight: 700;
     margin: 0 0 30px 0;
@@ -624,7 +675,7 @@ $bg: #F5F2EC;
 
 .cierre-final {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2em;
+    font-size: 2em;
     color: $accent;
     font-weight: 700;
     line-height: 1.3;

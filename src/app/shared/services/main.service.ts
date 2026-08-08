@@ -30,13 +30,13 @@ export class MainService {
       template: "red",
       active: true
     },
-      {
-        id: 4,
-        slug: "g-n",
-        data: {},
-        template: "g-n",
-        active: true
-      },
+    {
+      id: 4,
+      slug: "g-n",
+      data: {},
+      template: "g-n",
+      active: true
+    },
     {
       id: 5,
       slug: "xv-carmesi",
@@ -53,8 +53,20 @@ export class MainService {
     },
     {
       id: 7,
-      slug: "g-g",
-      data: {},
+      slug: "gabriel-andrea",
+      data: {
+        heroImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/sign/invitation/portada.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82NjY1YjI5My1jMDQyLTQ5MGEtODM2Zi1kODI4ZmQ5NTM2NTAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbnZpdGF0aW9uL3BvcnRhZGEuanBnIiwic2NvcGUiOiJkb3dubG9hZCIsImlhdCI6MTc4NTg0NDAxNywiZXhwIjoxOTExOTg4MDE3fQ.WRwYO0zdyZMdz_0cadcPnxBbuIUgQzKxNO8D08cbzfI",
+        heroPretitle: "Gabriel & Andrea",
+        heroTitle: "NOS CASAMOS",
+        heroMessage: "Dos historias se encontraron y hoy celebramos el inicio de un camino lleno de amor, ilusión y nuevos recuerdos.",
+        weddingDate: "December 12, 2026 17:30:00",
+        dayOfWeek: "SÁBADO",
+        dayNumber: "12",
+        year: "2026",
+        month: "D I C",
+        parallaxImage1: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/sign/invitation/basic_01.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82NjY1YjI5My1jMDQyLTQ5MGEtODM2Zi1kODI4ZmQ5NTM2NTAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbnZpdGF0aW9uL2Jhc2ljXzAxLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODU4NDM5NzcsImV4cCI6MTkxMTk4Nzk3N30.FRvoa8RKV6Rk1vApDOajYBlcUix9emsw6JFyZ2eGMj4',
+        parallaxImage2: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/sign/invitation/basic_02.jpg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82NjY1YjI5My1jMDQyLTQ5MGEtODM2Zi1kODI4ZmQ5NTM2NTAiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJpbnZpdGF0aW9uL2Jhc2ljXzAyLmpwZyIsInNjb3BlIjoiZG93bmxvYWQiLCJpYXQiOjE3ODU4NDQwMzMsImV4cCI6MTkxMTk4ODAzM30.Sjj25V4V1gLnv4-9h0BUtOXewcyO1w1s_q01sFDjsZE',
+      },
       template: "g-g",
       active: true
     },
@@ -149,10 +161,21 @@ export class MainService {
       active: true
     },
     {
-      id: 11,
-      slug: "ana-pedro",
-      data: {},
-      template: "ana-pedro",
+      id: 12,
+      slug: "neblina",
+      data: {
+        inicial_1: "L",
+        inicial_2: "S",
+        heroImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_2_neblina.jpeg",
+        monogram: "LS",
+        names1: "Lucía",
+        names2: "Santiago",
+        date: "14 · 02 · 2027",
+        location: "Bogotá, Colombia",
+        quote: "El amor nos unió para siempre y queremos compartir este gran día contigo."
+        
+      },
+      template: "neblina",
       active: true
     }
   ]

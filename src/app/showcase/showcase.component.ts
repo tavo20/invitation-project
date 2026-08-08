@@ -36,7 +36,7 @@ export class ShowcaseComponent {
       estilo: 'Verde Oliva',
       descripcion: 'Tonos verdes terrosos, iconos artesanales y ramitas decorativas. Ideal para bodas campestres y al aire libre.',
       imagen: 'assets/new-claude-our/portada.jpg',
-      link: '/g-g',
+      link: '/gabriel-andrea',
       tags: ['Parallax', 'Música', 'Countdown', 'Iconos SVG'],
       category: 'Boda'
     },
@@ -59,6 +59,15 @@ export class ShowcaseComponent {
       category: 'Boda'
     },
     {
+      nombre: 'Neblina',
+      estilo: 'Azul & Rosa',
+      descripcion: 'Diseñada para bodas: portada cinematográfica, tonos azules elegantes, RSVP en modal y lluvia de sobres con estilo. Pensada para un look sofisticado y actual.',
+      imagen: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_2_neblina.jpeg',
+      link: '/neblina',
+      tags: ['Neblina', 'Azul', 'Rosa', 'RSVP', 'Lluvia de Sobres'],
+      category: 'Boda'
+    },
+    {
       nombre: 'XV Años Carmesí',
       estilo: 'Borgoña & Oro Rosa',
       descripcion: 'Una propuesta de XV años con portada cinematográfica, tonos rojizos elegantes, RSVP en modal y lluvia de sobres con estilo. Pensada para un look sofisticado y actual.',
@@ -67,33 +76,34 @@ export class ShowcaseComponent {
       tags: ['XV Años', 'Modal RSVP', 'Reveal Scroll', 'Lluvia de Sobres'],
       category: 'Quinceañera'
     },
-    {
-      nombre: 'Deluxe Black',
-      estilo: 'Negro & Dorado',
-      descripcion: 'Inspirada en una invitación premium tipo deluxe: hero oscuro, cartas elegantes, modales interactivos y animaciones suaves para una experiencia más sofisticada.',
-      imagen: 'assets/15_02/Portada_2.jpeg',
-      link: '/xv-deluxe-black',
-      tags: ['Deluxe', 'Black Theme', 'Modals', 'Animaciones'],
-      category: 'Quinceañera'
-    },
-    {
-      nombre: 'Aquarelle',
-      estilo: 'Rosa & Salvia',
-      descripcion: 'Estilo acuarela con flores botánicas, sello circular, arco fotográfico, countdown, itinerario tipo grid, sobre animado para confirmación y cuenta para lluvia de sobres.',
-      imagen: 'assets/images/main-photo.png',
-      link: '/aquarelle',
-      tags: ['Acuarela', 'Floral', 'Countdown', 'Itinerario', 'Sobre Animado'],
-      category: 'Boda'
-    },
-    {
-      nombre: 'XV Años Elegante',
-      estilo: 'Champagne & Marfil',
-      descripcion: 'Diseñada para quinceañeras: itinerario con horarios, confirmación interactiva por WhatsApp, botón para copiar cuenta y hashtag para redes. Elegancia en tonos champagne.',
-      imagen: 'assets/15_01/gabi_portada.jpeg',
-      link: '/laura-juan-2',
-      tags: ['XV Años', 'Itinerario', 'RSVP Interactivo', 'Copiar Cuenta'],
-      category: 'Quinceañera'
-    }
+    // {
+    //   nombre: 'Deluxe Black',
+    //   estilo: 'Negro & Dorado',
+    //   descripcion: 'Inspirada en una invitación premium tipo deluxe: hero oscuro, cartas elegantes, modales interactivos y animaciones suaves para una experiencia más sofisticada.',
+    //   imagen: 'assets/15_02/Portada_2.jpeg',
+    //   link: '/xv-deluxe-black',
+    //   tags: ['Deluxe', 'Black Theme', 'Modals', 'Animaciones'],
+    //   category: 'Quinceañera'
+    // },
+    // {
+    //   nombre: 'Aquarelle',
+    //   estilo: 'Rosa & Salvia',
+    //   descripcion: 'Estilo acuarela con flores botánicas, sello circular, arco fotográfico, countdown, itinerario tipo grid, sobre animado para confirmación y cuenta para lluvia de sobres.',
+    //   imagen: 'assets/images/main-photo.png',
+    //   link: '/aquarelle',
+    //   tags: ['Acuarela', 'Floral', 'Countdown', 'Itinerario', 'Sobre Animado'],
+    //   category: 'Boda'
+    // },
+    // {
+    //   nombre: 'XV Años Elegante',
+    //   estilo: 'Champagne & Marfil',
+    //   descripcion: 'Diseñada para quinceañeras: itinerario con horarios, confirmación interactiva por WhatsApp, botón para copiar cuenta y hashtag para redes. Elegancia en tonos champagne.',
+    //   imagen: 'assets/15_01/gabi_portada.jpeg',
+    //   link: '/laura-juan-2',
+    //   tags: ['XV Años', 'Itinerario', 'RSVP Interactivo', 'Copiar Cuenta'],
+    //   category: 'Quinceañera'
+    // },
+
   ];
 
   get categories(): string[] {
