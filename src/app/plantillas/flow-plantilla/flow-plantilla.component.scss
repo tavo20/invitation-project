@@ -1,31 +1,25 @@
-// Base: header floral solo arriba, 130px de alto (visible en móvil)
+// Base: floral header y secciones en todo el template
 .flow-plantilla {
-  display: none;
+  display: block;
+  width: 100%;
+  background: rgb(230, 229, 229);
+  box-sizing: border-box;
 }
 
 .flow-layout {
-  display: none;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 130px;
+  width: 100%;
+  overflow: visible;
+  perspective: 400px;
+  position: relative;
 }
 
 // Teléfono y responsive: mostrar header floral
-@media (max-width: 768px) {
-  .flow-plantilla {
-    display: block;
-    width: 100%;
-    background: #faf8f5;
-    box-sizing: border-box;
-  }
-
+@media (min-width: 0px) {
   .flow-layout {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    height: 130px;
-    width: 100%;
-    overflow: visible;
-    perspective: 400px;
-    position: relative;
-
     &::after {
       content: '';
       position: absolute;
@@ -103,21 +97,11 @@
   .flow-sections-wrapper {
     position: relative;
     width: 100%;
-    background-color: #faf8f5;
+    background-color: rgb(230, 229, 229);
   }
 
   .invitation-decoration {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    min-height: 450px; // Abarca invitation (250px) + date (200px)
-    object-fit: cover;
-    object-position: top center;
-    opacity: 0.45;
-    pointer-events: none;
-    z-index: 0;
+    display: none;
   }
 
   .flow-invitation {
@@ -292,5 +276,206 @@
       color: #2a2a2a;
       line-height: 1;
     }
+  }
+
+  .flow-story,
+  .flow-parents,
+  .flow-countdown,
+  .flow-event,
+  .flow-dresscode,
+  .flow-rsvp,
+  .flow-sobres,
+  .flow-closing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 60px 24px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .flow-story {
+    padding-top: 70px;
+  }
+
+  .flow-parents,
+  .flow-event,
+  .flow-rsvp,
+  .flow-sobres,
+  .flow-closing {
+    border-top: 1px solid rgba(61, 91, 80, 0.08);
+  }
+
+  .flow-section-title,
+  .flow-story__title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.3rem, 6vw, 3rem);
+    font-weight: 400;
+    color: #2d4a3e;
+    margin: 0;
+    line-height: 1.05;
+  }
+
+  .flow-divider {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: min(320px, 100%);
+    margin: 18px 0 24px;
+  }
+
+  .flow-divider span {
+    height: 1px;
+    flex: 1;
+    background: rgba(45, 74, 62, 0.28);
+  }
+
+  .flow-divider img {
+    width: 44px;
+    height: 18px;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.8;
+    transform: scaleX(-1);
+  }
+
+  .flow-story__text,
+  .flow-countdown__text,
+  .flow-rsvp__text,
+  .flow-sobres__text,
+  .flow-closing__text,
+  .flow-dresscode__text,
+  .flow-dresscode__note,
+  .flow-event__venue,
+  .flow-event__address,
+  .flow-event__hour,
+  .flow-parent-card__name {
+    font-family: 'Montserrat', sans-serif;
+    color: #444;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .flow-story__text {
+    max-width: 440px;
+    margin-top: 12px;
+  }
+
+  .flow-parents__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    width: 100%;
+    max-width: 760px;
+  }
+
+  .flow-parent-card {
+    background: rgba(255, 255, 255, 0.74);
+    border: 1px solid rgba(45, 74, 62, 0.12);
+    padding: 18px 16px;
+  }
+
+  .flow-parent-card__label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #2d4a3e;
+    margin: 0 0 10px;
+  }
+
+  .flow-parent-card__name {
+    font-size: 0.95rem;
+    margin: 0;
+  }
+
+  .flow-countdown__text {
+    max-width: 420px;
+    margin-bottom: 18px;
+  }
+
+  .flow-event__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .flow-event__icon {
+    font-size: 2rem;
+    color: #2d4a3e;
+    line-height: 1;
+  }
+
+  .flow-event__venue {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2rem, 5vw, 2.6rem);
+    color: #2d4a3e;
+    line-height: 1;
+  }
+
+  .flow-event__address,
+  .flow-event__hour {
+    font-size: 0.92rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .flow-event__hour {
+    font-weight: 600;
+    color: #2d4a3e;
+  }
+
+  .flow-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 22px;
+    margin-top: 18px;
+    border: 1px solid rgba(45, 74, 62, 0.45);
+    color: #2d4a3e;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .flow-dresscode__text {
+    max-width: 420px;
+    margin-top: 8px;
+  }
+
+  .flow-dresscode__note {
+    max-width: 390px;
+    margin-top: 14px;
+    font-style: italic;
+    color: #6a6a6a;
+  }
+
+  .flow-sobres__text {
+    max-width: 430px;
+  }
+
+  .flow-sobres__icon {
+    width: 72px;
+    height: 72px;
+    margin-top: 20px;
+    color: #2d4a3e;
+  }
+
+  .flow-closing__highlight {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.2rem, 6vw, 3rem);
+    color: #2d4a3e;
+    margin: 0 0 14px;
+    line-height: 1.1;
+  }
+
+  .flow-closing__text {
+    max-width: 420px;
   }
 }

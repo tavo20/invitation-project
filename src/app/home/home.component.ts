@@ -25,7 +25,7 @@ import { NeblinaComponent } from '../plantillas/neblina/neblina.component';
 export class HomeComponent {
 
 
-  public templateAvailable: string = '';  public templatesAvailable: any = {
+  public  : string = '';  public templatesAvailable: any = {
     "xyz": FlowPlantillaComponent,
     "our": OurPlantillaComponent,
     "ana-pedro": OurPlantillaComponent,
@@ -57,7 +57,8 @@ export class HomeComponent {
       this.showShowcase = true;
       return;
     }
-    const data = this.mainService.getDataBySlug({ slug: slugInvitation });
+    const slug = slugInvitation.toLowerCase();
+    const data = this.mainService.getDataBySlug({ slug });
     console.log('data', data);
     if (data) {
       this.templateComponent = data.template;

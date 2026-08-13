@@ -4,7 +4,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class MainService {
-  public data: any = [
+
+  public template_fijos: any = [
     {
       id: 1,
       slug: "gus-gi",
@@ -24,31 +25,10 @@ export class MainService {
       active: true
     },
     {
-      id: 3,
-      slug: "red",
+      id: 10,
+      slug: "gerson-nataly",
       data: {},
-      template: "red",
-      active: true
-    },
-    {
-      id: 4,
-      slug: "g-n",
-      data: {},
-      template: "g-n",
-      active: true
-    },
-    {
-      id: 5,
-      slug: "xv-carmesi",
-      data: {},
-      template: "xv-carmesi",
-      active: true
-    },
-    {
-      id: 6,
-      slug: "xv-deluxe-black",
-      data: {},
-      template: "xv-deluxe-black",
+      template: "gerson-nataly",
       active: true
     },
     {
@@ -70,6 +50,59 @@ export class MainService {
       template: "g-g",
       active: true
     },
+    {
+      id: 8,
+      slug: "laura-juan",
+      data: {},
+      template: "laura-juan",
+      active: true
+    },
+    {
+      id: 12,
+      slug: "neblina",
+      data: {
+        inicial_1: "L",
+        inicial_2: "S",
+        heroImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_2_neblina.jpeg",
+        monogram: "LS",
+        names1: "Lucía",
+        names2: "Santiago",
+        date: "14 · 02 · 2027",
+        location: "Bogotá, Colombia",
+        quote: "El amor nos unió para siempre y queremos compartir este gran día contigo."
+        
+      },
+      template: "neblina",
+      active: true
+    }
+  ]
+
+  public data: any = [
+
+
+
+    {
+      id: 4,
+      slug: "g-n",
+      data: {},
+      template: "g-n",
+      active: true
+    },
+    {
+      id: 5,
+      slug: "xv-carmesi",
+      data: {},
+      template: "xv-carmesi",
+      active: true
+    },
+    {
+      id: 6,
+      slug: "xv-deluxe-black",
+      data: {},
+      template: "xv-deluxe-black",
+      active: true
+    },
+
     {
       id: 10,
       slug: "ana-pedro",
@@ -139,13 +172,7 @@ export class MainService {
       template: "g-g",
       active: true
     },
-    {
-      id: 8,
-      slug: "laura-juan",
-      data: {},
-      template: "laura-juan",
-      active: true
-    },
+
     {
       id: 9,
       slug: "laura-juan-2",
@@ -153,31 +180,6 @@ export class MainService {
       template: "laura-juan-2",
       active: true
     },
-    {
-      id: 10,
-      slug: "gerson-nataly",
-      data: {},
-      template: "gerson-nataly",
-      active: true
-    },
-    {
-      id: 12,
-      slug: "neblina",
-      data: {
-        inicial_1: "L",
-        inicial_2: "S",
-        heroImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_2_neblina.jpeg",
-        monogram: "LS",
-        names1: "Lucía",
-        names2: "Santiago",
-        date: "14 · 02 · 2027",
-        location: "Bogotá, Colombia",
-        quote: "El amor nos unió para siempre y queremos compartir este gran día contigo."
-        
-      },
-      template: "neblina",
-      active: true
-    }
   ]
   constructor() { }
 
@@ -186,6 +188,6 @@ export class MainService {
   }
 
   public getDataBySlug({ slug }: { slug: string }) {
-    return this.data.find((item: any) => (item.slug === slug && item.active));
+    return [...this.data, ...this.template_fijos].find((item: any) => (item.slug === slug && item.active));
   }
 }
