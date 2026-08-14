@@ -116,12 +116,11 @@
 /// fecha
 
 .date-display-container {
-    display: flex;
-    align-items: flex-start;
-    /* Align items to the top to better control vertical alignment */
+    display: grid;
+    align-items: center;
     gap: 20px;
-    /* Space between the main columns */
     text-align: center;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .date-segment {

@@ -1,9 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
 // Base: floral header y secciones en todo el template
 .flow-plantilla {
   display: block;
   width: 100%;
   background: rgb(230, 229, 229);
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+.flow-layout,
+.flow-sections-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.section-flecks {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section-flecks .gold-fleck {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(201, 162, 39, 0.95) 0%, rgba(184, 134, 11, 0.8) 65%, rgba(184, 134, 11, 0.15) 100%);
+  box-shadow: 0 0 10px rgba(201, 162, 39, 0.08);
+  opacity: 0.7;
+}
+
+.section-flecks .section-fleck-1 {
+  top: 12%;
+  right: 10%;
+}
+
+.section-flecks .section-fleck-2 {
+  bottom: 14%;
+  left: 12%;
+  width: 3px;
+  height: 3px;
+  opacity: 0.55;
+}
+.section-flecks .section-fleck-3 {
+  bottom: 24%;
+  left: 22%;
+  width: 3px;
+  height: 3px;
+  opacity: 0.55;
 }
 
 .flow-layout {
@@ -97,7 +144,8 @@
   .flow-sections-wrapper {
     position: relative;
     width: 100%;
-    background-color: rgb(230, 229, 229);
+    // background-color: rgb(230, 229, 229);
+    background: linear-gradient(135deg, rgba(250, 248, 245, 0.75) 0%, rgba(245, 242, 236, 0.75) 50%, rgba(250, 248, 245, 0.75) 100%);
   }
 
   .invitation-decoration {
@@ -112,7 +160,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(250, 248, 245, 0.75) 0%, rgba(245, 242, 236, 0.75) 50%, rgba(250, 248, 245, 0.75) 100%);
 
     &::before {
       content: '';
@@ -193,7 +240,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(250, 248, 245, 0.75) 0%, rgba(245, 242, 236, 0.75) 50%, rgba(250, 248, 245, 0.75) 100%);
+    // background: linear-gradient(135deg, rgba(250, 248, 245, 0.75) 0%, rgba(245, 242, 236, 0.75) 50%, rgba(250, 248, 245, 0.75) 100%);
 
     .date-bg {
       position: absolute;
@@ -283,9 +330,11 @@
   .flow-countdown,
   .flow-event,
   .flow-dresscode,
+  .flow-itinerary,
   .flow-rsvp,
   .flow-sobres,
   .flow-closing {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -299,13 +348,13 @@
     padding-top: 70px;
   }
 
-  .flow-parents,
-  .flow-event,
-  .flow-rsvp,
-  .flow-sobres,
-  .flow-closing {
-    border-top: 1px solid rgba(61, 91, 80, 0.08);
-  }
+  // .flow-parents,
+  // .flow-event,
+  // .flow-rsvp,
+  // .flow-sobres,
+  // .flow-closing {
+  //   border-top: 1px solid rgba(61, 91, 80, 0.08);
+  // }
 
   .flow-section-title,
   .flow-story__title {
@@ -331,13 +380,18 @@
     background: rgba(45, 74, 62, 0.28);
   }
 
-  .flow-divider img {
-    width: 44px;
-    height: 18px;
-    object-fit: cover;
-    object-position: center;
-    opacity: 0.8;
-    transform: scaleX(-1);
+  .flow-divider img,
+  .flow-parents__icon,
+  .flow-countdown__icon,
+  .flow-event__divider-icon,
+  .flow-dresscode__icon,
+  .flow-itinerary__icon,
+  .flow-sobres__icon {
+    width: 26px;
+    height: 26px;
+    color: #2d4a3e;
+    flex-shrink: 0;
+    opacity: 0.78;
   }
 
   .flow-story__text,
@@ -364,30 +418,85 @@
 
   .flow-parents__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-    width: 100%;
-    max-width: 760px;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 0;
+    width: min(100%, 820px);
+    padding: 26px 18px;
+    border-radius: 30px;
+    border: 1px solid rgba(45, 74, 62, 0.12);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(247, 244, 237, 0.92) 100%);
+    box-shadow: 0 20px 38px rgba(45, 74, 62, 0.08);
+    backdrop-filter: blur(2px);
+  }
+
+  .flow-parents__heading {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 6px;
+  }
+
+  .flow-divider--small {
+    width: min(240px, 100%);
+    margin: 12px 0 0;
   }
 
   .flow-parent-card {
-    background: rgba(255, 255, 255, 0.74);
-    border: 1px solid rgba(45, 74, 62, 0.12);
-    padding: 18px 16px;
+    background: transparent;
+    border: 0;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 160px;
+    text-align: center;
   }
 
+  .flow-parent-card--padrinos {
+    position: relative;
+  }
+
+  // .flow-parent-card--padrinos::before {
+  //   content: '';
+  //   position: absolute;
+  //   top: 12px;
+  //   left: 50%;
+  //   width: 70px;
+  //   height: 1px;
+  //   background: rgba(45, 74, 62, 0.22);
+  //   transform: translateX(-50%);
+  // }
+
   .flow-parent-card__label {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(1.8rem, 4vw, 2.45rem);
+    line-height: 1;
     color: #2d4a3e;
-    margin: 0 0 10px;
+    margin: 0 0 14px;
+    font-weight: 400;
   }
 
   .flow-parent-card__name {
-    font-size: 0.95rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1rem, 2.7vw, 1.14rem);
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #424242;
     margin: 0;
+  }
+
+  .flow-parent-card__name + .flow-parent-card__name {
+    margin-top: 6px;
+  }
+
+  .flow-parents__separator {
+    align-self: stretch;
+    width: 1px;
+    margin: 16px 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(45, 74, 62, 0.28) 18%, rgba(45, 74, 62, 0.28) 82%, transparent 100%);
   }
 
   .flow-countdown__text {
@@ -444,27 +553,126 @@
     background: rgba(255, 255, 255, 0.55);
   }
 
-  .flow-dresscode__text {
-    max-width: 420px;
-    margin-top: 8px;
+  .flow-rsvp__card {
+    width: min(100%, 400px);
+    padding: 32px 24px 28px;
+    border: 1px solid rgba(45, 74, 62, 0.12);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(247, 244, 237, 0.92) 100%);
+    box-shadow: 0 18px 34px rgba(45, 74, 62, 0.08);
+  }
+
+  .flow-rsvp__icon {
+    width: 42px;
+    height: 32px;
+    margin: 0 auto 12px;
+    color: #2d4a3e;
+    opacity: 0.78;
+    display: block;
+  }
+
+  .flow-rsvp__card .flow-divider {
+    margin: 14px auto 18px;
+  }
+
+  .flow-rsvp__text {
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .flow-dresscode__style {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(2.2rem, 6vw, 3.1rem);
+    color: #2d4a3e;
+    line-height: 1;
+    margin: 6px 0 22px;
+  }
+
+  .flow-dresscode__palette {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .flow-dresscode__swatch {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--swatch);
+    box-shadow: inset 0 0 0 1px rgba(45, 74, 62, 0.08);
+  }
+
+  .flow-dresscode__swatch--gold {
+    background: radial-gradient(circle at 32% 28%, #f4e3a3 0%, #c9a227 48%, #8d6b12 100%);
+    box-shadow: 0 0 10px rgba(201, 162, 39, 0.28), inset 0 0 0 1px rgba(141, 107, 18, 0.18);
   }
 
   .flow-dresscode__note {
     max-width: 390px;
-    margin-top: 14px;
+    margin-top: 18px;
     font-style: italic;
     color: #6a6a6a;
   }
 
-  .flow-sobres__text {
-    max-width: 430px;
+  .flow-itinerary__list {
+    list-style: none;
+    margin: 8px 0 0;
+    padding: 0 0 0 22px;
+    // width: min(100%, 280px);
+    position: relative;
   }
 
-  .flow-sobres__icon {
-    width: 72px;
-    height: 72px;
-    margin-top: 20px;
+  .flow-itinerary__list::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 5px;
+    width: 1px;
+    background: linear-gradient(180deg, rgba(45, 74, 62, 0.08), rgba(45, 74, 62, 0.32), rgba(45, 74, 62, 0.08));
+  }
+
+  .flow-itinerary__item {
+    position: relative;
+    padding: 0 0 28px 18px;
+    text-align: left;
+  }
+
+  .flow-itinerary__item:last-child {
+    padding-bottom: 4px;
+  }
+
+  .flow-itinerary__item::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: -20px;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #c9a227;
+    box-shadow: 0 0 0 4px rgba(201, 162, 39, 0.16);
+  }
+
+  .flow-itinerary__time {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.35rem, 4vw, 1.7rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: #2d4a3e;
+    margin: 0 0 4px;
+    line-height: 1.1;
+  }
+
+  .flow-itinerary__label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.86rem;
+    color: #6a7468;
+    margin: 0;
+  }
+
+  .flow-sobres__text {
+    max-width: 430px;
   }
 
   .flow-closing__highlight {
@@ -477,5 +685,41 @@
 
   .flow-closing__text {
     max-width: 420px;
+  }
+
+  .flow-parents__grid {
+    grid-template-columns: 1fr;
+    padding: 22px 18px;
+    gap: 0;
+  }
+
+  .flow-parent-card {
+    min-height: auto;
+    padding: 10px 0;
+  }
+
+  // .flow-parent-card--padrinos::before {
+  //   width: 56px;
+  //   top: 8px;
+  // }
+
+  .flow-parents__separator {
+    width: 74px;
+    height: 1px;
+    margin: 8px auto;
+    align-self: center;
+    background: linear-gradient(90deg, transparent 0%, rgba(45, 74, 62, 0.28) 18%, rgba(45, 74, 62, 0.28) 82%, transparent 100%);
+  }
+}
+
+@keyframes flowFleckPulse {
+  from {
+    transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) scale(0.85);
+    opacity: 0.18;
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) scale(1.15);
+    opacity: 0.8;
   }
 }

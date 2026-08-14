@@ -2,45 +2,36 @@
     <!-- <div> -->
     <div class="main-image">
         <!-- <img src="../../../assets/images/test123.svg" alt=""> -->
-        <img src="assets/images/main-photo.png" alt="floe">
+        <img [src]="data.heroImage" alt="floe">
     </div>
 
     <div class="logo-container">
         <div class="names-top">
-            <span style="--angle: -80deg;">G</span>
-            <span style="--angle: -70deg;">U</span>
-            <span style="--angle: -60deg;">S</span>
-            <span style="--angle: -50deg;">T</span>
-            <span style="--angle: -40deg;">A</span>
-            <span style="--angle: -30deg;">V</span>
-            <span style="--angle: -20deg;">0</span>
-            <span style="--angle: 0deg;">&</span>
-            <span style="--angle: 20deg;">G</span>
-            <span style="--angle: 30deg;">I</span>
-            <span style="--angle: 40deg;">S</span>
-            <span style="--angle: 50deg;">S</span>
-            <span style="--angle: 60deg;">E</span>
-            <span style="--angle: 70deg;">L</span>
+            <span
+                *ngFor="let letter of curveLetters; let i = index"
+                [style.--angle]="getCurveAngle(i, curveLetters.length)">
+                {{ letter }}
+            </span>
         </div>
 
         <div class="initials">
-            <span>G</span> <span class="ampersand">&</span> <span>G</span>
+            <span>{{ data.heroNames1.charAt(0) }}</span> <span class="ampersand">&</span> <span>{{ data.heroNames2.charAt(0) }}</span>
         </div>
     </div>
 
     <div class="date-display-container">
         <div class="date-segment">
-            <div class="day-of-week">SÁBADO</div>
+            <div class="day-of-week">{{ data.dayOfWeek }}</div>
             <div class="line"></div>
         </div>
 
         <div class="day-number-year">
-            <div class="day-number">9</div>
-            <div class="year">2025</div>
+            <div class="day-number">{{ data.dayNumber }}</div>
+            <div class="year">{{ data.year }}</div>
         </div>
 
         <div class="date-segment">
-            <div class="month">A G O</div>
+            <div class="month">{{ data.month }}</div>
             <div class="line"></div>
         </div>
     </div>
@@ -49,7 +40,7 @@
         <img src="../../assets/images/icon-music.png" alt="">
         <p class="sound-play">Toca aquí</p>
     </div>
-    <audio #audioPlayer src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Fonseca%20-%20Que%20Suerte%20Tenerte%20(Audio).mp3"></audio>
+    <audio #audioPlayer [src]="data.audioSrc"></audio>
 
 
 
@@ -58,25 +49,24 @@
         <img src="../../assets/images/planta.png" alt="Decorative plant leaves" class="plant-image_3">
 
 
-        <div class="name-row start">Gustavo</div>
+        <div class="name-row start">{{ data.heroNames1 }}</div>
         <div class="name-row ampersand2">&</div>
-        <div class="name-row end">Gissel</div>
+        <div class="name-row end">{{ data.heroNames2 }}</div>
         <img src="../../assets/images/planta.png" alt="Decorative plant leaves" class="plant-image_2">
 
     </div>
 
 
 
-    <div class="container-invitado" *ngIf="showInvitado">
-       Bienvenid&commat;s a nuestra Boda. <br>
-       <span class="invitado-name">{{ invitado.name}}</span> 
+    <div class="container-invitado" *ngIf="data.guestName">
+       {{ data.guestMessage }} <br>
+       <span class="invitado-name">{{ data.guestName }}</span> 
     </div>
 
 
     <section class="container-qu">
-        <p class="message">"El amor es paciente, es bondadoso. El amor no es envidioso ni orgulloso. No se comporta con
-            rudeza, no es egoísta, no se enoja fácilmente, no guarda rencor."</p>
-        <div>1 Corintios 13:4-5</div>
+        <p class="message">"{{ data.quote }}"</p>
+        <div>{{ data.quoteReference }}</div>
     </section>
 
     <div class="container-time">
@@ -88,11 +78,11 @@
     <section class="event-inline">
         <img class="event-icon" src="../../assets/images/iglesia.png" alt="Icono de iglesia">
         <div class="event-details">
-            <div class="event-title">Ceremonia y Recepción</div>
-            <p class="venue-name">ATRIO HOTEL</p>
-            <p class="address-line">Timan&aacute;, Huila</p>
-            <p class="event-hour">3:00 PM</p>
-            <a target="_blank" href="https://maps.app.goo.gl/UP6C67Tya92kXPRX7?g_st=iwb" class="location-button">
+            <div class="event-title">{{ data.eventTitle }}</div>
+            <p class="venue-name">{{ data.eventVenue }}</p>
+            <p class="address-line">{{ data.eventAddress }}</p>
+            <p class="event-hour">{{ data.eventHour }}</p>
+            <a target="_blank" [href]="data.eventMapLink" class="location-button">
                 VER MAPA
             </a>
         </div>
@@ -105,8 +95,8 @@
         <p class="dress-code-title">Dress Code</p>
         <div class="container-dress-images">
             <div class=" box container-women">
-                <img class="dress" src="../../assets/images/w-dress.png" alt=""> <br>
-                <img src="../../assets/images/w-shoes.png" alt="">
+                <img class="dress" [src]="data.dressWomenImage" alt=""> <br>
+                <img [src]="data.dressWomenShoesImage" alt="">
             </div>
             <div class="box container-men">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -151,35 +141,34 @@
                         </g>
                     </g>
                 </svg> <br>
-                <img src="../../assets/images/m-shoes.png" alt="">
+                <img [src]="data.dressMenShoesImage" alt="">
             </div>
         </div>
         <p class="dress-code-title_2">ELLAS</p>
-        <div style="padding: 0 9px;">Ellas Divinas (Se reserva el color verde oliva)</div>
+        <div style="padding: 0 9px;">{{ data.dressWomenNote }}</div>
         <p class="dress-code-title_2">ELLOS</p>
-        <div>Ellos Guapos</div>
+        <div>{{ data.dressMenNote }}</div>
     </section>
 
 
     <section class="confirma">
         <img src="../../assets/images/img-confirm.png" alt="">
-        <p class="message">Hemos pensado en ti <span>porque has sido importante en nuestras vidas,</span> queremos
-            contar contigo.</p>
+        <p class="message">{{ data.confirmMessage }}</p>
         <!-- <div class="confirma-title">Confirma</div> -->
         <button class="btn">
 
-            <a href="https://forms.gle/rZkQ7R6z6bAi4o3fA" target="_blank">Confirma aquí</a>
+            <a [href]="data.confirmLink" target="_blank">Confirma aquí</a>
         </button>
     </section>
 
 
     <section class="sobres">
         <img src="../../assets/images/fold.png" alt="">
-        <p>lluvia de sobres.</p>
+        <p>{{ data.sobresText }}</p>
     </section>
 
     <div class="last-main-image">
-        <img src="assets/images/main-photo.png" alt="floe">
+        <img [src]="data.closingImage" alt="floe">
     </div>
 
 

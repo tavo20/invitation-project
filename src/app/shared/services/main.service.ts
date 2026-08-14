@@ -19,7 +19,35 @@ export class MainService {
       id: 2,
       slug: "our",
       data: {
-
+        heroImage: "assets/images/main-photo.png",
+        heroNames1: "Gustavo",
+        heroNames2: "Gissel",
+        curveText: "GUSTAVO&GISSEL",
+        dayOfWeek: "MIÉRCOLES",
+        dayNumber: "12",
+        year: "2026",
+        month: "A G O",
+        audioSrc: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Fonseca%20-%20Que%20Suerte%20Tenerte%20(Audio).mp3",
+        guestMessage: "Bienvenid@s a nuestra Boda.",
+        guestName: "",
+        quote: "El amor es paciente, es bondadoso. No se enoja fácilmente, todo lo soporta.",
+        quoteReference: "1 Corintios 13:4-5",
+        weddingDate: "August 9, 2027 10:00:00",
+        eventTitle: "Ceremonia y Recepción",
+        eventVenue: "HACIENDA LOS FAROLES",
+        eventAddress: "San Rafael, Huila",
+        eventHour: "3:00 PM",
+        eventMapLink: "https://maps.app.goo.gl/UP6C67Tya92kXPRX7?g_st=iwb",
+        dressWomenNote: "Ellas Divinas (Se reserva el color verde oliva)",
+        dressMenNote: "Ellos Guapos",
+        dressWomenImage: "assets/images/w-dress.png",
+        dressWomenShoesImage: "assets/images/w-shoes.png",
+        dressMenImage: "assets/images/m-shoes.png",
+        dressMenShoesImage: "assets/images/m-shoes.png",
+        confirmMessage: "Hemos pensado en ti porque has sido importante en nuestras vidas, queremos contar contigo.",
+        confirmLink: "https://forms.gle/rZkQ7R6z6bAi4o3fA",
+        sobresText: "Lluvia de sobres.",
+        closingImage: "assets/images/main-photo.png"
       },
       template: "our",
       active: true
@@ -78,9 +106,6 @@ export class MainService {
   ]
 
   public data: any = [
-
-
-
     {
       id: 4,
       slug: "g-n",
@@ -178,6 +203,43 @@ export class MainService {
       slug: "laura-juan-2",
       data: {},
       template: "laura-juan-2",
+      active: true
+    },
+    {
+      id: 2,
+      slug: "pedro-ana",
+      data: {
+        heroImage: "assets/images/main-photo.png",
+        heroNames1: "Ana",
+        heroNames2: "Pedro",
+        curveText: "ANA&PEDRO",
+        dayOfWeek: "SÁBADO",
+        dayNumber: "12",
+        year: "2026",
+        month: "D I C",
+        audioSrc: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Fonseca%20-%20Que%20Suerte%20Tenerte%20(Audio).mp3",
+        guestMessage: "Bienvenid@s a nuestra Boda.",
+        guestName: "",
+        quote: "El amor no se encuentra, se construye día a día. ¡Nos casamos!",
+        quoteReference: "",
+        weddingDate: "December 12, 2026 17:30:00",
+        eventTitle: "Ceremonia y Recepción",
+        eventVenue: "HACIENDA LOS FAROLES",
+        eventAddress: "San Rafael, Cundinamarca",
+        eventHour: "3:00 PM",
+        eventMapLink: "https://maps.app.goo.gl/UP6C67Tya92kXPRX7?g_st=iwb",
+        dressWomenNote: "Ellas Divinas (Se reserva el color verde oliva)",
+        dressMenNote: "Ellos Guapos",
+        dressWomenImage: "assets/images/w-dress.png",
+        dressWomenShoesImage: "assets/images/w-shoes.png",
+        dressMenImage: "assets/images/m-shoes.png",
+        dressMenShoesImage: "assets/images/m-shoes.png",
+        confirmMessage: "Hemos pensado en ti porque has sido importante en nuestras vidas, queremos contar contigo.",
+        confirmLink: "https://forms.gle/rZkQ7R6z6bAi4o3fA",
+        sobresText: "Lluvia de sobres.",
+        closingImage: "assets/images/main-photo.png"
+      },
+      template: "our",
       active: true
     },
   ]
