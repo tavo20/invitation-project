@@ -86,6 +86,15 @@ export class MainService {
       active: true
     },
     {
+      id: 13,
+      slug: "azul-gris-colores",
+      data: {
+        palette: "navy"
+      },
+      template: "azul-gris-colores",
+      active: true
+    },
+    {
       id: 12,
       slug: "neblina",
       data: {

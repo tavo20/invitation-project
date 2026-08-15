@@ -24,6 +24,12 @@ export const routes: Routes = [
                 .then(m => m.LauraJuanComponent)
     },
     {
+        path: 'Azul-Gris-Colores',
+        loadComponent: () =>
+            import('./plantillas/azul-gris-colores/azul-gris-colores.component')
+                .then(m => m.AzulGrisColoresComponent)
+    },
+    {
         path: 'Mis-XV',
         loadComponent: () =>
             import('./plantillas/xv-elegante/xv-elegante.component')

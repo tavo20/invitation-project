@@ -1,0 +1,445 @@
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Marcellus&display=swap');
+
+// Paleta dinámica: llega desde TS como CSS variables
+$bg: var(--bg, #0F1626);
+$bg-alt: var(--bg-alt, #161F33);
+$silver: var(--silver, #AFC1DD);
+$text-light: var(--text-light, #EAEFF7);
+$text-secondary: var(--text-secondary, #B9C3D6);
+$text-muted: var(--text-muted, #8291AC);
+$border-soft: color-mix(in srgb, var(--silver, #AFC1DD) 35%, transparent);
+
+.container-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    font-family: 'Marcellus', serif;
+    background: $bg;
+    color: $text-secondary;
+}
+
+// animacion de entrada al hacer scroll
+.reveal {
+    opacity: 0;
+    transform: translateY(36px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+
+    &.visible {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+// hero con arco
+.hero-night {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 70px 30px 60px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.hero-pre {
+    font-size: 1em;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: $silver;
+    margin: 0 0 30px 0;
+}
+
+.arch-frame {
+    width: min(76vw, 330px);
+    aspect-ratio: 3 / 4.2;
+    border: 1px solid $border-soft;
+    border-radius: 170px 170px 10px 10px;
+    padding: 10px;
+    box-sizing: border-box;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 160px 160px 6px 6px;
+        display: block;
+    }
+}
+
+.hero-names {
+    font-family: 'Parisienne', cursive;
+    font-size: 3.4em;
+    color: $text-light;
+    font-weight: 400;
+    margin: 36px 0 0 0;
+    line-height: 1.1;
+    white-space: nowrap;
+
+    .hero-amp {
+        color: $silver;
+        margin: 0 4px;
+    }
+}
+
+.hero-fecha {
+    font-size: 1.1em;
+    letter-spacing: 6px;
+    color: $silver;
+    margin: 14px 0 0 0;
+}
+
+.hero-message {
+    font-size: 1em;
+    color: $text-secondary;
+    line-height: 1.8;
+    max-width: 380px;
+    margin: 10px 0 0 0;
+    font-style: italic;
+}
+
+// divisor celestial (linea + estrellas + luna)
+.divider-celestial {
+    width: 160px;
+    height: 24px;
+    color: $silver;
+    margin: 26px 0 16px;
+}
+
+// iconos del tema
+.icon-celestial {
+    width: 58px;
+    height: 58px;
+    color: $silver;
+    margin-bottom: 14px;
+
+    &.icon-sparkle {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+// secciones
+%section-base {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 70px 30px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.bg-alt {
+    background: $bg-alt;
+}
+
+.section-titulo {
+    font-family: 'Parisienne', cursive;
+    font-size: 2.4em;
+    color: $text-light;
+    font-weight: 400;
+    margin: 0 0 18px 0;
+    line-height: 1.2;
+}
+
+.section-mensaje {
+    font-size: 1em;
+    color: $text-secondary;
+    line-height: 1.8;
+    max-width: 380px;
+    margin: 0;
+}
+
+.quote-section {
+    @extend %section-base;
+}
+
+.quote-message {
+    font-size: 1em;
+    font-style: italic;
+    color: $text-light;
+    line-height: 1.9;
+    max-width: 400px;
+    margin: 0;
+    letter-spacing: 1px;
+}
+
+// parallax
+.parallax-image {
+    width: 100%;
+    height: 65vh;
+    overflow: hidden;
+    position: relative;
+
+    img {
+        width: 100%;
+        height: 130%;
+        object-fit: cover;
+        object-position: center top;
+        position: absolute;
+        top: 0;
+        left: 0;
+        will-change: transform;
+    }
+}
+
+// countdown
+.countdown-section {
+    @extend %section-base;
+}
+
+:host ::ng-deep app-count-down {
+
+
+    .countdown-numbers,
+    .countdown-numbers .colon {
+        color: $silver;
+    }
+
+    .countdown-labels {
+        color: $text-muted;
+    }
+
+    #countdown-message {
+        color: $silver;
+    }
+}
+
+.countdown-numbers {
+    color: var(--text-light, #EAEFF7);
+}
+
+.palette-picker {
+    position: fixed;
+    left: 18px;
+    bottom: 22px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.palette-picker__swatch {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--silver, #AFC1DD) 55%, transparent);
+    padding: 0;
+    cursor: pointer;
+    background: var(--silver, #AFC1DD);
+
+    &.is-active {
+        outline: 2px solid var(--text-light, #EAEFF7);
+        outline-offset: 2px;
+    }
+}
+
+// evento + timeline
+.event-section {
+    @extend %section-base;
+}
+
+.event-lugar {
+    font-size: 1em;
+    letter-spacing: 4px;
+    color: $silver;
+    margin: 0 0 34px 0;
+}
+
+.timeline {
+    border-left: 1px solid $border-soft;
+    padding-left: 26px;
+    text-align: left;
+    margin: 0 0 10px 0;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 26px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: -31px;
+        top: 6px;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: $silver;
+        box-shadow: 0 0 8px color-mix(in srgb, var(--silver, #AFC1DD) 70%, transparent);
+    }
+}
+
+.timeline-hora {
+    font-size: 0.9em;
+    letter-spacing: 3px;
+    color: $text-light;
+    margin: 0;
+}
+
+.timeline-desc {
+    font-size: 1em;
+    color: $text-muted;
+    margin: 4px 0 0 0;
+}
+
+// boton del tema
+.theme-button {
+    display: inline-block;
+    font-family: 'Marcellus', serif;
+    background: transparent;
+    color: $silver;
+    border: 1px solid $silver;
+    padding: 14px 34px;
+    text-decoration: none;
+    font-size: 0.8em;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 34px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+
+    &:hover {
+        background-color: $silver;
+        color: $bg;
+    }
+}
+
+// dress code
+.dress-section {
+    @extend %section-base;
+}
+
+.dress-tipo {
+    font-size: 0.85em;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: $silver;
+    margin: 0 0 26px 0;
+}
+
+.dress-grid {
+    display: flex;
+    gap: 60px;
+    margin-bottom: 22px;
+}
+
+.dress-grupo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dress-subtitulo {
+    font-family: 'Parisienne', cursive;
+    font-size: 1.8em;
+    font-weight: 400;
+    color: $text-light;
+    margin: 0 0 8px 0;
+}
+
+.dress-desc {
+    font-size: 0.95em;
+    color: $text-secondary;
+    margin: 0;
+}
+
+.dress-nota {
+    font-style: italic;
+    font-size: 0.9em;
+    color: $text-muted;
+    margin: 0;
+}
+
+// confirma
+.confirma-section {
+    @extend %section-base;
+}
+
+// sobres
+.sobres-section {
+    @extend %section-base;
+}
+
+// cierre
+.cierre-section {
+    @extend %section-base;
+    padding-bottom: 100px;
+}
+
+.cierre-highlight {
+    font-family: 'Parisienne', cursive;
+    font-size: 2.4em;
+    color: $text-light;
+    margin: 0 0 22px 0;
+    line-height: 1.2;
+}
+
+.cierre-texto {
+    font-size: 1em;
+    color: $text-secondary;
+    line-height: 1.8;
+    max-width: 360px;
+    margin: 0 0 26px 0;
+}
+
+.cierre-final {
+    font-family: 'Parisienne', cursive;
+    font-size: 1.9em;
+    color: $silver;
+    margin: 0;
+}
+
+// boton flotante de musica
+.music-fab {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    z-index: 10;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--bg-alt, #161F33) 88%, transparent);
+    border: 1px solid $border-soft;
+    color: $silver;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+// responsive
+@media (max-width: 550px) {
+    .hero-names {
+        font-size: 2.8em;
+    }
+
+    .dress-grid {
+        gap: 40px;
+    }
+}
+
+@media (max-width: 424px) {
+    .hero-names {
+        font-size: 2.4em;
+    }
+
+    .section-titulo {
+        font-size: 2em;
+    }
+
+    .cierre-highlight {
+        font-size: 2em;
+    }
+}

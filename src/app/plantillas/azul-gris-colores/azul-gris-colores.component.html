@@ -1,4 +1,4 @@
-<section class="container-main">
+<section class="container-main" [ngStyle]="paletteVars">
     <header class="hero-night">
         <p class="hero-pre">Nos casamos</p>
 
@@ -50,7 +50,7 @@
             <path d="M4 3.5l.4 1.1 1.1.4-1.1.4-.4 1.1-.4-1.1-1.1-.4 1.1-.4z" fill="currentColor" stroke="none" />
         </svg>
         <h2 class="section-titulo">Cada estrella cuenta</h2>
-        <app-laura-juan-count-down [targetDate]="weddingDate"></app-laura-juan-count-down>
+        <app-azul-gris-colores-count-down [targetDate]="weddingDate"></app-azul-gris-colores-count-down>
     </section>
 
     <!-- evento con timeline (fondo alternado) -->
@@ -142,6 +142,18 @@
             solo falta lo m&aacute;s importante: t&uacute;.</p>
         <p class="cierre-final">Laura & Juan</p>
     </section>
+
+    <div class="palette-picker" aria-label="Cambiar paleta de colores">
+        <button
+            type="button"
+            class="palette-picker__swatch"
+            *ngFor="let option of paletteOptions"
+            [class.is-active]="selectedPalette === option.key"
+            [style.background]="palettes[option.key].silver"
+            [attr.aria-label]="'Paleta ' + option.label"
+            (click)="setPalette(option.key)">
+        </button>
+    </div>
 
     <!-- boton flotante de musica -->
     <button class="music-fab" (click)="togglePlayPause()" aria-label="Reproducir musica">

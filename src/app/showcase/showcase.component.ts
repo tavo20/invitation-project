@@ -49,6 +49,15 @@ export class ShowcaseComponent {
       tags: ['Fondo Oscuro', 'Arco Decorativo', 'Timeline', 'Iconos Estelares'],
       category: 'Boda'
     },
+    // {
+    //   nombre: 'Azul Gris Colores',
+    //   estilo: 'Azul & Gris',
+    //   descripcion: 'Copia de la plantilla celestial con arco fotográfico, timeline, countdown e iconos estelares, lista para personalizar.',
+    //   imagen: 'assets/new-claude-our/basic_02.jpg',
+    //   link: '/azul-gris-colores',
+    //   tags: ['Azul', 'Gris', 'Timeline', 'Countdown'],
+    //   category: 'Boda'
+    // },
     {
       nombre: 'Botánico Dorado',
       estilo: 'Dorado & Hojas',
