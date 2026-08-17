@@ -1,0 +1,49 @@
+<div class="sobre-page" [ngStyle]="paletteVars">
+    <div class="card-frame">
+        <div class="envelope-card">
+            <!-- 1. SECCIÓN SUPERIOR: SOBRE REALISTA -->
+            <div class="envelope">
+                <!-- Solapa superior principal con punta suavizada y nombres -->
+                <div class="top-flap-wrapper">
+                    <div class="top-flap">
+                        <div class="names">
+                            <div class="name">{{ data.names1 }}</div>
+                            <div class="ampersand">&amp;</div>
+                            <div class="name">{{ data.names2 }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Solapas laterales cruzadas -->
+                <div class="side-flap-left"></div>
+                <div class="side-flap-right"></div>
+
+                <!-- Cuerpo inferior del sobre -->
+                <div class="envelope-bottom-body"></div>
+
+                <!-- Fecha en la base del sobre -->
+                <div class="date-footer">
+                    <span class="date">{{ data.date }}</span>
+                </div>
+            </div>
+
+            <!-- 2. SECCIÓN INFERIOR: BASE FLORAL ACUARELA -->
+            <div class="paper-floral-base">
+                <img class="flora-image" src="assets/sobre-amanecer/rama.svg" alt="Foliage">
+            </div>
+        </div>
+    </div>
+
+    <!-- Selector dinámico de paleta de colores -->
+    <div class="palette-picker" aria-label="Cambiar paleta de colores">
+        <button
+            type="button"
+            class="palette-picker__swatch"
+            *ngFor="let option of paletteOptions"
+            [class.is-active]="selectedPalette === option.key"
+            [style.background]="palettes[option.key].color"
+            [attr.aria-label]="'Paleta ' + option.label"
+            (click)="setPalette(option.key)">
+        </button>
+    </div>
+</div>

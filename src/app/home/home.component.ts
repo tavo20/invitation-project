@@ -13,6 +13,7 @@ import { ShowcaseComponent } from '../showcase/showcase.component';
 import { LauraJuanComponent } from '../plantillas/laura-juan/laura-juan.component';
 import { AzulGrisColoresComponent } from '../plantillas/azul-gris-colores/azul-gris-colores.component';
 import { NeblinaComponent } from '../plantillas/neblina/neblina.component';
+import { SobreAmanecerComponent } from '../plantillas/sobre-amanecer/sobre-amanecer.component';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class HomeComponent {
     "laura-juan-2": XvDeluxeBlackComponent,
     "azul-gris-colores": AzulGrisColoresComponent,
     "neblina": NeblinaComponent,
+    "sobre-amanecer": SobreAmanecerComponent,
   }
   public templateComponent: any = null;
 

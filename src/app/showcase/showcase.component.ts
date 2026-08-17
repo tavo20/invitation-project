@@ -68,6 +68,15 @@ export class ShowcaseComponent {
       category: 'Boda'
     },
     {
+      nombre: 'Sobre Amanecer',
+      estilo: 'Borgoña & Floral',
+      descripcion: 'Portada tipo sobre con solapa triangular, nombres en caligrafía y ramo acuarela en la base. Paleta dinámica para cambiar el color del sobre.',
+      imagen: 'assets/sobre-amanecer/rama.svg',
+      link: '/sobre-amanecer',
+      tags: ['Sobre', 'Floral', 'Colores dinámicos'],
+      category: 'Boda'
+    },
+    {
       nombre: 'Neblina',
       estilo: 'Azul & Rosa',
       descripcion: 'Diseñada para bodas: portada cinematográfica, tonos azules elegantes, RSVP en modal y lluvia de sobres con estilo. Pensada para un look sofisticado y actual.',
