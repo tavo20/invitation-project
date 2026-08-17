@@ -36,6 +36,7 @@ interface LauraJuanData {
   finalText1?: string;
   finalText2?: string;
   closingFinal?: string;
+  instragramCliente?: string;
 }
 
 @Component({
@@ -87,6 +88,7 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
   finalText1: string = 'Tenemos la luna, la música y cada detalle preparado…';
   finalText2: string = 'Solo falta lo más importante: tú.';
   closingFinal: string = 'Laura & Juan';
+  instragramCliente: string = '';
 
   private readonly defaultData: LauraJuanData = {
     heroImage: 'assets/new-claude-our/portada.jpg',
@@ -127,7 +129,8 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
     finalHighlight: 'Nos vemos bajo las estrellas',
     finalText1: 'Tenemos la luna, la música y cada detalle preparado…',
     finalText2: 'Solo falta lo más importante: tú.',
-    closingFinal: 'Laura & Juan'
+    closingFinal: 'Laura & Juan',
+    instragramCliente: ''
   };
 
   @ViewChild('audioPlayer') audioPlayerRef!: ElementRef<HTMLAudioElement>;
@@ -177,8 +180,7 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
     this.finalText1 = incoming.finalText1 ?? this.defaultData.finalText1!;
     this.finalText2 = incoming.finalText2 ?? this.defaultData.finalText2!;
     this.closingFinal = incoming.closingFinal ?? this.defaultData.closingFinal!;
-
-
+    this.instragramCliente = incoming.instragramCliente ?? this.defaultData.instragramCliente ?? '';
   }
 
   togglePlayPause(): void {

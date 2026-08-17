@@ -127,6 +127,21 @@
         <p class="cierre-highlight">{{ finalHighlight }}</p>
         <p class="cierre-texto" [innerHTML]="finalText1 + '<br>' + finalText2"></p>
         <p class="cierre-final">{{ closingFinal }}</p>
+
+        <a
+            *ngIf="instragramCliente"
+            class="photos-by"
+            [href]="instragramCliente"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Photos by Instagram">
+            <span class="photos-by__label">Photos by</span>
+            <svg class="photos-by__icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+                <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.4"/>
+                <circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/>
+            </svg>
+        </a>
     </section>
 
     <!-- boton flotante de musica -->

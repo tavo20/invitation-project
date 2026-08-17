@@ -386,6 +386,34 @@ $border-soft: rgba(175, 193, 221, 0.35);
     margin: 0;
 }
 
+.photos-by {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 36px;
+    color: $text-muted;
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    transition: color 0.25s ease;
+
+    &:hover {
+        color: $silver;
+    }
+}
+
+.photos-by__label {
+    font-size: 0.85em;
+    font-style: italic;
+    letter-spacing: 0.12em;
+}
+
+.photos-by__icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
 // boton flotante de musica
 .music-fab {
     position: fixed;

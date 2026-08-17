@@ -312,6 +312,7 @@ export class MainService {
       slug: "nicol-andres",
       data: {
         nombreCliente: "Artur",
+        instragramCliente: "https://www.instagram.com/artur_visualss/",
         names1: "Nicol",
         names2: "Andrés",
         dateText: "03 · 10 · 2026",
