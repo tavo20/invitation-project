@@ -366,8 +366,8 @@ export class MainService {
   public photographers_para_vender: any = [
     {
 
-      id: "alexis_cliente_propuesta",
-      slug: "alexis",
+      id: "cliente_propuesta",
+      slug: "propuesta_alexis",
       data: {
         nombreCliente: "Alexis",
         instragramCliente: "https://www.instagram.com/lexisphotography.co/",
@@ -397,11 +397,10 @@ export class MainService {
         confirmTitle: "Confirma tu Asistencia",
         confirmMessage: "Hemos pensado en ti porque eres parte de nuestra historia. Queremos contar contigo esa noche.",
         confirmButtonText: "CONFIRMA AQUÍ",
-        confirmLink: "https://www.invitapp.art/invitation/confirmation/alexis_cliente_propuesta",
+        confirmLink: "https://www.invitapp.art/invitation/confirmation/cliente_propuesta",
         linkInvitation: "https://www.invitapp.art/alexis",
-        linkListInvitation: "https://www.invitapp.art/invitation/confirmations/list/alexis_cliente_propuesta",
-        linkPresentation: "https://www.invitapp.art/invitation/delivery/alexis_cliente_propuesta",
-        // confirmLink: "http://localhost:4200/invitation/confirmation/nicol-andres-f56ejnslo",
+        linkListInvitation: "https://www.invitapp.art/invitation/confirmations/list/cliente_propuesta",
+        linkPresentation: "https://www.invitapp.art/invitation/delivery/cliente_propuesta",
         sobresTitle: "Lluvia de Sobres",
         sobresMessage: "",
         finalHighlight: "Nos vemos bajo las estrellas",
@@ -419,7 +418,62 @@ export class MainService {
       },
       template: "laura-juan",
       active: true
-    }
+    },
+    {
+
+      id: "cliente_propuesta",
+      slug: "propuesta_juliana",
+      data: {
+        nombreCliente: "Juliana",
+        instragramCliente: "https://www.instagram.com/talerophoto",
+        names1: "Julian",
+        names2: "Pedro",
+        dateText: "03 · 10 · 2026",
+        heroPretitle: "Nos casamos",
+        heroTitle: "NOS CASAMOS",
+        heroMessage: "Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos compartir contigo el comienzo del capítulo más hermoso.",
+        quote: "No sé de qué están hechas las almas, pero la tuya y la mía son una sola",
+        weddingDate: "Octubre 3, 2026 18:00:00",
+        eventLocation: "Melgar Tolima",
+        quoteReference: "",
+        // parallaxImage1: "assets/new-claude-our/basic_01.jpg",
+        eventTitle: "Ceremonia y Recepción",
+        timeline: [
+          { time: "6:00 PM", desc: "Ceremonia" },
+          { time: "7:00 PM", desc: "Recepción (Mapa)" },
+          // { time: "7:00 PM", desc: "Recepción" },
+          // { time: "9:00 PM", desc: "Fiesta" }
+        ],
+        eventButtonText: "VER UBICACIÓN",
+        dressType: "Formal Nocturno",
+        dressWomenDesc: "Ellas Vestido Largo o Coctel",
+        dressMenDesc: "Traje",
+        dressNote: "Color Blanco Reservado para Novia, Azul Oscuro reservado para el Novio",
+        confirmTitle: "Confirma tu Asistencia",
+        confirmMessage: "Hemos pensado en ti porque eres parte de nuestra historia. Queremos contar contigo esa noche.",
+        confirmButtonText: "CONFIRMA AQUÍ",
+        confirmLink: "https://www.invitapp.art/invitation/confirmation/cliente_propuesta",
+        linkInvitation: "https://www.invitapp.art/propuesta_juliana",
+        linkListInvitation: "https://www.invitapp.art/invitation/confirmations/list/cliente_propuesta",
+        linkPresentation: "https://www.invitapp.art/invitation/delivery/propuesta_juliana",
+        sobresTitle: "Lluvia de Sobres",
+        sobresMessage: "",
+        finalHighlight: "Nos vemos bajo las estrellas",
+        finalText1: "Tenemos la luna, la música y cada detalle preparado…",
+        finalText2: "Solo falta lo más importante: tú.",
+        closingFinal: "Juliana & Pedro",
+        heroImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/primera_opt.jpg",
+        parallaxImage1: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/segunda_resize.jpg",
+        parallaxImage2: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/tercera_resize.jpg",
+        eventMapLink: "https://www.google.com/maps/place/Cl.+7+%23+29-11,+Melgar,+Tolima/@4.2011456,-74.6449439,19z/data=!4m6!3m5!1s0x8e3edefe1b60b2cb:0xdcde444d1f284f5b!8m2!3d4.201225!4d-74.6450334!16s%2Fg%2F11x2m3jrxl?entry=tts&g_ep=EgoyMDI2MDgxMi4wIPu8ASoASAFQAw%3D%3D&skid=2f63d9fc-62ac-4831-9442-1dc7dd21cdc2",
+        audioSrc: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/asi_es_nuestro_amor_cut.mp3",
+        eventMapLabel: "La quinta amarilla"
+
+
+      },
+      template: "laura-juan",
+      active: true
+    },
   ]
   constructor() { }
 
