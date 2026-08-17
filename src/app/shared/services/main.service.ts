@@ -268,6 +268,7 @@ export class MainService {
       id: 2,
       slug: "pedro-ana",
       data: {
+
         heroImage: "assets/images/main-photo.png",
         heroNames1: "Ana",
         heroNames2: "Pedro",
@@ -310,6 +311,7 @@ export class MainService {
       id: "nicol-andres-f56ejnslo",
       slug: "nicol-andres",
       data: {
+        nombreCliente: "Artur",
         names1: "Nicol",
         names2: "Andrés",
         dateText: "03 · 10 · 2026",
@@ -337,6 +339,8 @@ export class MainService {
         confirmMessage: "Hemos pensado en ti porque eres parte de nuestra historia. Queremos contar contigo esa noche.",
         confirmButtonText: "CONFIRMA AQUÍ",
         confirmLink: "https://www.invitapp.art/invitation/confirmation/nicol-andres-f56ejnslo",
+        linkInvitation: "https://www.invitapp.art/nicol-andres",
+        linkListInvitation: "https://www.invitapp.art/invitation/confirmations/list/nicol-andres-f56ejnslo",
         // confirmLink: "http://localhost:4200/invitation/confirmation/nicol-andres-f56ejnslo",
         sobresTitle: "Lluvia de Sobres",
         sobresMessage: "",

@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600&display=swap');
+
+$ink: #1c1a18;
+$muted: #6d675f;
+$soft: #9a9288;
+$line: rgba(28, 26, 24, 0.12);
+$accent: #8c725d;
+$paper: #f7f4ef;
+$paper-deep: #efeae2;
+
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: 'Cormorant Garamond', serif;
+  color: $ink;
+  background: $paper;
+}
+
+.delivery-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 56px 20px 72px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% 0%, rgba(163, 140, 123, 0.16), transparent 60%),
+    linear-gradient(180deg, #faf8f4 0%, $paper 45%, $paper-deep 100%);
+}
+
+.delivery-atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(28, 26, 24, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 26, 24, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%);
+  opacity: 0.45;
+}
+
+.delivery-shell {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 680px;
+  animation: fade-up 0.65s ease both;
+}
+
+.delivery-shell--empty {
+  text-align: center;
+  padding-top: 18vh;
+}
+
+.delivery-header {
+  text-align: center;
+  margin-bottom: 42px;
+}
+
+.brand {
+  margin: 0;
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.4rem, 7vw, 3.2rem);
+  font-weight: 400;
+  color: $ink;
+  line-height: 1;
+}
+
+.header-line {
+  width: 48px;
+  height: 1px;
+  margin: 18px auto 22px;
+  background: $accent;
+}
+
+.greeting {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $accent;
+}
+
+.couple {
+  margin: 0;
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.8rem, 9vw, 4rem);
+  font-weight: 400;
+  line-height: 1.1;
+  color: $ink;
+}
+
+.amp {
+  display: inline-block;
+  margin: 0 0.15em;
+  color: $accent;
+}
+
+.date {
+  margin: 14px 0 0;
+  font-size: 1rem;
+  letter-spacing: 0.28em;
+  color: $muted;
+}
+
+.intro {
+  max-width: 420px;
+  margin: 22px auto 0;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: $muted;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.link-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+  padding: 22px 22px;
+  background: rgba(255, 255, 255, 0.62);
+  border: 1px solid $line;
+  backdrop-filter: blur(6px);
+  transition: border-color 0.25s ease, transform 0.25s ease;
+
+  &:hover {
+    border-color: rgba(140, 114, 93, 0.35);
+    transform: translateY(-1px);
+  }
+}
+
+.link-copy {
+  min-width: 0;
+}
+
+.link-index {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  color: $accent;
+}
+
+.link-label {
+  margin: 0 0 4px;
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: $ink;
+}
+
+.link-desc {
+  margin: 0 0 10px;
+  font-size: 0.98rem;
+  color: $muted;
+}
+
+.link-url {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.92rem;
+  color: $soft;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+
+  &:hover {
+    color: $accent;
+  }
+}
+
+.link-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.btn {
+  min-width: 84px;
+  padding: 11px 16px;
+  border: 1px solid $line;
+  background: transparent;
+  color: $ink;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.btn-open {
+  background: $ink;
+  border-color: $ink;
+  color: #f7f4ef;
+
+  &:hover {
+    background: #2c2824;
+  }
+}
+
+.btn-copy {
+  &:hover {
+    border-color: $accent;
+    color: $accent;
+  }
+}
+
+.footer-note {
+  margin: 34px 0 0;
+  text-align: center;
+  font-size: 0.98rem;
+  color: $soft;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .delivery-page {
+    padding: 36px 16px 56px;
+  }
+
+  .link-row {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 18px 16px;
+  }
+
+  .link-actions {
+    width: 100%;
+  }
+
+  .btn {
+    flex: 1;
+  }
+}

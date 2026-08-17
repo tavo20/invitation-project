@@ -1,0 +1,59 @@
+<div class="delivery-page">
+  <div class="delivery-atmosphere" aria-hidden="true"></div>
+
+  <main class="delivery-shell" *ngIf="!notFound; else missing">
+    <header class="delivery-header">
+      <p class="brand">InvitaPP</p>
+      <div class="header-line" aria-hidden="true"></div>
+      <p class="greeting" *ngIf="clientName">Hola, {{ clientName }}</p>
+      <h1 class="couple">
+        {{ names1 }}
+        <span class="amp">&amp;</span>
+        {{ names2 }}
+      </h1>
+      <p class="date" *ngIf="dateText">{{ dateText }}</p>
+      <p class="intro">
+        Aquí tienes todo listo para tu invitación digital.
+        Abre cada enlace o cópialo para compartirlo.
+      </p>
+    </header>
+
+    <section class="links" aria-label="Enlaces de la invitación">
+      <article class="link-row" *ngFor="let link of links" [attr.data-key]="link.key">
+        <div class="link-copy">
+          <p class="link-index">{{ link.key === 'invitation' ? '01' : link.key === 'confirm' ? '02' : '03' }}</p>
+          <h2 class="link-label">{{ link.label }}</h2>
+          <p class="link-desc">{{ link.description }}</p>
+          <a class="link-url" [href]="link.url" target="_blank" rel="noopener noreferrer">
+            {{ link.url }}
+          </a>
+        </div>
+
+        <div class="link-actions">
+          <a class="btn btn-open" [href]="link.url" target="_blank" rel="noopener noreferrer">
+            {{ link.openLabel }}
+          </a>
+          <button
+            type="button"
+            class="btn btn-copy"
+            (click)="copyLink(link)"
+            [attr.aria-label]="'Copiar enlace de ' + link.label">
+            {{ copiedKey === link.key ? 'Copiado' : 'Copiar' }}
+          </button>
+        </div>
+      </article>
+    </section>
+
+    <p class="footer-note">
+      Si necesitas ajustes, escríbenos y lo resolvemos juntos.
+    </p>
+  </main>
+
+  <ng-template #missing>
+    <main class="delivery-shell delivery-shell--empty">
+      <p class="brand">InvitaPP</p>
+      <h1 class="couple">Entrega no encontrada</h1>
+      <p class="intro">Revisa el enlace que te compartimos.</p>
+    </main>
+  </ng-template>
+</div>
