@@ -64,6 +64,12 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./plantillas/aquarelle/aquarelle.component')
                 .then(m => m.AquarelleComponent)
+    },
+    {
+        path: 'Sobre-Amanecer',
+        loadComponent: () =>
+            import('./plantillas/sobre-amanecer/sobre-amanecer.component')
+                .then(m => m.SobreAmanecerComponent)
     }
 
 ];

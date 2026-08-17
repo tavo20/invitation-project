@@ -149,6 +149,18 @@ export class MainService {
       },
       template: "neblina",
       active: true
+    },
+    {
+      id: 14,
+      slug: "sobre-amanecer",
+      data: {
+        names1: "Marcos",
+        names2: "Mariana",
+        date: "06.12.2025",
+        palette: "burgundy"
+      },
+      template: "sobre-amanecer",
+      active: true
     }
   ]
 

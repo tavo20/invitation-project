@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 280" width="100%" height="auto" style="--verde-base:#2D4C3A;--verde-oliva:#5A7359;--verde-salvia:#8EA891;--verde-bosque:#1C3325;--dorado-suave:#D4B27C;">
+    <defs>
+      <!-- Gradientes suaves para simular la humedad de la acuarela -->
+      <linearGradient id="acuarela1" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="var(--verde-salvia)" stop-opacity="0.8" />
+        <stop offset="60%" stop-color="var(--verde-oliva)" stop-opacity="0.9" />
+        <stop offset="100%" stop-color="var(--verde-bosque)" stop-opacity="0.95" />
+      </linearGradient>
+
+      <linearGradient id="acuarela2" x1="20%" y1="0%" x2="80%" y2="100%">
+        <stop offset="0%" stop-color="#A5BFA8" stop-opacity="0.75" />
+        <stop offset="50%" stop-color="var(--verde-salvia)" stop-opacity="0.85" />
+        <stop offset="100%" stop-color="var(--verde-base)" stop-opacity="0.9" />
+      </linearGradient>
+
+      <linearGradient id="dorado" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#F2DFB8" />
+        <stop offset="100%" stop-color="var(--dorado-suave)" />
+      </linearGradient>
+    </defs>
+
+    <!-- CAPA 1: RAMAS DE FONDO SUTILES (Translúcidas) -->
+    <g id="fondo-suave" opacity="0.65">
+      <!-- Ramitas traseras izquierda -->
+      <path d="M410 145 C320 120 220 80 110 50" fill="none" stroke="var(--verde-salvia)" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M110 50 C95 38 85 45 92 58 C100 68 115 62 110 50 Z" fill="var(--verde-salvia)"/>
+      <path d="M170 70 C155 52 145 60 152 75 C160 88 178 80 170 70 Z" fill="var(--verde-salvia)"/>
+      <path d="M250 92 C230 75 220 85 230 100 C240 112 258 105 250 92 Z" fill="var(--verde-salvia)"/>
+      
+      <!-- Ramitas traseras derecha (más larga y con arco diferente) -->
+      <path d="M470 145 C580 110 700 85 820 65" fill="none" stroke="var(--verde-salvia)" stroke-width="1.2" stroke-linecap="round"/>
+      <path d="M820 65 C838 52 848 60 840 72 C830 85 815 78 820 65 Z" fill="var(--verde-salvia)"/>
+      <path d="M740 78 C760 62 768 72 758 88 C748 98 732 90 740 78 Z" fill="var(--verde-salvia)"/>
+      <path d="M640 102 C658 85 668 95 658 110 C648 122 632 115 640 102 Z" fill="var(--verde-salvia)"/>
+    </g>
+
+    <!-- CAPA 2: RAMA PRINCIPAL IZQUIERDA (Estilo Sauce y Olivo Orgánico) -->
+    <g id="rama-principal-izquierda">
+      <!-- Tallo con curva natural en S -->
+      <path d="M430 150 C360 155 260 135 180 120 C120 110 70 95 30 75" fill="none" stroke="var(--verde-bosque)" stroke-width="2" stroke-linecap="round"/>
+      
+      <!-- Sub-ramas asimétricas -->
+      <path d="M280 138 C230 160 170 185 110 190" fill="none" stroke="var(--verde-base)" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M200 124 C160 90 120 70 75 60" fill="none" stroke="var(--verde-base)" stroke-width="1.3" stroke-linecap="round"/>
+
+      <!-- Hojas individuales con curvas orgánicas -->
+      <!-- Puntas izquierda -->
+      <path d="M30 75 C10 65 5 45 25 40 C45 45 48 62 30 75 Z" fill="url(#acuarela1)"/>
+      <path d="M60 83 C42 62 48 45 70 48 C88 58 80 75 60 83 Z" fill="url(#acuarela2)"/>
+      <path d="M95 98 C72 82 75 60 100 62 C120 72 115 90 95 98 Z" fill="url(#acuarela1)"/>
+      
+      <!-- Hojas zona media superior -->
+      <path d="M140 110 C125 80 140 60 162 68 C180 82 165 105 140 110 Z" fill="url(#acuarela2)"/>
+      <path d="M215 125 C195 95 210 72 235 80 C252 95 240 118 215 125 Z" fill="url(#acuarela1)"/>
+      <path d="M305 142 C290 105 315 88 335 98 C352 112 332 135 305 142 Z" fill="url(#acuarela2)"/>
+
+      <!-- Hojas que caen naturalmente hacia abajo -->
+      <path d="M110 190 C88 198 80 215 95 225 C115 225 125 208 110 190 Z" fill="url(#acuarela1)"/>
+      <path d="M150 175 C132 195 135 215 155 218 C175 212 172 190 150 175 Z" fill="url(#acuarela2)"/>
+      <path d="M205 158 C192 182 200 205 220 202 C238 195 230 172 205 158 Z" fill="url(#acuarela1)"/>
+      <path d="M255 145 C250 172 265 190 282 185 C295 172 285 150 255 145 Z" fill="url(#acuarela2)"/>
+    </g>
+
+    <!-- CAPA 3: RAMA PRINCIPAL DERECHA (Asimétrica y más extendida) -->
+    <g id="rama-principal-derecha">
+      <!-- Tallo principal con caída botánica natural -->
+      <path d="M430 150 C510 152 610 130 710 105 C780 85 830 65 870 35" fill="none" stroke="var(--verde-bosque)" stroke-width="2" stroke-linecap="round"/>
+      
+      <!-- Sub-ramas desfasadas de la izquierda -->
+      <path d="M570 138 C620 168 670 190 730 205" fill="none" stroke="var(--verde-base)" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M660 118 C710 82 760 65 810 50" fill="none" stroke="var(--verde-base)" stroke-width="1.3" stroke-linecap="round"/>
+
+      <!-- Hojas individuales derecha -->
+      <path d="M870 35 C890 22 900 38 885 52 C865 62 855 48 870 35 Z" fill="url(#acuarela1)"/>
+      <path d="M835 52 C860 40 868 58 850 72 C832 80 820 65 835 52 Z" fill="url(#acuarela2)"/>
+      <path d="M780 75 C805 58 815 75 798 92 C778 100 765 88 780 75 Z" fill="url(#acuarela1)"/>
+      
+      <!-- Hojas superiores -->
+      <path d="M720 95 C740 68 760 78 748 100 C735 118 710 112 720 95 Z" fill="url(#acuarela2)"/>
+      <path d="M640 125 C658 92 682 100 672 122 C660 140 635 138 640 125 Z" fill="url(#acuarela1)"/>
+      <path d="M540 145 C552 110 580 115 572 138 C562 158 535 155 540 145 Z" fill="url(#acuarela2)"/>
+
+      <!-- Hojas inferiores derecha -->
+      <path d="M730 205 C750 218 765 210 758 192 C748 178 730 188 730 205 Z" fill="url(#acuarela1)"/>
+      <path d="M685 188 C708 205 720 195 712 178 C700 162 680 170 685 188 Z" fill="url(#acuarela2)"/>
+      <path d="M630 168 C650 188 665 178 652 158 C638 142 620 150 630 168 Z" fill="url(#acuarela1)"/>
+    </g>
+
+    <!-- CAPA 4: SEMILLAS / PUNTOS FLORALES DORADOS DISPERSOS -->
+    <g id="acentos-dorados" opacity="0.9">
+      <!-- Lado izquierdo -->
+      <circle cx="160" cy="135" r="2.8" fill="url(#dorado)"/>
+      <circle cx="145" cy="148" r="2.2" fill="url(#dorado)"/>
+      <circle cx="270" cy="120" r="3" fill="url(#dorado)"/>
+      <circle cx="290" cy="112" r="2.2" fill="url(#dorado)"/>
+      <circle cx="90" cy="140" r="2.5" fill="url(#dorado)"/>
+      
+      <!-- Lado derecho -->
+      <circle cx="590" cy="120" r="3" fill="url(#dorado)"/>
+      <circle cx="610" cy="110" r="2.2" fill="url(#dorado)"/>
+      <circle cx="700" cy="140" r="2.8" fill="url(#dorado)"/>
+      <circle cx="720" cy="150" r="2.2" fill="url(#dorado)"/>
+      <circle cx="790" cy="110" r="2.5" fill="url(#dorado)"/>
+    </g>
+
+    <!-- CAPA 5: CENTRO ORGÁNICO CRUZADO (Simula el atado del ramillete) -->
+    <g id="cruce-central">
+      <!-- Hojas centrales superpuestas que rompen la simetría -->
+      <path d="M430 150 C405 125 410 100 425 105 C442 112 445 135 430 150 Z" fill="url(#acuarela1)"/>
+      <path d="M430 150 C450 128 468 135 460 150 C448 165 432 160 430 150 Z" fill="url(#acuarela2)"/>
+      <path d="M430 150 C420 170 405 180 400 168 C398 152 418 145 430 150 Z" fill="url(#acuarela1)"/>
+      <!-- Tallo de cruce suave -->
+      <path d="M390 158 Q430 150 470 142" fill="none" stroke="var(--verde-bosque)" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="430" cy="150" r="3.5" fill="url(#dorado)"/>
+    </g>
+  </svg>

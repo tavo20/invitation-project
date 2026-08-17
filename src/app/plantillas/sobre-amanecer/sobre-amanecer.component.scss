@@ -1,0 +1,243 @@
+@import url('https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:wght@600&display=swap');
+
+:host {
+    display: block;
+}
+
+.sobre-page {
+    // min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #dfdfdf;
+    // padding: 20px 12px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+/* Marco exterior blanco */
+.card-frame {
+    background: #ffffff;
+    // padding: 14px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.28);
+    border-radius: 2px;
+    width: 100%;
+    // max-width: 360px;
+    box-sizing: border-box;
+}
+
+.envelope-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--paper, #f6f1ea);
+    overflow: hidden;
+}
+
+/* Contenedor principal del sobre */
+.envelope {
+    width: 100%;
+    height: 490px;
+    position: relative;
+    background-color: var(--sobre-sombra, #44222b);
+    overflow: hidden;
+}
+
+/* 1. CUERPO INFERIOR DEL SOBRE (Bolsillo frontal) */
+.envelope-bottom-body {
+    position: absolute;
+    bottom: 4px;
+    left: 0;
+    width: 100%;
+    height: 280px;
+    background: linear-gradient(180deg, var(--sobre-color, #633642) 0%, var(--sobre-sombra, #44222b) 100%);
+    z-index: 1;
+}
+
+/* 2. SOLAPA LATERAL IZQUIERDA (Triángulo cruzado) */
+.side-flap-left {
+    position: absolute;
+    top: 155px;
+    left: 0;
+    width: 140px;
+    height: 160px;
+    background: linear-gradient(135deg, var(--sobre-sombra, #44222b) 0%, var(--sobre-color, #633642) 70%);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    filter: drop-shadow(4px 4px 6px rgba(0, 0, 0, 0.35));
+    z-index: 2;
+}
+
+/* 3. SOLAPA LATERAL DERECHA (Triángulo cruzado) */
+.side-flap-right {
+    position: absolute;
+    top: 155px;
+    right: 0;
+    width: 140px;
+    height: 160px;
+    background: linear-gradient(-135deg, var(--sobre-sombra, #44222b) 0%, var(--sobre-color, #633642) 70%);
+    clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    filter: drop-shadow(-4px 4px 6px rgba(0, 0, 0, 0.35));
+    z-index: 2;
+}
+
+/* 4. SOLAPA SUPERIOR PRINCIPAL (Con punta suavizada y sombra profunda) */
+.top-flap-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 295px;
+    z-index: 3;
+    /* Sombra que cae directamente sobre las solapas laterales y el fondo */
+    filter: drop-shadow(0 14px 12px rgba(0, 0, 0, 0.48))
+            drop-shadow(0 3px 4px rgba(0, 0, 0, 0.3));
+}
+
+.top-flap {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        180deg,
+        var(--sobre-luz, #733f4d) 0%,
+        var(--sobre-color, #633642) 75%,
+        var(--sobre-sombra-profunda, #562c37) 100%
+    );
+    /* Triángulo superior con punta suave/redondeada */
+    clip-path: polygon(
+        0% 0%, 
+        100% 0%, 
+        100% 56%, 
+        53% 99%, 
+        47% 99%, 
+        0% 56%
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 55px;
+}
+
+/* Tipografía */
+.names {
+    font-family: 'Alex Brush', cursive;
+    color: var(--texto-color, #ffffff);
+    text-align: center;
+    user-select: none;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+}
+
+.name {
+    font-size: 52px;
+    line-height: 1.05;
+}
+
+.ampersand {
+    font-size: 24px;
+    line-height: 1.2;
+    margin: -2px 0;
+    opacity: 0.9;
+}
+
+/* Fecha en la base */
+.date-footer {
+    position: absolute;
+    bottom: 35px;
+    width: 100%;
+    text-align: center;
+    z-index: 2;
+}
+
+.date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Base floral acuarela en la parte inferior */
+.paper-floral-base {
+    position: relative;
+    width: 100%;
+    height: 170px;
+    background: var(--paper, #f6f1ea);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.flora-image {
+    position: absolute;
+    width: 125%;
+    max-width: none;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Selector dinámico de paleta */
+.palette-picker {
+    position: fixed;
+    left: 18px;
+    bottom: 22px;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.palette-picker__swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 0;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, outline-offset 0.2s ease;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+
+    &.is-active {
+        outline: 2px solid var(--texto-color, #ffffff);
+        outline-offset: 2px;
+    }
+}
+
+@media (max-width: 420px) {
+    .sobre-page {
+        padding: 10px 6px;
+    }
+
+    .card-frame {
+        padding: 10px;
+    }
+
+    .envelope {
+        height: 450px;
+    }
+
+    .top-flap-wrapper {
+        height: 270px;
+    }
+
+    .name {
+        font-size: 46px;
+    }
+
+    .paper-floral-base {
+        height: 150px;
+    }
+
+    .flora-image {
+        width: 135%;
+        top: -24px;
+    }
+}
