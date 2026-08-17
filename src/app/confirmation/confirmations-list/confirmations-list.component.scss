@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Marcellus&display=swap');
+
+$bg: #0f1626;
+$silver: #afc1dd;
+$text-light: #eaeff7;
+$text-secondary: #b9c3d6;
+$text-muted: #8291ac;
+$border: rgba(175, 193, 221, 0.28);
+$danger: #e8a0a8;
+
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: 'Marcellus', serif;
+  color: $text-secondary;
+  background: $bg;
+}
+
+.list-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px 56px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(175, 193, 221, 0.14), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(22, 31, 51, 0.9), transparent 50%),
+    $bg;
+}
+
+.list-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, rgba(234, 239, 247, 0.55), transparent),
+    radial-gradient(1px 1px at 28% 72%, rgba(175, 193, 221, 0.45), transparent),
+    radial-gradient(1.5px 1.5px at 68% 24%, rgba(234, 239, 247, 0.4), transparent),
+    radial-gradient(1px 1px at 82% 58%, rgba(175, 193, 221, 0.35), transparent);
+  opacity: 0.7;
+}
+
+.list-shell {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 640px;
+  padding: 40px 28px;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, rgba(22, 31, 51, 0.92) 0%, rgba(15, 22, 38, 0.96) 100%);
+  border: 1px solid $border;
+  box-shadow:
+    0 0 0 1px rgba(175, 193, 221, 0.06) inset,
+    0 28px 60px rgba(0, 0, 0, 0.45);
+}
+
+.list-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.list-eyebrow {
+  margin: 0 0 14px;
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: $silver;
+}
+
+.list-title {
+  margin: 0;
+  font-family: 'Parisienne', cursive;
+  font-size: clamp(2.2rem, 7vw, 3rem);
+  font-weight: 400;
+  color: $text-light;
+  line-height: 1.15;
+}
+
+.list-summary {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  color: $text-muted;
+}
+
+.dot {
+  opacity: 0.6;
+}
+
+.list-state {
+  text-align: center;
+  padding: 36px 12px;
+  color: $text-muted;
+}
+
+.list-state--error {
+  color: $danger;
+}
+
+.confirm-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.confirm-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 16px;
+  border: 1px solid $border;
+  background: rgba(15, 22, 38, 0.55);
+}
+
+.confirm-item__main {
+  min-width: 0;
+  flex: 1;
+  text-align: left;
+}
+
+.confirm-item__names {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  color: $text-light;
+  word-break: break-word;
+}
+
+.confirm-item__meta,
+.confirm-item__date {
+  margin: 0;
+  font-size: 0.88rem;
+  color: $text-muted;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.confirm-item__date {
+  margin-top: 6px;
+}
+
+.status {
+  text-transform: capitalize;
+  color: $silver;
+}
+
+.confirm-item__comment {
+  margin: 10px 0 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+  font-style: italic;
+  color: $text-secondary;
+}
+
+.delete-btn {
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(232, 160, 168, 0.35);
+  background: rgba(232, 160, 168, 0.08);
+  color: $danger;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover:not(:disabled) {
+    background: rgba(232, 160, 168, 0.18);
+    border-color: rgba(232, 160, 168, 0.65);
+  }
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+}
+
+@media (max-width: 520px) {
+  .list-page {
+    padding: 24px 14px 40px;
+  }
+
+  .list-shell {
+    padding: 28px 16px;
+  }
+
+  .confirm-item {
+    padding: 16px 12px;
+  }
+}

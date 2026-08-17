@@ -1,0 +1,58 @@
+<div class="list-page">
+  <div class="list-glow" aria-hidden="true"></div>
+
+  <div class="list-shell">
+    <header class="list-header">
+      <p class="list-eyebrow">Panel de confirmaciones</p>
+      <h1 class="list-title" *ngIf="invitationNames; else fallbackTitle">
+        {{ invitationNames }}
+      </h1>
+      <ng-template #fallbackTitle>
+        <h1 class="list-title">Confirmaciones</h1>
+      </ng-template>
+
+      <div class="list-summary" *ngIf="!loading && !errorMessage">
+        <span>{{ confirmations.length }} registro{{ confirmations.length === 1 ? '' : 's' }}</span>
+        <span class="dot" aria-hidden="true">·</span>
+        <span>{{ totalGuests }} persona{{ totalGuests === 1 ? '' : 's' }}</span>
+      </div>
+    </header>
+
+    <div class="list-state" *ngIf="loading">Cargando confirmaciones…</div>
+    <div class="list-state list-state--error" *ngIf="!loading && errorMessage">{{ errorMessage }}</div>
+    <div class="list-state" *ngIf="!loading && !errorMessage && confirmations.length === 0">
+      Aún no hay confirmaciones.
+    </div>
+
+    <ul class="confirm-list" *ngIf="!loading && confirmations.length > 0">
+      <li class="confirm-item" *ngFor="let item of confirmations">
+        <div class="confirm-item__main">
+          <p class="confirm-item__names">{{ item.names }}</p>
+          <p class="confirm-item__meta">
+            <span>{{ item.numero_confirmados }} confirmado{{ item.numero_confirmados === 1 ? '' : 's' }}</span>
+            <span class="dot" aria-hidden="true">·</span>
+            <span class="status">{{ item.status }}</span>
+          </p>
+          <p class="confirm-item__date" *ngIf="item.createdAt">
+            {{ formatDate(item.createdAt) }}
+          </p>
+          <p class="confirm-item__comment" *ngIf="item.descripcion">{{ item.descripcion }}</p>
+        </div>
+
+        <button
+          type="button"
+          class="delete-btn"
+          [disabled]="deletingId === item._id"
+          [attr.aria-label]="'Eliminar confirmación de ' + item.names"
+          (click)="onDelete(item)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <path d="M4 7h16" stroke-linecap="round" />
+            <path d="M10 11v6M14 11v6" stroke-linecap="round" />
+            <path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </li>
+    </ul>
+  </div>
+</div>

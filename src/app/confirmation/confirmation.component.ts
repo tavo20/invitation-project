@@ -18,6 +18,7 @@ export class ConfirmationComponent implements OnInit {
   public invitationSlug: string | null = null;
   public invitationId: string | number | null = null;
   public submitted = false;
+  public isSubmitting = false;
   public savedData: any = null;
 
   public form = this.fb.group({
@@ -54,10 +55,14 @@ export class ConfirmationComponent implements OnInit {
   }
 
   async onSubmit(): Promise<void> {
+    if (this.isSubmitting || this.submitted) return;
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
+
+    this.isSubmitting = true;
 
     try {
       const response = await this.confirmationService.submitConfirmation({
@@ -68,14 +73,15 @@ export class ConfirmationComponent implements OnInit {
         comment: String(this.form.value.comment ?? '').trim()
       });
 
-      if(!response) {
+      if (!response) {
         throw new Error('Failed to save confirmation');
       }
 
-      // this.savedData = response;
       this.submitted = true;
     } catch (error) {
       console.error('Error submitting confirmation', error);
+    } finally {
+      this.isSubmitting = false;
     }
   }
 

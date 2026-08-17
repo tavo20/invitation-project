@@ -12,18 +12,26 @@ export interface ConfirmationPayload {
   comment: string;
   timestamp: string;
   type?: 'confirmacion' | 'hospedaje';
-  status?: 'pending' | 'confirmed' | 'cancelled';
+  status?: 'pending' | 'confirmed' | 'cancelled' | 'confirmado';
 }
 
-export interface ConfirmationDocument extends ConfirmationPayload {
-  _id?: string;
+/** Documento tal como viene de Mongo / el backend. */
+export interface ConfirmationDocument {
+  _id: string;
+  names: string;
+  type: string;
+  status: string;
+  id_invitacion: string;
+  numero_confirmados: number;
+  descripcion?: string;
   createdAt?: string;
   updatedAt?: string;
+  __v?: number;
 }
 
-export interface ConfirmationApiSuccess {
+export interface ConfirmationApiSuccess<T = ConfirmationDocument> {
   success: true;
-  data: ConfirmationDocument;
+  data: T;
 }
 
 export interface ConfirmationApiError {
@@ -32,7 +40,9 @@ export interface ConfirmationApiError {
   error?: unknown;
 }
 
-export type ConfirmationApiResponse = ConfirmationApiSuccess | ConfirmationApiError;
+export type ConfirmationApiResponse<T = ConfirmationDocument> =
+  | ConfirmationApiSuccess<T>
+  | ConfirmationApiError;
 
 export interface ConfirmationInviteContext {
   id: string | number | null;
@@ -45,7 +55,6 @@ export interface ConfirmationInviteContext {
   providedIn: 'root'
 })
 export class ConfirmationService {
-  private confirmations: ConfirmationPayload[] = [];
   private readonly BACKEND_URL = environment.apiUrl;
   private readonly PATH = 'api/invitation-confirmation';
 
@@ -81,23 +90,41 @@ export class ConfirmationService {
       this.http.post<ConfirmationApiResponse>(
         `${this.BACKEND_URL}${this.PATH}/create`,
         confirmation
-        
       )
     );
 
     if (response.success) {
-      this.confirmations.push(response.data);
       return response.success;
     }
 
     throw new Error(response.message || 'Failed to save confirmation');
   }
 
-  getConfirmations(): ConfirmationPayload[] {
-    return [...this.confirmations];
+  /** Lista confirmaciones por id de invitación. */
+  async getConfirmationsByInvitation(
+    invitationId: string
+  ): Promise<ConfirmationDocument[]> {
+    const response = await lastValueFrom(
+      this.http.get<ConfirmationApiResponse<ConfirmationDocument[]>>(
+        `${this.BACKEND_URL}${this.PATH}/all-by-invitation/${invitationId}`
+      )
+    );
+
+    if (response.success) {
+      return Array.isArray(response.data) ? response.data : [];
+    }
+
+    throw new Error(response.message || 'Failed to load confirmations');
   }
 
-  getConfirmationsBySlug(slug: string): ConfirmationPayload[] {
-    return this.confirmations.filter((item) => item.invitationSlug === slug);
+  /** Elimina una confirmación por su _id. */
+  async deleteConfirmation(confirmationId: string): Promise<boolean> {
+    const response = await lastValueFrom(
+      this.http.put<ConfirmationApiResponse>(
+        `${this.BACKEND_URL}${this.PATH}/update/${confirmationId}`,
+        { deleted: true }
+      )
+    );
+    return response.success;
   }
 }

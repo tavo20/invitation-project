@@ -72,7 +72,9 @@
       </label>
 
       <div class="actions">
-        <button type="submit" class="btn btn-primary">Confirmar asistencia</button>
+        <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Enviando…' : 'Confirmar asistencia' }}
+        </button>
         <button type="button" class="btn btn-ghost" (click)="goBack()">Volver a la invitación</button>
       </div>
     </form>

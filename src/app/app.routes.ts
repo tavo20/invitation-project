@@ -14,6 +14,12 @@ export const routes: Routes = [
                 .then(m => m.ConfirmationComponent)
     },
     {
+        path: 'invitation/confirmations/list/:id',
+        loadComponent: () =>
+            import('./confirmation/confirmations-list/confirmations-list.component')
+                .then(m => m.ConfirmationsListComponent)
+    },
+    {
         path: ':slug',
         component: HomeComponent
     },
