@@ -8,6 +8,12 @@ export const routes: Routes = [
         component: HomeComponent
     },
     {
+        path: 'invitation/confirmation/:id',
+        loadComponent: () =>
+            import('./confirmation/confirmation.component')
+                .then(m => m.ConfirmationComponent)
+    },
+    {
         path: ':slug',
         component: HomeComponent
     },
@@ -53,4 +59,5 @@ export const routes: Routes = [
             import('./plantillas/aquarelle/aquarelle.component')
                 .then(m => m.AquarelleComponent)
     }
+
 ];

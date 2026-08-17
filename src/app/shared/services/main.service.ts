@@ -324,7 +324,8 @@ export class MainService {
         confirmTitle: "Confirma tu Asistencia",
         confirmMessage: "Hemos pensado en ti porque eres parte de nuestra historia. Queremos contar contigo esa noche.",
         confirmButtonText: "CONFIRMA AQUÍ",
-        confirmLink: "https://www.google.com/?hl=es",
+        confirmLink: "https://www.invitapp.art/invitation/confirmation/nicol-andres-f56ejnslo",
+        // confirmLink: "http://localhost:4200/invitation/confirmation/nicol-andres-f56ejnslo",
         sobresTitle: "Lluvia de Sobres",
         sobresMessage: "",
         finalHighlight: "Nos vemos bajo las estrellas",
@@ -352,5 +353,9 @@ export class MainService {
 
   public getDataBySlug({ slug }: { slug: string }) {
     return [...this.data, ...this.template_fijos, ...this.platillas_vendidas].find((item: any) => (item.slug === slug && item.active));
+  }
+
+  public getDataById({ id }: { id: string }) {
+    return [...this.data, ...this.template_fijos, ...this.platillas_vendidas].find((item: any) => (item.id === id && item.active));
   }
 }

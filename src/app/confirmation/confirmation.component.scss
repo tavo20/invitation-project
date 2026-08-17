@@ -1,0 +1,319 @@
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Marcellus&display=swap');
+
+$bg: #0f1626;
+$bg-soft: #161f33;
+$silver: #afc1dd;
+$text-light: #eaeff7;
+$text-secondary: #b9c3d6;
+$text-muted: #8291ac;
+$border: rgba(175, 193, 221, 0.28);
+
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: 'Marcellus', serif;
+  color: $text-secondary;
+  background: $bg;
+}
+
+.confirm-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(175, 193, 221, 0.14), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(22, 31, 51, 0.9), transparent 50%),
+    $bg;
+}
+
+.confirm-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, rgba(234, 239, 247, 0.55), transparent),
+    radial-gradient(1px 1px at 28% 72%, rgba(175, 193, 221, 0.45), transparent),
+    radial-gradient(1.5px 1.5px at 68% 24%, rgba(234, 239, 247, 0.4), transparent),
+    radial-gradient(1px 1px at 82% 58%, rgba(175, 193, 221, 0.35), transparent),
+    radial-gradient(1px 1px at 48% 42%, rgba(234, 239, 247, 0.3), transparent);
+  opacity: 0.7;
+}
+
+.confirm-shell {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  padding: 48px 36px 40px;
+  box-sizing: border-box;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(22, 31, 51, 0.92) 0%, rgba(15, 22, 38, 0.96) 100%);
+  border: 1px solid $border;
+  box-shadow:
+    0 0 0 1px rgba(175, 193, 221, 0.06) inset,
+    0 28px 60px rgba(0, 0, 0, 0.45);
+  animation: rise-in 0.7s ease both;
+}
+
+.confirm-header {
+  margin-bottom: 28px;
+}
+
+.confirm-eyebrow {
+  margin: 0 0 18px;
+  font-size: 0.78rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: $silver;
+}
+
+.confirm-names {
+  margin: 0;
+  font-family: 'Parisienne', cursive;
+  font-size: clamp(2.4rem, 8vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: $text-light;
+}
+
+.confirm-amp {
+  display: inline-block;
+  margin: 0 0.12em;
+  color: $silver;
+}
+
+.confirm-date {
+  margin: 12px 0 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.22em;
+  color: $silver;
+}
+
+.confirm-divider {
+  width: 140px;
+  height: 22px;
+  margin: 22px auto 0;
+  color: $silver;
+}
+
+.confirm-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  text-align: left;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label-text {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: $silver;
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  border: 1px solid $border;
+  border-radius: 0;
+  background: rgba(15, 22, 38, 0.65);
+  color: $text-light;
+  font-family: 'Marcellus', serif;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+
+  &::placeholder {
+    color: rgba(130, 145, 172, 0.75);
+  }
+
+  &:focus {
+    border-color: rgba(175, 193, 221, 0.7);
+    box-shadow: 0 0 0 3px rgba(175, 193, 221, 0.12);
+  }
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 110px;
+  line-height: 1.6;
+}
+
+.counter {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  align-items: center;
+  border: 1px solid $border;
+  background: rgba(15, 22, 38, 0.65);
+}
+
+.counter input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  padding: 12px 8px;
+  box-shadow: none;
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  /* hide number spinners */
+  appearance: textfield;
+  -moz-appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.counter-btn {
+  height: 100%;
+  min-height: 48px;
+  border: none;
+  background: transparent;
+  color: $silver;
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: rgba(175, 193, 221, 0.1);
+    color: $text-light;
+  }
+}
+
+.error {
+  color: #e8a0a8;
+  font-size: 0.82rem;
+}
+
+.disclaimer {
+  margin: 2px 0 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  font-style: italic;
+  color: $text-muted;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.actions--alone {
+  margin-top: 8px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 15px 24px;
+  border: 1px solid $silver;
+  background: transparent;
+  color: $silver;
+  font-family: 'Marcellus', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-primary {
+  background: rgba(175, 193, 221, 0.12);
+
+  &:hover {
+    background: $silver;
+    color: $bg;
+  }
+}
+
+.btn-ghost {
+  border-color: transparent;
+  color: $text-muted;
+
+  &:hover {
+    color: $text-light;
+    border-color: $border;
+  }
+}
+
+.thanks {
+  padding: 12px 0 4px;
+  animation: rise-in 0.55s ease both;
+}
+
+.thanks-icon {
+  margin-bottom: 10px;
+  color: $silver;
+  font-size: 1.4rem;
+  letter-spacing: 0.2em;
+}
+
+.thanks-title {
+  margin: 0 0 12px;
+  font-family: 'Parisienne', cursive;
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: $text-light;
+}
+
+.thanks-text {
+  margin: 0 0 28px;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: $text-secondary;
+
+  strong {
+    color: $text-light;
+    font-weight: 400;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .confirm-page {
+    padding: 24px 14px;
+  }
+
+  .confirm-shell {
+    padding: 36px 22px 28px;
+  }
+
+  .confirm-names {
+    font-size: clamp(2.1rem, 11vw, 2.8rem);
+  }
+}

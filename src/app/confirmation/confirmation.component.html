@@ -1,0 +1,94 @@
+<div class="confirm-page">
+  <div class="confirm-glow" aria-hidden="true"></div>
+
+  <div class="confirm-shell">
+    <header class="confirm-header">
+      <p class="confirm-eyebrow">Confirmación de asistencia</p>
+
+      <ng-container *ngIf="invitation; else missingInvite">
+        <h1 class="confirm-names">
+          {{ invitation.names1 }}
+          <span class="confirm-amp">&amp;</span>
+          {{ invitation.names2 }}
+        </h1>
+        <p class="confirm-date" *ngIf="invitation.dateText">{{ invitation.dateText }}</p>
+      </ng-container>
+
+      <ng-template #missingInvite>
+        <h1 class="confirm-names">Invitación no encontrada</h1>
+        <p class="confirm-date">Revisa el enlace e intenta de nuevo.</p>
+      </ng-template>
+
+      <svg class="confirm-divider" viewBox="0 0 160 24" fill="none" aria-hidden="true">
+        <path d="M8 12 H58" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+        <path d="M102 12 H152" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+        <g fill="currentColor">
+          <path d="M66 12 l2-3.5 2 3.5-2 3.5z" />
+          <path d="M94 12 l-2-3.5-2 3.5 2 3.5z" transform="translate(184 0) scale(-1 1)" />
+          <path d="M83 4.5 a7 7 0 1 0 5 12 a8.5 8.5 0 0 1 -5 -12 z" />
+        </g>
+      </svg>
+    </header>
+
+    <form
+      *ngIf="!submitted && invitation"
+      class="confirm-form"
+      [formGroup]="form"
+      (ngSubmit)="onSubmit()">
+
+      <div class="field field--count">
+        <span class="label-text">Número de confirmados</span>
+        <div class="counter">
+          <button type="button" class="counter-btn" (click)="changeGuests(-1)" aria-label="Disminuir">−</button>
+          <input type="number" formControlName="guestsCount" min="1" aria-label="Número de confirmados" />
+          <button type="button" class="counter-btn" (click)="changeGuests(1)" aria-label="Aumentar">+</button>
+        </div>
+        <small class="error" *ngIf="f.guestsCount.touched && f.guestsCount.invalid">
+          Ingresa un número válido.
+        </small>
+      </div>
+
+      <label class="field">
+        <span class="label-text">Nombres</span>
+        <input
+          type="text"
+          formControlName="names"
+          placeholder="Ej: Ana López, Carlos Ruiz" />
+        <small class="error" *ngIf="f.names.touched && f.names.invalid">
+          Escribe el nombre de quienes asistirán.
+        </small>
+      </label>
+
+      <label class="field field--full">
+        <span class="label-text">Comentario</span>
+        <textarea
+          rows="4"
+          formControlName="comment"
+          placeholder="..."></textarea>
+        <p class="disclaimer">
+          Cuéntanos algo a los anfitriones: si necesitas menú vegetariano, alguna
+          indicación especial, o simplemente deja un lindo mensaje para ellos.
+        </p>
+      </label>
+
+      <div class="actions">
+        <button type="submit" class="btn btn-primary">Confirmar asistencia</button>
+        <button type="button" class="btn btn-ghost" (click)="goBack()">Volver a la invitación</button>
+      </div>
+    </form>
+
+    <div *ngIf="submitted" class="thanks">
+      <div class="thanks-icon" aria-hidden="true">✦</div>
+      <h2 class="thanks-title">¡Gracias!</h2>
+      <p class="thanks-text">
+        Tu confirmación quedó registrada.
+        <span *ngIf="savedData?.names">Nos alegra contar con <strong>{{ savedData.names }}</strong>.</span>
+      </p>
+      <button type="button" class="btn btn-primary" (click)="goBack()">Volver a la invitación</button>
+    </div>
+
+    <div *ngIf="!invitation" class="actions actions--alone">
+      <button type="button" class="btn btn-ghost" (click)="goBack()">Volver</button>
+    </div>
+  </div>
+</div>
