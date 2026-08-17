@@ -76,6 +76,10 @@ $border-soft: rgba(175, 193, 221, 0.35);
     margin: 36px 0 0 0;
     line-height: 1.1;
     white-space: nowrap;
+    display: grid;
+    grid-template-columns: 37% 15% 37%;
+    gap: 5px;
+    width: 100%;
 
     .hero-amp {
         color: $silver;
@@ -221,6 +225,18 @@ $border-soft: rgba(175, 193, 221, 0.35);
     letter-spacing: 4px;
     color: $silver;
     margin: 0 0 34px 0;
+}
+
+.event-map-link {
+    margin-top: 9px;
+    font-size: 0.80em;
+    color: $text-secondary;
+    opacity: 0.95;
+    letter-spacing: 0.6px;
+    text-align: center;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .timeline {

@@ -81,7 +81,45 @@ export class MainService {
     {
       id: 8,
       slug: "laura-juan",
-      data: {},
+      data: {
+        heroImage: "assets/new-claude-our/portada.jpg",
+        names1: "Laura",
+        names2: "Juan",
+        dateText: "18 · 07 · 2026",
+        weddingDate: "December 18, 2026 16:00:00",
+        eventLocation: "CAJICÁ, CUNDINAMARCA",
+        heroPretitle: "Nos casamos",
+        heroTitle: "NOS CASAMOS",
+        heroMessage: "Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos compartir contigo el comienzo del capítulo más hermoso.",
+        quote: "Nuestro amor estaba escrito en las estrellas.<br>Y hoy el cielo entero celebra con nosotros.",
+        quoteReference: "",
+        parallaxImage1: "assets/new-claude-our/basic_01.jpg",
+        parallaxImage2: "assets/new-claude-our/basic_02.jpg",
+        eventTitle: "Ceremonia y Recepción",
+        eventMapLink: "https://maps.app.goo.gl/UP6C67Tya92kXPRX7?g_st=iwb",
+        timeline: [
+          { time: "4:00 PM", desc: "Ceremonia" },
+          { time: "5:30 PM", desc: "Cóctel de bienvenida" },
+          { time: "7:00 PM", desc: "Recepción" },
+          { time: "9:00 PM", desc: "Fiesta" }
+        ],
+        eventButtonText: "VER UBICACIÓN",
+        dressType: "Formal Nocturno",
+        dressWomenDesc: "Vestido largo o cóctel.",
+        dressMenDesc: "Traje oscuro.",
+        dressNote: "El color blanco está reservado para la novia.",
+        confirmTitle: "Confirma tu Asistencia",
+        confirmMessage: "Hemos pensado en ti porque eres parte de nuestra historia. Queremos contar contigo esa noche.",
+        confirmButtonText: "CONFIRMA AQUÍ",
+        confirmLink: "https://www.google.com/?hl=es",
+        sobresTitle: "Lluvia de Sobres",
+        sobresMessage: "Si deseas tener un detalle con nosotros, lo recibimos con mucho cariño.",
+        finalHighlight: "Nos vemos bajo las estrellas",
+        finalText1: "Tenemos la luna, la música y cada detalle preparado…",
+        finalText2: "Solo falta lo más importante: tú.",
+        closingFinal: "Laura & Juan",
+        audioSrc: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Fonseca%20-%20Prometo%20(LyricLetra).mp3"
+      },
       template: "laura-juan",
       active: true
     },
@@ -107,7 +145,7 @@ export class MainService {
         date: "14 · 02 · 2027",
         location: "Bogotá, Colombia",
         quote: "El amor nos unió para siempre y queremos compartir este gran día contigo."
-        
+
       },
       template: "neblina",
       active: true
@@ -236,7 +274,7 @@ export class MainService {
         eventVenue: "HACIENDA LOS FAROLES",
         eventAddress: "San Rafael, Cundinamarca",
         eventHour: "3:00 PM",
-        eventMapLink: "https://maps.app.goo.gl/UP6C67Tya92kXPRX7?g_st=iwb",
+        eventMapLink: "https://www.google.com/maps/place/Cl.+7+%23+29-11,+Melgar,+Tolima/@4.2011456,-74.6449439,19z/data=!4m6!3m5!1s0x8e3edefe1b60b2cb:0xdcde444d1f284f5b!8m2!3d4.201225!4d-74.6450334!16s%2Fg%2F11x2m3jrxl?entry=tts&g_ep=EgoyMDI2MDgxMi4wIPu8ASoASAFQAw%3D%3D&skid=2f63d9fc-62ac-4831-9442-1dc7dd21cdc2",
         dressWomenNote: "Ellas Divinas (Se reserva el color verde oliva)",
         dressMenNote: "Ellos Guapos",
         dressWomenImage: "assets/images/w-dress.png",
@@ -251,6 +289,60 @@ export class MainService {
       template: "our",
       active: true
     },
+  ];
+
+
+  public platillas_vendidas: any = [
+    {
+
+      id: "nicol-andres-f56ejnslo",
+      slug: "nicol-andres",
+      data: {
+        names1: "Nicol",
+        names2: "Andrés",
+        dateText: "03 · 10 · 2026",
+        heroPretitle: "Nos casamos",
+        heroTitle: "NOS CASAMOS",
+        heroMessage: "Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos compartir contigo el comienzo del capítulo más hermoso.",
+        quote: "No sé de qué están hechas las almas, pero la tuya y la mía son una sola",
+        weddingDate: "Octubre 3, 2026 18:00:00",
+        eventLocation: "Melgar Tolima",
+        quoteReference: "",
+        // parallaxImage1: "assets/new-claude-our/basic_01.jpg",
+        eventTitle: "Ceremonia y Recepción",
+        timeline: [
+          { time: "6:00 PM", desc: "Ceremonia" },
+          { time: "7:00 PM", desc: "Recepción (Mapa)" },
+          // { time: "7:00 PM", desc: "Recepción" },
+          // { time: "9:00 PM", desc: "Fiesta" }
+        ],
+        eventButtonText: "VER UBICACIÓN",
+        dressType: "Formal Nocturno",
+        dressWomenDesc: "Ellas Vestido Largo o Coctel",
+        dressMenDesc: "Traje",
+        dressNote: "Color Blanco Reservado para Novia, Azul Oscuro reservado para el Novio",
+        confirmTitle: "Confirma tu Asistencia",
+        confirmMessage: "Hemos pensado en ti porque eres parte de nuestra historia. Queremos contar contigo esa noche.",
+        confirmButtonText: "CONFIRMA AQUÍ",
+        confirmLink: "https://www.google.com/?hl=es",
+        sobresTitle: "Lluvia de Sobres",
+        sobresMessage: "",
+        finalHighlight: "Nos vemos bajo las estrellas",
+        finalText1: "Tenemos la luna, la música y cada detalle preparado…",
+        finalText2: "Solo falta lo más importante: tú.",
+        closingFinal: "Nicol & Andrés",
+        heroImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/primera_opt.jpg",
+        parallaxImage1: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/segunda_resize.jpg",
+        parallaxImage2: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/tercera_resize.jpg",
+        eventMapLink: "https://www.google.com/maps/place/Cl.+7+%23+29-11,+Melgar,+Tolima/@4.2011456,-74.6449439,19z/data=!4m6!3m5!1s0x8e3edefe1b60b2cb:0xdcde444d1f284f5b!8m2!3d4.201225!4d-74.6450334!16s%2Fg%2F11x2m3jrxl?entry=tts&g_ep=EgoyMDI2MDgxMi4wIPu8ASoASAFQAw%3D%3D&skid=2f63d9fc-62ac-4831-9442-1dc7dd21cdc2",
+        audioSrc: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/asi_es_nuestro_amor_cut.mp3",
+        eventMapLabel: "La quinta amarilla"
+
+
+      },
+      template: "laura-juan",
+      active: true
+    }
   ]
   constructor() { }
 
@@ -259,6 +351,6 @@ export class MainService {
   }
 
   public getDataBySlug({ slug }: { slug: string }) {
-    return [...this.data, ...this.template_fijos].find((item: any) => (item.slug === slug && item.active));
+    return [...this.data, ...this.template_fijos, ...this.platillas_vendidas].find((item: any) => (item.slug === slug && item.active));
   }
 }

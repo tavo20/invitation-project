@@ -1,13 +1,15 @@
+
+
 <section class="container-main">
     <header class="hero-night">
-        <p class="hero-pre">Nos casamos</p>
+        <p class="hero-pre">{{ heroPretitle }}</p>
 
         <div class="arch-frame">
-            <img src="assets/new-claude-our/portada.jpg" alt="Laura y Juan">
+            <img [src]="heroImage" alt="{{ names1 }} y {{ names2 }}">
         </div>
 
-        <h1 class="hero-names">Laura <span class="hero-amp">&</span> Juan</h1>
-        <p class="hero-fecha">18 &middot; 07 &middot; 2026</p>
+        <h1 class="hero-names">{{ names1 }} <span class="hero-amp">&</span> {{ names2 }}</h1>
+        <p class="hero-fecha">{{ dateText }}</p>
 
         <svg class="divider-celestial" viewBox="0 0 160 24" fill="none">
             <path d="M8 12 H58" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
@@ -19,10 +21,7 @@
             </g>
         </svg>
 
-        <p class="hero-message">
-            Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos
-            compartir contigo el comienzo del cap&iacute;tulo m&aacute;s hermoso.
-        </p>
+        <p class="hero-message" [innerHTML]="heroMessage"></p>
     </header>
 
     <!-- cita (fondo alternado) -->
@@ -32,12 +31,11 @@
             <path d="M18.5 14l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9z" opacity="0.7" />
             <path d="M5 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z" opacity="0.5" />
         </svg>
-        <p class="quote-message">"Nuestro amor estaba escrito en las estrellas, <br>y hoy el cielo entero celebra con
-            nosotros."</p>
+        <p class="quote-message" [innerHTML]="quote"></p>
     </section>
 
     <div class="parallax-image">
-        <img #parallaxImg src="assets/new-claude-our/basic_01.jpg" alt="Laura y Juan">
+        <img #parallaxImg [src]="parallaxImage1" alt="{{ names1 }} y {{ names2 }}">
     </div>
 
     <!-- countdown -->
@@ -62,59 +60,47 @@
             <path d="M10 21v-3a2 2 0 0 1 4 0v3" />
             <path d="M14.5 2.5 a3.2 3.2 0 1 0 2.3 5.5 a4 4 0 0 1 -2.3 -5.5 z" fill="currentColor" stroke="none" />
         </svg>
-        <h2 class="section-titulo">Ceremonia y Recepci&oacute;n</h2>
-        <p class="event-lugar">CAJIC&Aacute;, CUNDINAMARCA</p>
+        <h2 class="section-titulo">{{ eventTitle }}</h2>
+        <p class="event-lugar">{{ eventLocation }}</p>
         <!-- TODO: agregar nombre del lugar exacto -->
 
         <div class="timeline">
-            <div class="timeline-item">
-                <p class="timeline-hora">4:00 PM</p>
-                <p class="timeline-desc">Ceremonia</p>
-            </div>
-            <div class="timeline-item">
-                <p class="timeline-hora">5:30 PM</p>
-                <p class="timeline-desc">C&oacute;ctel de bienvenida</p>
-            </div>
-            <div class="timeline-item">
-                <p class="timeline-hora">7:00 PM</p>
-                <p class="timeline-desc">Recepci&oacute;n </p>
-            </div>
-            <div class="timeline-item">
-                <p class="timeline-hora">9:00 PM</p>
-                <p class="timeline-desc">Fiesta</p>
+            <div class="timeline-item" *ngFor="let item of timeline">
+                <p class="timeline-hora">{{ item.time }}</p>
+                <p class="timeline-desc" [innerHTML]="item.desc"></p>
             </div>
         </div>
 
         <!-- TODO: reemplazar con el link real de Google Maps -->
-        <a target="_blank" href="#" class="theme-button">VER UBICACI&Oacute;N</a>
+        <a target="_blank" [href]="eventMapLink" class="theme-button" rel="noopener noreferrer">{{ eventButtonText }}</a>
+        <div *ngIf="eventMapLabel" class="event-map-link">{{ eventMapLabel }}</div>
     </section>
 
     <!-- dress code -->
     <section class="dress-section reveal">
         <h2 class="section-titulo">Dress Code</h2>
-        <p class="dress-tipo">Formal Nocturno</p>
+        <p class="dress-tipo">{{ dressType }}</p>
 
         <div class="dress-grid">
             <div class="dress-grupo">
                 <h3 class="dress-subtitulo">Ellas</h3>
-                <p class="dress-desc">Vestido largo o c&oacute;ctel.</p>
+                <p class="dress-desc">{{ dressWomenDesc }}</p>
             </div>
             <div class="dress-grupo">
                 <h3 class="dress-subtitulo">Ellos</h3>
-                <p class="dress-desc">Traje oscuro.</p>
+                <p class="dress-desc">{{ dressMenDesc }}</p>
             </div>
         </div>
 
-        <p class="dress-nota">El color blanco est&aacute; reservado para la novia.</p>
+        <p class="dress-nota">{{ dressNote }}</p>
     </section>
 
     <!-- confirma (fondo alternado) -->
     <section class="confirma-section bg-alt reveal">
-        <h2 class="section-titulo">Confirma tu Asistencia</h2>
-        <p class="section-mensaje">Hemos pensado en ti porque eres parte de nuestra historia. Queremos contar
-            contigo esa noche.</p>
+        <h2 class="section-titulo">{{ confirmTitle }}</h2>
+        <p class="section-mensaje">{{ confirmMessage }}</p>
         <!-- TODO: reemplazar con el link real de Google Forms -->
-        <a href="#" target="_blank" class="theme-button">CONFIRMA AQU&Iacute;</a>
+        <a [href]="confirmLink" target="_blank" class="theme-button">{{ confirmButtonText }}</a>
     </section>
 
     <!-- sobres -->
@@ -126,21 +112,21 @@
             <path d="M12 12.2l.9 2.6 2.6.9-2.6.9-.9 2.6-.9-2.6-2.6-.9 2.6-.9z" fill="currentColor" stroke="none"
                 transform="scale(0.6) translate(8 9)" />
         </svg>
-        <h2 class="section-titulo">Lluvia de Sobres</h2>
+        <h2 class="section-titulo">{{ sobresTitle }}</h2>
         <!-- <p class="section-mensaje">El mejor regalo ser&aacute; compartir este momento contigo. Si deseas tener un
             detalle con nosotros, agradecemos tu aporte en nuestra lluvia de sobres.</p> -->
+        <p *ngIf="sobresMessage" class="section-mensaje">{{ sobresMessage }}</p>
     </section>
 
     <div class="parallax-image">
-        <img #parallaxImg src="assets/new-claude-our/basic_02.jpg" alt="Laura y Juan">
+        <img #parallaxImg [src]="parallaxImage2" alt="{{ names1 }} y {{ names2 }}">
     </div>
 
     <!-- cierre -->
     <section class="cierre-section reveal">
-        <p class="cierre-highlight">Nos vemos bajo las estrellas</p>
-        <p class="cierre-texto">Tenemos la luna, la m&uacute;sica y cada detalle preparado&hellip;
-            solo falta lo m&aacute;s importante: t&uacute;.</p>
-        <p class="cierre-final">Laura & Juan</p>
+        <p class="cierre-highlight">{{ finalHighlight }}</p>
+        <p class="cierre-texto" [innerHTML]="finalText1 + '<br>' + finalText2"></p>
+        <p class="cierre-final">{{ closingFinal }}</p>
     </section>
 
     <!-- boton flotante de musica -->
@@ -152,6 +138,6 @@
             <circle cx="16.5" cy="16" r="2.5" />
         </svg>
     </button>
-    <audio #audioPlayer src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Fonseca%20-%20Prometo%20(LyricLetra).mp3"></audio>
+    <audio *ngIf="audioSrc" #audioPlayer [src]="audioSrc"></audio>
 
 </section>
