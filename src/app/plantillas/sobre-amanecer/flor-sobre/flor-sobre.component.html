@@ -1,0 +1,129 @@
+<svg class="flor-sobre" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <defs>
+    <filter id="flor-petal-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="2" dy="5" stdDeviation="4" flood-color="#1e050b" flood-opacity="0.55" />
+    </filter>
+    <filter id="flor-center-shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.65" />
+    </filter>
+
+    <linearGradient id="flor-back-petal-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="var(--flor-deep)" />
+      <stop offset="25%" stop-color="var(--flor-dark)" />
+      <stop offset="65%" stop-color="var(--flor-mid)" />
+      <stop offset="90%" stop-color="var(--flor-bright)" />
+      <stop offset="100%" stop-color="var(--flor-light)" />
+    </linearGradient>
+
+    <linearGradient id="flor-front-petal-grad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="var(--flor-dark)" />
+      <stop offset="20%" stop-color="var(--flor-mid)" />
+      <stop offset="55%" stop-color="var(--flor-bright)" />
+      <stop offset="85%" stop-color="var(--flor-light)" />
+      <stop offset="100%" stop-color="var(--flor-soft)" />
+    </linearGradient>
+
+    <linearGradient id="flor-petal-highlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.22" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <radialGradient id="flor-center-base-grad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="var(--flor-center-light)" />
+      <stop offset="35%" stop-color="var(--flor-center-mid)" />
+      <stop offset="70%" stop-color="var(--flor-center-dark)" />
+      <stop offset="90%" stop-color="var(--flor-dark)" />
+      <stop offset="100%" stop-color="var(--flor-deep)" />
+    </radialGradient>
+
+    <radialGradient id="flor-stigma-grad" cx="40%" cy="40%" r="60%">
+      <stop offset="0%" stop-color="var(--flor-center-light)" />
+      <stop offset="60%" stop-color="var(--flor-center-mid)" />
+      <stop offset="100%" stop-color="var(--flor-center-dark)" />
+    </radialGradient>
+
+    <g id="flor-back-petal">
+      <path d="M 250 250 C 210 205, 175 145, 205 60 C 225 15, 275 15, 295 60 C 325 145, 290 205, 250 250 Z"
+            fill="url(#flor-back-petal-grad)" />
+      <path d="M 250 240 Q 250 140 250 50" stroke="var(--flor-vein)" stroke-width="1.2" stroke-opacity="0.35" fill="none" />
+      <path d="M 250 200 Q 230 140 220 75" stroke="var(--flor-vein)" stroke-width="0.8" stroke-opacity="0.2" fill="none" />
+      <path d="M 250 200 Q 270 140 280 75" stroke="var(--flor-vein)" stroke-width="0.8" stroke-opacity="0.2" fill="none" />
+    </g>
+
+    <g id="flor-front-petal">
+      <path d="M 250 250 C 205 210, 180 140, 215 55 C 232 25, 268 25, 285 55 C 320 140, 295 210, 250 250 Z"
+            fill="url(#flor-front-petal-grad)" filter="url(#flor-petal-shadow)" />
+      <path d="M 250 250 C 205 210, 180 140, 215 55 C 232 25, 268 25, 285 55 C 320 140, 295 210, 250 250 Z"
+            fill="url(#flor-petal-highlight)" />
+      <path d="M 250 245 Q 248 135 250 48" stroke="#ffffff" stroke-width="1.6" stroke-opacity="0.45" fill="none" />
+      <path d="M 250 215 Q 232 155 222 80" stroke="var(--flor-vein-soft)" stroke-width="0.9" stroke-opacity="0.3" fill="none" />
+      <path d="M 250 215 Q 268 155 278 80" stroke="var(--flor-vein-soft)" stroke-width="0.9" stroke-opacity="0.3" fill="none" />
+      <path d="M 250 170 Q 225 125 212 105" stroke="var(--flor-vein-soft)" stroke-width="0.7" stroke-opacity="0.25" fill="none" />
+      <path d="M 250 170 Q 275 125 288 105" stroke="var(--flor-vein-soft)" stroke-width="0.7" stroke-opacity="0.25" fill="none" />
+      <path d="M 235 240 C 242 225, 258 225, 265 240 C 258 248, 242 248, 235 240 Z" fill="var(--flor-deep)" opacity="0.6" />
+    </g>
+
+    <g id="flor-stamen">
+      <path d="M 250 250 Q 252 205 254 185" stroke="var(--flor-stamen)" stroke-width="1.3" stroke-linecap="round" fill="none" opacity="0.85" />
+      <ellipse cx="254" cy="183" rx="3.5" ry="2.2" fill="url(#flor-stigma-grad)" transform="rotate(-15, 254, 183)" />
+    </g>
+  </defs>
+
+  <g id="flor-back-layer">
+    <use href="#flor-back-petal" transform="rotate(45, 250, 250)" />
+    <use href="#flor-back-petal" transform="rotate(135, 250, 250)" />
+    <use href="#flor-back-petal" transform="rotate(225, 250, 250)" />
+    <use href="#flor-back-petal" transform="rotate(315, 250, 250)" />
+  </g>
+
+  <g id="flor-front-layer">
+    <use href="#flor-front-petal" transform="rotate(0, 250, 250)" />
+    <use href="#flor-front-petal" transform="rotate(90, 250, 250)" />
+    <use href="#flor-front-petal" transform="rotate(180, 250, 250)" />
+    <use href="#flor-front-petal" transform="rotate(270, 250, 250)" />
+  </g>
+
+  <circle cx="250" cy="250" r="48" fill="url(#flor-center-base-grad)" filter="url(#flor-center-shadow)" />
+
+  <g id="flor-outer-stamens">
+    <use href="#flor-stamen" transform="rotate(0, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(22.5, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(45, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(67.5, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(90, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(112.5, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(135, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(157.5, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(180, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(202.5, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(225, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(247.5, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(270, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(292.5, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(315, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(337.5, 250, 250)" />
+  </g>
+
+  <g id="flor-inner-stamens" transform="scale(0.78) translate(70.5, 70.5)">
+    <use href="#flor-stamen" transform="rotate(11.25, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(56.25, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(101.25, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(146.25, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(191.25, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(236.25, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(281.25, 250, 250)" />
+    <use href="#flor-stamen" transform="rotate(326.25, 250, 250)" />
+  </g>
+
+  <circle cx="250" cy="250" r="18" fill="var(--flor-center-dark)" />
+  <circle cx="250" cy="250" r="14" fill="var(--flor-center-mid)" />
+  <g fill="var(--flor-center-light)" opacity="0.9">
+    <circle cx="250" cy="245" r="2.2" />
+    <circle cx="245" cy="252" r="2" />
+    <circle cx="255" cy="253" r="2.4" />
+    <circle cx="251" cy="256" r="1.8" />
+    <circle cx="246" cy="246" r="1.7" />
+    <circle cx="254" cy="247" r="1.9" />
+  </g>
+</svg>

@@ -28,11 +28,487 @@
             </div>
 
             <!-- 2. SECCIÓN INFERIOR: BASE FLORAL ACUARELA -->
-            <div class="paper-floral-base">
-                <img class="flora-image" src="assets/sobre-amanecer/rama.svg" alt="Foliage">
-            </div>
+            <!-- <div class="paper-floral-base">
+                <div class="flora-flower" aria-hidden="true">
+                    <div>
+                        <app-flor-sobre></app-flor-sobre>
+                    </div>
+                    <div>
+                        <app-flor-sobre></app-flor-sobre>
+                    </div>
+                    <div>
+                        <app-flor-sobre></app-flor-sobre>
+                    </div>
+                </div>
+            </div> -->
         </div>
     </div>
+
+    <!-- 3. ANUNCIO: NOS CASAMOS -->
+    <section class="announce-section">
+        <!-- <img class="announce-foliage announce-foliage--top" src="assets/sobre-amanecer/rama.svg" alt=""> -->
+
+        <div class="announce-content">
+            <p class="announce-monogram">
+                <span>{{ data.inicial1 }}</span>
+                <span class="announce-monogram__divider" aria-hidden="true"></span>
+                <span>{{ data.inicial2 }}</span>
+            </p>
+
+            <h2 class="announce-title">{{ data.announceTitle }}</h2>
+            <p class="announce-message">{{ data.announceMessage }}</p>
+
+            <div class="announce-photo">
+                <img [src]="data.heroImage" [alt]="data.names1 + ' y ' + data.names2">
+            </div>
+        </div>
+
+        <!-- <img class="announce-foliage announce-foliage--bottom" src="assets/sobre-amanecer/rama.svg" alt=""> -->
+    </section>
+
+    <!-- 4. HISTORIA + MÚSICA + FECHA + COUNTDOWN -->
+    <section class="story-section">
+        <div class="music-block" *ngIf="data.audioSrc">
+            <p class="music-label">{{ data.musicLabel }}</p>
+
+            <div class="music-track" (click)="seekAudio($event)" role="slider" [attr.aria-valuenow]="progress">
+                <div class="music-track__fill" [style.width.%]="progress"></div>
+                <span class="music-track__thumb" [style.left.%]="progress"></span>
+            </div>
+
+            <div class="music-controls">
+                <button type="button" class="music-icon" aria-label="Aleatorio" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M16 3h5v5M4 20l16-16M21 16v5h-5M15 15l6 6M4 4l5 5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button type="button" class="music-icon" aria-label="Anterior" disabled>
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 6h2v12H6V6zm3.5 6l8.5 6V6l-8.5 6z"/>
+                    </svg>
+                </button>
+                <button type="button" class="music-play" (click)="togglePlayPause()" [attr.aria-label]="isPlaying ? 'Pausar' : 'Reproducir'">
+                    <svg *ngIf="!isPlaying" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7L8 5z"/>
+                    </svg>
+                    <svg *ngIf="isPlaying" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"/>
+                    </svg>
+                </button>
+                <button type="button" class="music-icon" aria-label="Siguiente" disabled>
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M16 6h2v12h-2V6zM6 18l8.5-6L6 6v12z"/>
+                    </svg>
+                </button>
+                <button type="button" class="music-icon" aria-label="Repetir" disabled>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M17 1l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M3 11V9a4 4 0 0 1 4-4h14" stroke-linecap="round"/>
+                        <path d="M7 23l-4-4 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 13v2a4 4 0 0 1-4 4H3" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <audio
+                #audioPlayer
+                [src]="data.audioSrc"
+                (timeupdate)="onTimeUpdate()"
+                (ended)="onAudioEnded()">
+            </audio>
+        </div>
+
+        <p class="story-text">{{ data.storyText }}</p>
+
+        <div class="date-block">
+            <p class="date-month">{{ data.month }}</p>
+            <div class="date-row">
+                <span class="date-side">{{ data.dayOfWeek }}</span>
+                <span class="date-day">{{ data.dayNumber }}</span>
+                <span class="date-side">{{ data.year }}</span>
+            </div>
+        </div>
+
+        <div class="countdown-block">
+            <p class="countdown-label">FALTAN</p>
+            <div class="countdown-values">
+                <div class="countdown-unit">
+                    <span class="countdown-num">{{ formatCount(days) }}</span>
+                    <span class="countdown-cap">Días</span>
+                </div>
+                <span class="countdown-colon">:</span>
+                <div class="countdown-unit">
+                    <span class="countdown-num">{{ formatCount(hours) }}</span>
+                    <span class="countdown-cap">Horas</span>
+                </div>
+                <span class="countdown-colon">:</span>
+                <div class="countdown-unit">
+                    <span class="countdown-num">{{ formatCount(minutes) }}</span>
+                    <span class="countdown-cap">Min</span>
+                </div>
+                <span class="countdown-colon">:</span>
+                <div class="countdown-unit">
+                    <span class="countdown-num">{{ formatCount(seconds) }}</span>
+                    <span class="countdown-cap">Seg</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. FOTO + CEREMONIA + RECEPCIÓN -->
+    <section class="events-section">
+        <div class="events-photo" *ngIf="data.eventsImage">
+            <img [src]="data.eventsImage" [alt]="data.names1 + ' y ' + data.names2">
+        </div>
+
+        <article class="event-block">
+            <div class="event-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+                    <circle cx="24.5" cy="36" r="13.5"/>
+                    <circle cx="39.5" cy="36" r="13.5"/>
+                    <rect x="21" y="14" width="7" height="8" rx="1.2" transform="rotate(-18 24.5 18)"/>
+                    <rect x="36" y="14" width="7" height="8" rx="1.2" transform="rotate(18 39.5 18)"/>
+                </svg>
+            </div>
+            <p class="event-time">{{ data.ceremonyTime }}</p>
+            <h3 class="event-title">{{ data.ceremonyTitle }}</h3>
+            <p class="event-place">{{ data.ceremonyPlace }}</p>
+            <p class="event-area">{{ data.ceremonyArea }}</p>
+            <a
+                class="event-btn"
+                [href]="data.ceremonyMapLink"
+                target="_blank"
+                rel="noopener noreferrer">
+                {{ data.eventButtonLabel }}
+            </a>
+        </article>
+
+        <article class="event-block">
+            <div class="event-icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 12c0 10 6 16 10 22 2 3 2 6 2 10"/>
+                    <path d="M34 12c0 10-6 16-10 22-2 3-2 6-2 10"/>
+                    <path d="M14 12h20"/>
+                    <path d="M24 44v10"/>
+                    <path d="M16 54h16"/>
+                    <path d="M30 12c0 10 6 16 10 22 2 3 2 6 2 10"/>
+                    <path d="M50 12c0 10-6 16-10 22-2 3-2 6-2 10"/>
+                    <path d="M30 12h20"/>
+                    <path d="M40 44v10"/>
+                    <path d="M32 54h16"/>
+                    <path d="M20 22h8M36 22h8"/>
+                </svg>
+            </div>
+            <p class="event-time">{{ data.receptionTime }}</p>
+            <h3 class="event-title">{{ data.receptionTitle }}</h3>
+            <p class="event-place">{{ data.receptionPlace }}</p>
+            <p class="event-area">{{ data.receptionArea }}</p>
+            <a
+                class="event-btn"
+                [href]="data.receptionMapLink"
+                target="_blank"
+                rel="noopener noreferrer">
+                {{ data.eventButtonLabel }}
+            </a>
+        </article>
+    </section>
+
+    <!-- 6. ITINERARIO -->
+    <section class="itinerary-section" *ngIf="data.itinerary?.length">
+        <h3 class="itinerary-title">{{ data.itineraryTitle }}</h3>
+
+        <ol class="itinerary-timeline">
+            <li
+                class="itinerary-item"
+                *ngFor="let item of data.itinerary; let i = index"
+                [class.itinerary-item--right]="i % 2 === 0"
+                [class.itinerary-item--left]="i % 2 === 1">
+                <div class="itinerary-content">
+                    <div class="itinerary-icon" aria-hidden="true">
+                        <ng-container [ngSwitch]="item.icon">
+                            <svg *ngSwitchCase="'rings'" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                                <circle cx="18" cy="28" r="10"/>
+                                <circle cx="30" cy="28" r="10"/>
+                                <rect x="15" y="12" width="6" height="7" rx="1" transform="rotate(-16 18 15.5)"/>
+                                <rect x="27" y="12" width="6" height="7" rx="1" transform="rotate(16 30 15.5)"/>
+                            </svg>
+                            <svg *ngSwitchCase="'cheers'" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 10c0 8 5 12 8 17 1.5 2.5 1.5 5 1.5 8"/>
+                                <path d="M26 10c0 8-5 12-8 17-1.5 2.5-1.5 5-1.5 8"/>
+                                <path d="M10 10h16"/>
+                                <path d="M18 35v6M12 41h12"/>
+                                <path d="M22 10c0 8 5 12 8 17 1.5 2.5 1.5 5 1.5 8"/>
+                                <path d="M38 10c0 8-5 12-8 17-1.5 2.5-1.5 5-1.5 8"/>
+                                <path d="M22 10h16"/>
+                                <path d="M30 35v6M24 41h12"/>
+                                <path d="M14 18h6M26 18h6"/>
+                            </svg>
+                            <svg *ngSwitchCase="'arch'" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 42V22c0-8 6-14 14-14s14 6 14 14v20"/>
+                                <path d="M14 42V24c0-6 4.5-10 10-10s10 4 10 10v18"/>
+                                <circle cx="16" cy="14" r="2.2"/>
+                                <circle cx="24" cy="10" r="2.2"/>
+                                <circle cx="32" cy="14" r="2.2"/>
+                                <circle cx="20" cy="16" r="1.6"/>
+                                <circle cx="28" cy="16" r="1.6"/>
+                            </svg>
+                            <svg *ngSwitchCase="'dance'" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="18" cy="10" r="3"/>
+                                <circle cx="30" cy="10" r="3"/>
+                                <path d="M18 14c0 4 2 7 6 9"/>
+                                <path d="M30 14c0 4-2 7-6 9"/>
+                                <path d="M14 24l4 4 6-3 6 3 4-4"/>
+                                <path d="M18 28v8l-4 6"/>
+                                <path d="M30 28v8l4 6"/>
+                                <path d="M22 28v10"/>
+                                <path d="M26 28v10"/>
+                            </svg>
+                            <svg *ngSwitchCase="'dinner'" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="24" cy="26" r="11"/>
+                                <circle cx="24" cy="26" r="7"/>
+                                <path d="M8 14v18"/>
+                                <path d="M8 14c2 0 3 2 3 5v4"/>
+                                <path d="M5 14c0 4 .5 7 .5 9"/>
+                                <path d="M11 14c0 4-.5 7-.5 9"/>
+                                <path d="M40 14c-2 3-3 7-3 12v6"/>
+                                <path d="M37 14v10"/>
+                            </svg>
+                            <svg *ngSwitchCase="'party'" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="24" cy="24" r="10"/>
+                                <path d="M24 14v20M14 24h20"/>
+                                <path d="M17 17l14 14M31 17L17 31"/>
+                                <path d="M24 10v-3M24 41v-3M10 24H7M41 24h-3"/>
+                                <path d="M13 13l-2-2M37 13l2-2M13 35l-2 2M37 35l2 2"/>
+                            </svg>
+                            <svg *ngSwitchCase="'clock'" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                                <circle cx="24" cy="24" r="14"/>
+                                <path d="M24 14v11l7 4"/>
+                                <circle cx="24" cy="24" r="1.5" fill="currentColor" stroke="none"/>
+                            </svg>
+                        </ng-container>
+                    </div>
+                    <p class="itinerary-time">{{ item.time }}</p>
+                    <p class="itinerary-label">{{ item.label }}</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <!-- 6b. CONFIRMAR ASISTENCIA -->
+    <section class="rsvp-section">
+        <div class="rsvp-icon" aria-hidden="true">
+            <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="12" y="14" width="40" height="40" rx="4"/>
+                <path d="M12 24h40"/>
+                <path d="M22 10v8M42 10v8"/>
+                <path d="M32 34c-3.5-3.2-8 0-5.2 3.8L32 44l5.2-6.2C40 34 35.5 30.8 32 34z" fill="currentColor" stroke="none"/>
+            </svg>
+        </div>
+        <h3 class="rsvp-title">{{ data.confirmTitle }}</h3>
+        <p class="rsvp-text">{{ data.confirmText }}</p>
+        <a
+            class="rsvp-btn"
+            [href]="data.confirmLink"
+            target="_blank"
+            rel="noopener noreferrer">
+            {{ data.confirmButtonText }}
+        </a>
+    </section>
+
+    <!-- 7. CÓDIGO DE VESTIMENTA -->
+    <section class="dress-section">
+        <h3 class="dress-title">{{ data.dressTitle }}</h3>
+        <p class="dress-type">{{ data.dressType }}</p>
+
+        <div class="dress-visual" *ngIf="data.dressImage">
+            <img [src]="data.dressImage" alt="Código de vestimenta formal">
+        </div>
+
+        <p class="dress-note">{{ data.dressNote }}</p>
+    </section>
+
+    <!-- 8. LLUVIA DE SOBRES -->
+    <section class="gift-section">
+        <h3 class="gift-title">{{ data.giftTitle }}</h3>
+
+        <div class="gift-visual" aria-hidden="true">
+            <svg viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <filter id="gift-box-shadow" x="-30%" y="-30%" width="160%" height="160%">
+                        <feDropShadow dx="0" dy="16" stdDeviation="14" flood-color="var(--sobre-sombra-profunda, #141c10)" flood-opacity="0.45" />
+                    </filter>
+                    <filter id="gift-ribbon-shadow" x="-20%" y="-20%" width="140%" height="140%">
+                        <feDropShadow dx="2" dy="5" stdDeviation="4" flood-color="var(--sobre-sombra, #1c2414)" flood-opacity="0.35" />
+                    </filter>
+                    <filter id="gift-bow-shadow" x="-30%" y="-30%" width="160%" height="160%">
+                        <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="var(--sobre-sombra-profunda, #11170c)" flood-opacity="0.5" />
+                    </filter>
+
+                    <linearGradient id="gift-gold-trim" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#cfab62" />
+                        <stop offset="35%" stop-color="#fdf4d1" />
+                        <stop offset="70%" stop-color="#c19a4e" />
+                        <stop offset="100%" stop-color="#846326" />
+                    </linearGradient>
+
+                    <linearGradient id="gift-box-top" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="var(--sobre-luz, #697f59)" />
+                        <stop offset="60%" stop-color="var(--sobre-color, #556947)" />
+                        <stop offset="100%" stop-color="var(--sobre-sombra, #46573a)" />
+                    </linearGradient>
+
+                    <linearGradient id="gift-box-left" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="var(--sobre-color, #566b47)" />
+                        <stop offset="50%" stop-color="var(--sobre-sombra, #47593a)" />
+                        <stop offset="100%" stop-color="var(--sobre-sombra-profunda, #34422b)" />
+                    </linearGradient>
+
+                    <linearGradient id="gift-box-right" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="var(--sobre-sombra, #425436)" />
+                        <stop offset="60%" stop-color="var(--sobre-sombra-profunda, #33422a)" />
+                        <stop offset="100%" stop-color="#1a1a1a" />
+                    </linearGradient>
+
+                    <linearGradient id="gift-ribbon-top" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff" />
+                        <stop offset="40%" stop-color="#f8f4eb" />
+                        <stop offset="85%" stop-color="#e9dec9" />
+                        <stop offset="100%" stop-color="#d5c4a6" />
+                    </linearGradient>
+
+                    <linearGradient id="gift-ribbon-left" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff" />
+                        <stop offset="30%" stop-color="#f5efe0" />
+                        <stop offset="80%" stop-color="#dfd0b5" />
+                        <stop offset="100%" stop-color="#bcaa8d" />
+                    </linearGradient>
+
+                    <linearGradient id="gift-ribbon-right" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#eee5d3" />
+                        <stop offset="50%" stop-color="#d8c7a8" />
+                        <stop offset="100%" stop-color="#ab9674" />
+                    </linearGradient>
+
+                    <radialGradient id="gift-seal-grad" cx="40%" cy="40%" r="60%">
+                        <stop offset="0%" stop-color="#ffffff" />
+                        <stop offset="50%" stop-color="#e8dcbe" />
+                        <stop offset="85%" stop-color="#c5b085" />
+                        <stop offset="100%" stop-color="#8a7348" />
+                    </radialGradient>
+                </defs>
+
+                <ellipse cx="300" cy="515" rx="190" ry="32" fill="#000000" opacity="0.3" filter="url(#gift-box-shadow)" />
+
+                <g filter="url(#gift-box-shadow)">
+                    <polygon points="120,290 300,370 300,500 120,410" fill="url(#gift-box-left)" />
+                    <polyline points="120,290 120,410 300,500" stroke="url(#gift-gold-trim)" stroke-width="2.5" fill="none" />
+
+                    <polygon points="300,370 480,290 480,410 300,500" fill="url(#gift-box-right)" />
+                    <polyline points="480,290 480,410 300,500" stroke="url(#gift-gold-trim)" stroke-width="2.5" fill="none" />
+
+                    <polygon points="120,380 180,410 180,317 120,290" fill="url(#gift-ribbon-left)" opacity="0.9" />
+                    <polygon points="240,473 300,500 300,430 240,400" fill="url(#gift-ribbon-left)" opacity="0.9" />
+                    <polygon points="190,321 230,339 230,468 190,446" fill="url(#gift-ribbon-left)" filter="url(#gift-ribbon-shadow)" />
+                    <line x1="190" y1="321" x2="190" y2="446" stroke="url(#gift-gold-trim)" stroke-width="1.2" />
+                    <line x1="230" y1="339" x2="230" y2="468" stroke="url(#gift-gold-trim)" stroke-width="1.2" />
+
+                    <polygon points="300,500 360,473 360,400 300,430" fill="url(#gift-ribbon-right)" opacity="0.9" />
+                    <polygon points="420,410 480,380 480,290 420,317" fill="url(#gift-ribbon-right)" opacity="0.9" />
+                    <polygon points="370,339 410,321 410,446 370,468" fill="url(#gift-ribbon-right)" filter="url(#gift-ribbon-shadow)" />
+                    <line x1="370" y1="339" x2="370" y2="468" stroke="url(#gift-gold-trim)" stroke-width="1.2" />
+                    <line x1="410" y1="321" x2="410" y2="446" stroke="url(#gift-gold-trim)" stroke-width="1.2" />
+
+                    <polygon points="135,310 175,328 175,395 135,375" fill="none" stroke="url(#gift-gold-trim)" stroke-width="1.5" />
+                    <polygon points="245,360 285,378 285,445 245,425" fill="none" stroke="url(#gift-gold-trim)" stroke-width="1.5" />
+                    <polygon points="315,378 355,360 355,425 315,445" fill="none" stroke="url(#gift-gold-trim)" stroke-width="1.5" />
+                    <polygon points="425,328 465,310 465,375 425,395" fill="none" stroke="url(#gift-gold-trim)" stroke-width="1.5" />
+                </g>
+
+                <g filter="url(#gift-box-shadow)">
+                    <polygon points="105,250 300,340 300,385 105,290" fill="url(#gift-box-left)" />
+                    <polygon points="105,250 300,340 300,385 105,290" stroke="url(#gift-gold-trim)" stroke-width="1.8" fill="none" />
+
+                    <polygon points="300,340 495,250 495,290 300,385" fill="url(#gift-box-right)" />
+                    <polygon points="300,340 495,250 495,290 300,385" stroke="url(#gift-gold-trim)" stroke-width="1.8" fill="none" />
+
+                    <polygon points="180,285 224,305 224,350 180,327" fill="url(#gift-ribbon-left)" />
+                    <polygon points="376,305 420,285 420,327 376,350" fill="url(#gift-ribbon-right)" />
+
+                    <polygon points="300,160 495,250 300,340 105,250" fill="url(#gift-box-top)" />
+                    <polygon points="300,172 478,250 300,328 122,250" fill="none" stroke="url(#gift-gold-trim)" stroke-width="2" />
+
+                    <polygon points="190,211 230,229 410,199 370,181" fill="url(#gift-ribbon-top)" />
+                    <polygon points="370,229 410,211 230,181 190,199" fill="url(#gift-ribbon-top)" />
+                    <polygon points="180,285 224,305 320,261 276,241" fill="url(#gift-ribbon-top)" />
+                    <polygon points="376,305 420,285 324,241 280,261" fill="url(#gift-ribbon-top)" />
+
+                    <line x1="180" y1="285" x2="276" y2="241" stroke="url(#gift-gold-trim)" stroke-width="1" />
+                    <line x1="224" y1="305" x2="320" y2="261" stroke="url(#gift-gold-trim)" stroke-width="1" />
+                    <line x1="420" y1="285" x2="324" y2="241" stroke="url(#gift-gold-trim)" stroke-width="1" />
+                    <line x1="376" y1="305" x2="280" y2="261" stroke="url(#gift-gold-trim)" stroke-width="1" />
+                </g>
+
+                <g filter="url(#gift-bow-shadow)">
+                    <path d="M 320 250 C 370 260, 420 290, 460 365 C 470 385, 480 395, 490 380 C 475 340, 450 270, 360 235 Z" fill="url(#gift-ribbon-right)" />
+                    <path d="M 460 365 L 490 380 L 472 345" stroke="url(#gift-gold-trim)" stroke-width="1.5" fill="none" />
+
+                    <path d="M 300 240 C 230 160, 170 150, 190 200 C 205 235, 260 245, 300 250 Z" fill="url(#gift-ribbon-left)" />
+                    <path d="M 190 200 C 180 160, 240 165, 295 235" stroke="url(#gift-gold-trim)" stroke-width="1.5" fill="none" />
+
+                    <path d="M 300 240 C 370 160, 430 150, 410 200 C 395 235, 340 245, 300 250 Z" fill="url(#gift-ribbon-right)" />
+                    <path d="M 410 200 C 420 160, 360 165, 305 235" stroke="url(#gift-gold-trim)" stroke-width="1.5" fill="none" />
+
+                    <path d="M 300 250 C 200 210, 160 260, 210 285 C 260 300, 290 265, 300 250 Z" fill="url(#gift-ribbon-top)" />
+                    <path d="M 210 285 C 170 265, 210 220, 295 248" fill="#e2d4bc" opacity="0.6" />
+                    <path d="M 210 285 C 165 260, 210 215, 300 250" stroke="url(#gift-gold-trim)" stroke-width="1.8" fill="none" />
+
+                    <path d="M 300 250 C 400 210, 440 260, 390 285 C 340 300, 310 265, 300 250 Z" fill="url(#gift-ribbon-top)" />
+                    <path d="M 390 285 C 430 265, 390 220, 305 248" fill="#cfbe9f" opacity="0.6" />
+                    <path d="M 390 285 C 435 260, 390 215, 300 250" stroke="url(#gift-gold-trim)" stroke-width="1.8" fill="none" />
+
+                    <ellipse cx="300" cy="250" rx="18" ry="15" fill="url(#gift-ribbon-top)" stroke="url(#gift-gold-trim)" stroke-width="2" />
+                    <path d="M 292 240 Q 300 252 292 262 M 308 240 Q 300 252 308 262" stroke="#bda888" stroke-width="2" fill="none" />
+                </g>
+
+                <g transform="translate(390, 420)" filter="url(#gift-bow-shadow)">
+                    <circle cx="0" cy="0" r="22" fill="url(#gift-seal-grad)" />
+                    <path d="M -18 -10 C -26 2, -18 20, 0 23 C 18 25, 25 10, 22 -8 C 18 -22, -10 -25, -18 -10 Z" fill="url(#gift-seal-grad)" opacity="0.8" />
+                    <circle cx="0" cy="0" r="16" fill="none" stroke="#8a7348" stroke-width="1.5" />
+                    <text x="0" y="7" font-family="'Cormorant Garamond', 'Times New Roman', serif" font-size="20" font-weight="700" font-style="italic" fill="#5c4a28" text-anchor="middle">{{ data.inicial1 }}</text>
+                    <text x="-0.8" y="6.2" font-family="'Cormorant Garamond', 'Times New Roman', serif" font-size="20" font-weight="700" font-style="italic" fill="#ffffff" text-anchor="middle" opacity="0.7">{{ data.inicial1 }}</text>
+                </g>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 9. FOTO DE CIERRE -->
+    <section class="closing-photo-section" *ngIf="data.closingImage">
+        <div class="closing-photo">
+            <img [src]="data.closingImage" [alt]="data.names1 + ' y ' + data.names2">
+        </div>
+    </section>
+
+    <!-- 10. SIN NIÑOS -->
+    <section class="notice-section">
+        <h3 class="notice-title">{{ data.noKidsTitle }}</h3>
+        <p class="notice-text">{{ data.noKidsText }}</p>
+    </section>
+
+    <!-- 11. PRESENCIA + GRACIAS -->
+    <section class="presence-section">
+        <p class="presence-text">{{ data.presenceText }}</p>
+        <p class="thanks-text">{{ data.thanksText }}</p>
+    </section>
+
+    <!-- 12. NOMBRES FINALES -->
+    <section class="finale-section">
+        <div class="finale-names">
+            <div class="finale-name">{{ data.names1 }}</div>
+            <div class="finale-amp">&amp;</div>
+            <div class="finale-name">{{ data.names2 }}</div>
+        </div>
+        <p class="finale-date" *ngIf="data.date">{{ data.date }}</p>
+    </section>
 
     <!-- Selector dinámico de paleta de colores -->
     <div class="palette-picker" aria-label="Cambiar paleta de colores">

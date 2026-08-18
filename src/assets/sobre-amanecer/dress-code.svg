@@ -1,0 +1,129 @@
+<svg viewBox="0 0 700 750" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="couture-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+    <filter id="lapel-shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="4" stdDeviation="3" flood-color="#000000" flood-opacity="0.6" />
+    </filter>
+    <filter id="gold-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#ca8a04" flood-opacity="0.4" />
+    </filter>
+
+    <linearGradient id="mannequin-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#b45309" />
+      <stop offset="30%" stop-color="#fde047" />
+      <stop offset="60%" stop-color="#d97706" />
+      <stop offset="100%" stop-color="#78350f" />
+    </linearGradient>
+
+    <linearGradient id="wool-black" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2a2c33" />
+      <stop offset="40%" stop-color="#191a1e" />
+      <stop offset="100%" stop-color="#0c0d0e" />
+    </linearGradient>
+
+    <linearGradient id="satin-sheen" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0a0a0c" />
+      <stop offset="45%" stop-color="#3b3d45" />
+      <stop offset="55%" stop-color="#141518" />
+      <stop offset="100%" stop-color="#050506" />
+    </linearGradient>
+
+    <linearGradient id="dress-base" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#202229" />
+      <stop offset="30%" stop-color="#0f1013" />
+      <stop offset="70%" stop-color="#1b1c22" />
+      <stop offset="100%" stop-color="#050506" />
+    </linearGradient>
+
+    <linearGradient id="dress-highlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+    </linearGradient>
+
+    <radialGradient id="floor-ambient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <ellipse cx="210" cy="690" rx="110" ry="14" fill="url(#floor-ambient)" />
+  <ellipse cx="490" cy="700" rx="160" ry="20" fill="url(#floor-ambient)" />
+
+  <g id="tuxedo" filter="url(#couture-shadow)">
+    <path d="M 205 95 C 205 85, 215 85, 215 95 L 213 115 L 207 115 Z" fill="url(#mannequin-gold)" filter="url(#gold-glow)" />
+    <ellipse cx="210" cy="115" rx="14" ry="4" fill="url(#mannequin-gold)" />
+
+    <polygon points="180,120 240,120 230,340 190,340" fill="#f8fafc" />
+    <path d="M 210 125 L 210 330" stroke="#e2e8f0" stroke-width="1.5" />
+    <circle cx="210" cy="175" r="2.5" fill="#000000" stroke="url(#mannequin-gold)" stroke-width="0.8" />
+    <circle cx="210" cy="215" r="2.5" fill="#000000" stroke="url(#mannequin-gold)" stroke-width="0.8" />
+    <circle cx="210" cy="255" r="2.5" fill="#000000" stroke="url(#mannequin-gold)" stroke-width="0.8" />
+    <circle cx="210" cy="295" r="2.5" fill="#000000" stroke="url(#mannequin-gold)" stroke-width="0.8" />
+
+    <polygon points="180,120 198,136 210,125 186,118" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.5" />
+    <polygon points="240,120 222,136 210,125 234,118" fill="#ffffff" stroke="#cbd5e1" stroke-width="0.5" />
+
+    <g id="bowtie">
+      <path d="M 188 128 C 185 120, 185 142, 188 134 L 204 133 L 188 128 Z" fill="#08080a" />
+      <path d="M 232 128 C 235 120, 235 142, 232 134 L 216 133 L 232 128 Z" fill="#08080a" />
+      <polygon points="190,124 207,130 190,136" fill="#1b1c20" />
+      <polygon points="230,124 213,130 230,136" fill="#1b1c20" />
+      <rect x="205" y="125" width="10" height="11" rx="2" fill="#2d2f36" stroke="#000000" stroke-width="0.8" />
+    </g>
+
+    <path d="M 145 140 C 175 130, 245 130, 275 140 C 285 200, 280 290, 270 380 C 245 400, 175 400, 150 380 C 140 290, 135 200, 145 140 Z" fill="url(#wool-black)" />
+
+    <polygon points="160,205 174,198 178,206" fill="#ffffff" />
+    <path d="M 158 206 L 180 206" stroke="#0a0a0c" stroke-width="2" />
+
+    <path d="M 150 140 L 140 185 L 175 175 L 210 320 L 175 220 L 180 140 Z" fill="url(#satin-sheen)" filter="url(#lapel-shadow)" />
+    <path d="M 270 140 L 280 185 L 245 175 L 210 320 L 245 220 L 240 140 Z" fill="url(#satin-sheen)" filter="url(#lapel-shadow)" />
+
+    <circle cx="210" cy="324" r="5" fill="#000000" stroke="url(#satin-sheen)" stroke-width="1.5" />
+
+    <path d="M 162 385 L 150 670 L 195 670 L 208 430 L 212 430 L 225 670 L 270 670 L 258 385 Z" fill="url(#wool-black)" />
+    <path d="M 155 390 L 152 670" stroke="#000000" stroke-width="2" />
+    <path d="M 265 390 L 268 670" stroke="#000000" stroke-width="2" />
+    <path d="M 175 400 L 174 665 M 245 400 L 246 665" stroke="#33363f" stroke-width="1" opacity="0.6" />
+  </g>
+
+  <g id="ballgown" filter="url(#couture-shadow)">
+    <path d="M 485 105 C 485 95, 495 95, 495 105 L 493 125 L 487 125 Z" fill="url(#mannequin-gold)" filter="url(#gold-glow)" />
+    <ellipse cx="490" cy="125" rx="14" ry="4" fill="url(#mannequin-gold)" />
+
+    <path d="M 465 130 C 475 125, 505 125, 515 130 C 530 160, 520 185, 490 190 C 460 185, 450 160, 465 130 Z" fill="#f1ece4" stroke="#d5cec3" stroke-width="1" />
+
+    <g id="gown-skirt">
+      <path d="M 445 285 L 340 685 C 400 705, 590 710, 660 670 L 535 285 Z" fill="#07080a" />
+      <path d="M 445 285 C 410 370, 360 520, 340 685 C 385 695, 450 690, 470 680 C 465 520, 470 380, 475 285 Z" fill="url(#dress-base)" />
+      <path d="M 475 285 C 470 380, 470 530, 475 680 C 510 695, 580 690, 615 675 C 570 510, 530 380, 505 285 Z" fill="url(#dress-base)" />
+      <path d="M 505 285 C 530 380, 580 500, 660 670 C 630 680, 590 685, 560 682 C 515 510, 490 380, 480 285 Z" fill="#131418" />
+      <path d="M 445 285 C 410 370, 360 520, 340 685 C 385 695, 450 690, 470 680 Z" fill="url(#dress-highlight)" />
+      <path d="M 475 285 C 470 380, 470 530, 475 680 C 510 695, 580 690, 615 675 Z" fill="url(#dress-highlight)" />
+      <path d="M 445 285 Q 400 480, 385 690" stroke="#000000" stroke-width="3.5" fill="none" />
+      <path d="M 475 285 Q 465 480, 460 685" stroke="#000000" stroke-width="4" fill="none" />
+      <path d="M 505 285 Q 545 480, 600 680" stroke="#000000" stroke-width="3" fill="none" />
+      <path d="M 460 330 Q 485 500, 520 685" stroke="#373943" stroke-width="1.5" stroke-opacity="0.7" fill="none" />
+    </g>
+
+    <path d="M 500 280 C 535 300, 565 335, 560 385 C 530 380, 490 325, 480 290 Z" fill="url(#dress-base)" filter="url(#lapel-shadow)" />
+    <path d="M 500 280 C 535 300, 565 335, 560 385 C 530 380, 490 325, 480 290 Z" fill="url(#dress-highlight)" />
+
+    <g id="waistband">
+      <path d="M 458 245 C 478 250, 502 250, 522 245 L 525 285 C 502 290, 478 290, 455 285 Z" fill="#0b0b0e" />
+      <path d="M 457 258 Q 490 264 523 258" stroke="#2b2d36" stroke-width="1.5" fill="none" />
+      <path d="M 456 272 Q 490 278 524 272" stroke="#2b2d36" stroke-width="1.5" fill="none" />
+    </g>
+
+    <g id="bodice" filter="url(#lapel-shadow)">
+      <path d="M 430 170 C 470 190, 510 225, 525 250 L 490 255 C 465 230, 440 195, 430 170 Z" fill="url(#dress-base)" />
+      <path d="M 550 170 C 510 190, 470 225, 455 250 L 490 255 C 515 230, 540 195, 550 170 Z" fill="url(#dress-base)" />
+      <path d="M 420 160 C 465 195, 515 195, 560 160 C 568 175, 550 190, 525 200 C 490 215, 450 200, 420 160 Z" fill="url(#satin-sheen)" />
+      <polygon points="490,192 494,197 490,202 486,197" fill="#ffffff" filter="url(#gold-glow)" />
+      <circle cx="490" cy="197" r="1.5" fill="url(#mannequin-gold)" />
+    </g>
+  </g>
+</svg>
