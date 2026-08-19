@@ -43,7 +43,8 @@
     width: 100%;
     height: 490px;
     position: relative;
-    background-color: var(--sobre-sombra, #44222b);
+    // background-color: var(--sobre-sombra, #44222b);
+    background-color: var(--sobre-color, #633642);
     overflow: hidden;
 }
 
@@ -57,36 +58,38 @@
     // background: linear-gradient(180deg, var(--sobre-color, #633642) 0%, var(--sobre-sombra, #44222b) 100%);
     z-index: 1;
     /* La sombra empieza a dominar desde el 60% hacia arriba */
-    background: linear-gradient(3deg,
-            var(--sobre-color, #633642) 0%,
-            var(--sobre-sombra, #44222b) 60%,
-            var(--sobre-sombra) 100%);
+    // background: linear-gradient(3deg,
+    //         var(--sobre-color, #633642) 0%,
+    //         var(--sobre-sombra, #44222b) 60%,
+    //         var(--sobre-sombra) 100%);
 }
 
 /* 2. SOLAPA LATERAL IZQUIERDA (Triángulo cruzado) */
 .side-flap-left {
     position: absolute;
-    top: 97px;
+    top: 80px;
     left: 0;
     width: 140px;
     height: 160px;
-    background: linear-gradient(135deg, var(--sobre-sombra, #44222b) 0%, var(--sobre-color, #633642) 70%);
+    // background: linear-gradient(135deg, var(--sobre-sombra, #44222b) 0%, var(--sobre-color, #633642) 70%);
     clip-path: polygon(0 0, 100% 50%, 0 100%);
     filter: drop-shadow(4px 4px 6px rgba(0, 0, 0, 0.35));
     z-index: 2;
+    background-color: var(--sobre-sombra, #44222b);
 }
 
 /* 3. SOLAPA LATERAL DERECHA (Triángulo cruzado) */
 .side-flap-right {
     position: absolute;
-    top: 97px;
+    top: 80px;
     right: 0;
     width: 140px;
     height: 160px;
-    background: linear-gradient(-135deg, var(--sobre-sombra, #44222b) 0%, var(--sobre-color, #633642) 70%);
+    // background: linear-gradient(-135deg, var(--sobre-sombra, #44222b) 0%, var(--sobre-color, #633642) 70%);
     clip-path: polygon(100% 0, 0 50%, 100% 100%);
     filter: drop-shadow(-4px 4px 6px rgba(0, 0, 0, 0.35));
     z-index: 2;
+    background-color: var(--sobre-sombra, #44222b);
 }
 
 /* 4. SOLAPA SUPERIOR PRINCIPAL (Con punta suavizada y sombra profunda) */
@@ -98,7 +101,7 @@
     height: 295px;
     z-index: 3;
     /* Sombra que cae directamente sobre las solapas laterales y el fondo */
-    filter: drop-shadow(0 14px 12px rgba(0, 0, 0, 0.48)) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 14px 12px rgba(0, 0, 0, 0.48)) drop-shadow(0 30px 4px rgba(0, 0, 0, 0.3));
 }
 
 .top-flap {
@@ -133,14 +136,14 @@
 }
 
 .name {
-    font-size: 52px;
+    font-size: 65px;
     line-height: 1.05;
 }
 
 .ampersand {
     font-size: 24px;
     line-height: 1.2;
-    margin: -2px 0;
+    margin: 15px 0;
     opacity: 0.9;
 }
 
@@ -278,11 +281,17 @@
 }
 
 .announce-photo {
-    margin: 34px auto 0;
-    width: min(100%, 340px);
+    // margin: 34px auto 0;
+    // width: min(100%, 340px);
     aspect-ratio: 3 / 4.15;
     overflow: hidden;
-    background: #ddd;
+    background: transparent;
+    // -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 100%);
+    // mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 100%);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
 
     img {
         display: block;
@@ -290,6 +299,19 @@
         height: 100%;
         object-fit: cover;
         object-position: center;
+        opacity: 0;
+        animation: announce-photo-fade-in 1.6s ease-out 0.35s forwards;
+        border-radius: 50% 50% 0 0 / 35% 35% 0 0;
+    }
+}
+
+@keyframes announce-photo-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
     }
 }
 
@@ -305,7 +327,7 @@
 
 .music-block {
     max-width: 320px;
-    margin: 0 auto 36px;
+    margin: 0 auto 80px;
 }
 
 .music-label {
@@ -393,7 +415,7 @@
 
 .story-text {
     max-width: 360px;
-    margin: 0 auto 42px;
+    margin: 0 auto 100px;
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.08rem;
     line-height: 1.75;
@@ -401,7 +423,7 @@
 }
 
 .date-block {
-    margin: 0 auto 40px;
+    margin: 0 auto 80px;
     max-width: 320px;
 }
 
@@ -505,19 +527,55 @@
     color: #2a2a2a;
 }
 
-.events-photo {
-    margin: 0 auto 48px;
+.events-photo-wrap {
+    width: 100%;
+    padding: 36px 24px 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    background: transparent;
+}
+
+.events-paper {
+    position: relative;
+    display: inline-block;
     width: min(100%, 360px);
-    aspect-ratio: 3 / 4;
+    filter:
+        drop-shadow(0 14px 18px rgba(0, 0, 0, 0.22))
+        drop-shadow(0 4px 6px rgba(0, 0, 0, 0.12));
+    transform: rotate(-1.5deg);
+}
+
+.events-tape {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%) rotate(2deg);
+    width: 118px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.68);
+    backdrop-filter: blur(2px);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.14);
+    border-left: 2px dashed rgba(220, 210, 190, 0.65);
+    border-right: 2px dashed rgba(220, 210, 190, 0.65);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.events-photo {
+    background: #fdfbf7;
+    padding: 14px;
+    box-sizing: border-box;
     overflow: hidden;
-    background: #ddd;
 
     img {
         display: block;
         width: 100%;
-        height: 100%;
+        aspect-ratio: 3 / 4;
+        height: auto;
         object-fit: cover;
         object-position: center;
+        border-radius: 2px;
     }
 }
 
@@ -557,7 +615,7 @@
 .event-title {
     margin: 0 0 10px;
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -893,8 +951,8 @@
 }
 
 .closing-photo {
-    margin: 0 auto;
-    width: min(100%, 380px);
+    // margin: 0 auto;
+    // width: min(100%, 380px);
     aspect-ratio: 4 / 5;
     overflow: hidden;
     background: #ddd;
@@ -1093,10 +1151,12 @@
         padding: 40px 18px 60px;
     }
 
-    .events-photo {
-        width: 100%;
-        max-width: 320px;
-        margin-bottom: 40px;
+    .events-photo-wrap {
+        padding: 28px 16px 12px;
+    }
+
+    .events-paper {
+        width: min(100%, 320px);
     }
 
     .event-block {

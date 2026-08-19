@@ -58,13 +58,13 @@
             <h2 class="announce-title">{{ data.announceTitle }}</h2>
             <p class="announce-message">{{ data.announceMessage }}</p>
 
-            <div class="announce-photo">
-                <img [src]="data.heroImage" [alt]="data.names1 + ' y ' + data.names2">
-            </div>
         </div>
-
+        
         <!-- <img class="announce-foliage announce-foliage--bottom" src="assets/sobre-amanecer/rama.svg" alt=""> -->
     </section>
+    <div class="announce-photo">
+        <img [src]="data.heroImage" [alt]="data.names1 + ' y ' + data.names2">
+    </div>
 
     <!-- 4. HISTORIA + MÚSICA + FECHA + COUNTDOWN -->
     <section class="story-section">
@@ -82,11 +82,11 @@
                         <path d="M16 3h5v5M4 20l16-16M21 16v5h-5M15 15l6 6M4 4l5 5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
-                <button type="button" class="music-icon" aria-label="Anterior" disabled>
+                <!-- <button type="button" class="music-icon" aria-label="Anterior" disabled>
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M6 6h2v12H6V6zm3.5 6l8.5 6V6l-8.5 6z"/>
                     </svg>
-                </button>
+                </button> -->
                 <button type="button" class="music-play" (click)="togglePlayPause()" [attr.aria-label]="isPlaying ? 'Pausar' : 'Reproducir'">
                     <svg *ngIf="!isPlaying" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M8 5v14l11-7L8 5z"/>
@@ -95,11 +95,11 @@
                         <path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"/>
                     </svg>
                 </button>
-                <button type="button" class="music-icon" aria-label="Siguiente" disabled>
+                <!-- <button type="button" class="music-icon" aria-label="Siguiente" disabled>
                     <svg viewBox="0 0 24 24" fill="currentColor">
                         <path d="M16 6h2v12h-2V6zM6 18l8.5-6L6 6v12z"/>
                     </svg>
-                </button>
+                </button> -->
                 <button type="button" class="music-icon" aria-label="Repetir" disabled>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                         <path d="M17 1l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -156,10 +156,15 @@
     </section>
 
     <!-- 5. FOTO + CEREMONIA + RECEPCIÓN -->
-    <section class="events-section">
-        <div class="events-photo" *ngIf="data.eventsImage">
-            <img [src]="data.eventsImage" [alt]="data.names1 + ' y ' + data.names2">
+    <div class="events-photo-wrap" *ngIf="data.eventsImage">
+        <div class="events-paper">
+            <span class="events-tape" aria-hidden="true"></span>
+            <div class="events-photo">
+                <img [src]="data.eventsImage" [alt]="data.names1 + ' y ' + data.names2">
+            </div>
         </div>
+    </div>
+    <section class="events-section">
 
         <article class="event-block">
             <div class="event-icon" aria-hidden="true">
@@ -482,11 +487,11 @@
     </section>
 
     <!-- 9. FOTO DE CIERRE -->
-    <section class="closing-photo-section" *ngIf="data.closingImage">
-        <div class="closing-photo">
-            <img [src]="data.closingImage" [alt]="data.names1 + ' y ' + data.names2">
-        </div>
-    </section>
+    <!-- <section class="closing-photo-section" *ngIf="data.closingImage">
+    </section> -->
+    <div class="closing-photo"  *ngIf="data.closingImage">
+        <img [src]="data.closingImage" [alt]="data.names1 + ' y ' + data.names2">
+    </div>
 
     <!-- 10. SIN NIÑOS -->
     <section class="notice-section">

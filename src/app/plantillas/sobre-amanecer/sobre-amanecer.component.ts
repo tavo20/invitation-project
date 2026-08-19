@@ -224,7 +224,7 @@ export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
     dayNumber: '24',
     year: '2027',
     weddingDate: 'January 24, 2027 16:00:00',
-    eventsImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/basic_02.jpg',
+    eventsImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_neblina.jpeg',
     ceremonyTime: '4:30 pm',
     ceremonyTitle: 'CEREMONIA CIVIL',
     ceremonyPlace: 'IGLESIA MACARENA',
