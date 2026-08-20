@@ -131,6 +131,15 @@ export class ShowcaseComponent {
     //   tags: ['XV Años', 'Itinerario', 'RSVP Interactivo', 'Copiar Cuenta'],
     //   category: 'Quinceañera'
     // },
+    {
+      nombre: 'Flow',
+      estilo: 'Verde & Blanco',
+      descripcion: 'Diseñada para bodas: portada cinematográfica, tonos azules elegantes, RSVP en modal y lluvia de sobres con estilo. Pensada para un look sofisticado y actual.',
+      imagen: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg',
+      link: '/gus-gi',
+      tags: ['Flow', 'Verde', 'Blanco', 'RSVP', 'Lluvia de Sobres'],
+      category: 'Boda'
+    }
 
   ];
 

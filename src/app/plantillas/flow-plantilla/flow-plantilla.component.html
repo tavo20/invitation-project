@@ -20,11 +20,11 @@
         <span class="gold-fleck section-fleck-3"></span>
       </div>
       <div class="invitation-content">
-      <span class="invitation-name">Mariana</span>
+      <span class="invitation-name">{{ data.names1 }}</span>
       <span class="invitation-ampersand">&</span>
-      <span class="invitation-name">Javier</span>
-      <p class="invitation-text">ES UN HONOR INVITARTE A LA CELEBRACIÓN</p>
-      <p class="invitation-text">DE NUESTRA BODA</p>
+      <span class="invitation-name">{{ data.names2 }}</span>
+      <p class="invitation-text">{{ data.invitationText1 }}</p>
+      <p class="invitation-text">{{ data.invitationText2 }}</p>
     </div>
     </div>
     <div class="flow-date">
@@ -36,24 +36,24 @@
     <div class="date-content">
       <div class="date-side date-left">
         <div class="date-line"></div>
-        <span class="date-label">SÁBADO</span>
+        <span class="date-label">{{ data.dayOfWeek }}</span>
         <div class="date-line"></div>
       </div>
       <div class="date-center">
-        <span class="date-month">NOV</span>
-        <span class="date-day">26</span>
-        <span class="date-year">2030</span>
+        <span class="date-month">{{ data.month }}</span>
+        <span class="date-day">{{ data.dayNumber }}</span>
+        <span class="date-year">{{ data.year }}</span>
       </div>
       <div class="date-side date-right">
         <div class="date-line"></div>
-        <span class="date-label">20:00 HRS.</span>
+        <span class="date-label">{{ data.hourLabel }}</span>
         <div class="date-line"></div>
       </div>
     </div>
   </div>
 
   <section class="card-invitation">
-    <img class="card-image" src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg" alt="">
+    <img class="card-image" [src]="data.musicImage" alt="">
     <svg class="card-curve" viewBox="0 0 80 80" preserveAspectRatio="none" aria-hidden="true">
       <path class="card-curve__fill" d="M0 0 H80 V20 Q60 40 40 20 T0 20 Z"/>
       <path class="card-curve__line" d="M0 20 Q20 0 40 20 T80 20"/>
@@ -144,7 +144,7 @@
     </div>
     <div class="flow-parents__grid">
       <div class="flow-parents__heading">
-        <p class="flow-section-title">Con la bendición de nuestros padres</p>
+        <p class="flow-section-title">{{ data.parentsTitle }}</p>
         <div class="flow-divider flow-divider--small">
           <span></span>
           <svg class="flow-parents__icon" viewBox="0 0 48 28" fill="none" aria-hidden="true">
@@ -158,21 +158,18 @@
         </div>
       </div>
       <div class="flow-parent-card">
-        <p class="flow-parent-card__label">Novia</p>
-        <p class="flow-parent-card__name">Laura Mendoza</p>
-        <p class="flow-parent-card__name">Carlos Mendoza</p>
+        <p class="flow-parent-card__label">{{ data.brideLabel }}</p>
+        <p class="flow-parent-card__name" *ngFor="let name of data.brideParents">{{ name }}</p>
       </div>
       <span class="flow-parents__separator" aria-hidden="true"></span>
       <div class="flow-parent-card">
-        <p class="flow-parent-card__label">Novio</p>
-        <p class="flow-parent-card__name">Marta Ríos</p>
-        <p class="flow-parent-card__name">Jorge Ríos</p>
+        <p class="flow-parent-card__label">{{ data.groomLabel }}</p>
+        <p class="flow-parent-card__name" *ngFor="let name of data.groomParents">{{ name }}</p>
       </div>
       <span class="flow-parents__separator" aria-hidden="true"></span>
       <div class="flow-parent-card flow-parent-card--padrinos">
-        <p class="flow-parent-card__label">Padrinos</p>
-        <p class="flow-parent-card__name">Ana Salazar</p>
-        <p class="flow-parent-card__name">Pedro Castillo</p>
+        <p class="flow-parent-card__label">{{ data.padrinosLabel }}</p>
+        <p class="flow-parent-card__name" *ngFor="let name of data.padrinos">{{ name }}</p>
       </div>
     </div>
   </section>
@@ -182,7 +179,7 @@
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
     </div>
-    <p class="flow-section-title">Faltan pocos días</p>
+    <p class="flow-section-title">{{ data.countdownTitle }}</p>
     <div class="flow-divider">
       <span></span>
       <svg class="flow-countdown__icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
@@ -192,12 +189,12 @@
       </svg>
       <span></span>
     </div>
-    <p class="flow-countdown__text">Acompáñanos a contar los días para celebrar este momento tan especial.</p>
-    <app-count-down [targetDate]="weddingDate"></app-count-down>
+    <p class="flow-countdown__text">{{ data.countdownText }}</p>
+    <app-count-down [targetDate]="data.weddingDate"></app-count-down>
   </section>
 
   <section class="flow-image_2">
-    <img src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg" alt="">
+    <img [src]="data.image2" alt="">
   </section>
 
   <section class="flow-event">
@@ -205,7 +202,7 @@
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
     </div>
-    <p class="flow-section-title">Ceremonia y Recepción</p>
+    <p class="flow-section-title">{{ data.eventTitle }}</p>
     <div class="flow-divider">
       <span></span>
       <svg class="flow-event__divider-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
@@ -218,11 +215,11 @@
       <span></span>
     </div>
     <div class="flow-event__item">
-      <p class="flow-event__venue">Hacienda Los Faroles</p>
-      <p class="flow-event__address">Chía, Cundinamarca</p>
-      <p class="flow-event__hour">3:00 PM</p>
+      <p class="flow-event__venue">{{ data.eventVenue }}</p>
+      <p class="flow-event__address">{{ data.eventAddress }}</p>
+      <p class="flow-event__hour">{{ data.eventHour }}</p>
     </div>
-    <a href="#" class="flow-button">Ver ubicación</a>
+    <a [href]="data.eventMapLink" class="flow-button">{{ data.eventButtonText }}</a>
   </section>
 
   <section class="flow-dresscode">
@@ -230,7 +227,7 @@
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
     </div>
-    <p class="flow-section-title">Dress Code</p>
+    <p class="flow-section-title">{{ data.dressTitle }}</p>
     <div class="flow-divider">
       <span></span>
       <svg class="flow-dresscode__icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
@@ -241,23 +238,19 @@
       </svg>
       <span></span>
     </div>
-    <p class="flow-dresscode__style">Semi Formal</p>
+    <p class="flow-dresscode__style">{{ data.dressType }}</p>
     <div class="flow-dresscode__palette" aria-label="Paleta de colores">
-      <span class="flow-dresscode__swatch" style="--swatch:#2c4a2e"></span>
-      <span class="flow-dresscode__swatch" style="--swatch:#8e9d70"></span>
-      <span class="flow-dresscode__swatch" style="--swatch:#d4c4a8"></span>
-      <span class="flow-dresscode__swatch" style="--swatch:#f3efe8"></span>
-      <!-- <span class="flow-dresscode__swatch flow-dresscode__swatch--gold" style="--swatch:#c9a227"></span> -->
+      <span class="flow-dresscode__swatch" *ngFor="let color of data.dressColors" [style.--swatch]="color"></span>
     </div>
-    <p class="flow-dresscode__note">Por favor, evita vestir de color verde claro, está reservado para la novia.</p>
+    <p class="flow-dresscode__note">{{ data.dressNote }}</p>
   </section>
 
   <section class="flow-quote-card">
     <div class="flow-quote-card__photo">
-      <img src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg" alt="">
+      <img [src]="data.quoteImage" alt="">
     </div>
     <div class="flow-quote-card__text">
-      <p>Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos compartir contigo el comienzo del capítulo más hermoso.</p>
+      <p>{{ data.quote }}</p>
     </div>
   </section>
 
@@ -266,7 +259,7 @@
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
     </div>
-    <p class="flow-section-title">Itinerario</p>
+    <p class="flow-section-title">{{ data.itineraryTitle }}</p>
     <div class="flow-divider">
       <span></span>
       <svg class="flow-itinerary__icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
@@ -277,21 +270,9 @@
       <span></span>
     </div>
     <ol class="flow-itinerary__list">
-      <li class="flow-itinerary__item">
-        <p class="flow-itinerary__time">4:00 PM</p>
-        <p class="flow-itinerary__label">Ceremonia</p>
-      </li>
-      <li class="flow-itinerary__item">
-        <p class="flow-itinerary__time">5:30 PM</p>
-        <p class="flow-itinerary__label">Cóctel de bienvenida</p>
-      </li>
-      <li class="flow-itinerary__item">
-        <p class="flow-itinerary__time">7:00 PM</p>
-        <p class="flow-itinerary__label">Recepción</p>
-      </li>
-      <li class="flow-itinerary__item">
-        <p class="flow-itinerary__time">9:00 PM</p>
-        <p class="flow-itinerary__label">Fiesta</p>
+      <li class="flow-itinerary__item" *ngFor="let item of data.itinerary">
+        <p class="flow-itinerary__time">{{ item.time }}</p>
+        <p class="flow-itinerary__label">{{ item.label }}</p>
       </li>
     </ol>
   </section>
@@ -303,13 +284,13 @@
     </div>
     <div class="flow-rsvp__card">
 
-      <p class="flow-section-title">Confirma tu asistencia</p>
+      <p class="flow-section-title">{{ data.confirmTitle }}</p>
       <div class="flow-divider flow-divider--small">
         <span></span>
         <span></span>
       </div>
-      <p class="flow-rsvp__text">Tu respuesta nos ayudará a organizar este día con mucho cariño.</p>
-      <a href="#" class="flow-button">Confirmar aquí</a>
+      <p class="flow-rsvp__text">{{ data.confirmText }}</p>
+      <a [href]="data.confirmLink" class="flow-button">{{ data.confirmButtonText }}</a>
     </div>
   </section>
 
@@ -318,7 +299,7 @@
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
     </div>
-    <p class="flow-section-title">Lluvia de sobres</p>
+    <p class="flow-section-title">{{ data.sobresTitle }}</p>
     <div class="flow-divider">
       <span></span>
       <svg class="flow-rsvp__icon" viewBox="0 0 48 36" fill="none" aria-hidden="true">
@@ -334,10 +315,10 @@
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
     </div>
-    <p class="flow-closing__highlight">Tenemos la luna, la música y cada detalle preparado… <br> Solo falta lo más importante: tú.</p>
+    <p class="flow-closing__highlight" [innerHTML]="data.closingHighlight"></p>
     <p class="flow-closing__text"></p>
 
-    <p class="flow-closing__names">Mariana & Javier</p>
+    <p class="flow-closing__names">{{ data.closingNames }}</p>
   </section>
   </div>
 </section>
