@@ -52,6 +52,70 @@
     </div>
   </div>
 
+  <section class="card-invitation">
+    <img class="card-image" src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg" alt="">
+    <svg class="card-curve" viewBox="0 0 80 80" preserveAspectRatio="none" aria-hidden="true">
+      <path class="card-curve__fill" d="M0 0 H80 V20 Q60 40 40 20 T0 20 Z"/>
+      <path class="card-curve__line" d="M0 20 Q20 0 40 20 T80 20"/>
+    </svg>
+
+    <div class="card-player">
+      <p class="card-player__title">{{ songTitle }}</p>
+      <p class="card-player__artist">{{ songArtist }}</p>
+
+      <div class="card-player__track" (click)="seekAudio($event)" role="slider" [attr.aria-valuenow]="progress" [attr.aria-valuemin]="0" [attr.aria-valuemax]="100">
+        <div class="card-player__fill" [style.width.%]="progress"></div>
+        <span class="card-player__thumb" [style.left.%]="progress"></span>
+      </div>
+      <div class="card-player__times">
+        <span>{{ formatTime(currentTime) }}</span>
+        <span>{{ formatTime(duration) }}</span>
+      </div>
+
+      <div class="card-player__controls">
+        <button type="button" class="card-player__icon" [class.active]="isShuffle" (click)="isShuffle = !isShuffle" aria-label="Aleatorio">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M16 3h5v5M4 20l16-16M21 16v5h-5M15 15l6 6M4 4l5 5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button type="button" class="card-player__icon" (click)="skip(-10)" aria-label="Anterior">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 6h2v12H6V6zm3.5 6 8.5 6V6l-8.5 6z"/>
+          </svg>
+        </button>
+        <button type="button" class="card-player__play" (click)="togglePlayPause()" [attr.aria-label]="isPlaying ? 'Pausar' : 'Reproducir'">
+          <svg *ngIf="!isPlaying" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7L8 5z"/>
+          </svg>
+          <svg *ngIf="isPlaying" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"/>
+          </svg>
+        </button>
+        <button type="button" class="card-player__icon" (click)="skip(10)" aria-label="Siguiente">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 6h2v12h-2V6zM6 18l8.5-6L6 6v12z"/>
+          </svg>
+        </button>
+        <button type="button" class="card-player__icon" [class.active]="isRepeat" (click)="toggleRepeat()" aria-label="Repetir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+            <path d="M17 1l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M3 11V9a4 4 0 0 1 4-4h14" stroke-linecap="round"/>
+            <path d="M7 23l-4-4 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M21 13v2a4 4 0 0 1-4 4H3" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <audio
+      #audioPlayer
+      [src]="audioSrc"
+      (timeupdate)="onTimeUpdate()"
+      (loadedmetadata)="onLoadedMetadata()"
+      (ended)="onAudioEnded()">
+    </audio>
+  </section>
+
   <!-- <section class="flow-story">
     <div class="section-flecks" aria-hidden="true">
       <span class="gold-fleck section-fleck-1"></span>
@@ -132,6 +196,10 @@
     <app-count-down [targetDate]="weddingDate"></app-count-down>
   </section>
 
+  <section class="flow-image_2">
+    <img src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg" alt="">
+  </section>
+
   <section class="flow-event">
     <div class="section-flecks" aria-hidden="true">
       <span class="gold-fleck section-fleck-1"></span>
@@ -150,7 +218,6 @@
       <span></span>
     </div>
     <div class="flow-event__item">
-      <span class="flow-event__icon">⌂</span>
       <p class="flow-event__venue">Hacienda Los Faroles</p>
       <p class="flow-event__address">Chía, Cundinamarca</p>
       <p class="flow-event__hour">3:00 PM</p>
@@ -180,9 +247,18 @@
       <span class="flow-dresscode__swatch" style="--swatch:#8e9d70"></span>
       <span class="flow-dresscode__swatch" style="--swatch:#d4c4a8"></span>
       <span class="flow-dresscode__swatch" style="--swatch:#f3efe8"></span>
-      <span class="flow-dresscode__swatch flow-dresscode__swatch--gold" style="--swatch:#c9a227"></span>
+      <!-- <span class="flow-dresscode__swatch flow-dresscode__swatch--gold" style="--swatch:#c9a227"></span> -->
     </div>
     <p class="flow-dresscode__note">Por favor, evita vestir de color verde claro, está reservado para la novia.</p>
+  </section>
+
+  <section class="flow-quote-card">
+    <div class="flow-quote-card__photo">
+      <img src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg" alt="">
+    </div>
+    <div class="flow-quote-card__text">
+      <p>Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos compartir contigo el comienzo del capítulo más hermoso.</p>
+    </div>
   </section>
 
   <section class="flow-itinerary">
@@ -258,8 +334,10 @@
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
     </div>
-    <p class="flow-closing__highlight">Te esperamos para celebrar juntos.</p>
+    <p class="flow-closing__highlight">Tenemos la luna, la música y cada detalle preparado… <br> Solo falta lo más importante: tú.</p>
     <p class="flow-closing__text"></p>
+
+    <p class="flow-closing__names">Mariana & Javier</p>
   </section>
   </div>
 </section>

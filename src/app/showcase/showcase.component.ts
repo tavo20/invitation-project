@@ -161,7 +161,7 @@ export class ShowcaseComponent {
       this.showFooterInvitapp = cliente_data.showFooterInvitapp;
     }
     else {
-      this.showPrices = false;
+      this.showPrices = true;
       this.showImage = false;
       this.imgPartner = '';
       this.marca = '';
