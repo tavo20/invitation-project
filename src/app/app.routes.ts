@@ -8,6 +8,12 @@ export const routes: Routes = [
         component: HomeComponent
     },
     {
+        path: 'showcase/:cliente',
+        loadComponent: () =>
+            import('./showcase/showcase.component')
+                .then(m => m.ShowcaseComponent)
+    },
+    {
         path: 'invitation/confirmation/:id',
         loadComponent: () =>
             import('./confirmation/confirmation.component')

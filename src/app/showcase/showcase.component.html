@@ -3,10 +3,12 @@
     <header class="showcase-hero">
         <p class="pre-title">Invitaciones digitales</p>
         <h1 class="brand">InvitApp</h1>
+        <p class="partner-brand" *ngIf="showName && marca">{{ marca }}</p>
+        <img class="partner-image" *ngIf="showImage && imgPartner" [src]="imgPartner" [alt]="marca">
         <div class="hero-divider"></div>
         <p class="tagline">Dise&ntilde;os &uacute;nicos para el d&iacute;a m&aacute;s importante de tu vida.
             Explora nuestros estilos y encuentra el tuyo.</p>
-        <a class="pricing-link" href="#precios">Ver precios</a>
+        <a class="pricing-link" *ngIf="showPrices" href="#precios">Ver precios</a>
     </header>
 
     <nav class="category-filter" aria-label="Filtro por categoría">
@@ -37,7 +39,7 @@
         </a>
     </section>
 
-    <section id="precios" class="pricing-section">
+    <section id="precios" class="pricing-section" *ngIf="showPrices">
         <div class="pricing-card">
             <p class="pricing-kicker">Planes y precios</p>
             <h2 class="pricing-title">Cada invitación tiene un costo de 239</h2>
@@ -52,7 +54,7 @@
 
     <footer class="showcase-footer">
         <p class="footer-frase">Cada historia de amor merece una invitaci&oacute;n inolvidable</p>
-        <p class="footer-contacto">&iquest;Te gust&oacute; alguna? Escr&iacute;benos y la personalizamos para ti. <br> 3218581771</p>
+        <p *ngIf="showFooterInvitapp" class="footer-contacto">&iquest;Te gust&oacute; alguna? Escr&iacute;benos y la personalizamos para ti. <br> 3218581771</p>
     </footer>
 
 </div>

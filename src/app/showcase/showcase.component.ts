@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 interface PlantillaCard {
   nombre: string;
@@ -20,6 +21,15 @@ interface PlantillaCard {
 })
 export class ShowcaseComponent {
   selectedCategory = 'Todas';
+
+  public showShowcase: boolean = false;
+  public showPrices: boolean = false;
+  public showImage: boolean = false;
+  public imgPartner: string = '';
+  public marca: string = '';
+  public showName: boolean = false;
+  public showFooterInvitapp: boolean = false;
+
 
   plantillas: PlantillaCard[] = [
     {
@@ -123,6 +133,43 @@ export class ShowcaseComponent {
     // },
 
   ];
+
+  public clientes_data: any = [
+    {
+      nombre: 'alexis',
+      showPrices: false,
+      showImage: true,
+      imgPartner: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/alexis.png",
+      marca: "Lexis Photography",
+      showName: true,
+      showFooterInvitapp: false,
+    }
+  ]
+
+  cliente: string = '';
+
+  constructor(private route: ActivatedRoute) {
+    this.cliente = this.route.snapshot.paramMap.get('cliente') || '';
+    const cliente_data = this.clientes_data.find((cliente: any) => cliente.nombre === this.cliente);
+    if (cliente_data) {
+      this.showShowcase = true;
+      this.showPrices = cliente_data.showPrices;
+      this.showImage = cliente_data.showImage;
+      this.imgPartner = cliente_data.imgPartner;
+      this.marca = cliente_data.marca;
+      this.showName = cliente_data.showName;
+      this.showFooterInvitapp = cliente_data.showFooterInvitapp;
+    }
+    else {
+      this.showPrices = false;
+      this.showImage = false;
+      this.imgPartner = '';
+      this.marca = '';
+      this.showName = false;
+      this.showFooterInvitapp = false;
+    }
+
+  }
 
   get categories(): string[] {
     return ['Todas', ...new Set(this.plantillas.map((plantilla) => plantilla.category))];
