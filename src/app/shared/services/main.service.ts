@@ -375,7 +375,7 @@ export class MainService {
         // parallaxImage1: "assets/new-claude-our/basic_01.jpg",
         eventTitle: "Ceremonia y Recepción",
         timeline: [
-          { time: "6:00 PM", desc: "Ceremonia" },
+          { time: "6:00 PM", desc: 'Ceremonia', spam: 'Parroquia B/Sicomoro' },
           { time: "7:00 PM", desc: "Recepción (Mapa)" },
           // { time: "7:00 PM", desc: "Recepción" },
           // { time: "9:00 PM", desc: "Fiesta" }

@@ -67,7 +67,11 @@
         <div class="timeline">
             <div class="timeline-item" *ngFor="let item of timeline">
                 <p class="timeline-hora">{{ item.time }}</p>
-                <p class="timeline-desc" [innerHTML]="item.desc"></p>
+                <p class="timeline-desc" > {{ item.desc }}  
+                   
+                </p>
+                 <span *ngIf="item.spam" class="timeline-spam" [innerHTML]="item.spam"></span>
+               
             </div>
         </div>
 

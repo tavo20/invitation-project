@@ -21,7 +21,7 @@ interface LauraJuanData {
   eventMapLabel?: string;
   audioSrc?: string;
   confirmLink?: string;
-  timeline?: { time: string; desc: string }[];
+  timeline?: { time: string; desc: string; spam?: string }[];
   eventButtonText?: string;
   dressType?: string;
   dressWomenDesc?: string;
@@ -38,6 +38,7 @@ interface LauraJuanData {
   closingFinal?: string;
   instragramCliente?: string;
 }
+
 
 @Component({
   selector: 'app-laura-juan',
@@ -64,7 +65,7 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
   parallaxImage1: string = 'assets/new-claude-our/basic_01.jpg';
   parallaxImage2: string = 'assets/new-claude-our/basic_02.jpg';
   eventTitle: string = 'Ceremonia y Recepción';
-  timeline: { time: string; desc: string }[] = [
+  timeline: { time: string; desc: string; spam?: string }[] = [
     { time: '4:00 PM', desc: 'Ceremonia' },
     { time: '5:30 PM', desc: 'Cóctel de bienvenida' },
     { time: '7:00 PM', desc: 'Recepción' },
