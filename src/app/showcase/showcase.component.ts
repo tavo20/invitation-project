@@ -139,7 +139,7 @@ export class ShowcaseComponent {
       nombre: 'alexis',
       showPrices: false,
       showImage: true,
-      imgPartner: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/alexis.png",
+      imgPartner: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Black%20PNG.png",
       marca: "Lexis Photography",
       showName: true,
       showFooterInvitapp: false,
@@ -166,7 +166,7 @@ export class ShowcaseComponent {
       this.imgPartner = '';
       this.marca = '';
       this.showName = false;
-      this.showFooterInvitapp = false;
+      this.showFooterInvitapp = true;
     }
 
   }
