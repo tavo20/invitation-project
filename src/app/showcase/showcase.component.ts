@@ -136,7 +136,7 @@ export class ShowcaseComponent {
 
   public clientes_data: any = [
     {
-      nombre: 'alexis',
+      nombre: 'lexisphotography',
       showPrices: false,
       showImage: true,
       imgPartner: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Black%20PNG.png",
