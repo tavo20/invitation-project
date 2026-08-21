@@ -56,8 +56,8 @@ export class MainService {
         confirmTitle: 'Confirma tu asistencia',
         confirmText: 'Tu respuesta nos ayudará a organizar este día con mucho cariño.',
         confirmButtonText: 'Confirmar aquí',
-        confirmLink: 'http://localhost:4200//invitation/confirmation/gus-gi-78kft2y3',
-        // confirmLink: 'https://www.invitapp.art/invitation/confirmation/gus-gi-78kft2y3',
+        // confirmLink: 'http://localhost:4200//invitation/confirmation/gus-gi-78kft2y3',
+        confirmLink: 'https://www.invitapp.art/invitation/confirmation/gus-gi-78kft2y3',
         sobresTitle: 'Lluvia de sobres',
         closingHighlight: 'Tenemos la luna, la música y cada detalle preparado… <br> Solo falta lo más importante: tú.',
         closingNames: 'Mariana & Javier',
@@ -68,6 +68,8 @@ export class MainService {
       template: "xyz",
       active: true
     },
+
+    
     {
       id: 2,
       slug: "our",
