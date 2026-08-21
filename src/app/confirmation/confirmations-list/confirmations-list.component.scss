@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Marcellus&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Marcellus&family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
 
 $bg: #0f1626;
 $silver: #afc1dd;
@@ -204,5 +204,78 @@ $danger: #e8a0a8;
 
   .confirm-item {
     padding: 16px 12px;
+  }
+}
+
+:host.theme-basic {
+  font-family: 'Cormorant Garamond', serif;
+  color: #666;
+  background: #FAF8F5;
+}
+
+.list-page--basic {
+  background: #FAF8F5;
+  color: #666;
+
+  .list-glow {
+    display: none;
+  }
+
+  .list-shell {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(163, 140, 123, 0.18);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+  }
+
+  .list-eyebrow {
+    color: #A38C7B;
+    font-weight: 600;
+  }
+
+  .list-title {
+    font-family: 'Great Vibes', cursive;
+    color: #222;
+  }
+
+  .list-summary,
+  .list-state {
+    color: #888;
+  }
+
+  .list-state--error {
+    color: #b86b6b;
+  }
+
+  .confirm-item {
+    background: #fff;
+    border: 1px solid rgba(163, 140, 123, 0.22);
+  }
+
+  .confirm-item__names {
+    color: #222;
+  }
+
+  .confirm-item__meta,
+  .confirm-item__date {
+    color: #888;
+  }
+
+  .status {
+    color: #A38C7B;
+  }
+
+  .confirm-item__comment {
+    color: #666;
+  }
+
+  .delete-btn {
+    border-color: rgba(184, 107, 107, 0.35);
+    background: rgba(184, 107, 107, 0.06);
+    color: #b86b6b;
+
+    &:hover:not(:disabled) {
+      background: rgba(184, 107, 107, 0.14);
+      border-color: rgba(184, 107, 107, 0.55);
+    }
   }
 }

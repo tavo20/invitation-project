@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -16,6 +16,7 @@ import {
 export class ConfirmationsListComponent implements OnInit {
   invitationId: string | null = null;
   invitationNames = '';
+  typeConfirmation = '';
   confirmations: ConfirmationDocument[] = [];
   loading = true;
   errorMessage = '';
@@ -35,6 +36,7 @@ export class ConfirmationsListComponent implements OnInit {
     }
 
     const context = this.confirmationService.getInvitationContext(this.invitationId);
+    this.typeConfirmation = context?.data?.typeConfirmation ?? context?.typeConfirmation ?? '';
     if (context?.data) {
       this.invitationNames = [context.data.names1, context.data.names2]
         .filter(Boolean)
@@ -42,6 +44,11 @@ export class ConfirmationsListComponent implements OnInit {
     }
 
     void this.loadConfirmations();
+  }
+
+  @HostBinding('class.theme-basic')
+  get isBasic(): boolean {
+    return this.typeConfirmation === 'basic';
   }
 
   get totalGuests(): number {

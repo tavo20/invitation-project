@@ -61,7 +61,9 @@ export class MainService {
         sobresTitle: 'Lluvia de sobres',
         closingHighlight: 'Tenemos la luna, la música y cada detalle preparado… <br> Solo falta lo más importante: tú.',
         closingNames: 'Mariana & Javier',
-        typeConfirmation: 'basic'
+        typeConfirmation: 'basic',
+        linkInvitation: "https://www.invitapp.art/gus-gi",
+        linkListInvitation: "https://www.invitapp.art/invitation/confirmations/list/gus-gi-78kft2y3",
       },
       template: "xyz",
       active: true
