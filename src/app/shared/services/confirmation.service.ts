@@ -49,6 +49,7 @@ export interface ConfirmationInviteContext {
   slug: string | null;
   data: any;
   theme?: string;
+  typeConfirmation?: string;
 }
 
 @Injectable({
@@ -72,7 +73,8 @@ export class ConfirmationService {
       id: record.id ?? null,
       slug: record.slug ?? null,
       data: record.data ?? null,
-      theme: record.data?.confirmationTheme ?? record.data?.confirmation?.theme ?? null
+      theme: record.data?.confirmationTheme ?? record.data?.confirmation?.theme ?? null,
+      typeConfirmation: record.data?.typeConfirmation ?? ''
     };
   }
 

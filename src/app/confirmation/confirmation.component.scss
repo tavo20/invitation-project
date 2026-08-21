@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Marcellus&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Marcellus&family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
 
 $bg: #0f1626;
 $bg-soft: #161f33;
@@ -320,5 +320,130 @@ $border: rgba(175, 193, 221, 0.28);
 
   .confirm-names {
     font-size: clamp(2.1rem, 11vw, 2.8rem);
+  }
+}
+
+:host.theme-basic {
+  font-family: 'Cormorant Garamond', serif;
+  color: #666;
+  background: #FAF8F5;
+}
+
+.confirm-page--basic {
+  background: #FAF8F5;
+  color: #666;
+
+  .confirm-glow {
+    display: none;
+  }
+
+  .confirm-shell {
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(163, 140, 123, 0.18);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+  }
+
+  .confirm-eyebrow {
+    color: #A38C7B;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+  }
+
+  .confirm-names {
+    font-family: 'Great Vibes', cursive;
+    color: #222;
+  }
+
+  .confirm-amp,
+  .confirm-date,
+  .confirm-divider {
+    color: #A38C7B;
+  }
+
+  .label-text {
+    color: #A38C7B;
+    font-weight: 600;
+  }
+
+  .field input,
+  .field textarea {
+    background: #fff;
+    border: 1px solid rgba(163, 140, 123, 0.35);
+    color: #222;
+    font-family: 'Cormorant Garamond', serif;
+
+    &::placeholder {
+      color: #aaa;
+    }
+
+    &:focus {
+      border-color: #A38C7B;
+      box-shadow: 0 0 0 3px rgba(163, 140, 123, 0.12);
+    }
+  }
+
+  .counter {
+    background: #fff;
+    border: 1px solid rgba(163, 140, 123, 0.35);
+  }
+
+  .counter-btn {
+    color: #222;
+
+    &:hover {
+      background: rgba(163, 140, 123, 0.12);
+      color: #222;
+    }
+  }
+
+  .disclaimer {
+    color: #7a7a7a;
+  }
+
+  .error {
+    color: #b86b6b;
+  }
+
+  .btn {
+    font-family: 'Cormorant Garamond', serif;
+    border-color: #A38C7B;
+    color: #222;
+  }
+
+  .btn-primary {
+    background: transparent;
+
+    &:hover {
+      background: #222;
+      border-color: #222;
+      color: #fff;
+    }
+  }
+
+  .btn-ghost {
+    border-color: transparent;
+    color: #888;
+
+    &:hover {
+      color: #222;
+      border-color: rgba(163, 140, 123, 0.35);
+    }
+  }
+
+  .thanks-icon,
+  .thanks-title {
+    color: #A38C7B;
+  }
+
+  .thanks-title {
+    font-family: 'Great Vibes', cursive;
+  }
+
+  .thanks-text {
+    color: #666;
+
+    strong {
+      color: #222;
+    }
   }
 }

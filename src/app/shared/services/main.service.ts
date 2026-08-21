@@ -7,7 +7,7 @@ export class MainService {
 
   public template_fijos: any = [
     {
-      id: 1,
+      id: "gus-gi-78kft2y3",
       slug: "gus-gi",
       data: {
         names1: 'Mariana',
@@ -56,10 +56,12 @@ export class MainService {
         confirmTitle: 'Confirma tu asistencia',
         confirmText: 'Tu respuesta nos ayudará a organizar este día con mucho cariño.',
         confirmButtonText: 'Confirmar aquí',
-        confirmLink: '#',
+        confirmLink: 'http://localhost:4200//invitation/confirmation/gus-gi-78kft2y3',
+        // confirmLink: 'https://www.invitapp.art/invitation/confirmation/gus-gi-78kft2y3',
         sobresTitle: 'Lluvia de sobres',
         closingHighlight: 'Tenemos la luna, la música y cada detalle preparado… <br> Solo falta lo más importante: tú.',
-        closingNames: 'Mariana & Javier'
+        closingNames: 'Mariana & Javier',
+        typeConfirmation: 'basic'
       },
       template: "xyz",
       active: true
@@ -401,7 +403,6 @@ export class MainService {
       active: true
     },
   ];
-
 
   public platillas_vendidas: any = [
     {

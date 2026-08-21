@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,6 +17,7 @@ export class ConfirmationComponent implements OnInit {
   public invitation: any = null;
   public invitationSlug: string | null = null;
   public invitationId: string | number | null = null;
+  public typeConfirmation: string = '';
   public submitted = false;
   public isSubmitting = false;
   public savedData: any = null;
@@ -42,6 +43,12 @@ export class ConfirmationComponent implements OnInit {
     this.invitation = context?.data ?? null;
     this.invitationSlug = context?.slug ?? null;
     this.invitationId = context?.id ?? null;
+    this.typeConfirmation = this.invitation?.typeConfirmation ?? context?.typeConfirmation ?? '';
+  }
+
+  @HostBinding('class.theme-basic')
+  get isBasic(): boolean {
+    return this.typeConfirmation === 'basic';
   }
 
   get f() {
