@@ -152,7 +152,17 @@ export class ShowcaseComponent {
       marca: "Lexis Photography",
       showName: true,
       showFooterInvitapp: false,
-    }
+    },
+    {
+      nombre: 'artur_visuals',
+      showPrices: false,
+      showImage: true,
+      imgPartner: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Artur/logo_1.png",
+      marca: "Artur Visuals",
+      showName: true,
+      showFooterInvitapp: false,
+    },
+
   ]
 
   cliente: string = '';
