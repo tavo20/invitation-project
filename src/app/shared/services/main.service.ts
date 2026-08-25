@@ -209,7 +209,8 @@ export class MainService {
         names2: "Santiago",
         date: "14 · 02 · 2027",
         location: "Bogotá, Colombia",
-        quote: "El amor nos unió para siempre y queremos compartir este gran día contigo."
+        quote: "El amor nos unió para siempre y queremos compartir este gran día contigo.",
+        palette: "mist"
 
       },
       template: "neblina",
