@@ -64,7 +64,7 @@ export class ConfirmationService {
   /** Resuelve la invitación por id o slug para la pantalla de confirmación. */
   async getInvitationContext(param: string): Promise<ConfirmationInviteContext | null> {
     const record =
-      (await this.main.getDataById({ id: param })) ??
+      (await this.main.getDataById_Invitation({ id: param })) ??
       this.main.getDataBySlug({ slug: param });
 
     if (!record) return null;

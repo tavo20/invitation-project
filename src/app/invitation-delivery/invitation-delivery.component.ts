@@ -41,7 +41,7 @@ export class InvitationDeliveryComponent implements OnInit {
     }
 
     const record =
-      (await this.main.getDataById({ id })) ??
+      (await this.main.getDataById_Invitation({ id })) ??
       this.main.getDataBySlug({ slug: id });
 
     const data = record?.data;
