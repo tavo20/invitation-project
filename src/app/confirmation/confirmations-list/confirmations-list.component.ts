@@ -27,7 +27,7 @@ export class ConfirmationsListComponent implements OnInit {
     private confirmationService: ConfirmationService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.invitationId = this.route.snapshot.paramMap.get('id');
     if (!this.invitationId) {
       this.loading = false;
@@ -35,7 +35,7 @@ export class ConfirmationsListComponent implements OnInit {
       return;
     }
 
-    const context = this.confirmationService.getInvitationContext(this.invitationId);
+    const context = await this.confirmationService.getInvitationContext(this.invitationId);
     this.typeConfirmation = context?.data?.typeConfirmation ?? context?.typeConfirmation ?? '';
     if (context?.data) {
       this.invitationNames = [context.data.names1, context.data.names2]

@@ -33,7 +33,7 @@ export class InvitationDeliveryComponent implements OnInit {
     private main: MainService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.paramMap.get('id');
     if (!id) {
       this.notFound = true;
@@ -41,7 +41,7 @@ export class InvitationDeliveryComponent implements OnInit {
     }
 
     const record =
-      this.main.getDataById({ id }) ??
+      (await this.main.getDataById({ id })) ??
       this.main.getDataBySlug({ slug: id });
 
     const data = record?.data;

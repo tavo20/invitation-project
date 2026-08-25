@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { ClientService } from '../shared/services/client.service';
+import { lastValueFrom } from 'rxjs';
 
 interface PlantillaCard {
   nombre: string;
@@ -55,7 +57,7 @@ export class ShowcaseComponent {
       estilo: 'Azul Noche & Plata',
       descripcion: 'Fondo azul noche con detalles plateados, foto enmarcada en arco, timeline del evento e iconos estelares. Para bodas nocturnas y elegantes.',
       imagen: 'assets/new-claude-our/basic_02.jpg',
-      link: '/laura-juan',
+      link: '/azul-gris-colores',
       tags: ['Fondo Oscuro', 'Arco Decorativo', 'Timeline', 'Iconos Estelares'],
       category: 'Boda'
     },
@@ -143,49 +145,70 @@ export class ShowcaseComponent {
 
   ];
 
-  public clientes_data: any = [
-    {
-      nombre: 'lexisphotography',
-      showPrices: false,
-      showImage: true,
-      imgPartner: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Black%20PNG.png",
-      marca: "Lexis Photography",
-      showName: true,
-      showFooterInvitapp: false,
-    },
-    {
-      nombre: 'artur_visuals',
-      showPrices: false,
-      showImage: true,
-      imgPartner: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Artur/logo_1.png",
-      marca: "Artur Visuals",
-      showName: true,
-      showFooterInvitapp: false,
-    },
+  // public clientes_data: any = [
+  //   {
+  //     nombre: 'Alexis',
+  //     showPrices: false,
+  //     // showImage: true,
+  //     imgPartner: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Black%20PNG.png",
+  //     marca: "Lexis Photography",
+  //     // showName: true,
+  //     showFooterInvitapp: false,
+  //     slug: 'lexisphotography',
+  //   },
+  //   {
+  //     nombre: 'Artur Visuals',
+  //     showPrices: false,
+  //     // showImage: true,
+  //     imgPartner: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Artur/logo_1.png",
+  //     marca: "Artur Visuals",
+  //     // showName: true,
+  //     showFooterInvitapp: false,
+  //     slug: 'artur_visuals',
+  //   },
 
-  ]
+  // ]
 
   cliente: string = '';
 
-  constructor(private route: ActivatedRoute) {
-    this.cliente = this.route.snapshot.paramMap.get('cliente') || '';
-    const cliente_data = this.clientes_data.find((cliente: any) => cliente.nombre === this.cliente);
-    if (cliente_data) {
-      this.showShowcase = true;
-      this.showPrices = cliente_data.showPrices;
-      this.showImage = cliente_data.showImage;
-      this.imgPartner = cliente_data.imgPartner;
-      this.marca = cliente_data.marca;
-      this.showName = cliente_data.showName;
-      this.showFooterInvitapp = cliente_data.showFooterInvitapp;
-    }
-    else {
+  constructor(private route: ActivatedRoute, private clientService: ClientService) {
+    this.start();
+
+  }
+
+  public async start() {
+    try {
+      this.cliente = this.route.snapshot.paramMap.get('cliente') || '';
+
+      const cliente_data = await lastValueFrom(this.clientService.getClientBySlug(this.cliente));
+      // const cliente_data = this.clientes_data.find((cliente: any) => cliente.slug === this.cliente);
+      if (cliente_data) {
+        const { showPrices, img, marca, showFooter } = cliente_data.data;
+        this.showShowcase = true;
+        this.showPrices = showPrices || false;
+        // this.showImage = cliente_data.img;
+        this.imgPartner = img || '';
+        this.marca = marca || '';
+        // this.showName = cliente_data.showName;
+        this.showFooterInvitapp = showFooter || false;
+      }
+      else {
+        this.showPrices = true;
+        this.showImage = false;
+        this.imgPartner = '';
+        this.marca = '';
+        this.showName = false;
+        this.showFooterInvitapp = true;
+      }
+    } catch (error) {
       this.showPrices = true;
       this.showImage = false;
       this.imgPartner = '';
       this.marca = '';
       this.showName = false;
       this.showFooterInvitapp = true;
+
+      console.error(error);
     }
 
   }

@@ -35,11 +35,11 @@ export class ConfirmationComponent implements OnInit {
     private confirmationService: ConfirmationService
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.idSlug = this.route.snapshot.paramMap.get('id');
     if (!this.idSlug) return;
 
-    const context = this.confirmationService.getInvitationContext(this.idSlug);
+    const context = await this.confirmationService.getInvitationContext(this.idSlug);
     this.invitation = context?.data ?? null;
     this.invitationSlug = context?.slug ?? null;
     this.invitationId = context?.id ?? null;

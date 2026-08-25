@@ -29,7 +29,6 @@ showInvitado = false;
     }
 
     // const findInvitado = invitados.find(invitado => invitado.id === invitacionId);
-    debugger
 
     // if (findInvitado) {
     //   this.showInvitado = true;

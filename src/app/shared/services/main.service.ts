@@ -1,9 +1,19 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { lastValueFrom, map, type Observable } from 'rxjs';
+import type {
+  ConfirmationApiSuccess,
+  ConfirmationInviteContext
+} from './confirmation.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class MainService {
+  private readonly BACKEND_URL = environment.apiUrl;
+  private readonly PATH = 'api/invitation-template';
 
   public template_fijos: any = [
     {
@@ -409,61 +419,61 @@ export class MainService {
   ];
 
   public platillas_vendidas: any = [
-    {
+    // {
 
-      id: "nicol-andres-f56ejnslo",
-      slug: "nicol-andres",
-      data: {
-        nombreCliente: "Artur",
-        instragramCliente: "https://www.instagram.com/artur_visualss/",
-        names1: "Nicol",
-        names2: "Andrés",
-        dateText: "03 · 10 · 2026",
-        heroPretitle: "Nos casamos",
-        heroTitle: "NOS CASAMOS",
-        heroMessage: "Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos compartir contigo el comienzo del capítulo más hermoso.",
-        quote: "No sé de qué están hechas las almas, pero la tuya y la mía son una sola",
-        weddingDate: "Octubre 3, 2026 18:00:00",
-        eventLocation: "Melgar Tolima",
-        quoteReference: "",
-        // parallaxImage1: "assets/new-claude-our/basic_01.jpg",
-        eventTitle: "Ceremonia y Recepción",
-        timeline: [
-          { time: "6:00 PM", desc: 'Ceremonia', spam: 'Parroquia B/Sicomoro' },
-          { time: "7:00 PM", desc: "Recepción (Mapa)" },
-          // { time: "7:00 PM", desc: "Recepción" },
-          // { time: "9:00 PM", desc: "Fiesta" }
-        ],
-        eventButtonText: "VER UBICACIÓN",
-        dressType: "Formal Nocturno",
-        dressWomenDesc: "Ellas Vestido Largo o Coctel",
-        dressMenDesc: "Traje",
-        dressNote: "Color Blanco Reservado para Novia, Azul Oscuro reservado para el Novio",
-        confirmTitle: "Confirma tu Asistencia",
-        confirmMessage: "Hemos pensado en ti porque eres parte de nuestra historia. Queremos contar contigo esa noche.",
-        confirmButtonText: "CONFIRMA AQUÍ",
-        confirmLink: "https://www.invitapp.art/invitation/confirmation/nicol-andres-f56ejnslo",
-        linkInvitation: "https://www.invitapp.art/nicol-andres",
-        linkListInvitation: "https://www.invitapp.art/invitation/confirmations/list/nicol-andres-f56ejnslo",
-        // confirmLink: "http://localhost:4200/invitation/confirmation/nicol-andres-f56ejnslo",
-        sobresTitle: "Lluvia de Sobres",
-        sobresMessage: "",
-        finalHighlight: "Nos vemos bajo las estrellas",
-        finalText1: "Tenemos la luna, la música y cada detalle preparado…",
-        finalText2: "Solo falta lo más importante: tú.",
-        closingFinal: "Nicol & Andrés",
-        heroImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/primera_opt.jpg",
-        parallaxImage1: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/segunda_resize.jpg",
-        parallaxImage2: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/tercera_resize.jpg",
-        eventMapLink: "https://www.google.com/maps/place/Cl.+7+%23+29-11,+Melgar,+Tolima/@4.2011456,-74.6449439,19z/data=!4m6!3m5!1s0x8e3edefe1b60b2cb:0xdcde444d1f284f5b!8m2!3d4.201225!4d-74.6450334!16s%2Fg%2F11x2m3jrxl?entry=tts&g_ep=EgoyMDI2MDgxMi4wIPu8ASoASAFQAw%3D%3D&skid=2f63d9fc-62ac-4831-9442-1dc7dd21cdc2",
-        audioSrc: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/asi_es_nuestro_amor_cut.mp3",
-        eventMapLabel: "La quinta amarilla"
+    //   id: "nicol-andres-f56ejnslo",
+    //   slug: "nicol-andres",
+    //   data: {
+    //     nombreCliente: "Artur",
+    //     instragramCliente: "https://www.instagram.com/artur_visualss/",
+    //     names1: "Nicol",
+    //     names2: "Andrés",
+    //     dateText: "03 · 10 · 2026",
+    //     heroPretitle: "Nos casamos",
+    //     heroTitle: "NOS CASAMOS",
+    //     heroMessage: "Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos compartir contigo el comienzo del capítulo más hermoso.",
+    //     quote: "No sé de qué están hechas las almas, pero la tuya y la mía son una sola",
+    //     weddingDate: "Octubre 3, 2026 18:00:00",
+    //     eventLocation: "Melgar Tolima",
+    //     quoteReference: "",
+    //     // parallaxImage1: "assets/new-claude-our/basic_01.jpg",
+    //     eventTitle: "Ceremonia y Recepción",
+    //     timeline: [
+    //       { time: "6:00 PM", desc: 'Ceremonia', spam: 'Parroquia B/Sicomoro' },
+    //       { time: "7:00 PM", desc: "Recepción (Mapa)" },
+    //       // { time: "7:00 PM", desc: "Recepción" },
+    //       // { time: "9:00 PM", desc: "Fiesta" }
+    //     ],
+    //     eventButtonText: "VER UBICACIÓN",
+    //     dressType: "Formal Nocturno",
+    //     dressWomenDesc: "Ellas Vestido Largo o Coctel",
+    //     dressMenDesc: "Traje",
+    //     dressNote: "Color Blanco Reservado para Novia, Azul Oscuro reservado para el Novio",
+    //     confirmTitle: "Confirma tu Asistencia",
+    //     confirmMessage: "Hemos pensado en ti porque eres parte de nuestra historia. Queremos contar contigo esa noche.",
+    //     confirmButtonText: "CONFIRMA AQUÍ",
+    //     confirmLink: "https://www.invitapp.art/invitation/confirmation/nicol-andres-f56ejnslo",
+    //     linkInvitation: "https://www.invitapp.art/nicol-andres",
+    //     linkListInvitation: "https://www.invitapp.art/invitation/confirmations/list/nicol-andres-f56ejnslo",
+    //     // confirmLink: "http://localhost:4200/invitation/confirmation/nicol-andres-f56ejnslo",
+    //     sobresTitle: "Lluvia de Sobres",
+    //     sobresMessage: "",
+    //     finalHighlight: "Nos vemos bajo las estrellas",
+    //     finalText1: "Tenemos la luna, la música y cada detalle preparado…",
+    //     finalText2: "Solo falta lo más importante: tú.",
+    //     closingFinal: "Nicol & Andrés",
+    //     heroImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/primera_opt.jpg",
+    //     parallaxImage1: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/segunda_resize.jpg",
+    //     parallaxImage2: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/tercera_resize.jpg",
+    //     eventMapLink: "https://www.google.com/maps/place/Cl.+7+%23+29-11,+Melgar,+Tolima/@4.2011456,-74.6449439,19z/data=!4m6!3m5!1s0x8e3edefe1b60b2cb:0xdcde444d1f284f5b!8m2!3d4.201225!4d-74.6450334!16s%2Fg%2F11x2m3jrxl?entry=tts&g_ep=EgoyMDI2MDgxMi4wIPu8ASoASAFQAw%3D%3D&skid=2f63d9fc-62ac-4831-9442-1dc7dd21cdc2",
+    //     audioSrc: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/asi_es_nuestro_amor_cut.mp3",
+    //     eventMapLabel: "La quinta amarilla"
 
 
-      },
-      template: "laura-juan",
-      active: true
-    }
+    //   },
+    //   template: "laura-juan",
+    //   active: true
+    // }
   ]
 
   public photographers_para_vender: any = [
@@ -578,17 +588,45 @@ export class MainService {
       active: true
     },
   ]
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   public getData() {
     return this.data;
   }
 
-  public getDataBySlug({ slug }: { slug: string }) {
-    return [...this.data, ...this.template_fijos, ...this.platillas_vendidas, ...this.photographers_para_vender].find((item: any) => (item.slug === slug && item.active));
+  public async getDataBySlug({ slug }: { slug: string }) {
+    // const invitations: ConfirmationInviteContext[] = await lastValueFrom(this.getInvitationsAvailable());
+    const invitation: ConfirmationInviteContext = await lastValueFrom(this.getInvitationBySlug(slug));
+    return [...this.data, ...this.template_fijos, ...this.platillas_vendidas, ...this.photographers_para_vender, invitation].find((item: any) => (item.slug === slug && item.active));
   }
 
-  public getDataById({ id }: { id: string }) {
-    return [...this.data, ...this.template_fijos, ...this.platillas_vendidas, ...this.photographers_para_vender].find((item: any) => (item.id === id && item.active));
+  public async getDataById({ id }: { id: string }): Promise<any> {
+    // const invitations: ConfirmationInviteContext[] = await lastValueFrom(this.getInvitationsAvailable());
+    const invitation: ConfirmationInviteContext = await lastValueFrom(this.getInvitationById(id));
+    return [...this.data, ...this.template_fijos, ...this.platillas_vendidas, ...this.photographers_para_vender, invitation].find((item: any) => (item.id === id && item.active || item.id_invitacion === id && item.active));
+  }
+
+  public getDataByInvitationId({ id }: { id: string }) {
+    return this.http.get<any>(`${this.BACKEND_URL}${this.PATH}/invitation/${id}`).pipe(
+      map((res) => res.data)
+    );
+  }
+
+  public getInvitationsAvailable(): Observable<ConfirmationInviteContext[]> {
+    return this.http.get<ConfirmationApiSuccess<ConfirmationInviteContext[]>>(
+      `${this.BACKEND_URL}${this.PATH}/all/available`
+    ).pipe(map((res) => res.data));
+  }
+
+  public getInvitationBySlug(slug: string): Observable<ConfirmationInviteContext> {
+    return this.http.get<ConfirmationApiSuccess<ConfirmationInviteContext>>(
+      `${this.BACKEND_URL}${this.PATH}/by-slug/${slug}`
+    ).pipe(map((res) => res.data));
+  }
+
+  public getInvitationById(id: string): Observable<ConfirmationInviteContext> {
+    return this.http.get<ConfirmationApiSuccess<ConfirmationInviteContext>>(
+      `${this.BACKEND_URL}${this.PATH}/get-one/${id}`
+    ).pipe(map((res) => res.data));
   }
 }

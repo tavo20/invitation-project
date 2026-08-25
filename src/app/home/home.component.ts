@@ -54,7 +54,7 @@ export class HomeComponent {
 
 
 
-  ngOnInit() {
+  async ngOnInit() {
     const slugInvitation = this.route.snapshot.paramMap.get('slug') || this.getQueryParam('n');
     console.log('slugInvitation', slugInvitation);
     if (!slugInvitation) {
@@ -62,7 +62,7 @@ export class HomeComponent {
       return;
     }
     const slug = slugInvitation.toLowerCase();
-    const data = this.mainService.getDataBySlug({ slug });
+    const data = await this.mainService.getDataBySlug({ slug });
     console.log('data', data);
     if (data) {
       this.templateComponent = data.template;
