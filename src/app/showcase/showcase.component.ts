@@ -31,6 +31,8 @@ export class ShowcaseComponent {
   public marca: string = '';
   public showName: boolean = false;
   public showFooterInvitapp: boolean = false;
+  public heightImg: string | number | null = null;
+  public widthImg: string | number | null = null;
 
 
   plantillas: PlantillaCard[] = [
@@ -183,12 +185,14 @@ export class ShowcaseComponent {
       const cliente_data = await lastValueFrom(this.clientService.getClientBySlug(this.cliente));
       // const cliente_data = this.clientes_data.find((cliente: any) => cliente.slug === this.cliente);
       if (cliente_data) {
-        const { showPrices, img, marca, showFooter } = cliente_data.data;
+        const { showPrices, img, marca, showFooter, heightImg, widthImg } = cliente_data.data ?? {};
         this.showShowcase = true;
         this.showPrices = showPrices || false;
         // this.showImage = cliente_data.img;
         this.imgPartner = img || '';
         this.marca = marca || '';
+        this.heightImg = heightImg ?? cliente_data.heightImg ?? null;
+        this.widthImg = widthImg ?? cliente_data.widthImg ?? null;
         // this.showName = cliente_data.showName;
         this.showFooterInvitapp = showFooter || false;
       }
@@ -199,6 +203,8 @@ export class ShowcaseComponent {
         this.marca = '';
         this.showName = false;
         this.showFooterInvitapp = true;
+        this.heightImg = null;
+        this.widthImg = null;
       }
     } catch (error) {
       this.showPrices = true;
@@ -207,10 +213,30 @@ export class ShowcaseComponent {
       this.marca = '';
       this.showName = false;
       this.showFooterInvitapp = true;
+      this.heightImg = null;
+      this.widthImg = null;
 
       console.error(error);
     }
 
+  }
+
+  get partnerImageStyle(): Record<string, string> {
+    const style: Record<string, string> = {};
+    const height = this.toCssSize(this.heightImg);
+    const width = this.toCssSize(this.widthImg);
+    if (height) style['height'] = height;
+    if (width) style['width'] = width;
+    return style;
+  }
+
+  private toCssSize(value: unknown): string | null {
+    if (value == null || value === '') return null;
+    if (typeof value === 'number' && Number.isFinite(value)) return `${value}px`;
+    const text = String(value).trim();
+    if (!text) return null;
+    if (/^\d+(\.\d+)?$/.test(text)) return `${text}px`;
+    return text;
   }
 
   get categories(): string[] {
