@@ -41,8 +41,10 @@ export class InvitationDeliveryComponent implements OnInit {
     }
 
     const record =
-      (await this.main.getDataById_Invitation({ id })) ??
-      this.main.getDataBySlug({ slug: id });
+      (await this.main.getDataById_Invitation({ id })) 
+      // ??
+      // this.main.getDataBySlug({ slug: id });
+
 
     const data = record?.data;
     if (!data) {
@@ -60,24 +62,32 @@ export class InvitationDeliveryComponent implements OnInit {
         key: 'invitation',
         label: 'Ver la invitación',
         description: 'Abre la invitación digital o copia el link para enviarlo a tus invitados',
-        url: data.linkInvitation ?? '',
+        url: record.slug
+          ? `https://www.invitapp.art/${record.slug}`
+          : '',
         openLabel: 'Ver'
       },
       {
         key: 'confirm',
         label: 'Confirmación de asistencia',
         description: 'Formulario para que tus invitados confirmen si van',
-        url: data.confirmLink ?? '',
+        url: record.id_invitation
+        ? `https://www.invitapp.art/invitation/confirmation/${record.id_invitation  || record.id}`
+        : '',
         openLabel: 'Abrir'
       },
       {
         key: 'list',
         label: 'Lista de invitados',
         description: 'Consulta quiénes ya confirmaron y gestiona las respuestas',
-        url: data.linkListInvitation ?? '',
+        url: record.id_invitation
+        ? `https://www.invitapp.art/invitation/confirmations/list/${record.id_invitation || record.id}`
+        : '',
         openLabel: 'Ver lista'
       }
     ].filter((link) => !!link.url);
+console.log(record);
+    console.log(this.links);
   }
 
   async copyLink(link: DeliveryLink): Promise<void> {

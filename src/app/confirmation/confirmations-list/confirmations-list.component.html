@@ -1,37 +1,85 @@
-<div class="list-page" [class.list-page--basic]="isBasic">
+<div class="list-page" [class.list-page--basic]="isBasic" [class.list-page--per-user]="invitationPerUser">
   <div class="list-glow" aria-hidden="true"></div>
 
   <div class="list-shell">
     <header class="list-header">
-      <p class="list-eyebrow">Panel de confirmaciones</p>
+      <p class="list-eyebrow">{{ invitationPerUser ? 'Invitaciones por persona' : 'Panel de confirmaciones' }}</p>
       <h1 class="list-title" *ngIf="invitationNames; else fallbackTitle">
         {{ invitationNames }}
       </h1>
       <ng-template #fallbackTitle>
-        <h1 class="list-title">Confirmaciones</h1>
+        <h1 class="list-title">{{ invitationPerUser ? 'Invitaciones' : 'Confirmaciones' }}</h1>
       </ng-template>
 
       <div class="list-summary" *ngIf="!loading && !errorMessage">
-        <span>{{ confirmations.length }} registro{{ confirmations.length === 1 ? '' : 's' }}</span>
-        <span class="dot" aria-hidden="true">·</span>
-        <span>{{ totalGuests }} persona{{ totalGuests === 1 ? '' : 's' }}</span>
+        <div class="list-summary__totals">
+          <span>{{ invitationPerUser ? confirmations.length : statusSummary.confirmado.items }} {{ invitationPerUser ? (confirmations.length === 1 ? 'invitación' : 'invitaciones') : (statusSummary.confirmado.items === 1 ? 'registro' : 'registros') }}</span>
+          <span class="dot" aria-hidden="true">·</span>
+          <span>{{ invitationPerUser ? totalGuests : statusSummary.confirmado.guests }} persona{{ (invitationPerUser ? totalGuests : statusSummary.confirmado.guests) === 1 ? '' : 's' }}</span>
+        </div>
+        <div class="list-summary__statuses" *ngIf="invitationPerUser">
+          <span class="summary-status summary-status--confirmado">
+            {{ statusSummary.confirmado.guests }} confirmado{{ statusSummary.confirmado.guests === 1 ? '' : 's' }}
+          </span>
+          <span class="dot" aria-hidden="true">·</span>
+          <span class="summary-status summary-status--pendiente">
+            {{ statusSummary.pendiente.guests }} pendiente{{ statusSummary.pendiente.guests === 1 ? '' : 's' }}
+          </span>
+          <span class="dot" aria-hidden="true">·</span>
+          <span class="summary-status summary-status--cancelada">
+            {{ statusSummary.cancelada.guests }} cancelada{{ statusSummary.cancelada.guests === 1 ? '' : 's' }}
+          </span>
+        </div>
       </div>
+
+      <div class="status-filters" *ngIf="invitationPerUser && !loading && !errorMessage && confirmations.length > 0">
+        <button
+          type="button"
+          class="status-filter"
+          *ngFor="let status of statusFilters"
+          [class.is-active]="statusFilter === status"
+          [class.status-filter--confirmado]="status === 'confirmado'"
+          [class.status-filter--pendiente]="status === 'pendiente'"
+          [class.status-filter--cancelada]="status === 'cancelada'"
+          (click)="setStatusFilter(status)">
+          {{ statusLabel(status) }}
+        </button>
+      </div>
+
+      <button
+        *ngIf="invitationPerUser"
+        type="button"
+        class="create-btn"
+        (click)="onCreateInvitation()">
+        Crear invitación
+      </button>
     </header>
 
-    <div class="list-state" *ngIf="loading">Cargando confirmaciones…</div>
+    <div class="list-state" *ngIf="loading">
+      {{ invitationPerUser ? 'Cargando invitaciones…' : 'Cargando confirmaciones…' }}
+    </div>
     <div class="list-state list-state--error" *ngIf="!loading && errorMessage">{{ errorMessage }}</div>
-    <div class="list-state" *ngIf="!loading && !errorMessage && confirmations.length === 0">
-      Aún no hay confirmaciones.
+    <div class="list-state" *ngIf="!loading && !errorMessage && filteredConfirmations.length === 0 && (!invitationPerUser || confirmations.length === 0)">
+      {{ invitationPerUser ? 'Aún no hay invitaciones creadas.' : 'Aún no hay confirmaciones.' }}
+    </div>
+    <div class="list-state" *ngIf="invitationPerUser && !loading && !errorMessage && confirmations.length > 0 && filteredConfirmations.length === 0">
+      No hay registros con estado {{ statusLabel(statusFilter).toLowerCase() }}.
     </div>
 
-    <ul class="confirm-list" *ngIf="!loading && confirmations.length > 0">
-      <li class="confirm-item" *ngFor="let item of confirmations">
+    <ul class="confirm-list" *ngIf="!loading && filteredConfirmations.length > 0">
+      <li class="confirm-item" *ngFor="let item of filteredConfirmations">
         <div class="confirm-item__main">
           <p class="confirm-item__names">{{ item.names }}</p>
           <p class="confirm-item__meta">
-            <span>{{ item.numero_confirmados }} confirmado{{ item.numero_confirmados === 1 ? '' : 's' }}</span>
+            <span>{{ item.numero_confirmados }} invitado{{ item.numero_confirmados === 1 ? '' : 's' }}</span>
             <span class="dot" aria-hidden="true">·</span>
-            <span class="status">{{ item.status }}</span>
+            <span
+              class="status"
+              [class.status--confirmado]="getStatus(item) === 'confirmado'"
+              [class.status--pendiente]="getStatus(item) === 'pendiente'"
+              [class.status--cancelada]="getStatus(item) === 'cancelada'">
+              {{ statusLabel(getStatus(item) || 'pendiente') }}
+            </span>
           </p>
           <p class="confirm-item__date" *ngIf="item.createdAt">
             {{ formatDate(item.createdAt) }}
@@ -39,20 +87,106 @@
           <p class="confirm-item__comment" *ngIf="item.descripcion">{{ item.descripcion }}</p>
         </div>
 
-        <button
-          type="button"
-          class="delete-btn"
-          [disabled]="deletingId === item._id"
-          [attr.aria-label]="'Eliminar confirmación de ' + item.names"
-          (click)="onDelete(item)">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
-            <path d="M4 7h16" stroke-linecap="round" />
-            <path d="M10 11v6M14 11v6" stroke-linecap="round" />
-            <path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
+        <div class="confirm-item__actions">
+          <button
+            type="button"
+            class="icon-btn"
+            [attr.aria-label]="'Editar invitación de ' + item.names"
+            (click)="onEditInvitation(item)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3z" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M13.5 6.5l3 3" stroke-linecap="round" />
+            </svg>
+          </button>
+
+          <button
+            *ngIf="invitationPerUser"
+            type="button"
+            class="icon-btn"
+            [class.is-copied]="copiedId === item._id"
+            [attr.aria-label]="'Copiar enlace de ' + item.names"
+            (click)="copyInvitationLink(item)">
+            <svg *ngIf="copiedId !== item._id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <rect x="8" y="8" width="12" height="12" rx="2" />
+              <path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" />
+            </svg>
+            <svg *ngIf="copiedId === item._id" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M5 12.5l4.2 4.2L19 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+
+          <button
+            type="button"
+            class="icon-btn icon-btn--danger"
+            [disabled]="deletingId === item._id"
+            [attr.aria-label]="'Eliminar confirmación de ' + item.names"
+            (click)="onDelete(item)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+              <path d="M4 7h16" stroke-linecap="round" />
+              <path d="M10 11v6M14 11v6" stroke-linecap="round" />
+              <path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
       </li>
     </ul>
+  </div>
+
+  <div
+    class="create-modal"
+    *ngIf="showCreateModal"
+    (click)="closeCreateModal()">
+    <div class="create-modal__dialog" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="create-modal-title">
+      <p class="create-modal__eyebrow">{{ editingItem ? 'Editar invitación' : 'Nueva invitación' }}</p>
+      <h2 class="create-modal__title" id="create-modal-title">
+        {{ editingItem ? 'Editar invitación' : 'Crear invitación' }}
+      </h2>
+
+      <form class="create-modal__form" [formGroup]="createForm" (ngSubmit)="submitCreateInvitation()">
+        <label class="field">
+          <span class="label-text">Nombres</span>
+          <input
+            type="text"
+            formControlName="names"
+            placeholder="Ej: Ana López, Carlos Ruiz" />
+          <small class="error" *ngIf="createControls.names.touched && createControls.names.invalid">
+            Escribe el nombre de quienes asisten.
+          </small>
+        </label>
+
+        <div class="field">
+          <span class="label-text">Cantidad de personas</span>
+          <div class="counter">
+            <button type="button" class="counter-btn" (click)="changeGuests(-1)" aria-label="Disminuir">−</button>
+            <input type="number" formControlName="numero_confirmados" min="1" aria-label="Cantidad de personas" />
+            <button type="button" class="counter-btn" (click)="changeGuests(1)" aria-label="Aumentar">+</button>
+          </div>
+          <small class="error" *ngIf="createControls.numero_confirmados.touched && createControls.numero_confirmados.invalid">
+            Ingresa un número válido.
+          </small>
+        </div>
+
+        <label class="field" *ngIf="editingItem">
+          <span class="label-text">Estado</span>
+          <select formControlName="status">
+            <option *ngFor="let status of editStatuses" [value]="status">
+              {{ statusLabel(status) }}
+            </option>
+          </select>
+        </label>
+
+        <p class="error" *ngIf="createError">{{ createError }}</p>
+
+        <div class="create-modal__actions">
+          <button type="submit" class="create-btn" [disabled]="isCreating">
+            {{ isCreating ? (editingItem ? 'Guardando…' : 'Creando…') : (editingItem ? 'Guardar' : 'Crear') }}
+          </button>
+          <button type="button" class="create-modal__cancel" (click)="closeCreateModal()" [disabled]="isCreating">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

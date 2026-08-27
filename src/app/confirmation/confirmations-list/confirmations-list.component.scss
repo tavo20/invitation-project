@@ -81,13 +81,260 @@ $danger: #e8a0a8;
 .list-summary {
   margin-top: 14px;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  color: $text-muted;
+}
+
+.list-summary__totals,
+.list-summary__statuses {
+  display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
-  font-size: 0.9rem;
-  letter-spacing: 0.06em;
+}
+
+.summary-status--confirmado {
+  color: #9dcea8;
+}
+
+.summary-status--pendiente {
+  color: #d7c48a;
+}
+
+.summary-status--cancelada {
+  color: $danger;
+}
+
+.status-filters {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.status-filter {
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid $border;
+  background: transparent;
   color: $text-muted;
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+  &.is-active {
+    background: rgba(175, 193, 221, 0.14);
+    border-color: $silver;
+    color: $text-light;
+  }
+
+  &.status-filter--confirmado.is-active {
+    background: rgba(157, 206, 168, 0.14);
+    border-color: #9dcea8;
+    color: #9dcea8;
+  }
+
+  &.status-filter--pendiente.is-active {
+    background: rgba(215, 196, 138, 0.14);
+    border-color: #d7c48a;
+    color: #d7c48a;
+  }
+
+  &.status-filter--cancelada.is-active {
+    background: rgba(232, 160, 168, 0.12);
+    border-color: $danger;
+    color: $danger;
+  }
+}
+
+.create-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 22px;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid $silver;
+  background: rgba(175, 193, 221, 0.12);
+  color: $silver;
+  font-family: 'Marcellus', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease;
+
+  &:hover:not(:disabled) {
+    background: $silver;
+    color: $bg;
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+}
+
+.create-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(8, 12, 22, 0.72);
+}
+
+.create-modal__dialog {
+  width: min(100%, 440px);
+  padding: 32px 28px 28px;
+  background: linear-gradient(180deg, rgba(22, 31, 51, 0.98) 0%, rgba(15, 22, 38, 0.98) 100%);
+  border: 1px solid $border;
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45);
+  text-align: center;
+}
+
+.create-modal__eyebrow {
+  margin: 0 0 10px;
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: $silver;
+}
+
+.create-modal__title {
+  margin: 0 0 24px;
+  font-family: 'Parisienne', cursive;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: $text-light;
+}
+
+.create-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: left;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label-text {
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $silver;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border: 1px solid $border;
+  background: rgba(15, 22, 38, 0.65);
+  color: $text-light;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+
+  &:focus {
+    border-color: rgba(175, 193, 221, 0.7);
+  }
+}
+
+.field select {
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, #afc1dd 50%),
+    linear-gradient(135deg, #afc1dd 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(50% - 3px), calc(100% - 12px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.counter {
+  display: grid;
+  grid-template-columns: 48px 1fr 48px;
+  align-items: center;
+  border: 1px solid $border;
+  background: rgba(15, 22, 38, 0.65);
+}
+
+.counter input {
+  border: none;
+  background: transparent;
+  text-align: center;
+  appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+.counter-btn {
+  height: 48px;
+  border: none;
+  background: transparent;
+  color: $silver;
+  font-size: 1.35rem;
+  cursor: pointer;
+
+  &:hover {
+    color: $text-light;
+  }
+}
+
+.error {
+  color: $danger;
+  font-size: 0.82rem;
+}
+
+.create-modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.create-modal__actions .create-btn {
+  margin-top: 4px;
+  width: 100%;
+}
+
+.create-modal__cancel {
+  border: none;
+  background: transparent;
+  color: $text-muted;
+  font-family: inherit;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    color: $text-light;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .dot {
@@ -156,6 +403,18 @@ $danger: #e8a0a8;
   color: $silver;
 }
 
+.status--confirmado {
+  color: #9dcea8;
+}
+
+.status--pendiente {
+  color: #d7c48a;
+}
+
+.status--cancelada {
+  color: $danger;
+}
+
 .confirm-item__comment {
   margin: 10px 0 0;
   font-size: 0.92rem;
@@ -164,18 +423,23 @@ $danger: #e8a0a8;
   color: $text-secondary;
 }
 
-.delete-btn {
+.confirm-item__actions {
+  display: flex;
   flex-shrink: 0;
+  gap: 8px;
+}
+
+.icon-btn {
   width: 42px;
   height: 42px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(232, 160, 168, 0.35);
-  background: rgba(232, 160, 168, 0.08);
-  color: $danger;
+  border: 1px solid $border;
+  background: rgba(175, 193, 221, 0.08);
+  color: $silver;
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
 
   svg {
     width: 18px;
@@ -183,13 +447,32 @@ $danger: #e8a0a8;
   }
 
   &:hover:not(:disabled) {
-    background: rgba(232, 160, 168, 0.18);
-    border-color: rgba(232, 160, 168, 0.65);
+    background: rgba(175, 193, 221, 0.18);
+    border-color: rgba(175, 193, 221, 0.65);
+    color: $text-light;
+  }
+
+  &.is-copied {
+    border-color: #9dcea8;
+    background: rgba(157, 206, 168, 0.12);
+    color: #9dcea8;
   }
 
   &:disabled {
     opacity: 0.45;
     cursor: not-allowed;
+  }
+}
+
+.icon-btn--danger {
+  border-color: rgba(232, 160, 168, 0.35);
+  background: rgba(232, 160, 168, 0.08);
+  color: $danger;
+
+  &:hover:not(:disabled) {
+    background: rgba(232, 160, 168, 0.18);
+    border-color: rgba(232, 160, 168, 0.65);
+    color: $danger;
   }
 }
 
@@ -237,9 +520,118 @@ $danger: #e8a0a8;
     color: #222;
   }
 
+  .create-btn {
+    font-family: 'Cormorant Garamond', serif;
+    border-color: #A38C7B;
+    background: transparent;
+    color: #222;
+
+    &:hover:not(:disabled) {
+      background: #222;
+      border-color: #222;
+      color: #fff;
+    }
+  }
+
+  .create-modal {
+    background: rgba(34, 34, 34, 0.45);
+  }
+
+  .create-modal__dialog {
+    background: #fff;
+    border: 1px solid rgba(163, 140, 123, 0.18);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
+  }
+
+  .create-modal__eyebrow {
+    color: #A38C7B;
+  }
+
+  .create-modal__title {
+    font-family: 'Great Vibes', cursive;
+    color: #222;
+  }
+
+  .label-text {
+    color: #A38C7B;
+  }
+
+  .field input,
+  .field select {
+    background: #fff;
+    border-color: rgba(163, 140, 123, 0.35);
+    color: #222;
+  }
+
+  .field select {
+    background-image: linear-gradient(45deg, transparent 50%, #A38C7B 50%),
+      linear-gradient(135deg, #A38C7B 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(50% - 3px), calc(100% - 12px) calc(50% - 3px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+  }
+
+  .counter {
+    background: #fff;
+    border-color: rgba(163, 140, 123, 0.35);
+  }
+
+  .counter-btn {
+    color: #222;
+  }
+
+  .create-modal__cancel {
+    color: #888;
+
+    &:hover:not(:disabled) {
+      color: #222;
+    }
+  }
+
   .list-summary,
   .list-state {
     color: #888;
+  }
+
+  .summary-status--confirmado {
+    color: #6f8f6f;
+  }
+
+  .summary-status--pendiente {
+    color: #A38C7B;
+  }
+
+  .summary-status--cancelada {
+    color: #b86b6b;
+  }
+
+  .status-filter {
+    border-color: rgba(163, 140, 123, 0.28);
+    color: #888;
+
+    &.is-active {
+      background: rgba(163, 140, 123, 0.1);
+      border-color: #A38C7B;
+      color: #222;
+    }
+
+    &.status-filter--confirmado.is-active {
+      background: rgba(111, 143, 111, 0.1);
+      border-color: #6f8f6f;
+      color: #6f8f6f;
+    }
+
+    &.status-filter--pendiente.is-active {
+      background: rgba(163, 140, 123, 0.12);
+      border-color: #A38C7B;
+      color: #A38C7B;
+    }
+
+    &.status-filter--cancelada.is-active {
+      background: rgba(184, 107, 107, 0.08);
+      border-color: #b86b6b;
+      color: #b86b6b;
+    }
   }
 
   .list-state--error {
@@ -264,11 +656,41 @@ $danger: #e8a0a8;
     color: #A38C7B;
   }
 
+  .status--confirmado {
+    color: #6f8f6f;
+  }
+
+  .status--pendiente {
+    color: #A38C7B;
+  }
+
+  .status--cancelada {
+    color: #b86b6b;
+  }
+
   .confirm-item__comment {
     color: #666;
   }
 
-  .delete-btn {
+  .icon-btn {
+    border-color: rgba(163, 140, 123, 0.28);
+    background: rgba(163, 140, 123, 0.06);
+    color: #A38C7B;
+
+    &:hover:not(:disabled) {
+      background: rgba(163, 140, 123, 0.12);
+      border-color: #A38C7B;
+      color: #222;
+    }
+
+    &.is-copied {
+      border-color: #6f8f6f;
+      background: rgba(111, 143, 111, 0.1);
+      color: #6f8f6f;
+    }
+  }
+
+  .icon-btn--danger {
     border-color: rgba(184, 107, 107, 0.35);
     background: rgba(184, 107, 107, 0.06);
     color: #b86b6b;
@@ -276,6 +698,7 @@ $danger: #e8a0a8;
     &:hover:not(:disabled) {
       background: rgba(184, 107, 107, 0.14);
       border-color: rgba(184, 107, 107, 0.55);
+      color: #b86b6b;
     }
   }
 }

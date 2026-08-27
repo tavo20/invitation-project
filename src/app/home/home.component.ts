@@ -14,6 +14,8 @@ import { LauraJuanComponent } from '../plantillas/laura-juan/laura-juan.componen
 import { AzulGrisColoresComponent } from '../plantillas/azul-gris-colores/azul-gris-colores.component';
 import { NeblinaComponent } from '../plantillas/neblina/neblina.component';
 import { SobreAmanecerComponent } from '../plantillas/sobre-amanecer/sobre-amanecer.component';
+import { ConfirmationService } from '../shared/services/confirmation.service';
+import { lastValueFrom } from 'rxjs';
 
 
 @Component({
@@ -49,7 +51,7 @@ export class HomeComponent {
 
   public noDataFound: boolean = false;
   public showShowcase: boolean = false;
-  constructor(private route: ActivatedRoute, private router: Router, private mainService: MainService) {
+  constructor(private route: ActivatedRoute, private router: Router, private mainService: MainService, private confirmationService: ConfirmationService) {
   }
 
 
@@ -61,12 +63,27 @@ export class HomeComponent {
       this.showShowcase = true;
       return;
     }
+
     const slug = slugInvitation.toLowerCase();
-    const data = await this.mainService.getDataBySlug({ slug });
+    let data = await this.mainService.getDataBySlug({ slug });
+    const confirmationId = this.route.snapshot.paramMap.get('confirmationId');
+
+    // get confirmacion by id
+    let confirmation: any = null;
+    if(confirmationId) {
+      confirmation = await lastValueFrom(this.confirmationService.getConfirmationInvitationById(confirmationId));
+      console.log('confirmation', confirmation);
+      data.data.confirmLink = `${data.data.confirmLink}/${confirmationId}`;
+    }
+
+
     console.log('data', data);
     if (data) {
       this.templateComponent = data.template;
       this.dataInvitation = data;
+      if(confirmation) { 
+        this.dataInvitation.confirmation = confirmation.data;
+      }
     } else {
       this.noDataFound = true;
     }

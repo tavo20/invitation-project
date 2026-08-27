@@ -12,6 +12,9 @@
           {{ invitation.names2 }}
         </h1>
         <p class="confirm-date" *ngIf="invitation.dateText">{{ invitation.dateText }}</p>
+        <p class="confirm-greeting" *ngIf="guestInvite?.names">
+          Hola, {{ guestInvite?.names }}
+        </p>
       </ng-container>
 
       <ng-template #missingInvite>
@@ -30,8 +33,14 @@
       </svg>
     </header>
 
+    <div class="confirm-state" *ngIf="loading">Cargando invitación…</div>
+
+    <div class="confirm-state confirm-state--error" *ngIf="!loading && guestError">
+      {{ guestError }}
+    </div>
+
     <form
-      *ngIf="!submitted && invitation"
+      *ngIf="showForm"
       class="confirm-form"
       [formGroup]="form"
       (ngSubmit)="onSubmit()">
@@ -40,11 +49,26 @@
         <span class="label-text">Número de confirmados</span>
         <div class="counter">
           <button type="button" class="counter-btn" (click)="changeGuests(-1)" aria-label="Disminuir">−</button>
-          <input type="number" formControlName="guestsCount" min="1" aria-label="Número de confirmados" />
-          <button type="button" class="counter-btn" (click)="changeGuests(1)" aria-label="Aumentar">+</button>
+          <input
+            type="number"
+            formControlName="numero_confirmados"
+            min="1"
+            [attr.max]="guestInvite ? maxGuests : null"
+            aria-label="Número de confirmados" />
+          <button
+            type="button"
+            class="counter-btn"
+            (click)="changeGuests(1)"
+            [disabled]="!!guestInvite && (form.value.numero_confirmados ?? 1) >= maxGuests"
+            aria-label="Aumentar">+</button>
         </div>
-        <small class="error" *ngIf="f.guestsCount.touched && f.guestsCount.invalid">
-          Ingresa un número válido.
+        <small class="field-hint" *ngIf="guestInvite">
+          Puedes confirmar hasta {{ maxGuests }} persona{{ maxGuests === 1 ? '' : 's' }}.
+        </small>
+        <small class="error" *ngIf="f.numero_confirmados.touched && f.numero_confirmados.invalid">
+          {{ f.numero_confirmados.errors?.['max']
+            ? 'No puedes confirmar más de ' + maxGuests + ' persona' + (maxGuests === 1 ? '' : 's') + '.'
+            : 'Ingresa un número válido.' }}
         </small>
       </div>
 
@@ -72,8 +96,16 @@
       </label>
 
       <div class="actions">
-        <button type="submit" class="btn btn-primary" [disabled]="isSubmitting">
+        <button type="submit" class="btn btn-primary" [disabled]="isSubmitting || isDeclining">
           {{ isSubmitting ? 'Enviando…' : 'Confirmar asistencia' }}
+        </button>
+        <button
+          *ngIf="guestInvite"
+          type="button"
+          class="btn btn-ghost"
+          [disabled]="isSubmitting || isDeclining"
+          (click)="onDecline()">
+          {{ isDeclining ? 'Guardando…' : 'No puedo asistir' }}
         </button>
         <button type="button" class="btn btn-ghost" (click)="goBack()">Volver a la invitación</button>
       </div>
@@ -82,14 +114,18 @@
     <div *ngIf="submitted" class="thanks">
       <div class="thanks-icon" aria-hidden="true">✦</div>
       <h2 class="thanks-title">¡Gracias!</h2>
-      <p class="thanks-text">
+      <p class="thanks-text" *ngIf="!declined">
         Tu confirmación quedó registrada.
         <span *ngIf="savedData?.names">Nos alegra contar con <strong>{{ savedData.names }}</strong>.</span>
+      </p>
+      <p class="thanks-text" *ngIf="declined">
+        Registramos que no podrás asistir.
+        <span *ngIf="savedData?.names">Gracias por avisarnos, <strong>{{ savedData.names }}</strong>.</span>
       </p>
       <button type="button" class="btn btn-primary" (click)="goBack()">Volver a la invitación</button>
     </div>
 
-    <div *ngIf="!invitation" class="actions actions--alone">
+    <div *ngIf="!loading && (!invitation || guestError)" class="actions actions--alone">
       <button type="button" class="btn btn-ghost" (click)="goBack()">Volver</button>
     </div>
   </div>

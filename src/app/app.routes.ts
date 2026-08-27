@@ -14,6 +14,12 @@ export const routes: Routes = [
                 .then(m => m.ShowcaseComponent)
     },
     {
+        path: 'invitation/confirmation/:id/:confirmationId',
+        loadComponent: () =>
+            import('./confirmation/confirmation.component')
+                .then(m => m.ConfirmationComponent)
+    },
+    {
         path: 'invitation/confirmation/:id',
         loadComponent: () =>
             import('./confirmation/confirmation.component')
@@ -33,6 +39,10 @@ export const routes: Routes = [
     },
     {
         path: ':slug',
+        component: HomeComponent
+    },
+    {
+        path: ':slug/:confirmationId',
         component: HomeComponent
     },
     {

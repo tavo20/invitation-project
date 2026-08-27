@@ -24,6 +24,20 @@
         <p class="hero-message" [innerHTML]="heroMessage"></p>
     </header>
 
+    <section class="guest-invite" *ngIf="showGuestInvite">
+        <p class="guest-invite__text">Estamos emocionados de invitarte a nuestra boda</p>
+        <svg class="divider-celestial" viewBox="0 0 160 24" fill="none" aria-hidden="true">
+            <path d="M8 12 H58" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+            <path d="M102 12 H152" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+            <g fill="currentColor">
+                <path d="M66 12 l2-3.5 2 3.5-2 3.5z" />
+                <path d="M94 12 l-2-3.5-2 3.5 2 3.5z" transform="translate(184 0) scale(-1 1)" />
+                <path d="M83 4.5 a7 7 0 1 0 5 12 a8.5 8.5 0 0 1 -5 -12 z" />
+            </g>
+        </svg>
+        <p class="guest-invite__names">{{ names_invitados }}</p>
+    </section>
+
     <!-- cita (fondo alternado) -->
     <section class="quote-section bg-alt reveal">
         <svg class="icon-celestial icon-sparkle" viewBox="0 0 24 24" fill="currentColor">

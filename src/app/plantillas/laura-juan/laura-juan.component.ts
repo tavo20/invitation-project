@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostListener, QueryList, ViewChild, ViewChildren, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LauraJuanCountDownComponent } from './components/count-down/laura-juan-count-down.component';
+import { ActivatedRoute } from '@angular/router';
 
 interface LauraJuanData {
   heroImage?: string;
@@ -50,6 +51,7 @@ interface LauraJuanData {
 export class LauraJuanComponent implements AfterViewInit, OnChanges {
 
   @Input() invitationData: Partial<LauraJuanData> | null = null;
+  @Input() confirmation: any = null;
 
   weddingDate: string = "December 18, 2026 16:00:00";
   heroImage: string = 'assets/new-claude-our/portada.jpg';
@@ -90,6 +92,8 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
   finalText2: string = 'Solo falta lo más importante: tú.';
   closingFinal: string = 'Laura & Juan';
   instragramCliente: string = '';
+
+  names_invitados: string = '';
 
   private readonly defaultData: LauraJuanData = {
     heroImage: 'assets/new-claude-our/portada.jpg',
@@ -137,17 +141,33 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
   @ViewChild('audioPlayer') audioPlayerRef!: ElementRef<HTMLAudioElement>;
   isPlaying: boolean = false;
 
-  constructor(private host: ElementRef<HTMLElement>) {}
+  constructor(private host: ElementRef<HTMLElement>, private route: ActivatedRoute) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['invitationData']) {
+    if (changes['invitationData'] || changes['confirmation']) {
       this.applyIncomingData();
     }
   }
 
+  get showGuestInvite(): boolean {
+    return Boolean(String(this.names_invitados ?? '').trim());
+  }
+
   private applyIncomingData(): void {
     console.log('this.invitationData', this.invitationData);
+    console.log('this.confirmation', this.confirmation);
+    // Get by the url path the confirmationId
+
+
+    this.names_invitados = String(this.confirmation?.names ?? '').trim();
     const incoming = this.invitationData ?? {};
+
+
+    // const confirmationId = this.route.snapshot.paramMap.get('confirmationId');
+    // this.confirmLink = incoming.confirmLink ?? '#';
+    // if (confirmationId) {
+    //   this.confirmLink = `${this.confirmLink}/${confirmationId}`;
+    // }
     this.heroImage = incoming.heroImage ?? this.defaultData.heroImage!;
     this.names1 = incoming.names1 ?? this.defaultData.names1!;
     this.names2 = incoming.names2 ?? this.defaultData.names2!;

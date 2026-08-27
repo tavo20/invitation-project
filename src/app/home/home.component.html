@@ -3,8 +3,8 @@
 <div *ngIf="templatesAvailable[templateComponent]">
     <ng-container
         [ngComponentOutlet]="templatesAvailable[templateComponent]"
-        [ngComponentOutletInputs]="{ invitationData: dataInvitation?.data }">
-    </ng-container>
+        [ngComponentOutletInputs]="{ invitationData: dataInvitation?.data, confirmation: dataInvitation?.confirmation }"
+    ></ng-container>
 </div>
 
 <div *ngIf="noDataFound">
