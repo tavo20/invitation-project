@@ -183,7 +183,8 @@ export class MainService {
         finalText1: "Tenemos la luna, la música y cada detalle preparado…",
         finalText2: "Solo falta lo más importante: tú.",
         closingFinal: "Laura & Juan",
-        audioSrc: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Fonseca%20-%20Prometo%20(LyricLetra).mp3"
+        audioSrc: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Fonseca%20-%20Prometo%20(LyricLetra).mp3",
+        palette: "navy"
       },
       template: "laura-juan",
       active: true

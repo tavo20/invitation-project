@@ -1,6 +1,6 @@
 
 
-<section class="container-main">
+<section class="container-main" [ngStyle]="paletteVars">
     <header class="hero-night">
         <p class="hero-pre">{{ heroPretitle }}</p>
 
@@ -8,7 +8,7 @@
             <img [src]="heroImage" alt="{{ names1 }} y {{ names2 }}">
         </div>
 
-        <h1 class="hero-names">{{ names1 }} <span class="hero-amp">&</span> {{ names2 }}</h1>
+        <h1 class="hero-names">{{ names1 }}<span class="hero-amp">&</span> {{ names2 }}</h1>
         <p class="hero-fecha">{{ dateText }}</p>
 
         <svg class="divider-celestial" viewBox="0 0 160 24" fill="none">
@@ -161,6 +161,18 @@
             </svg>
         </a>
     </section>
+
+    <div class="palette-picker" aria-label="Cambiar paleta de colores">
+        <button
+            type="button"
+            class="palette-picker__swatch"
+            *ngFor="let option of paletteOptions"
+            [class.is-active]="selectedPalette === option.key"
+            [style.background]="palettes[option.key].silver"
+            [attr.aria-label]="'Paleta ' + option.label"
+            (click)="setPalette(option.key)">
+        </button>
+    </div>
 
     <!-- boton flotante de musica -->
     <button class="music-fab" (click)="togglePlayPause()" aria-label="Reproducir musica">

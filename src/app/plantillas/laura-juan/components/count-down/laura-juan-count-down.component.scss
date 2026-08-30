@@ -20,7 +20,7 @@
     font-size: 5em;
     font-weight: 400;
     gap: 15px;
-    color: #ffffff;
+    color: var(--text-light, #EAEFF7);
 }
 
 .countdown-numbers span {
@@ -30,7 +30,7 @@
 
 .countdown-numbers .colon {
     font-size: 0.8em;
-    color: #222;
+    color: var(--silver, #AFC1DD);
     line-height: 1.2;
     position: relative;
     top: -0.05em;
@@ -42,7 +42,7 @@
     display: flex;
     justify-content: center;
     font-size: 1em;
-    color: #555;
+    color: var(--text-muted, #8291AC);
     margin-top: 10px;
     gap: 15px;
     text-transform: uppercase;
@@ -68,7 +68,7 @@
 #countdown-message {
     margin-top: 30px;
     font-size: 1.5em;
-    color: #8B4513;
+    color: var(--silver, #AFC1DD);
     font-weight: 700;
     font-family: 'Playfair Display', serif;
 }

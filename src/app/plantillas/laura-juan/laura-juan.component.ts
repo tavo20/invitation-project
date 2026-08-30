@@ -3,6 +3,17 @@ import { CommonModule } from '@angular/common';
 import { LauraJuanCountDownComponent } from './components/count-down/laura-juan-count-down.component';
 import { ActivatedRoute } from '@angular/router';
 
+type PaletteName = 'navy' | 'slate' | 'forest' | 'wine';
+
+interface InvitationPalette {
+  bg: string;
+  bgAlt: string;
+  silver: string;
+  textLight: string;
+  textSecondary: string;
+  textMuted: string;
+}
+
 interface LauraJuanData {
   heroImage?: string;
   names1?: string;
@@ -38,6 +49,7 @@ interface LauraJuanData {
   finalText2?: string;
   closingFinal?: string;
   instragramCliente?: string;
+  palette?: PaletteName;
 }
 
 
@@ -94,6 +106,49 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
   instragramCliente: string = '';
 
   names_invitados: string = '';
+  selectedPalette: PaletteName = 'navy';
+
+  readonly palettes: Record<PaletteName, InvitationPalette> = {
+    navy: {
+      bg: '#0F1626',
+      bgAlt: '#161F33',
+      silver: '#AFC1DD',
+      textLight: '#EAEFF7',
+      textSecondary: '#B9C3D6',
+      textMuted: '#8291AC'
+    },
+    slate: {
+      bg: '#1B1D21',
+      bgAlt: '#26292F',
+      silver: '#C5C8CE',
+      textLight: '#F3F4F6',
+      textSecondary: '#B8BCC4',
+      textMuted: '#8A909A'
+    },
+    forest: {
+      bg: '#121812',
+      bgAlt: '#1B241C',
+      silver: '#B7C7B0',
+      textLight: '#F2F5EE',
+      textSecondary: '#C4CFBE',
+      textMuted: '#879384'
+    },
+    wine: {
+      bg: '#1A1216',
+      bgAlt: '#26181E',
+      silver: '#D4B4BE',
+      textLight: '#F7EEF1',
+      textSecondary: '#D2C0C6',
+      textMuted: '#A38891'
+    }
+  };
+
+  readonly paletteOptions: { key: PaletteName; label: string }[] = [
+    { key: 'navy', label: 'Navy' },
+    { key: 'slate', label: 'Gris' },
+    { key: 'forest', label: 'Verde' },
+    { key: 'wine', label: 'Vino' }
+  ];
 
   private readonly defaultData: LauraJuanData = {
     heroImage: 'assets/new-claude-our/portada.jpg',
@@ -135,8 +190,25 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
     finalText1: 'Tenemos la luna, la música y cada detalle preparado…',
     finalText2: 'Solo falta lo más importante: tú.',
     closingFinal: 'Laura & Juan',
-    instragramCliente: ''
+    instragramCliente: '',
+    palette: 'navy'
   };
+
+  get colors(): InvitationPalette {
+    return this.palettes[this.selectedPalette] ?? this.palettes.navy;
+  }
+
+  get paletteVars(): Record<string, string> {
+    const colors = this.colors;
+    return {
+      '--bg': colors.bg,
+      '--bg-alt': colors.bgAlt,
+      '--silver': colors.silver,
+      '--text-light': colors.textLight,
+      '--text-secondary': colors.textSecondary,
+      '--text-muted': colors.textMuted
+    };
+  }
 
   @ViewChild('audioPlayer') audioPlayerRef!: ElementRef<HTMLAudioElement>;
   isPlaying: boolean = false;
@@ -202,6 +274,17 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
     this.finalText2 = incoming.finalText2 ?? this.defaultData.finalText2!;
     this.closingFinal = incoming.closingFinal ?? this.defaultData.closingFinal!;
     this.instragramCliente = incoming.instragramCliente ?? this.defaultData.instragramCliente ?? '';
+    this.applyIncomingPalette(incoming.palette);
+  }
+
+  setPalette(palette: PaletteName): void {
+    this.selectedPalette = palette;
+  }
+
+  private applyIncomingPalette(palette?: PaletteName): void {
+    if (palette && this.palettes[palette]) {
+      this.selectedPalette = palette;
+    }
   }
 
   togglePlayPause(): void {
