@@ -50,6 +50,7 @@ interface LauraJuanData {
   closingFinal?: string;
   instragramCliente?: string;
   palette?: PaletteName;
+  isProduction?: boolean;
 }
 
 
@@ -107,6 +108,7 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
 
   names_invitados: string = '';
   selectedPalette: PaletteName = 'navy';
+  isProduction = false;
 
   readonly palettes: Record<PaletteName, InvitationPalette> = {
     navy: {
@@ -191,7 +193,8 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
     finalText2: 'Solo falta lo más importante: tú.',
     closingFinal: 'Laura & Juan',
     instragramCliente: '',
-    palette: 'navy'
+    palette: 'navy',
+    isProduction: false
   };
 
   get colors(): InvitationPalette {
@@ -274,11 +277,18 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
     this.finalText2 = incoming.finalText2 ?? this.defaultData.finalText2!;
     this.closingFinal = incoming.closingFinal ?? this.defaultData.closingFinal!;
     this.instragramCliente = incoming.instragramCliente ?? this.defaultData.instragramCliente ?? '';
+    this.isProduction = this.toFlag(incoming.isProduction);
     this.applyIncomingPalette(incoming.palette);
   }
 
   setPalette(palette: PaletteName): void {
     this.selectedPalette = palette;
+  }
+
+  private toFlag(value: unknown): boolean {
+    if (typeof value === 'boolean') return value;
+    if (typeof value === 'string') return value.trim().toLowerCase() === 'true';
+    return Boolean(value);
   }
 
   private applyIncomingPalette(palette?: PaletteName): void {

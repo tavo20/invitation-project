@@ -162,7 +162,7 @@
         </a>
     </section>
 
-    <div class="palette-picker" aria-label="Cambiar paleta de colores">
+    <div class="palette-picker" *ngIf="!isProduction" aria-label="Cambiar paleta de colores">
         <button
             type="button"
             class="palette-picker__swatch"
