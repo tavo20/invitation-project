@@ -156,12 +156,36 @@
     </section>
 
     <!-- 5. FOTO + CEREMONIA + RECEPCIÓN -->
-    <div class="events-photo-wrap" *ngIf="data.eventsImage">
+    <div class="events-photo-wrap" *ngIf="eventPhotos.length">
         <div class="events-paper">
             <span class="events-tape" aria-hidden="true"></span>
-            <div class="events-photo">
-                <img [src]="data.eventsImage" [alt]="data.names1 + ' y ' + data.names2">
+            <div
+                class="events-photo"
+                (touchstart)="onCarouselTouchStart($event)"
+                (touchend)="onCarouselTouchEnd($event)">
+                <div
+                    class="events-carousel"
+                    [style.transform]="'translateX(-' + (carouselIndex * 100) + '%)'">
+                    <img
+                        *ngFor="let photo of eventPhotos"
+                        [src]="photo"
+                        [alt]="data.names1 + ' y ' + data.names2">
+                </div>
             </div>
+            <ng-container *ngIf="eventPhotos.length > 1">
+                <button type="button" class="events-nav events-nav--prev" (click)="prevEventPhoto()" aria-label="Foto anterior">‹</button>
+                <button type="button" class="events-nav events-nav--next" (click)="nextEventPhoto()" aria-label="Foto siguiente">›</button>
+                <div class="events-dots">
+                    <button
+                        type="button"
+                        class="events-dot"
+                        *ngFor="let photo of eventPhotos; let i = index"
+                        [class.is-active]="carouselIndex === i"
+                        [attr.aria-label]="'Ir a la foto ' + (i + 1)"
+                        (click)="goToEventPhoto(i)">
+                    </button>
+                </div>
+            </ng-container>
         </div>
     </div>
     <section class="events-section">
@@ -327,6 +351,14 @@
 
         <div class="dress-visual" *ngIf="data.dressImage">
             <img [src]="data.dressImage" alt="Código de vestimenta formal">
+        </div>
+
+        <div class="dress-colors" *ngIf="data.dressColors?.length" aria-label="Colores sugeridos">
+            <span
+                class="dress-swatch"
+                *ngFor="let color of data.dressColors"
+                [style.background]="color">
+            </span>
         </div>
 
         <p class="dress-note">{{ data.dressNote }}</p>

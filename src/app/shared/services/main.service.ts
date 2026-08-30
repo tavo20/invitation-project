@@ -229,7 +229,7 @@ export class MainService {
         inicial2: "M",
         announceTitle: "¡NOS CASAMOS!",
         announceMessage: "No lo creían, pero nuestro día llegó.",
-        heroImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/nicol-andres-03-10-26/segunda_resize.jpg",
+        heroImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_2_neblina.jpeg",
         musicLabel: "Dale play a nuestra canción",
         audioSrc: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Fonseca%20-%20Prometo%20(LyricLetra).mp3",
         storyText: "Nuestra historia continúa... por ello, con el amor que nos une, la bendición de Dios y el apoyo de nuestros padres, uniremos nuestras vidas y queremos que seas parte de este nuevo capítulo.",
@@ -239,6 +239,11 @@ export class MainService {
         year: "2027",
         weddingDate: "January 24, 2027 16:00:00",
         eventsImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_neblina.jpeg",
+        eventsImages: [
+          "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_neblina.jpeg",
+          "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_2_neblina.jpeg",
+          "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/carru_2.jpeg"
+        ],
         ceremonyTime: "4:30 pm",
         ceremonyTitle: "CEREMONIA CIVIL",
         ceremonyPlace: "IGLESIA MACARENA",

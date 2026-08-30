@@ -143,6 +143,15 @@ export class ShowcaseComponent {
       link: '/gus-gi',
       tags: ['Flow', 'Verde', 'Blanco', 'RSVP', 'Lluvia de Sobres'],
       category: 'Boda'
+    },
+    {
+      nombre: 'Sobre Amanecer',
+      estilo: 'Borgoña & Floral',
+      descripcion: 'Portada tipo sobre con solapa triangular, nombres en caligrafía y ramo acuarela en la base. Paleta dinámica para cambiar el color del sobre.',
+      imagen: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/carru_2.jpeg',
+      link: '/sobre-amanecer',
+      tags: ['Sobre', 'Floral', 'Colores dinámicos'],
+      category: 'Boda'
     }
 
   ];

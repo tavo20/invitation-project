@@ -49,6 +49,7 @@ interface SobreAmanecerData {
   year?: string;
   weddingDate?: string;
   eventsImage?: string;
+  eventsImages?: string[];
   ceremonyTime?: string;
   ceremonyTitle?: string;
   ceremonyPlace?: string;
@@ -70,6 +71,7 @@ interface SobreAmanecerData {
   dressType?: string;
   dressNote?: string;
   dressImage?: string;
+  dressColors?: string[];
   giftTitle?: string;
   closingImage?: string;
   noKidsTitle?: string;
@@ -103,6 +105,9 @@ export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
   minutes = 0;
   seconds = 0;
   private countdownInterval?: ReturnType<typeof setInterval>;
+  carouselIndex = 0;
+  private carouselInterval?: ReturnType<typeof setInterval>;
+  private touchStartX = 0;
 
   readonly palettes: Record<PaletteName, InvitationPalette> = {
     burgundy: {
@@ -225,6 +230,11 @@ export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
     year: '2027',
     weddingDate: 'January 24, 2027 16:00:00',
     eventsImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_neblina.jpeg',
+    eventsImages: [
+      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_neblina.jpeg',
+      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_2_neblina.jpeg',
+      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_neblina.jpeg'
+    ],
     ceremonyTime: '4:30 pm',
     ceremonyTitle: 'CEREMONIA CIVIL',
     ceremonyPlace: 'IGLESIA MACARENA',
@@ -254,6 +264,7 @@ export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
     dressType: 'Formal',
     dressNote: 'Con mucho cariño, les pedimos evitar prendas en color blanco y tonos similares.',
     dressImage: 'assets/sobre-amanecer/dress-code.svg',
+    dressColors: ['#2f4a32', '#8a9468', '#c9b58a', '#f4f0e6'],
     giftTitle: 'LLUVIA DE SOBRES',
     closingImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_neblina.jpeg',
     noKidsTitle: 'SIN NIÑOS',
@@ -268,8 +279,22 @@ export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
       ...merged,
       inicial1: merged.inicial1 || merged.names1?.charAt(0)?.toUpperCase() || 'A',
       inicial2: merged.inicial2 || merged.names2?.charAt(0)?.toUpperCase() || 'V',
-      itinerary: merged.itinerary?.length ? merged.itinerary : this.defaultData.itinerary
+      itinerary: merged.itinerary?.length ? merged.itinerary : this.defaultData.itinerary,
+      dressColors: merged.dressColors?.length ? merged.dressColors : this.defaultData.dressColors
     };
+  }
+
+  get eventPhotos(): string[] {
+    const incomingImages = this.invitationData?.eventsImages;
+    if (Array.isArray(incomingImages) && incomingImages.length) {
+      return incomingImages.filter(Boolean);
+    }
+    if (this.invitationData?.eventsImage) {
+      return [this.invitationData.eventsImage];
+    }
+    const defaults = this.defaultData.eventsImages?.filter(Boolean) ?? [];
+    if (defaults.length) return defaults;
+    return this.data.eventsImage ? [this.data.eventsImage, this.data.eventsImage, this.data.eventsImage] : [];
   }
 
   get colors(): InvitationPalette {
@@ -306,18 +331,69 @@ export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit(): void {
     this.applyIncomingPalette();
     this.startCountdown();
+    this.startCarousel();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['invitationData']) {
       this.applyIncomingPalette();
       this.startCountdown();
+      this.carouselIndex = 0;
+      this.startCarousel();
+      console.log(this.eventPhotos);
     }
   }
 
   ngOnDestroy(): void {
     if (this.countdownInterval) {
       clearInterval(this.countdownInterval);
+    }
+    this.stopCarousel();
+  }
+
+  nextEventPhoto(): void {
+    if (this.eventPhotos.length < 2) return;
+    this.carouselIndex = (this.carouselIndex + 1) % this.eventPhotos.length;
+    this.startCarousel();
+  }
+
+  prevEventPhoto(): void {
+    if (this.eventPhotos.length < 2) return;
+    this.carouselIndex =
+      (this.carouselIndex - 1 + this.eventPhotos.length) % this.eventPhotos.length;
+    this.startCarousel();
+  }
+
+  goToEventPhoto(index: number): void {
+    if (index < 0 || index >= this.eventPhotos.length) return;
+    this.carouselIndex = index;
+    this.startCarousel();
+  }
+
+  onCarouselTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.changedTouches[0]?.clientX ?? 0;
+  }
+
+  onCarouselTouchEnd(event: TouchEvent): void {
+    const endX = event.changedTouches[0]?.clientX ?? this.touchStartX;
+    const delta = endX - this.touchStartX;
+    if (Math.abs(delta) < 40) return;
+    if (delta < 0) this.nextEventPhoto();
+    else this.prevEventPhoto();
+  }
+
+  private startCarousel(): void {
+    this.stopCarousel();
+    if (this.eventPhotos.length < 2) return;
+    this.carouselInterval = setInterval(() => {
+      this.carouselIndex = (this.carouselIndex + 1) % this.eventPhotos.length;
+    }, 5000);
+  }
+
+  private stopCarousel(): void {
+    if (this.carouselInterval) {
+      clearInterval(this.carouselInterval);
+      this.carouselInterval = undefined;
     }
   }
 
