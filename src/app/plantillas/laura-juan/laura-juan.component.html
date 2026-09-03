@@ -119,6 +119,12 @@
         <p class="section-mensaje">{{ confirmMessage }}</p>
         <!-- TODO: reemplazar con el link real de Google Forms -->
         <a [href]="confirmLink" target="_blank" class="theme-button">{{ confirmButtonText }}</a>
+        <a
+            *ngIf="showTicketButton"
+            [href]="ticketLink"
+            class="theme-button ticket-button">
+            Ver entrada
+        </a>
     </section>
 
     <!-- sobres -->

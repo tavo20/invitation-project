@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Marcellus&display=swap');
+
+$bg: #0f1626;
+$silver: #afc1dd;
+$text-light: #eaeff7;
+$text-secondary: #b9c3d6;
+$text-muted: #8291ac;
+$border: rgba(175, 193, 221, 0.28);
+
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: 'Marcellus', serif;
+  color: $text-secondary;
+  background: $bg;
+}
+
+.ticket-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 36px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(175, 193, 221, 0.14), transparent 55%),
+    $bg;
+}
+
+.ticket-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, rgba(234, 239, 247, 0.55), transparent),
+    radial-gradient(1px 1px at 82% 58%, rgba(175, 193, 221, 0.35), transparent);
+  opacity: 0.7;
+}
+
+.ticket-shell {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 440px;
+  padding: 40px 28px 32px;
+  box-sizing: border-box;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(22, 31, 51, 0.94) 0%, rgba(15, 22, 38, 0.98) 100%);
+  border: 1px solid $border;
+  box-shadow: 0 28px 60px rgba(0, 0, 0, 0.45);
+}
+
+.ticket-eyebrow {
+  margin: 0 0 16px;
+  font-size: 0.75rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: $silver;
+}
+
+.ticket-event {
+  margin: 0;
+  font-family: 'Parisienne', cursive;
+  font-size: clamp(2.2rem, 8vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: $text-light;
+}
+
+.ticket-meta {
+  margin: 8px 0 0;
+  font-size: 0.9rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: $silver;
+}
+
+.ticket-qr-wrap {
+  margin: 28px 0 8px;
+}
+
+.ticket-qr {
+  width: 220px;
+  height: 220px;
+  padding: 10px;
+  background: #fff;
+  display: block;
+  margin: 0 auto;
+}
+
+.ticket-qr-hint {
+  margin: 12px 0 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  color: $text-muted;
+}
+
+.ticket-guests {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid $border;
+}
+
+.ticket-label {
+  margin: 0 0 8px;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: $silver;
+}
+
+.ticket-names {
+  margin: 0;
+  font-size: 1.35rem;
+  color: $text-light;
+  word-break: break-word;
+}
+
+.ticket-count {
+  margin: 10px 0 0;
+  font-size: 1rem;
+  color: $text-secondary;
+}
+
+.ticket-status {
+  margin: 12px 0 0;
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #d7c48a;
+}
+
+.ticket-status--confirmado {
+  color: #9dcea8;
+}
+
+.ticket-status--cancelada {
+  color: #e8a0a8;
+}
+
+.ticket-state {
+  padding: 24px 8px;
+  color: $text-muted;
+}
+
+.ticket-state--error {
+  color: #e8a0a8;
+}
+
+.ticket-back {
+  margin-top: 28px;
+  border: none;
+  background: transparent;
+  color: $text-muted;
+  font-family: inherit;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  &:hover {
+    color: $text-light;
+  }
+}
+
+.ticket-page--cancelled .ticket-qr {
+  opacity: 0.45;
+  filter: grayscale(0.4);
+}

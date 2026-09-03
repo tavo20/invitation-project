@@ -38,6 +38,12 @@ export const routes: Routes = [
                 .then(m => m.InvitationDeliveryComponent)
     },
     {
+        path: 'invitation/ticket/:id/:confirmationId',
+        loadComponent: () =>
+            import('./ticket/ticket.component')
+                .then(m => m.TicketComponent)
+    },
+    {
         path: ':slug',
         component: HomeComponent
     },

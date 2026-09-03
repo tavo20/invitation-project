@@ -1,0 +1,37 @@
+<div class="ticket-page" [class.ticket-page--cancelled]="isCancelled">
+  <div class="ticket-glow" aria-hidden="true"></div>
+
+  <div class="ticket-shell">
+    <p class="ticket-eyebrow">Entrada al evento</p>
+
+    <div class="ticket-state" *ngIf="loading">Cargando entrada…</div>
+    <div class="ticket-state ticket-state--error" *ngIf="!loading && errorMessage">{{ errorMessage }}</div>
+
+    <ng-container *ngIf="!loading && !errorMessage">
+      <h1 class="ticket-event">{{ eventName }}</h1>
+      <p class="ticket-meta" *ngIf="eventDate">{{ eventDate }}</p>
+      <p class="ticket-meta" *ngIf="eventLocation">{{ eventLocation }}</p>
+
+      <div class="ticket-qr-wrap" *ngIf="!isScanView">
+        <img class="ticket-qr" [src]="qrSrc" alt="Código QR de la entrada">
+        <p class="ticket-qr-hint">Muestra este código en la entrada</p>
+      </div>
+
+      <div class="ticket-guests">
+        <p class="ticket-label">Invitados</p>
+        <p class="ticket-names">{{ guestNames }}</p>
+        <p class="ticket-count">
+          {{ guestsCount }} persona{{ guestsCount === 1 ? '' : 's' }}
+        </p>
+        <p
+          class="ticket-status"
+          [class.ticket-status--confirmado]="isConfirmed"
+          [class.ticket-status--cancelada]="isCancelled">
+          {{ statusLabel() }}
+        </p>
+      </div>
+    </ng-container>
+
+    <button *ngIf="!isScanView" type="button" class="ticket-back" (click)="goBack()">Volver a la invitación</button>
+  </div>
+</div>

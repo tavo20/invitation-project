@@ -193,7 +193,9 @@ export class MainService {
       id: 13,
       slug: "azul-gris-colores",
       data: {
-        palette: "navy"
+        palette: "navy",
+        availableTicket: true,
+        ticketLink: "https://www.google.com/?hl=es"
       },
       template: "azul-gris-colores",
       active: true

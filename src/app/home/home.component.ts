@@ -41,7 +41,7 @@ export class HomeComponent {
     "xv-deluxe-black": XvDeluxeBlackComponent,
     "laura-juan": LauraJuanComponent,
     "laura-juan-2": XvDeluxeBlackComponent,
-    "azul-gris-colores": AzulGrisColoresComponent,
+    "azul-gris-colores": LauraJuanComponent,
     "neblina": NeblinaComponent,
     "sobre-amanecer": SobreAmanecerComponent,
   }

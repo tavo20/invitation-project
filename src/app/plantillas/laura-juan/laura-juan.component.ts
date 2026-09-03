@@ -51,6 +51,8 @@ interface LauraJuanData {
   instragramCliente?: string;
   palette?: PaletteName;
   isProduction?: boolean;
+  availableTicket?: boolean;
+  ticketLink?: string;
 }
 
 
@@ -109,6 +111,8 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
   names_invitados: string = '';
   selectedPalette: PaletteName = 'navy';
   isProduction = false;
+  availableTicket = false;
+  ticketLink = '#';
 
   readonly palettes: Record<PaletteName, InvitationPalette> = {
     navy: {
@@ -157,7 +161,7 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
     names1: 'Laura',
     names2: 'Juan',
     dateText: '18 · 07 · 2026',
-    weddingDate: 'December 18, 2026 16:00:00',
+    weddingDate: 'September 01, 2026 16:00:00',
     eventLocation: 'CAJICÁ, CUNDINAMARCA'
     ,
     heroPretitle: 'Nos casamos',
@@ -194,7 +198,9 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
     closingFinal: 'Laura & Juan',
     instragramCliente: '',
     palette: 'navy',
-    isProduction: false
+    isProduction: false,
+    availableTicket: false,
+    ticketLink: '#'
   };
 
   get colors(): InvitationPalette {
@@ -226,6 +232,11 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
 
   get showGuestInvite(): boolean {
     return Boolean(String(this.names_invitados ?? '').trim());
+  }
+
+  get showTicketButton(): boolean {
+    
+    return this.availableTicket && this.isTicketWindowOpen() && this.ticketLink !== '#';
   }
 
   private applyIncomingData(): void {
@@ -278,11 +289,29 @@ export class LauraJuanComponent implements AfterViewInit, OnChanges {
     this.closingFinal = incoming.closingFinal ?? this.defaultData.closingFinal!;
     this.instragramCliente = incoming.instragramCliente ?? this.defaultData.instragramCliente ?? '';
     this.isProduction = this.toFlag(incoming.isProduction);
+    this.availableTicket = this.toFlag(incoming.availableTicket);
+    const slug = this.route.snapshot.paramMap.get('slug');
+    const confirmationId = this.route.snapshot.paramMap.get('confirmationId');
+    debugger
+    this.ticketLink =
+      slug && confirmationId
+        ? `/invitation/ticket/${slug}/${confirmationId}`
+        : incoming.ticketLink ?? this.defaultData.ticketLink ?? '#';
     this.applyIncomingPalette(incoming.palette);
   }
 
   setPalette(palette: PaletteName): void {
     this.selectedPalette = palette;
+  }
+
+  private isTicketWindowOpen(): boolean {
+    const eventDate = new Date(this.weddingDate);
+    if (Number.isNaN(eventDate.getTime())) return false;
+
+    const visibleFrom = new Date(eventDate);
+    visibleFrom.setDate(visibleFrom.getDate() - 2);
+    visibleFrom.setHours(0, 0, 0, 0);
+    return Date.now() >= visibleFrom.getTime();
   }
 
   private toFlag(value: unknown): boolean {
