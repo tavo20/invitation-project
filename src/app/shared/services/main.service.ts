@@ -74,12 +74,17 @@ export class MainService {
         typeConfirmation: 'basic',
         linkInvitation: "https://www.invitapp.art/gus-gi",
         linkListInvitation: "https://www.invitapp.art/invitation/confirmations/list/gus-gi-78kft2y3",
+        galleryImages: [
+          'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg',
+          'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg',
+          'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg',
+        ],
+        showGallery: true,
+        showParents: true,
       },
       template: "xyz",
       active: true
     },
-
-    
     {
       id: 2,
       slug: "our",

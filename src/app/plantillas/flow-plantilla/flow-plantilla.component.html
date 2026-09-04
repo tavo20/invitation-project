@@ -137,7 +137,7 @@
     </p>
   </section> -->
 
-  <section class="flow-parents">
+  <section class="flow-parents" *ngIf="data.showParents">
     <div class="section-flecks" aria-hidden="true">
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
@@ -308,6 +308,36 @@
       </svg>
       <span></span>
     </div>
+  </section>
+
+  <section class="flow-gallery" *ngIf="data.showGallery && galleryPhotos.length">
+    <div
+      class="flow-gallery__viewport"
+      (touchstart)="onGalleryTouchStart($event)"
+      (touchend)="onGalleryTouchEnd($event)">
+      <div
+        class="flow-gallery__track"
+        [style.transform]="'translateX(-' + (carouselIndex * 100) + '%)'">
+        <img
+          *ngFor="let photo of galleryPhotos"
+          [src]="photo"
+          [alt]="data.names1 + ' y ' + data.names2">
+      </div>
+    </div>
+    <ng-container *ngIf="galleryPhotos.length > 1">
+      <button type="button" class="flow-gallery__nav flow-gallery__nav--prev" (click)="prevGalleryPhoto()" aria-label="Foto anterior">‹</button>
+      <button type="button" class="flow-gallery__nav flow-gallery__nav--next" (click)="nextGalleryPhoto()" aria-label="Foto siguiente">›</button>
+      <div class="flow-gallery__dots">
+        <button
+          type="button"
+          class="flow-gallery__dot"
+          *ngFor="let photo of galleryPhotos; let i = index"
+          [class.is-active]="carouselIndex === i"
+          [attr.aria-label]="'Ir a la foto ' + (i + 1)"
+          (click)="goToGalleryPhoto(i)">
+        </button>
+      </div>
+    </ng-container>
   </section>
 
   <section class="flow-closing">

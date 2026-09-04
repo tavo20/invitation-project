@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CountDownComponent } from '../../shared/components/count-down/count-down.component';
 
@@ -51,6 +51,9 @@ export interface FlowPlantillaData {
   confirmButtonText?: string;
   confirmLink?: string;
   sobresTitle?: string;
+  galleryImages?: string[];
+  showGallery?: boolean;
+  showParents?: boolean;
   closingHighlight?: string;
   closingNames?: string;
 }
@@ -62,7 +65,7 @@ export interface FlowPlantillaData {
   templateUrl: './flow-plantilla.component.html',
   styleUrl: './flow-plantilla.component.scss'
 })
-export class FlowPlantillaComponent {
+export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
   @Input() invitationData: Partial<FlowPlantillaData> | null = null;
   @ViewChild('audioPlayer') audioPlayerRef!: ElementRef<HTMLAudioElement>;
 
@@ -72,6 +75,9 @@ export class FlowPlantillaComponent {
   progress = 0;
   currentTime = 0;
   duration = 0;
+  carouselIndex = 0;
+  private carouselInterval?: ReturnType<typeof setInterval>;
+  private touchStartX = 0;
 
   private readonly defaultData: Required<FlowPlantillaData> = {
     names1: 'Mariana',
@@ -122,8 +128,14 @@ export class FlowPlantillaComponent {
     confirmButtonText: 'Confirmar aquí',
     confirmLink: '#',
     sobresTitle: 'Lluvia de sobres',
+    galleryImages: [
+      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg',
+      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg'
+    ],
     closingHighlight: 'Tenemos la luna, la música y cada detalle preparado… <br> Solo falta lo más importante: tú.',
-    closingNames: 'Mariana & Javier'
+    closingNames: 'Mariana & Javier',
+    showGallery: false,
+    showParents: true,
   };
 
   get data(): Required<FlowPlantillaData> {
@@ -136,7 +148,10 @@ export class FlowPlantillaComponent {
       padrinos: incoming.padrinos?.length ? incoming.padrinos : this.defaultData.padrinos,
       dressColors: incoming.dressColors?.length ? incoming.dressColors : this.defaultData.dressColors,
       itinerary: incoming.itinerary?.length ? incoming.itinerary : this.defaultData.itinerary,
-      closingNames: incoming.closingNames || `${merged.names1} & ${merged.names2}`
+      galleryImages: incoming.galleryImages?.length ? incoming.galleryImages : this.defaultData.galleryImages,
+      closingNames: incoming.closingNames || `${merged.names1} & ${merged.names2}`,
+      showGallery: incoming.showGallery ?? this.defaultData.showGallery,
+      showParents: incoming.showParents ?? this.defaultData.showParents,
     };
   }
 
@@ -154,6 +169,71 @@ export class FlowPlantillaComponent {
 
   get audioSrc(): string {
     return this.data.audioSrc;
+  }
+
+  get galleryPhotos(): string[] {
+    return this.data.galleryImages.filter(Boolean);
+  }
+
+  ngOnInit(): void {
+    this.startCarousel();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['invitationData']) {
+      this.carouselIndex = 0;
+      this.startCarousel();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.stopCarousel();
+  }
+
+  nextGalleryPhoto(): void {
+    if (this.galleryPhotos.length < 2) return;
+    this.carouselIndex = (this.carouselIndex + 1) % this.galleryPhotos.length;
+    this.startCarousel();
+  }
+
+  prevGalleryPhoto(): void {
+    if (this.galleryPhotos.length < 2) return;
+    this.carouselIndex =
+      (this.carouselIndex - 1 + this.galleryPhotos.length) % this.galleryPhotos.length;
+    this.startCarousel();
+  }
+
+  goToGalleryPhoto(index: number): void {
+    if (index < 0 || index >= this.galleryPhotos.length) return;
+    this.carouselIndex = index;
+    this.startCarousel();
+  }
+
+  onGalleryTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.changedTouches[0]?.clientX ?? 0;
+  }
+
+  onGalleryTouchEnd(event: TouchEvent): void {
+    const endX = event.changedTouches[0]?.clientX ?? this.touchStartX;
+    const delta = endX - this.touchStartX;
+    if (Math.abs(delta) < 40) return;
+    if (delta < 0) this.nextGalleryPhoto();
+    else this.prevGalleryPhoto();
+  }
+
+  private startCarousel(): void {
+    this.stopCarousel();
+    if (!this.data.showGallery || this.galleryPhotos.length < 2) return;
+    this.carouselInterval = setInterval(() => {
+      this.carouselIndex = (this.carouselIndex + 1) % this.galleryPhotos.length;
+    }, 5000);
+  }
+
+  private stopCarousel(): void {
+    if (this.carouselInterval) {
+      clearInterval(this.carouselInterval);
+      this.carouselInterval = undefined;
+    }
   }
 
   togglePlayPause(): void {

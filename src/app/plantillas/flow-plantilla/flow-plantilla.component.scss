@@ -896,6 +896,87 @@
 
   }
 
+  .flow-gallery {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(45, 74, 62, 0.28);
+  }
+
+  .flow-gallery__viewport {
+    width: 100%;
+    height: 480px;
+    overflow: hidden;
+  }
+
+  .flow-gallery__track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.5s ease;
+
+    img {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+
+  .flow-gallery__nav {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(250, 248, 245, 0.88);
+    color: #2d4a3e;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transform: translateY(-50%);
+    box-shadow: 0 4px 14px rgba(45, 74, 62, 0.18);
+
+    &--prev {
+      left: 14px;
+    }
+
+    &--next {
+      right: 14px;
+    }
+  }
+
+  .flow-gallery__dots {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 16px;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .flow-gallery__dot {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(250, 248, 245, 0.55);
+    box-shadow: 0 0 0 1px rgba(45, 74, 62, 0.18);
+    cursor: pointer;
+
+    &.is-active {
+      background: #faf8f5;
+      transform: scale(1.2);
+    }
+  }
+
   .flow-itinerary__list {
     list-style: none;
     margin: 8px 0 0;
