@@ -56,6 +56,7 @@ export interface FlowPlantillaData {
   showParents?: boolean;
   closingHighlight?: string;
   closingNames?: string;
+  instragramCliente?: string;
 }
 
 @Component({
@@ -138,6 +139,7 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     closingNames: 'Mariana & Javier',
     showGallery: false,
     showParents: true,
+    instragramCliente: '',
   };
 
   get data(): Required<FlowPlantillaData> {

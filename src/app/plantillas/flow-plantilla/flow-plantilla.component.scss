@@ -1132,6 +1132,38 @@
   letter-spacing: 2px;
 }
 
+.flow-photos-by {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 28px 24px;
+  box-sizing: border-box;
+  background: #2d4a3e;
+}
+
+.flow-photos-by__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #f7f1e4;
+  text-decoration: none;
+}
+
+.flow-photos-by__label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  letter-spacing: 0.04em;
+}
+
+.flow-photos-by__icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
 @keyframes flowFleckPulse {
   from {
     transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) scale(0.85);

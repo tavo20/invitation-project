@@ -81,6 +81,7 @@ export class MainService {
         ],
         showGallery: true,
         showParents: true,
+        instragramCliente: 'https://www.instagram.com/',
       },
       template: "xyz",
       active: true
