@@ -610,8 +610,12 @@ export class MainService {
 
   public async getDataBySlug({ slug }: { slug: string }) {
     // const invitations: ConfirmationInviteContext[] = await lastValueFrom(this.getInvitationsAvailable());
-    const invitation: ConfirmationInviteContext = await lastValueFrom(this.getInvitationBySlug(slug));
-    return [...this.data, ...this.template_fijos, ...this.platillas_vendidas, ...this.photographers_para_vender, invitation].find((item: any) => (item.slug === slug && item.active));
+    let invitation: ConfirmationInviteContext = await lastValueFrom(this.getInvitationBySlug(slug));
+    if(!invitation) {
+      // get data by id invitation
+      invitation = await lastValueFrom(this.getInvitationById_Invitation(slug));
+    }
+    return [...this.data, ...this.template_fijos, ...this.platillas_vendidas, ...this.photographers_para_vender, invitation].find((item: any) => ((item.slug === slug || item.id_invitation === slug) && item.active));
   }
 
   public async getDataById({ id }: { id: string }): Promise<any> {

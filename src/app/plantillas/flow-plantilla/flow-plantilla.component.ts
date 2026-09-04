@@ -67,6 +67,7 @@ export interface FlowPlantillaData {
 })
 export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
   @Input() invitationData: Partial<FlowPlantillaData> | null = null;
+  @Input() confirmation: any = null;
   @ViewChild('audioPlayer') audioPlayerRef!: ElementRef<HTMLAudioElement>;
 
   isPlaying = false;
@@ -76,6 +77,7 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
   currentTime = 0;
   duration = 0;
   carouselIndex = 0;
+  names_invitados = '';
   private carouselInterval?: ReturnType<typeof setInterval>;
   private touchStartX = 0;
 
@@ -175,11 +177,19 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     return this.data.galleryImages.filter(Boolean);
   }
 
+  get showGuestInvite(): boolean {
+    return Boolean(this.names_invitados);
+  }
+
   ngOnInit(): void {
+    this.applyConfirmation();
     this.startCarousel();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['confirmation']) {
+      this.applyConfirmation();
+    }
     if (changes['invitationData']) {
       this.carouselIndex = 0;
       this.startCarousel();
@@ -219,6 +229,10 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     if (Math.abs(delta) < 40) return;
     if (delta < 0) this.nextGalleryPhoto();
     else this.prevGalleryPhoto();
+  }
+
+  private applyConfirmation(): void {
+    this.names_invitados = String(this.confirmation?.names ?? '').trim();
   }
 
   private startCarousel(): void {
