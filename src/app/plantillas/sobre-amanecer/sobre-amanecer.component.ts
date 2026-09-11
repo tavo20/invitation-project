@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChang
 import { CommonModule } from '@angular/common';
 import { FlorSobreComponent } from './flor-sobre/flor-sobre.component';
 
-type PaletteName = 'burgundy' | 'navy' | 'forest' | 'slate';
+type PaletteName = 'burgundy' | 'navy' | 'forest' | 'slate' | 'lilac';
 
 interface FlowerPalette {
   deep: string;
@@ -201,6 +201,29 @@ export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
         centerDark: '#7d6434',
         shadow: '#0d0e10'
       }
+    },
+    lilac: {
+      color: '#ae9bc2',
+      sombra: '#937ea8',
+      luz: '#c9b8d8',
+      sombraProfunda: '#826e98',
+      paper: '#f7f3f9',
+      text: '#ffffff',
+      flower: {
+        deep: '#5c4b6c',
+        dark: '#7a688c',
+        mid: '#ae9bc2',
+        bright: '#c4b3d4',
+        light: '#d8cce4',
+        soft: '#efe8f5',
+        vein: '#cbbdd8',
+        veinSoft: '#f3eef7',
+        stamen: '#fbf8fd',
+        centerLight: '#f0d9a0',
+        centerMid: '#d4a24c',
+        centerDark: '#8c5e1f',
+        shadow: '#6b5b7a'
+      }
     }
   };
 
@@ -208,7 +231,8 @@ export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
     { key: 'burgundy', label: 'Borgoña' },
     { key: 'navy', label: 'Navy' },
     { key: 'forest', label: 'Bosque' },
-    { key: 'slate', label: 'Gris' }
+    { key: 'slate', label: 'Gris' },
+    { key: 'lilac', label: 'Lila' }
   ];
 
   private readonly defaultData: SobreAmanecerData = {
