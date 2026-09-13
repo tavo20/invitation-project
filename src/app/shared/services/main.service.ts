@@ -290,6 +290,59 @@ export class MainService {
       },
       template: "sobre-amanecer",
       active: true
+    },
+    {
+      id: "xv-lila-demo",
+      slug: "xv-lila",
+      data: {
+        quinceanera: 'Valentina',
+        fechaTexto: 'Sábado 15 de Noviembre, 2026',
+        eventDate: 'November 15, 2026 18:00:00',
+        month: 'NOVIEMBRE',
+        dayOfWeek: 'SÁBADO',
+        dayNumber: '15',
+        year: '2026',
+        heroImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Vendidas/15-years-moreado/portada_xv.jpg',
+        audioSrc: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Ed%20Sheeran%20-%20Perfect.mp3',
+        quote: '"Hay momentos inolvidables que se atesoran en el corazón para siempre, por esa razón, quiero que compartas conmigo éste día tan especial."',
+        padresTitle: 'Mis Padres',
+        padres: ['Sr. Roberto González', 'Sra. Ana María López'],
+        padrinosTitle: 'Mis Padrinos',
+        padrinos: ['Sr. Carlos Mendoza', 'Sra. Lucía Ramírez'],
+        ceremonia: {
+          lugar: 'Parroquia San José',
+          hora: '6:00 PM',
+          direccion: 'Calle Principal #123, Centro',
+          mapa: 'https://maps.google.com'
+        },
+        recepcion: {
+          lugar: 'Salón Imperial',
+          hora: '8:00 PM',
+          direccion: 'Av. Las Flores #456',
+          mapa: 'https://maps.google.com'
+        },
+        itinerario: [
+          { hora: '6:00 PM', titulo: 'Ceremonia Religiosa' },
+          { hora: '7:30 PM', titulo: 'Recepción' },
+          { hora: '8:30 PM', titulo: 'Vals' },
+          { hora: '9:30 PM', titulo: 'Cena' },
+          { hora: '11:00 PM', titulo: '¡A bailar!' }
+        ],
+        dressCode: 'Formal',
+        dressNote: 'Se reserva el color lila para la quinceañera',
+        numeroCuenta: '0000 0000 0000 0000',
+        banco: 'Bancolombia',
+        titularCuenta: 'Nombre del Titular',
+        whatsapp: '573000000000',
+        hashtag: '#MisXVValentina',
+        closingText: 'Gracias por acompañarme en este día tan especial',
+        showPadrinos: true,
+        showItinerario: true,
+        showRegalos: true,
+        showHashtag: true
+      },
+      template: "xv-lila",
+      active: true
     }
   ]
 

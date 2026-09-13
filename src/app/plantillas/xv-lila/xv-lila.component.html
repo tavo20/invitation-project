@@ -1,0 +1,306 @@
+<main class="xv-lila">
+  <!-- Decoración floral superior izquierda -->
+  <img 
+    class="floral-corner floral-corner--top-left" 
+    src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Vendidas/15-years-moreado/flow_morado.png" 
+    alt="" 
+    aria-hidden="true">
+  
+  <!-- Decoración floral superior derecha (espejo) -->
+  <img 
+    class="floral-corner floral-corner--top-right" 
+    src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Vendidas/15-years-moreado/flow_morado.png" 
+    alt="" 
+    aria-hidden="true">
+
+  <!-- ============ CITA INICIAL ============ -->
+  <section class="seccion quote-section" #animSection>
+    <p class="quote-text" [innerHTML]="data.quote"></p>
+  </section>
+
+  <!-- ============ CORONA + TITULO ============ -->
+  <section class="seccion titulo-section" #animSection>
+    <!-- Corona SVG -->
+    <svg class="corona-svg" viewBox="0 0 100 60" fill="none" aria-hidden="true">
+      <path 
+        d="M10 50 L15 20 L30 35 L50 10 L70 35 L85 20 L90 50 Z" 
+        stroke="currentColor" 
+        stroke-width="1.2" 
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"/>
+      <path 
+        d="M10 50 L90 50" 
+        stroke="currentColor" 
+        stroke-width="1.2"
+        stroke-linecap="round"/>
+      <circle cx="15" cy="20" r="3" fill="currentColor" opacity="0.6"/>
+      <circle cx="50" cy="10" r="4" fill="currentColor" opacity="0.8"/>
+      <circle cx="85" cy="20" r="3" fill="currentColor" opacity="0.6"/>
+      <circle cx="30" cy="35" r="2" fill="currentColor" opacity="0.5"/>
+      <circle cx="70" cy="35" r="2" fill="currentColor" opacity="0.5"/>
+      <path 
+        d="M12 48 L88 48" 
+        stroke="currentColor" 
+        stroke-width="0.8"
+        stroke-linecap="round"
+        opacity="0.5"/>
+    </svg>
+
+    <h1 class="titulo-principal">MIS XV AÑOS</h1>
+  </section>
+
+  <!-- ============ FOTO HERO ============ -->
+  <section class="seccion hero-section" #animSection>
+    <div class="hero-frame">
+      <img [src]="data.heroImage" [alt]="data.quinceanera" class="hero-foto">
+    </div>
+  </section>
+
+  <!-- ============ NOMBRE + MÚSICA ============ -->
+  <section class="seccion nombre-section" #animSection>
+    <p class="quinceanera-nombre">{{ data.quinceanera }}</p>
+    
+    <!-- Reproductor de música horizontal -->
+    <div class="music-player">
+      <button type="button" class="music-control music-control--secondary" disabled aria-label="Aleatorio">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M16 3h5v5M4 20l16-16M21 16v5h-5M15 15l6 6M4 4l5 5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button type="button" class="music-control music-control--secondary" disabled aria-label="Anterior">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 6h2v12H6V6zm3.5 6l8.5 6V6l-8.5 6z"/>
+        </svg>
+      </button>
+      <button type="button" class="music-control music-control--main" (click)="togglePlayPause()" [attr.aria-label]="isPlaying ? 'Pausar' : 'Reproducir'">
+        <svg *ngIf="!isPlaying" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg *ngIf="isPlaying" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 5h4v14H6zM14 5h4v14h-4z"/>
+        </svg>
+      </button>
+      <button type="button" class="music-control music-control--secondary" disabled aria-label="Siguiente">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M16 6h2v12h-2V6zM6 18l8.5-6L6 6v12z"/>
+        </svg>
+      </button>
+      <button type="button" class="music-control music-control--secondary" disabled aria-label="Repetir">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M17 1l4 4-4 4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M3 11V9a4 4 0 0 1 4-4h14" stroke-linecap="round"/>
+          <path d="M7 23l-4-4 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M21 13v2a4 4 0 0 1-4 4H3" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+    <audio #audioPlayer [src]="data.audioSrc"></audio>
+  </section>
+
+  <!-- ============ PADRES ============ -->
+  <section class="seccion padres-section" #animSection>
+    <p class="padres-intro">Con la compañía de mis padres:</p>
+    <p class="padres-nombres-inline">
+      <span *ngFor="let nombre of data.padres; let last = last">
+        {{ nombre }}<span *ngIf="!last"> &amp; </span>
+      </span>
+    </p>
+  </section>
+
+  <!-- ============ INVITACIÓN ============ -->
+  <section class="seccion invitacion-section" #animSection>
+    <p class="invitacion-texto">Te invito a celebrar con alegría este momento tan especial:</p>
+    <p class="invitacion-titulo">MIS 15 AÑOS</p>
+    
+    <!-- Flor decorativa pequeña -->
+    <img 
+      class="floral-small floral-small--right" 
+      src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Vendidas/15-years-moreado/flow_morado.png" 
+      alt="" 
+      aria-hidden="true">
+  </section>
+
+  <!-- ============ FECHA DESTACADA ============ -->
+  <section class="seccion fecha-section" #animSection>
+    <div class="fecha-card">
+      <p class="fecha-mes">{{ data.month }}</p>
+      <div class="fecha-dia-row">
+        <span class="fecha-linea"></span>
+        <span class="fecha-dia-nombre">{{ data.dayOfWeek }}</span>
+        <span class="fecha-dia-numero">{{ data.dayNumber }}</span>
+        <span class="fecha-ano">{{ data.year }}</span>
+        <span class="fecha-linea"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COUNTDOWN ============ -->
+  <section class="seccion countdown-section" #animSection>
+    <h2 class="seccion-titulo">FALTAN</h2>
+
+    <div class="countdown-grid">
+      <div class="countdown-item">
+        <span class="countdown-numero">{{ dias }}</span>
+        <span class="countdown-label">Días</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-item">
+        <span class="countdown-numero">{{ horas }}</span>
+        <span class="countdown-label">Horas</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-item">
+        <span class="countdown-numero">{{ minutos }}</span>
+        <span class="countdown-label">Min</span>
+      </div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-item">
+        <span class="countdown-numero">{{ segundos }}</span>
+        <span class="countdown-label">Seg</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RECEPCIÓN DESTACADA ============ -->
+  <section class="seccion recepcion-destacada" *ngIf="data.recepcion" #animSection>
+    <!-- Icono copas brindis -->
+    <svg class="copas-icono" viewBox="0 0 60 60" fill="none" aria-hidden="true">
+      <path d="M18 8l-2 18c0 4 3 7 7 8v14h-6v4h14v-4h-6V34c4-1 7-4 7-8l-2-18h-12z" 
+            stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M42 8l2 18c0 4-3 7-7 8v14h6v4H29v-4h6V34c-4-1-7-4-7-8l2-18h12z" 
+            stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M22 12h8M38 12h-8" stroke="currentColor" stroke-width="0.8" opacity="0.5"/>
+    </svg>
+
+    <p class="recepcion-hora">{{ data.recepcion.hora }}</p>
+    <h3 class="recepcion-titulo">RECEPCIÓN</h3>
+    <p class="recepcion-lugar">{{ data.recepcion.lugar }}</p>
+    <p class="recepcion-direccion">{{ data.recepcion.direccion }}</p>
+    
+    <a class="boton-lila" [href]="data.recepcion.mapa" target="_blank">Ver ubicación</a>
+  </section>
+
+  <!-- ============ FOTO CON FLORES ============ -->
+  <section class="seccion foto-flores-section" #animSection>
+    <!-- Flores superiores -->
+    <img 
+      class="flores-superiores" 
+      src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Vendidas/15-years-moreado/flow_morado.png" 
+      alt="" 
+      aria-hidden="true">
+    
+    <!-- Foto -->
+    <div class="foto-lila-container">
+      <img [src]="data.heroImage2 || data.heroImage" [alt]="data.quinceanera" class="foto-lila-img">
+    </div>
+  </section>
+
+  <!-- ============ ITINERARIO DE ACTIVIDADES ============ -->
+  <section class="seccion itinerario-visual" *ngIf="data.showItinerario" #animSection>
+    <h2 class="seccion-titulo">ITINERARIO DE ACTIVIDADES</h2>
+    <div class="section-divider"></div>
+
+    <div class="timeline-v">
+      <div class="tl-row tl-row--left">
+        <div class="tl-text tl-text--left">
+          <span class="tl-hora">5:00 PM</span>
+          <span class="tl-evento">LLEGADA</span>
+        </div>
+        <div class="tl-center">
+          <svg class="tl-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M11 7l-4 4 4 4v-3h5v-2h-5V7zm7-5H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        </div>
+        <div class="tl-text tl-text--right"></div>
+      </div>
+
+      <div class="tl-row tl-row--right">
+        <div class="tl-text tl-text--left"></div>
+        <div class="tl-center">
+          <svg class="tl-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3v6c0 2.97 2.16 5.43 5 5.91V19H8v2h8v-2h-3v-4.09c2.84-.48 5-2.94 5-5.91V3H6zm6 10c-1.66 0-3-1.34-3-3V5h6v5c0 1.66-1.34 3-3 3z"/></svg>
+        </div>
+        <div class="tl-text tl-text--right">
+          <span class="tl-hora">4:30 PM</span>
+          <span class="tl-evento">RECEPCIÓN</span>
+        </div>
+      </div>
+
+      <div class="tl-row tl-row--left">
+        <div class="tl-text tl-text--left">
+          <span class="tl-hora">5:00-5:30 PM</span>
+          <span class="tl-evento">BENDICIÓN</span>
+        </div>
+        <div class="tl-center">
+          <svg class="tl-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm5 11v-3c0-1.1-.9-2-2-2h-1l-1.5 4.5L14 22h2l-1-4h2zm-9-3H6l2 6h2l-1.5-4.5L7 11H6c-1.1 0-2 .9-2 2v3h4z"/><path d="M12 8c-2 0-4 1-4 3v1h8v-1c0-2-2-3-4-3z"/></svg>
+        </div>
+        <div class="tl-text tl-text--right"></div>
+      </div>
+
+      <div class="tl-row tl-row--right">
+        <div class="tl-text tl-text--left"></div>
+        <div class="tl-center">
+          <svg class="tl-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M8.1 13.34l2.83-2.83L3.91 3.5a4.008 4.008 0 000 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z"/></svg>
+        </div>
+        <div class="tl-text tl-text--right">
+          <span class="tl-hora">6:00-7:00 PM</span>
+          <span class="tl-evento">CENA</span>
+        </div>
+      </div>
+
+      <div class="tl-row tl-row--left">
+        <div class="tl-text tl-text--left">
+          <span class="tl-hora">8:00-9:00 PM</span>
+          <span class="tl-evento">VALS</span>
+        </div>
+        <div class="tl-center">
+          <svg class="tl-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 6c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-1.8 13l.7-3.5L13 17v5h2v-6.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7L8 18l2.2 1z"/></svg>
+        </div>
+        <div class="tl-text tl-text--right"></div>
+      </div>
+
+      <div class="tl-row tl-row--right">
+        <div class="tl-text tl-text--left"></div>
+        <div class="tl-center">
+          <svg class="tl-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        </div>
+        <div class="tl-text tl-text--right">
+          <span class="tl-hora">9:00-11:00 PM</span>
+          <span class="tl-evento">BAILE</span>
+        </div>
+      </div>
+
+      <div class="tl-row tl-row--left">
+        <div class="tl-text tl-text--left">
+          <span class="tl-hora">11:00 PM</span>
+          <span class="tl-evento">DESPEDIDA</span>
+        </div>
+        <div class="tl-center">
+          <svg class="tl-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="tl-text tl-text--right"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CÓDIGO DE VESTIMENTA ============ -->
+  <section class="seccion dresscode-visual" #animSection>
+    <h2 class="seccion-titulo">CÓDIGO DE VESTIMENTA</h2>
+    <div class="section-divider"></div>
+    
+    <p class="dresscode-tipo">{{ data.dressCode }}</p>
+    
+    <div class="dresscode-iconos">
+      <!-- Vestido -->
+      <svg class="dresscode-icono" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 2a2 2 0 012 2c0 .74-.4 1.39-1 1.73V7h1l4 8H6l4-8h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 012-2zm-4 15v5h8v-5l-4-2-4 2z"/>
+      </svg>
+      <!-- Traje -->
+      <svg class="dresscode-icono" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M6 2l1.5 5H9v1.5l-1.5 2L9 15v7H6v-7l1-2.5V8H5.5L4 3l2-1zm12 0l-2 1-1.5 5H16v1.5l1 2.5v7h-3v-7l1.5-4.5L14 8V6.5h1.5L17 2l1 0z"/>
+        <path d="M12 6l-2 4h4l-2-4zm0 6l-1 10h2l-1-10z"/>
+      </svg>
+    </div>
+    
+    <p class="dresscode-nota" *ngIf="data.dressNote">{{ data.dressNote }}</p>
+  </section>
+
+</main>

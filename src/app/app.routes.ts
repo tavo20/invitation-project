@@ -98,6 +98,12 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./plantillas/sobre-amanecer/sobre-amanecer.component')
                 .then(m => m.SobreAmanecerComponent)
+    },
+    {
+        path: 'Mis-XV-Lila',
+        loadComponent: () =>
+            import('./plantillas/xv-lila/xv-lila.component')
+                .then(m => m.XvLilaComponent)
     }
 
 ];

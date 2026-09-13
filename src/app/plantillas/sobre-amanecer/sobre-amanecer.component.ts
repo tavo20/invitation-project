@@ -232,7 +232,7 @@ export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
     { key: 'navy', label: 'Navy' },
     { key: 'forest', label: 'Bosque' },
     { key: 'slate', label: 'Gris' },
-    { key: 'lilac', label: 'Lila' }
+    // { key: 'lilac', label: 'Lila' }
   ];
 
   private readonly defaultData: SobreAmanecerData = {

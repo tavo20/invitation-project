@@ -1,0 +1,963 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&display=swap');
+
+// ===== Paleta Lila =====
+$lila-dark: #7a6b8a;
+$lila-main: #9d8bb0;
+$lila-light: #c4b3d4;
+$lila-soft: #e8dff0;
+$lila-pale: #f5f0f8;
+$cream: #faf8f5;
+$text-dark: #2a2a2a;
+$text-body: #444;
+$text-muted: #777;
+
+:host {
+  display: block;
+  min-height: 100vh;
+  background: $cream;
+}
+
+.xv-lila {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+
+  // Gradiente lila sutil en la parte superior
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 380px;
+    background: linear-gradient(180deg, 
+      rgba($lila-light, 0.35) 0%, 
+      rgba($lila-soft, 0.25) 40%,
+      rgba($cream, 0) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// ===== Decoraciones florales =====
+.floral-corner {
+  position: absolute;
+  width: 320px;
+  height: auto;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 1;
+
+  &--top-left {
+    top: -30px;
+    left: -60px;
+  }
+
+  &--top-right {
+    top: -30px;
+    right: -60px;
+    transform: scaleX(-1);
+  }
+}
+
+.floral-footer {
+  width: 180px;
+  height: auto;
+  opacity: 0.85;
+  margin-bottom: 20px;
+}
+
+// ===== Secciones base =====
+.seccion {
+  position: relative;
+  width: 100%;
+  padding: 48px 28px;
+  box-sizing: border-box;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+
+  &.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ===== Sección de cita =====
+.quote-section {
+  padding-top: 260px; // Espacio para las flores más grandes
+  padding-bottom: 32px;
+}
+
+.quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-style: italic;
+  line-height: 1.8;
+  color: $text-body;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+// ===== Sección título =====
+.titulo-section {
+  padding-top: 24px;
+  padding-bottom: 40px;
+}
+
+.corona-svg {
+  width: 80px;
+  height: auto;
+  color: $lila-main;
+  margin-bottom: 16px;
+}
+
+.titulo-principal {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 7vw, 2.4rem);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: $lila-dark;
+  margin: 0;
+}
+
+.titulo-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.divider-line {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, $lila-light, transparent);
+}
+
+.divider-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: $lila-main;
+}
+
+// ===== Sección Hero/Foto =====
+.hero-section {
+  padding: 0;
+  position: relative;
+}
+
+.hero-frame {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-foto {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4.2;
+  object-fit: cover;
+  object-position: center top;
+}
+
+// ===== Sección Nombre + Música =====
+.nombre-section {
+  padding: 32px 28px 40px;
+  background: $cream;
+}
+
+.quinceanera-nombre {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.6rem, 10vw, 3.4rem);
+  color: $lila-dark;
+  margin: 0 0 24px;
+  line-height: 1.1;
+}
+
+.music-player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.music-control {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &--secondary {
+    color: $lila-light;
+    
+    &:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+  }
+
+  &--main {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: $lila-main;
+    color: #fff;
+    box-shadow: 0 4px 16px rgba($lila-dark, 0.25);
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    &:hover {
+      transform: scale(1.08);
+      background: $lila-dark;
+    }
+  }
+}
+
+// ===== Sección Padres (simplificada) =====
+.padres-section {
+  padding: 32px 28px;
+  background: transparent;
+}
+
+.padres-intro {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: $text-body;
+  margin: 0 0 8px;
+}
+
+.padres-nombres-inline {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $text-dark;
+  margin: 0;
+}
+
+// ===== Sección Invitación =====
+.invitacion-section {
+  padding: 32px 28px;
+  position: relative;
+}
+
+.invitacion-texto {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: $text-body;
+  margin: 0 0 12px;
+  max-width: 280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.invitacion-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: $lila-dark;
+  margin: 0;
+}
+
+.floral-small {
+  position: absolute;
+  width: 100px;
+  height: auto;
+  opacity: 0.7;
+  pointer-events: none;
+
+  &--right {
+    right: -20px;
+    bottom: -10px;
+    transform: scaleX(-1);
+  }
+}
+
+// ===== Sección Fecha =====
+.fecha-section {
+  padding: 40px 28px;
+  background: rgba($lila-soft, 0.3);
+}
+
+.fecha-card {
+  text-align: center;
+}
+
+.fecha-mes {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  color: $text-body;
+  margin: 0 0 8px;
+}
+
+.fecha-dia-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.fecha-linea {
+  width: 40px;
+  height: 1px;
+  background: $lila-light;
+}
+
+.fecha-dia-nombre {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: $text-muted;
+  text-transform: uppercase;
+}
+
+.fecha-dia-numero {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 12vw, 4.5rem);
+  font-weight: 600;
+  color: $lila-dark;
+  line-height: 1;
+}
+
+.fecha-ano {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: $text-body;
+}
+
+// ===== Sección Countdown =====
+.countdown-section {
+  padding: 56px 28px;
+}
+
+.seccion-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: $lila-dark;
+  margin: 0 0 24px;
+}
+
+.section-divider {
+  width: 60px;
+  height: 1px;
+  background: $lila-light;
+  margin: 0 auto 28px;
+}
+
+.countdown-grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.countdown-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 56px;
+}
+
+.countdown-numero {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 8vw, 2.6rem);
+  font-weight: 600;
+  color: $lila-dark;
+  line-height: 1;
+}
+
+.countdown-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+
+.countdown-sep {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: $lila-light;
+  margin-top: -12px;
+}
+
+.countdown-para {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: $text-body;
+  margin: 20px 0 0;
+}
+
+// ===== Sección Recepción Destacada =====
+.recepcion-destacada {
+  padding: 48px 28px;
+  background: $cream;
+}
+
+.copas-icono {
+  width: 50px;
+  height: 50px;
+  color: $lila-light;
+  margin-bottom: 20px;
+}
+
+.recepcion-hora {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: $text-dark;
+  margin: 0 0 8px;
+}
+
+.recepcion-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: $lila-dark;
+  margin: 0 0 8px;
+}
+
+.recepcion-lugar {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: $text-dark;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+}
+
+.recepcion-direccion {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.4rem;
+  color: $lila-main;
+  margin: 0 0 24px;
+}
+
+// ===== Sección Foto con Flores =====
+.foto-flores-section {
+  padding: 0;
+  position: relative;
+  background: transparent;
+}
+
+.flores-superiores {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  max-width: 220px;
+  height: auto;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.foto-lila-container {
+  width: 100%;
+}
+
+.foto-lila-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+// ===== Itinerario Visual =====
+.itinerario-visual {
+  padding: 48px 16px;
+  background: $cream;
+}
+
+.timeline-v {
+  position: relative;
+  max-width: 340px;
+  margin: 0 auto;
+  
+  // Línea central
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    bottom: 20px;
+    width: 2px;
+    background: $text-dark;
+    transform: translateX(-50%);
+  }
+}
+
+.tl-row {
+  display: grid;
+  grid-template-columns: 1fr 50px 1fr;
+  align-items: center;
+  margin-bottom: 20px;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.tl-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+}
+
+.tl-icon {
+  width: 32px;
+  height: 32px;
+  color: $lila-main;
+  background: $cream;
+  padding: 4px;
+}
+
+.tl-text {
+  display: flex;
+  flex-direction: column;
+  
+  &--left {
+    text-align: right;
+    padding-right: 12px;
+  }
+  
+  &--right {
+    text-align: left;
+    padding-left: 12px;
+  }
+}
+
+.tl-hora {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: $text-dark;
+}
+
+.tl-evento {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $lila-dark;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+// ===== Código de Vestimenta Visual =====
+.dresscode-visual {
+  padding: 48px 28px;
+  background: $cream;
+}
+
+.dresscode-tipo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: $text-dark;
+  margin: 0 0 20px;
+}
+
+.dresscode-iconos {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.dresscode-icono {
+  width: 40px;
+  height: 50px;
+  color: $text-dark;
+}
+
+.dresscode-nota {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: $text-body;
+  max-width: 280px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+// ===== Sección Lugares =====
+.lugares-section {
+  background: rgba($lila-soft, 0.3);
+}
+
+.lugares-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.lugar-card {
+  text-align: center;
+  padding: 24px 20px;
+  background: rgba(#fff, 0.7);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba($lila-dark, 0.08);
+}
+
+.lugar-icono {
+  width: 44px;
+  height: 44px;
+  color: $lila-main;
+  margin-bottom: 12px;
+}
+
+.lugar-titulo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: $lila-dark;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.lugar-nombre {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: $text-dark;
+  margin: 0 0 4px;
+}
+
+.lugar-hora {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  color: $lila-dark;
+  margin: 0 0 8px;
+}
+
+.lugar-direccion {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: $text-muted;
+  margin: 0 0 16px;
+}
+
+.boton-lila {
+  display: inline-block;
+  padding: 12px 28px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  background: $lila-main;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background: $lila-dark;
+    transform: translateY(-2px);
+  }
+}
+
+// ===== Sección Itinerario =====
+.itinerario-section {
+  padding: 56px 28px;
+}
+
+.timeline {
+  position: relative;
+  max-width: 280px;
+  margin: 0 auto;
+  padding-left: 24px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    bottom: 8px;
+    left: 6px;
+    width: 1px;
+    background: linear-gradient(180deg, transparent, $lila-light, transparent);
+  }
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  padding-bottom: 24px;
+
+  &:last-child {
+    padding-bottom: 0;
+  }
+}
+
+.timeline-punto {
+  position: absolute;
+  left: -21px;
+  top: 6px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: $lila-main;
+  box-shadow: 0 0 0 4px rgba($lila-main, 0.2);
+}
+
+.timeline-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.timeline-hora {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: $lila-dark;
+}
+
+.timeline-titulo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: $text-body;
+}
+
+// ===== Sección Dress Code =====
+.dresscode-section {
+  background: rgba($lila-soft, 0.3);
+}
+
+.dresscode-valor {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2rem, 8vw, 2.6rem);
+  color: $lila-dark;
+  margin: 0 0 12px;
+}
+
+.dresscode-nota {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: $text-muted;
+  margin: 0;
+}
+
+// ===== Sección Regalos =====
+.regalos-section {
+  padding: 56px 28px;
+}
+
+.regalos-texto {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: $text-body;
+  max-width: 320px;
+  margin: 0 auto 28px;
+}
+
+.cuenta-card {
+  background: rgba(#fff, 0.8);
+  border-radius: 16px;
+  padding: 24px 20px;
+  max-width: 300px;
+  margin: 0 auto 20px;
+  box-shadow: 0 8px 24px rgba($lila-dark, 0.08);
+}
+
+.cuenta-banco {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: $lila-dark;
+  margin: 0 0 8px;
+}
+
+.cuenta-numero {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  letter-spacing: 0.1em;
+  color: $text-dark;
+  margin: 0 0 4px;
+}
+
+.cuenta-titular {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  color: $text-muted;
+  margin: 0 0 16px;
+}
+
+.regalos-sobres {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-style: italic;
+  color: $text-muted;
+  margin: 0;
+}
+
+// ===== Sección Confirmación =====
+.confirmacion-section {
+  background: rgba($lila-soft, 0.4);
+}
+
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.rsvp-input {
+  width: 100%;
+  padding: 14px 18px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: $text-dark;
+  background: rgba(#fff, 0.9);
+  border: 1px solid rgba($lila-light, 0.5);
+  border-radius: 10px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: $lila-main;
+  }
+
+  &::placeholder {
+    color: $text-muted;
+  }
+}
+
+textarea.rsvp-input {
+  resize: none;
+}
+
+.rsvp-boton {
+  margin-top: 8px;
+}
+
+// ===== Sección Hashtag =====
+.hashtag-section {
+  padding: 40px 28px;
+}
+
+.hashtag-texto {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: $text-body;
+  margin: 0 0 8px;
+}
+
+.hashtag-valor {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: $lila-dark;
+  margin: 0;
+}
+
+// ===== Sección Cierre =====
+.cierre-section {
+  padding: 40px 28px 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cierre-content {
+  position: relative;
+  z-index: 1;
+}
+
+.cierre-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cierre-texto {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: $text-body;
+  margin: 0 0 16px;
+  max-width: 300px;
+}
+
+.cierre-firma {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.2rem, 8vw, 2.8rem);
+  color: $lila-dark;
+  margin: 0;
+}
+
+// ===== Responsive =====
+@media (max-width: 400px) {
+  .floral-corner {
+    width: 260px;
+
+    &--top-left {
+      left: -50px;
+      top: -20px;
+    }
+
+    &--top-right {
+      right: -50px;
+      top: -20px;
+    }
+  }
+
+  .quote-section {
+    padding-top: 200px;
+  }
+
+  .seccion {
+    padding: 40px 20px;
+  }
+
+  .hero-frame {
+    max-width: 280px;
+  }
+
+  .music-btn {
+    right: 28px;
+    bottom: 60px;
+  }
+}

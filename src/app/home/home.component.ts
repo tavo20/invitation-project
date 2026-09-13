@@ -14,6 +14,7 @@ import { LauraJuanComponent } from '../plantillas/laura-juan/laura-juan.componen
 import { AzulGrisColoresComponent } from '../plantillas/azul-gris-colores/azul-gris-colores.component';
 import { NeblinaComponent } from '../plantillas/neblina/neblina.component';
 import { SobreAmanecerComponent } from '../plantillas/sobre-amanecer/sobre-amanecer.component';
+import { XvLilaComponent } from '../plantillas/xv-lila/xv-lila.component';
 import { ConfirmationService } from '../shared/services/confirmation.service';
 import { lastValueFrom } from 'rxjs';
 
@@ -44,6 +45,7 @@ export class HomeComponent {
     "azul-gris-colores": LauraJuanComponent,
     "neblina": NeblinaComponent,
     "sobre-amanecer": SobreAmanecerComponent,
+    "xv-lila": XvLilaComponent,
   }
   public templateComponent: any = null;
 
