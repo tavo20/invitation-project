@@ -281,13 +281,13 @@
 }
 
 .announce-photo {
-    // margin: 34px auto 0;
-    // width: min(100%, 340px);
-    aspect-ratio: 3 / 4.15;
+    align-self: center;
+    // width: min(calc(100% - 48px), 340px);
+    margin: 0 auto 0px;
+    aspect-ratio: 3 / 3.7;
     overflow: hidden;
     background: transparent;
-    // -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 100%);
-    // mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 100%);
+    border-radius: 50% 50% 0 0 / 46% 46% 0 0;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
     -webkit-mask-size: 100% 100%;
@@ -298,10 +298,9 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        object-position: center;
+        object-position: center 18%;
         opacity: 0;
         animation: announce-photo-fade-in 1.6s ease-out 0.35s forwards;
-        border-radius: 50% 50% 0 0 / 35% 35% 0 0;
     }
 }
 
@@ -1211,8 +1210,8 @@
     }
 
     .announce-photo {
-        width: 100%;
-        max-width: 320px;
+        // width: min(calc(100% - 36px), 300px);
+        aspect-ratio: 3 / 3.55;
     }
 
     .story-section {
