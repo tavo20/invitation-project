@@ -232,19 +232,20 @@
       justify-content: center;
       text-align: center;
       padding: 0 24px;
+      margin-top: 45px;
     }
 
     .invitation-name {
       font-family: 'Great Vibes', cursive;
       font-size: 2.5rem;
-      color: #2d4a3e;
+      color: var(--flow-primary);
       line-height: 1.2;
     }
 
     .invitation-ampersand {
       font-family: 'Great Vibes', cursive;
       font-size: 1.5rem;
-      color: #2d4a3e;
+      color: var(--flow-primary);
       margin: 2px 0;
     }
 
@@ -257,6 +258,14 @@
       margin: 8px 0 0;
       text-transform: uppercase;
       line-height: 1.5;
+    }
+
+    .wedding-rings {
+      width: 55px;
+      height: 45px;
+      margin-top: 14px;
+      color: var(--flow-primary, #2d4a3e);
+      opacity: 0.65;
     }
   }
 
@@ -341,7 +350,7 @@
       width: 100%;
       max-width: 60px;
       height: 1px;
-      background-color: #9ca898;
+      background-color: var(--flow-primary-light);
     }
 
     .date-label {
@@ -417,7 +426,7 @@
     font-family: 'Great Vibes', cursive;
     font-size: clamp(2.3rem, 6vw, 3rem);
     font-weight: 400;
-    color: #2d4a3e;
+    color: var(--flow-primary);
     margin: 0;
     line-height: 1.05;
   }
@@ -445,7 +454,7 @@
   .flow-sobres__icon {
     width: 26px;
     height: 26px;
-    color: #2d4a3e;
+    color: var(--flow-primary);
     flex-shrink: 0;
     opacity: 0.78;
   }
@@ -529,7 +538,7 @@
     font-family: 'Great Vibes', cursive;
     font-size: clamp(1.8rem, 4vw, 2.45rem);
     line-height: 1;
-    color: #2d4a3e;
+    color: var(--flow-primary);
     margin: 0 0 14px;
     font-weight: 400;
   }
@@ -581,7 +590,7 @@
   .flow-guest-invite__icon {
     width: 26px;
     height: 26px;
-    color: #2d4a3e;
+    color: var(--flow-primary);
     flex-shrink: 0;
     opacity: 0.78;
   }
@@ -596,7 +605,7 @@
     font-size: clamp(2rem, 6vw, 2.7rem);
     font-weight: 400;
     line-height: 1.15;
-    color: #2d4a3e;
+    color: var(--flow-primary);
     word-break: break-word;
   }
 
@@ -615,14 +624,14 @@
 
   .flow-event__icon {
     font-size: 2rem;
-    color: #2d4a3e;
+    color: var(--flow-primary);
     line-height: 1;
   }
 
   .flow-event__venue {
     font-family: 'Great Vibes', cursive;
     font-size: clamp(2rem, 5vw, 2.6rem);
-    color: #2d4a3e;
+    color: var(--flow-primary);
     line-height: 1;
   }
 
@@ -660,7 +669,7 @@
 
   .card-curve__line {
     fill: none;
-    stroke: #d4af37;
+    stroke: var(--flow-accent);
     stroke-width: 1.5;
     vector-effect: non-scaling-stroke;
   }
@@ -673,7 +682,7 @@
     z-index: 3;
     padding: 18px 18px 16px;
     border-radius: 18px;
-    background: #2d4a3e;;
+    background: var(--flow-primary);;
     // border: 1.5px solid #d4af37;
     box-shadow: 0 12px 28px rgba(15, 28, 24, 0.35);
     text-align: center;
@@ -766,8 +775,8 @@
     height: 46px;
     border: none;
     border-radius: 50%;
-    background: #ece9e5;;
-    color: #1f332c;
+    background: var(--flow-bg-alt, #ece9e5);
+    color: var(--flow-primary, #1f332c);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -817,7 +826,7 @@
         z-index: 2;
         padding: 22px 20px;
         /* border-radius: 16px; */
-        background: #1f332c;
+        background: var(--flow-primary, #1f332c);
         /* border: 1.5px solid #d4af37; */
         /* box-shadow: 0 12px 28px rgba(15, 28, 24, 0.28); */
         letter-spacing: 1px;
@@ -829,7 +838,7 @@
       font-size: 1.02rem;
       line-height: 1.65;
       text-align: center;
-      color: #f7f1e4;
+      color: var(--flow-bg, #f7f1e4);
     }
   }
 
@@ -842,11 +851,11 @@
 
   .flow-event__hour {
     font-weight: 600;
-    color: #2d4a3e;
+    color: var(--flow-primary);
   }
 
   .flow-button {
-    background: #2d4a3e;
+    background: var(--flow-primary);
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -874,7 +883,7 @@
     width: 42px;
     height: 32px;
     margin: 0 auto 12px;
-    color: #2d4a3e;
+    color: var(--flow-primary);
     opacity: 0.78;
     display: block;
   }
@@ -892,7 +901,7 @@
   .flow-dresscode__style {
     font-family: 'Great Vibes', cursive;
     font-size: clamp(2.2rem, 6vw, 3.1rem);
-    color: #2d4a3e;
+    color: var(--flow-primary);
     line-height: 1;
     margin: 6px 0 22px;
   }
@@ -980,7 +989,7 @@
     border: none;
     border-radius: 50%;
     background: rgba(250, 248, 245, 0.88);
-    color: #2d4a3e;
+    color: var(--flow-primary);
     font-size: 1.5rem;
     line-height: 1;
     cursor: pointer;
@@ -1068,7 +1077,7 @@
     font-size: clamp(1.35rem, 4vw, 1.7rem);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #2d4a3e;
+    color: var(--flow-primary);
     margin: 0 0 4px;
     line-height: 1.1;
   }
@@ -1088,7 +1097,7 @@
     // font-family: 'Great Vibes', cursive;
     font-family: "Cormorant Garamond", serif;
     // font-size: clamp(1.2rem, 6vw, 3rem);
-    color: #2d4a3e;
+    color: var(--flow-primary);
     margin: 0 0 14px;
     line-height: 1.1;
     font-size: 17px;
@@ -1126,7 +1135,7 @@
 .flow-closing__names {
   font-family: "Great Vibes", cursive;
   font-size: 1.5rem;
-  color: #2d4a3e;
+  color: var(--flow-primary);
   line-height: 1.2;
   margin: 30px 0;
   letter-spacing: 2px;
@@ -1139,7 +1148,6 @@
   width: 100%;
   padding: 28px 24px;
   box-sizing: border-box;
-  background: #2d4a3e;
 }
 
 .flow-photos-by__link {
@@ -1147,7 +1155,6 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: #f7f1e4;
   text-decoration: none;
 }
 
@@ -1173,5 +1180,37 @@
   to {
     transform: translate(-50%, -50%) rotate(var(--rotation, 0deg)) scale(1.15);
     opacity: 0.8;
+  }
+}
+
+// ===== Selector de paletas =====
+.palette-picker {
+  position: fixed;
+  left: 16px;
+  bottom: 20px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.palette-picker__swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &.is-active {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
   }
 }

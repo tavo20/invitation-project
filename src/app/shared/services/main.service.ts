@@ -82,6 +82,7 @@ export class MainService {
         showGallery: true,
         showParents: true,
         instragramCliente: 'https://www.instagram.com/',
+        palette: 'forest', // Opciones: 'forest' | 'navy' | 'sage'
       },
       template: "xyz",
       active: true

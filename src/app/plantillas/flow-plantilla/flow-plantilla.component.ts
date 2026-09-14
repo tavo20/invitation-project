@@ -2,6 +2,19 @@ import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChang
 import { CommonModule } from '@angular/common';
 import { CountDownComponent } from '../../shared/components/count-down/count-down.component';
 
+export type FlowPaletteName = 'forest' | 'terracotta' | 'sage';
+
+export interface FlowPalette {
+  primary: string;       // Color principal (verde, azul, etc)
+  primaryLight: string;  // Versión más clara
+  accent: string;        // Dorado/bronce/plata
+  accentAlt: string;     // Alternativo del acento
+  bg: string;            // Fondo principal (crema)
+  bgAlt: string;         // Fondo alternativo
+  text: string;          // Texto oscuro
+  textMuted: string;     // Texto secundario
+}
+
 export interface FlowItineraryItem {
   time: string;
   label: string;
@@ -57,6 +70,8 @@ export interface FlowPlantillaData {
   closingHighlight?: string;
   closingNames?: string;
   instragramCliente?: string;
+  palette?: FlowPaletteName;
+  isProduction?: boolean;
 }
 
 @Component({
@@ -81,6 +96,67 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
   names_invitados = '';
   private carouselInterval?: ReturnType<typeof setInterval>;
   private touchStartX = 0;
+
+  // Sistema de paletas
+  selectedPalette: FlowPaletteName = 'forest';
+  isProduction = false;
+
+  readonly paletteOptions: { key: FlowPaletteName; label: string }[] = [
+    { key: 'forest', label: 'Bosque' },
+    { key: 'terracotta', label: 'Terracota' },
+    { key: 'sage', label: 'Salvia' }
+  ];
+
+  readonly palettes: Record<FlowPaletteName, FlowPalette> = {
+    forest: {
+      primary: '#2d4a3e',
+      primaryLight: '#3d5f50',
+      accent: '#d4af37',
+      accentAlt: '#c9a227',
+      bg: '#faf8f5',
+      bgAlt: '#f3efe8',
+      text: '#2a2a2a',
+      textMuted: '#555555'
+    },
+    terracotta: {
+      primary: '#6b3528',
+      primaryLight: '#8b4a3a',
+      accent: '#c9a227',
+      accentAlt: '#b8860b',
+      bg: '#faf8f5',
+      bgAlt: '#f5efe8',
+      text: '#3d2a22',
+      textMuted: '#6b5248'
+    },
+    sage: {
+      primary: '#6b7c5e',
+      primaryLight: '#8a9d7a',
+      accent: '#b8860b',
+      accentAlt: '#a67c00',
+      bg: '#faf8f5',
+      bgAlt: '#f5f3ed',
+      text: '#3d3d3d',
+      textMuted: '#6b6b6b'
+    }
+  };
+
+  get colors(): FlowPalette {
+    return this.palettes[this.selectedPalette] ?? this.palettes.forest;
+  }
+
+  get paletteVars(): Record<string, string> {
+    const c = this.colors;
+    return {
+      '--flow-primary': c.primary,
+      '--flow-primary-light': c.primaryLight,
+      '--flow-accent': c.accent,
+      '--flow-accent-alt': c.accentAlt,
+      '--flow-bg': c.bg,
+      '--flow-bg-alt': c.bgAlt,
+      '--flow-text': c.text,
+      '--flow-text-muted': c.textMuted
+    };
+  }
 
   private readonly defaultData: Required<FlowPlantillaData> = {
     names1: 'Mariana',
@@ -140,6 +216,8 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     showGallery: false,
     showParents: true,
     instragramCliente: '',
+    palette: 'forest',
+    isProduction: false,
   };
 
   get data(): Required<FlowPlantillaData> {
@@ -185,6 +263,7 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit(): void {
     this.applyConfirmation();
+    this.applyPalette();
     this.startCarousel();
   }
 
@@ -193,9 +272,22 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
       this.applyConfirmation();
     }
     if (changes['invitationData']) {
+      this.applyPalette();
       this.carouselIndex = 0;
       this.startCarousel();
     }
+  }
+
+  private applyPalette(): void {
+    const palette = this.invitationData?.palette;
+    if (palette && this.palettes[palette]) {
+      this.selectedPalette = palette;
+    }
+    this.isProduction = this.invitationData?.isProduction ?? false;
+  }
+
+  setPalette(palette: FlowPaletteName): void {
+    this.selectedPalette = palette;
   }
 
   ngOnDestroy(): void {

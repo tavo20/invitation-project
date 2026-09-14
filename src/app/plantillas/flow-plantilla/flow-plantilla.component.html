@@ -1,4 +1,4 @@
-<section class="flow-plantilla">
+<section class="flow-plantilla" [ngStyle]="paletteVars">
   <div class="flow-layout">
     <div class="flow-side flow-left">
       <img src="assets/images/canva/right.webp" alt="Decoración izquierda" />
@@ -25,6 +25,19 @@
       <span class="invitation-name">{{ data.names2 }}</span>
       <p class="invitation-text">{{ data.invitationText1 }}</p>
       <p class="invitation-text">{{ data.invitationText2 }}</p>
+      
+      <!-- Anillos de boda entrelazados -->
+      <svg class="wedding-rings" viewBox="0 0 40 36" fill="none" aria-hidden="true">
+        <!-- Anillo derecho - mitad trasera (detrás del izquierdo) -->
+        <path d="M 19 12 A 9 9 0 1 1 19 28" stroke="currentColor" stroke-width="1.3" fill="none"/>
+        <!-- Anillo izquierdo completo -->
+        <circle cx="13" cy="20" r="9" stroke="currentColor" stroke-width="1.3" fill="none"/>
+        <!-- Anillo derecho - mitad delantera (delante del izquierdo) -->
+        <path d="M 19 12 A 9 9 0 0 0 19 28" stroke="currentColor" stroke-width="1.3" fill="none"/>
+        <!-- Corazón arriba -->
+        <path d="M19 5 C19 3 17 1.5 15.5 3.5 C15.5 5 19 8 19 8 C19 8 22.5 5 22.5 3.5 C21 1.5 19 3 19 5 Z" 
+              fill="currentColor"/>
+      </svg>
     </div>
     </div>
     <div class="flow-date">
@@ -372,13 +385,14 @@
   </div>
 </section>
 
-<section class="flow-photos-by" *ngIf="data.instragramCliente">
+<section class="flow-photos-by" *ngIf="data.instragramCliente" [style.background]="colors.primary">
   <a
     class="flow-photos-by__link"
     [href]="data.instragramCliente"
     target="_blank"
     rel="noopener noreferrer"
-    aria-label="Photos by Instagram">
+    aria-label="Photos by Instagram"
+    [style.color]="colors.bg">
     <span class="flow-photos-by__label">Photos by</span>
     <svg class="flow-photos-by__icon" viewBox="0 0 24 24" aria-hidden="true">
       <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
@@ -387,3 +401,16 @@
     </svg>
   </a>
 </section>
+
+<!-- Selector de paletas (solo en desarrollo) -->
+<div class="palette-picker" *ngIf="!isProduction" aria-label="Cambiar paleta de colores">
+  <button
+    type="button"
+    class="palette-picker__swatch"
+    *ngFor="let option of paletteOptions"
+    [class.is-active]="selectedPalette === option.key"
+    [style.background]="palettes[option.key].primary"
+    [attr.aria-label]="'Paleta ' + option.label"
+    (click)="setPalette(option.key)">
+  </button>
+</div>
