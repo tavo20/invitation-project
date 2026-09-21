@@ -51,6 +51,13 @@ export interface FlowPlantillaData {
   eventHour?: string;
   eventMapLink?: string;
   eventButtonText?: string;
+  // Recepción (segundo lugar)
+  showReception?: boolean;
+  receptionTitle?: string;
+  receptionVenue?: string;
+  receptionAddress?: string;
+  receptionHour?: string;
+  receptionMapLink?: string;
   dressTitle?: string;
   dressType?: string;
   dressColors?: string[];
@@ -64,6 +71,14 @@ export interface FlowPlantillaData {
   confirmButtonText?: string;
   confirmLink?: string;
   sobresTitle?: string;
+  // Cuenta bancaria
+  showBankAccount?: boolean;
+  bankAccountTitle?: string;
+  bankName?: string;
+  bankAccountType?: string;
+  bankAccountNumber?: string;
+  bankAccountHolder?: string;
+  bankAccountId?: string;
   galleryImages?: string[];
   showGallery?: boolean;
   showParents?: boolean;
@@ -183,12 +198,18 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     countdownTitle: 'Faltan pocos días',
     countdownText: 'Acompáñanos a contar los días para celebrar este momento tan especial.',
     image2: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg',
-    eventTitle: 'Ceremonia y Recepción',
-    eventVenue: 'Hacienda Los Faroles',
+    eventTitle: 'Ceremonia',
+    eventVenue: 'Parroquia San José',
     eventAddress: 'Chía, Cundinamarca',
     eventHour: '3:00 PM',
     eventMapLink: '#',
     eventButtonText: 'Ver ubicación',
+    showReception: false,
+    receptionTitle: 'Recepción',
+    receptionVenue: 'Hacienda Los Faroles',
+    receptionAddress: 'Chía, Cundinamarca',
+    receptionHour: '6:00 PM',
+    receptionMapLink: '#',
     dressTitle: 'Dress Code',
     dressType: 'Semi Formal',
     dressColors: ['#2c4a2e', '#8e9d70', '#d4c4a8', '#f3efe8'],
@@ -207,6 +228,13 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     confirmButtonText: 'Confirmar aquí',
     confirmLink: '#',
     sobresTitle: 'Lluvia de sobres',
+    showBankAccount: false,
+    bankAccountTitle: 'Cuenta Bancaria',
+    bankName: 'Bancolombia',
+    bankAccountType: 'Ahorros',
+    bankAccountNumber: '',
+    bankAccountHolder: '',
+    bankAccountId: '',
     galleryImages: [
       'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg',
       'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg'

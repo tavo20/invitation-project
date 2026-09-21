@@ -229,6 +229,7 @@
     <img [src]="data.image2" alt="">
   </section>
 
+  <!-- Ceremonia -->
   <section class="flow-event">
     <div class="section-flecks" aria-hidden="true">
       <span class="gold-fleck section-fleck-1"></span>
@@ -237,6 +238,7 @@
     <p class="flow-section-title">{{ data.eventTitle }}</p>
     <div class="flow-divider">
       <span></span>
+      <!-- Icono iglesia/capilla -->
       <svg class="flow-event__divider-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
         <path d="M14 4.5v3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
         <path d="M12.4 6.2h3.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
@@ -251,7 +253,33 @@
       <p class="flow-event__address">{{ data.eventAddress }}</p>
       <p class="flow-event__hour">{{ data.eventHour }}</p>
     </div>
-    <a [href]="data.eventMapLink" class="flow-button">{{ data.eventButtonText }}</a>
+    <a [href]="data.eventMapLink" class="flow-button" target="_blank">{{ data.eventButtonText }}</a>
+  </section>
+
+  <!-- Recepción (segundo lugar) -->
+  <section class="flow-event flow-event--reception" *ngIf="data.showReception">
+    <div class="section-flecks" aria-hidden="true">
+      <span class="gold-fleck section-fleck-1"></span>
+      <span class="gold-fleck section-fleck-2"></span>
+    </div>
+    <p class="flow-section-title">{{ data.receptionTitle }}</p>
+    <div class="flow-divider">
+      <span></span>
+      <!-- Icono copa/celebración -->
+      <svg class="flow-event__divider-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+        <path d="M8 4h12v8c0 3.3-2.7 6-6 6s-6-2.7-6-6V4z" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 18v4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        <path d="M10 24h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        <path d="M11 8h6" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+      </svg>
+      <span></span>
+    </div>
+    <div class="flow-event__item">
+      <p class="flow-event__venue">{{ data.receptionVenue }}</p>
+      <p class="flow-event__address">{{ data.receptionAddress }}</p>
+      <p class="flow-event__hour">{{ data.receptionHour }}</p>
+    </div>
+    <a [href]="data.receptionMapLink" class="flow-button" target="_blank">{{ data.eventButtonText }}</a>
   </section>
 
   <section class="flow-dresscode">
@@ -339,6 +367,33 @@
         <path d="M4 10.5 24 23 44 10.5" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
       </svg>
       <span></span>
+    </div>
+  </section>
+
+  <!-- Cuenta Bancaria -->
+  <section class="flow-bank" *ngIf="data.showBankAccount">
+    <div class="section-flecks" aria-hidden="true">
+      <span class="gold-fleck section-fleck-1"></span>
+      <span class="gold-fleck section-fleck-2"></span>
+    </div>
+    <p class="flow-section-title">{{ data.bankAccountTitle }}</p>
+    <div class="flow-divider">
+      <span></span>
+      <!-- Icono tarjeta/banco -->
+      <svg class="flow-bank__icon" viewBox="0 0 48 36" fill="none" aria-hidden="true">
+        <rect x="4" y="6" width="40" height="24" rx="3" stroke="currentColor" stroke-width="1.3"/>
+        <path d="M4 12h40" stroke="currentColor" stroke-width="1.3"/>
+        <path d="M10 20h8" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+        <path d="M10 24h12" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+      </svg>
+      <span></span>
+    </div>
+    <div class="flow-bank__card">
+      <p class="flow-bank__bank">{{ data.bankName }}</p>
+      <p class="flow-bank__type">{{ data.bankAccountType }}</p>
+      <p class="flow-bank__number">{{ data.bankAccountNumber }}</p>
+      <p class="flow-bank__holder">{{ data.bankAccountHolder }}</p>
+      <p class="flow-bank__id">{{ data.bankAccountId }}</p>
     </div>
   </section>
 
