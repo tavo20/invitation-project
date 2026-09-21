@@ -299,7 +299,7 @@
       <span></span>
     </div>
     <p class="flow-dresscode__style">{{ data.dressType }}</p>
-    <div class="flow-dresscode__palette" aria-label="Paleta de colores">
+    <div class="flow-dresscode__palette" aria-label="Paleta de colores" *ngIf="data.showDressColors">
       <span class="flow-dresscode__swatch" *ngFor="let color of data.dressColors" [style.--swatch]="color"></span>
     </div>
     <p class="flow-dresscode__note">{{ data.dressNote }}</p>

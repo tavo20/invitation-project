@@ -61,6 +61,7 @@ export interface FlowPlantillaData {
   dressTitle?: string;
   dressType?: string;
   dressColors?: string[];
+  showDressColors?: boolean;
   dressNote?: string;
   quoteImage?: string;
   quote?: string;
@@ -213,6 +214,7 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     dressTitle: 'Dress Code',
     dressType: 'Semi Formal',
     dressColors: ['#2c4a2e', '#8e9d70', '#d4c4a8', '#f3efe8'],
+    showDressColors: true,
     dressNote: 'Por favor, evita vestir de color verde claro, está reservado para la novia.',
     quoteImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg',
     quote: 'Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos compartir contigo el comienzo del capítulo más hermoso.',
