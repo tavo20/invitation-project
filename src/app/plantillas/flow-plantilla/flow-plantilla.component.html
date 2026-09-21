@@ -303,6 +303,7 @@
       <span class="flow-dresscode__swatch" *ngFor="let color of data.dressColors" [style.--swatch]="color"></span>
     </div>
     <p class="flow-dresscode__note">{{ data.dressNote }}</p>
+    <a *ngIf="data.showDressCodeButton" [href]="data.dressCodeButtonUrl" class="flow-button" target="_blank">{{ data.dressCodeButtonText }}</a>
   </section>
 
   <section class="flow-quote-card">
