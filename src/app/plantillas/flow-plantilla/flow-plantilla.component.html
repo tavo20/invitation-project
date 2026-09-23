@@ -1,4 +1,37 @@
-<section class="flow-plantilla" [ngStyle]="paletteVars">
+<!-- Pantalla de intro (mejorada) -->
+<div
+  class="flow-intro"
+  *ngIf="data.showIntroScreen && introVisible"
+  (click)="enterInvitation()"
+  [ngStyle]="paletteVars"
+  [class.is-fading]="introFading"
+  role="button"
+  aria-label="Entrar a la invitación">
+
+  <!-- Fondo difuminado (imagen principal) -->
+  <div
+    class="flow-intro__bg"
+    [style.backgroundImage]="'url(' + (data.image2 || data.musicImage || data.quoteImage) + ')'">
+  </div>
+  <!-- Overlay tint -->
+  <div class="flow-intro__overlay" aria-hidden="true"></div>
+
+  <div class="flow-intro__content">
+    <div class="flow-intro__monogram" aria-hidden="true">
+      <span class="monogram">{{ (data.names1 || '').charAt(0) }}{{ (data.names2 || '').charAt(0) }}</span>
+    </div>
+    <p class="flow-intro__names">{{ data.names1 }} &amp; {{ data.names2 }}</p>
+
+    <button class="flow-intro__button" type="button" aria-hidden="true">
+      <span>{{ data.introText }}</span>
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M8 5v14l11-7z"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<section class="flow-plantilla" [ngStyle]="paletteVars" [class.flow-plantilla--hidden]="data.showIntroScreen && introVisible">
   <div class="flow-layout">
     <div class="flow-side flow-left">
       <img src="assets/images/canva/right.webp" alt="Decoración izquierda" />
@@ -396,6 +429,10 @@
       <p class="flow-bank__holder">{{ data.bankAccountHolder }}</p>
       <p class="flow-bank__id">{{ data.bankAccountId }}</p>
     </div>
+  </section>
+
+  <section class="flow-bank-button" *ngIf="data.showBankButton">
+    <a [href]="data.bankButtonUrl" class="flow-button" target="_blank" rel="noopener noreferrer">{{ data.bankButtonText }}</a>
   </section>
 
   <section class="flow-gallery" *ngIf="data.showGallery && galleryPhotos.length">

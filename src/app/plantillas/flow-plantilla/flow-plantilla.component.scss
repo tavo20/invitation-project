@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import './flow-plantilla.intro.scss';
+
+.flow-plantilla--hidden {
+  display: none;
+}
 
 // Base: floral header y secciones en todo el template
 .flow-plantilla {
@@ -461,6 +466,13 @@
     font-size: 1rem;
     color: var(--flow-text, #333);
     margin: 0 0 4px;
+  }
+
+  .flow-bank-button {
+    display: flex;
+    justify-content: center;
+    padding: 0 24px 60px;
+    margin-top: -42px;
   }
 
   .flow-bank__id {

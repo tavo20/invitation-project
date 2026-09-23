@@ -1,0 +1,106 @@
+.flow-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.flow-intro__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(6px) saturate(0.95);
+  transform: scale(1.03);
+  z-index: 0;
+}
+
+.flow-intro__overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.2) 70%);
+  z-index: 1;
+}
+
+.flow-intro__content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  color: #fff;
+  transition: opacity 360ms ease, transform 360ms ease;
+}
+
+.flow-intro__monogram {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.flow-intro__monogram .monogram {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.06em;
+}
+
+.flow-intro__names {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2.6rem, 11vw, 4rem);
+  color: #fff;
+  margin: 0;
+  line-height: 1.1;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6), 0 6px 24px rgba(0, 0, 0, 0.5);
+}
+
+.flow-intro__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--flow-primary, #2d4a3e);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  transition: transform 180ms ease;
+}
+
+.flow-intro__button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.flow-intro__button:active {
+  transform: scale(0.98);
+}
+
+.flow-intro.is-fading .flow-intro__content {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity 320ms ease, transform 320ms ease;
+}

@@ -83,6 +83,9 @@ export interface FlowPlantillaData {
   bankAccountNumber?: string;
   bankAccountHolder?: string;
   bankAccountId?: string;
+  showBankButton?: boolean;
+  bankButtonText?: string;
+  bankButtonUrl?: string;
   galleryImages?: string[];
   showGallery?: boolean;
   showParents?: boolean;
@@ -91,6 +94,9 @@ export interface FlowPlantillaData {
   instragramCliente?: string;
   palette?: FlowPaletteName;
   isProduction?: boolean;
+  showIntroScreen?: boolean;
+  introText?: string;
+  autoPlayMusic?: boolean;
 }
 
 @Component({
@@ -243,6 +249,9 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     bankAccountNumber: '',
     bankAccountHolder: '',
     bankAccountId: '',
+    showBankButton: false,
+    bankButtonText: 'Ver más',
+    bankButtonUrl: '#',
     galleryImages: [
       'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg',
       'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg'
@@ -254,7 +263,15 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     instragramCliente: '',
     palette: 'forest',
     isProduction: false,
+    showIntroScreen: false,
+    introText: 'Toca para entrar',
+    autoPlayMusic: false,
   };
+
+  // Estado de la pantalla de intro
+  introVisible = true;
+  // Estado para animar fade-out antes de ocultar la intro
+  introFading = false;
 
   get data(): Required<FlowPlantillaData> {
     const incoming = this.invitationData ?? {};
@@ -301,6 +318,17 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     this.applyConfirmation();
     this.applyPalette();
     this.startCarousel();
+  }
+
+  private tryAutoPlayMusic(): void {
+    const audio = this.audioPlayerRef?.nativeElement;
+    if (audio) {
+      void audio.play().then(() => {
+        this.isPlaying = true;
+      }).catch(() => {
+        // Navegador bloqueó autoplay, no hacer nada
+      });
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -390,6 +418,18 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
       void audio.play();
     }
     this.isPlaying = !this.isPlaying;
+  }
+
+  enterInvitation(): void {
+    if (this.data.autoPlayMusic && this.data.showIntroScreen) {
+      this.tryAutoPlayMusic();
+    }
+    // Iniciar animación de salida y ocultar después
+    this.introFading = true;
+    setTimeout(() => {
+      this.introVisible = false;
+      this.introFading = false;
+    }, 360);
   }
 
   toggleRepeat(): void {
