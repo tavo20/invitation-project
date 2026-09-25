@@ -1,7 +1,35 @@
+<!-- Pantalla de intro tipo sobre -->
+<div
+  class="envelope-intro"
+  *ngIf="showEnvelopeIntro"
+  [ngStyle]="paletteVars"
+  [class.is-fading]="envelopeFading">
+
+  <!-- Partículas brillantes decorativas -->
+  <div class="envelope-intro__particles">
+    <span *ngFor="let i of [1,2,3,4,5,6,7,8,9,10,11,12]" class="envelope-intro__particle"></span>
+  </div>
+
+  <div class="envelope" [class.is-open]="envelopeOpen" (click)="enterEnvelope()">
+    <!-- Solapa inferior (triángulo apuntando arriba) -->
+    <div class="envelope__flap-bottom"></div>
+    <!-- Solapa izquierda -->
+    <div class="envelope__flap-left"></div>
+    <!-- Solapa derecha -->
+    <div class="envelope__flap-right"></div>
+    <!-- Solapa superior (triángulo apuntando abajo) -->
+    <div class="envelope__flap-top"></div>
+    <!-- Sello de cera -->
+    <div class="envelope__seal">
+      <img src="https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/sello_3-removebg-preview.png" alt="Sello de cera" />
+    </div>
+  </div>
+</div>
+
 <!-- Pantalla de intro (mejorada) -->
 <div
   class="flow-intro"
-  *ngIf="data.showIntroScreen && introVisible"
+  *ngIf="data.showIntroScreen && introVisible && !showEnvelopeIntro"
   (click)="enterInvitation()"
   [ngStyle]="paletteVars"
   [class.is-fading]="introFading"
@@ -28,7 +56,7 @@
   </div>
 </div>
 
-<section class="flow-plantilla" [ngStyle]="paletteVars" [class.flow-plantilla--hidden]="data.showIntroScreen && introVisible">
+<section class="flow-plantilla" [ngStyle]="paletteVars" [class.flow-plantilla--hidden]="(data.showIntroScreen && introVisible) || showEnvelopeIntro">
   <div class="flow-layout">
     <div class="flow-side flow-left">
       <img src="assets/images/canva/right.webp" alt="Decoración izquierda" />

@@ -95,6 +95,7 @@ export interface FlowPlantillaData {
   palette?: FlowPaletteName;
   isProduction?: boolean;
   showIntroScreen?: boolean;
+  showEnvelopeIntro?: boolean;
   introText?: string;
   autoPlayMusic?: boolean;
 }
@@ -264,6 +265,7 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     palette: 'forest',
     isProduction: false,
     showIntroScreen: false,
+    showEnvelopeIntro: false,
     introText: 'Toca para entrar',
     autoPlayMusic: false,
   };
@@ -272,6 +274,11 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
   introVisible = true;
   // Estado para animar fade-out antes de ocultar la intro
   introFading = false;
+
+  // Estado de la pantalla de intro tipo sobre
+  showEnvelopeIntro = false;
+  envelopeOpen = false;
+  envelopeFading = false;
 
   get data(): Required<FlowPlantillaData> {
     const incoming = this.invitationData ?? {};
@@ -315,6 +322,7 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.showEnvelopeIntro = this.data.showEnvelopeIntro ?? false;
     this.applyConfirmation();
     this.applyPalette();
     this.startCarousel();
@@ -430,6 +438,20 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
       this.introVisible = false;
       this.introFading = false;
     }, 360);
+  }
+
+  enterEnvelope(): void {
+    if (this.data.autoPlayMusic) {
+      this.tryAutoPlayMusic();
+    }
+    this.envelopeOpen = true;
+    setTimeout(() => {
+      this.envelopeFading = true;
+      setTimeout(() => {
+        this.showEnvelopeIntro = false;
+        this.envelopeFading = false;
+      }, 500);
+    }, 800);
   }
 
   toggleRepeat(): void {

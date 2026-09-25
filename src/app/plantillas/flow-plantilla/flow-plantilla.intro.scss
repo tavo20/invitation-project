@@ -84,3 +84,264 @@
   transform: translateY(-8px);
   transition: opacity 320ms ease, transform 320ms ease;
 }
+
+// ===== Intro tipo sobre =====
+.envelope-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #f0ebe3 0%, #e6dfd5 50%, #ece7df 100%);
+  opacity: 1;
+  transition: opacity 500ms ease;
+
+  &.is-fading {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+// Partículas brillantes
+.envelope-intro__particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.envelope-intro__particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.6) 0%, transparent 70%);
+  animation: particleFloat 6s ease-in-out infinite;
+
+  @for $i from 1 through 12 {
+    &:nth-child(#{$i}) {
+      left: random(90) + 5%;
+      top: random(90) + 5%;
+      width: #{2 + random(4)}px;
+      height: #{2 + random(4)}px;
+      animation-delay: #{random(5)}s;
+      animation-duration: #{4 + random(4)}s;
+    }
+  }
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  25% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-20px) scale(1);
+  }
+  75% {
+    opacity: 0.6;
+  }
+}
+
+.envelope-intro__hint {
+  margin-top: 40px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: #a09888;
+  letter-spacing: 0.05em;
+  animation: hintPulse 2s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.envelope {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+// Solapas del sobre
+.envelope__flap-bottom,
+.envelope__flap-left,
+.envelope__flap-right,
+.envelope__flap-top {
+  position: absolute;
+  transition: transform 600ms ease, opacity 400ms ease;
+  z-index: 1;
+}
+
+// Solapa inferior — triángulo apuntando arriba
+.envelope__flap-bottom {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 55%;
+  background:
+    linear-gradient(0deg, #e0d9cf 0%, #ebe5db 40%, #f2ede5 100%);
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  z-index: 2;
+  filter:
+    drop-shadow(0 -3px 4px rgba(0, 0, 0, 0.12))
+    drop-shadow(0 -8px 12px rgba(0, 0, 0, 0.08));
+}
+
+// Solapa izquierda
+.envelope__flap-left {
+  top: 0;
+  left: 0;
+  width: 52%;
+  height: 100%;
+  background:
+    linear-gradient(120deg, #cfc9bf 0%, #ddd7cd 30%, #e8e2d8 100%);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  z-index: 1;
+  filter:
+    drop-shadow(3px 0 4px rgba(0, 0, 0, 0.1))
+    drop-shadow(8px 2px 10px rgba(0, 0, 0, 0.07));
+}
+
+// Solapa derecha
+.envelope__flap-right {
+  top: 0;
+  right: 0;
+  width: 52%;
+  height: 100%;
+  background:
+    linear-gradient(-120deg, #cfc9bf 0%, #ddd7cd 30%, #e8e2d8 100%);
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+  z-index: 1;
+  filter:
+    drop-shadow(-3px 0 4px rgba(0, 0, 0, 0.1))
+    drop-shadow(-8px 2px 10px rgba(0, 0, 0, 0.07));
+}
+
+// Solapa superior — triángulo apuntando abajo (encima de todo)
+.envelope__flap-top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 55%;
+  background:
+    linear-gradient(180deg, #f0ebe3 0%, #e8e2d8 60%, #ddd7cd 100%);
+  clip-path: polygon(0 0, 50% 100%, 100% 0);
+  z-index: 3;
+  filter:
+    drop-shadow(0 4px 5px rgba(0, 0, 0, 0.14))
+    drop-shadow(0 10px 16px rgba(0, 0, 0, 0.1));
+}
+
+// Sello de cera
+.envelope__seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 110px;
+  height: 110px;
+  z-index: 10;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.25),
+    0 6px 16px rgba(0, 0, 0, 0.2),
+    0 12px 28px rgba(0, 0, 0, 0.12);
+  transition: transform 400ms ease, opacity 400ms ease;
+  animation: sealPulse 2.5s ease-in-out infinite;
+
+  img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}
+
+@keyframes sealPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+// Carta interior
+.envelope__letter {
+  position: absolute;
+  inset: 15%;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  z-index: 0;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 500ms ease 300ms, transform 500ms ease 300ms;
+
+  &.is-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.envelope__names {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.6rem;
+  color: var(--flow-primary, #2d4a3e);
+  margin: 0 0 6px;
+  line-height: 1.2;
+}
+
+.envelope__message {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  color: #888;
+  margin: 0;
+}
+
+// Animación de apertura
+.envelope.is-open {
+  .envelope__flap-top {
+    transform: translateY(-80%) scaleY(0.3);
+    opacity: 0;
+  }
+
+  .envelope__flap-left {
+    transform: translateX(-60%) scaleX(0.3);
+    opacity: 0;
+  }
+
+  .envelope__flap-right {
+    transform: translateX(60%) scaleX(0.3);
+    opacity: 0;
+  }
+
+  .envelope__flap-bottom {
+    transform: translateY(40%);
+    opacity: 0;
+  }
+
+  .envelope__seal {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+  }
+}
