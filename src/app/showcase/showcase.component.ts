@@ -156,30 +156,6 @@ export class ShowcaseComponent {
 
   ];
 
-  // public clientes_data: any = [
-  //   {
-  //     nombre: 'Alexis',
-  //     showPrices: false,
-  //     // showImage: true,
-  //     imgPartner: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Black%20PNG.png",
-  //     marca: "Lexis Photography",
-  //     // showName: true,
-  //     showFooterInvitapp: false,
-  //     slug: 'lexisphotography',
-  //   },
-  //   {
-  //     nombre: 'Artur Visuals',
-  //     showPrices: false,
-  //     // showImage: true,
-  //     imgPartner: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Artur/logo_1.png",
-  //     marca: "Artur Visuals",
-  //     // showName: true,
-  //     showFooterInvitapp: false,
-  //     slug: 'artur_visuals',
-  //   },
-
-  // ]
-
   cliente: string = '';
 
   constructor(private route: ActivatedRoute, private clientService: ClientService) {

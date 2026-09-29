@@ -1,0 +1,181 @@
+<div class="guest" *ngIf="!loading && !error">
+
+  <!-- ===== Pantalla de entrada ===== -->
+  <div class="guest__entry" *ngIf="!session">
+    <div class="entry-card">
+      <div class="entry-card__icon">🎵</div>
+      <h1 class="entry-card__title">{{ party?.name }}</h1>
+      <p class="entry-card__subtitle">Sugiere canciones para la fiesta</p>
+
+      <div class="entry-card__form">
+        <input
+          type="text"
+          class="input"
+          placeholder="Tu nombre"
+          [(ngModel)]="entryName"
+          (keyup.enter)="enterParty()"
+        />
+        <input
+          type="email"
+          class="input"
+          placeholder="Tu correo"
+          [(ngModel)]="entryEmail"
+          (keyup.enter)="enterParty()"
+        />
+        <p class="entry-card__error" *ngIf="entryError">{{ entryError }}</p>
+        <button class="btn btn--primary" (click)="enterParty()">Entrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== Vista principal ===== -->
+  <div class="guest__main" *ngIf="session">
+
+    <!-- Header -->
+    <header class="header">
+      <h1 class="header__title">{{ party?.name }}</h1>
+      <p class="header__user">Hola, {{ session.name }} 👋</p>
+    </header>
+
+    <!-- Now Playing -->
+    <div class="now-playing" *ngIf="nowPlaying">
+      <div class="now-playing__badge">SONANDO AHORA</div>
+      <div class="now-playing__track">
+        <img [src]="nowPlaying.song.albumImage" [alt]="nowPlaying.song.name" class="now-playing__img" />
+        <div class="now-playing__info">
+          <span class="now-playing__name">{{ nowPlaying.song.name }}</span>
+          <span class="now-playing__artist">{{ nowPlaying.song.artists }}</span>
+        </div>
+        <div class="now-playing__eq">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Buscador -->
+    <div class="search">
+      <div class="search__input-wrap">
+        <svg class="search__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input
+          type="text"
+          class="search__input"
+          placeholder="Buscar canción o artista..."
+          [(ngModel)]="searchQuery"
+          (input)="onSearchInput()"
+        />
+        <button class="search__clear" *ngIf="searchQuery" (click)="clearSearch()">✕</button>
+      </div>
+
+      <!-- Resultados de búsqueda -->
+      <div class="search__results" *ngIf="searchResults.length > 0">
+        <div
+          class="track-item"
+          *ngFor="let song of searchResults"
+          [class.track-item--requested]="isAlreadyRequested(song)"
+        >
+          <img [src]="song.albumImage" [alt]="song.name" class="track-item__img" />
+          <div class="track-item__info">
+            <span class="track-item__name">{{ song.name }}</span>
+            <span class="track-item__artist">{{ song.artists }}</span>
+          </div>
+          <span class="track-item__duration">{{ formatDuration(song.duration_ms) }}</span>
+          <button
+            class="btn btn--small btn--suggest"
+            *ngIf="!isAlreadyRequested(song)"
+            [disabled]="submittingTrackId === song.spotifyId"
+            (click)="suggestSong(song)"
+          >
+            {{ submittingTrackId === song.spotifyId ? '...' : '+ Pedir' }}
+          </button>
+          <span class="track-item__badge" *ngIf="isAlreadyRequested(song)">Ya pedida</span>
+        </div>
+      </div>
+
+      <div class="search__empty" *ngIf="searching">
+        Buscando...
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button
+        class="tabs__btn"
+        [class.tabs__btn--active]="activeTab === 'pending'"
+        (click)="setTab('pending')"
+      >
+        Pendientes ({{ pendingCount }})
+      </button>
+      <button
+        class="tabs__btn"
+        [class.tabs__btn--active]="activeTab === 'played'"
+        (click)="setTab('played')"
+      >
+        Ya sonaron ({{ playedCount }})
+      </button>
+      <button
+        class="tabs__btn"
+        [class.tabs__btn--active]="activeTab === 'rejected'"
+        (click)="setTab('rejected')"
+      >
+        Rechazadas ({{ rejectedCount }})
+      </button>
+      <button
+        class="tabs__btn"
+        [class.tabs__btn--active]="activeTab === 'mine'"
+        (click)="setTab('mine')"
+      >
+        Mis pedidos ({{ mineCount }})
+      </button>
+    </div>
+
+    <!-- Lista de solicitudes -->
+    <div class="requests">
+      <div class="request-card" *ngFor="let req of filteredRequests; let i = index">
+        <span class="request-card__rank" *ngIf="activeTab === 'pending'">{{ i + 1 }}</span>
+        <img [src]="req.song.albumImage" [alt]="req.song.name" class="request-card__img" />
+        <div class="request-card__info">
+          <span class="request-card__name">{{ req.song.name }}</span>
+          <span class="request-card__artist">{{ req.song.artists }}</span>
+          <span class="request-card__status" [ngClass]="statusClass(req.status)" *ngIf="activeTab !== 'pending'">
+            {{ statusLabel(req.status) }}
+          </span>
+          <span class="request-card__by" *ngIf="activeTab !== 'mine'">
+            pedida por {{ req.suggested_by.name }}
+          </span>
+        </div>
+        <button
+          class="like-btn"
+          [class.like-btn--active]="hasLiked(req)"
+          [disabled]="togglingLikeId === req._id || !canLike(req)"
+          (click)="toggleLike(req)"
+          *ngIf="canLike(req)"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span>{{ req.likes }}</span>
+        </button>
+      </div>
+
+      <div class="requests__empty" *ngIf="filteredRequests.length === 0">
+        <p *ngIf="activeTab === 'pending'">Aún no hay canciones pendientes. ¡Sé el primero!</p>
+        <p *ngIf="activeTab === 'played'">Todavía no ha sonado ninguna canción.</p>
+        <p *ngIf="activeTab === 'rejected'">El DJ no ha rechazado canciones todavía.</p>
+        <p *ngIf="activeTab === 'mine'">No has sugerido canciones todavía.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Estados de carga y error -->
+<div class="guest__loading" *ngIf="loading">
+  <div class="spinner"></div>
+  <p>Cargando fiesta...</p>
+</div>
+
+<div class="guest__error" *ngIf="error">
+  <p>{{ error }}</p>
+</div>

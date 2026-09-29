@@ -1,0 +1,116 @@
+<div class="panel" *ngIf="!loading && !error">
+
+  <!-- Header -->
+  <header class="panel__header">
+    <button class="btn-back" (click)="goBack()">← Volver</button>
+    <div class="panel__title-wrap">
+      <h1 class="panel__title">{{ party?.name }}</h1>
+      <span class="panel__status" [ngClass]="'st--' + party?.status">{{ party?.status }}</span>
+    </div>
+    <div class="panel__header-actions">
+      <button class="btn btn--small btn--outline" (click)="copyLink()">
+        {{ copied ? '✅ Copiado' : '🔗 Compartir' }}
+      </button>
+      <button
+        class="btn btn--small"
+        [ngClass]="party?.status === 'active' ? 'btn--warn' : 'btn--primary'"
+        (click)="togglePartyStatus()"
+        *ngIf="party?.status !== 'finished'"
+      >
+        {{ party?.status === 'active' ? '⏸ Pausar' : '▶ Reanudar' }}
+      </button>
+      <button
+        class="btn btn--small btn--danger"
+        (click)="finishParty()"
+        *ngIf="party?.status !== 'finished'"
+      >
+        Finalizar
+      </button>
+    </div>
+  </header>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stats__item">
+      <span class="stats__num">{{ stats.total }}</span>
+      <span class="stats__label">Total</span>
+    </div>
+    <div class="stats__item stats__item--pending">
+      <span class="stats__num">{{ stats.pending }}</span>
+      <span class="stats__label">Pendientes</span>
+    </div>
+    <div class="stats__item stats__item--queued">
+      <span class="stats__num">{{ stats.queued }}</span>
+      <span class="stats__label">En cola</span>
+    </div>
+    <div class="stats__item stats__item--played">
+      <span class="stats__num">{{ stats.played }}</span>
+      <span class="stats__label">Sonaron</span>
+    </div>
+  </div>
+
+  <!-- Now playing -->
+  <div class="now-playing" *ngIf="nowPlaying">
+    <div class="now-playing__badge">🔊 SONANDO AHORA</div>
+    <div class="now-playing__track">
+      <img [src]="nowPlaying.song.albumImage" class="now-playing__img" />
+      <div class="now-playing__info">
+        <span class="now-playing__name">{{ nowPlaying.song.name }}</span>
+        <span class="now-playing__artist">{{ nowPlaying.song.artists }}</span>
+      </div>
+      <button class="btn btn--small btn--ghost" (click)="setStatus(nowPlaying, 'played')">
+        Ya sonó ✅
+      </button>
+    </div>
+  </div>
+
+  <!-- Filtros -->
+  <div class="filters">
+    <button class="filters__btn" [class.filters__btn--active]="filter === 'all'" (click)="setFilter('all')">Todas</button>
+    <button class="filters__btn" [class.filters__btn--active]="filter === 'pending'" (click)="setFilter('pending')">Pendientes</button>
+    <button class="filters__btn" [class.filters__btn--active]="filter === 'queued'" (click)="setFilter('queued')">En cola</button>
+    <button class="filters__btn" [class.filters__btn--active]="filter === 'played'" (click)="setFilter('played')">Sonaron</button>
+    <button class="filters__btn" [class.filters__btn--active]="filter === 'rejected'" (click)="setFilter('rejected')">Rechazadas</button>
+  </div>
+
+  <!-- Lista -->
+  <div class="req-list">
+    <div class="req-card" *ngFor="let req of filteredRequests">
+      <div class="req-card__top">
+        <img [src]="req.song.albumImage" class="req-card__img" />
+        <div class="req-card__info">
+          <span class="req-card__name">{{ req.song.name }}</span>
+          <span class="req-card__artist">{{ req.song.artists }}</span>
+          <span class="req-card__meta">
+            ❤️ {{ req.likes }} · pedida por {{ req.suggested_by.name }}
+          </span>
+        </div>
+      </div>
+      <div class="req-card__actions" [class.req-card__actions--disabled]="updatingId === req._id">
+        <ng-container *ngIf="req.status === 'pending'">
+          <button class="action-btn action-btn--queue" (click)="setStatus(req, 'queued')">En cola</button>
+          <button class="action-btn action-btn--play" (click)="setStatus(req, 'playing')">Poner ahora</button>
+          <button class="action-btn action-btn--reject" (click)="setStatus(req, 'rejected')">Rechazar</button>
+        </ng-container>
+        <ng-container *ngIf="req.status === 'queued'">
+          <button class="action-btn action-btn--play" (click)="setStatus(req, 'playing')">Poner ahora</button>
+          <button class="action-btn action-btn--reject" (click)="setStatus(req, 'rejected')">Rechazar</button>
+        </ng-container>
+        <span class="req-card__status-badge" [ngClass]="'sb--' + req.status" *ngIf="req.status === 'played' || req.status === 'rejected'">
+          {{ statusLabel(req.status) }}
+        </span>
+      </div>
+    </div>
+
+    <div class="req-list__empty" *ngIf="filteredRequests.length === 0">
+      <p>No hay solicitudes aquí.</p>
+    </div>
+  </div>
+</div>
+
+<div class="panel__loading" *ngIf="loading">
+  <div class="spinner"></div>
+</div>
+<div class="panel__error" *ngIf="error">
+  <p>{{ error }}</p>
+</div>

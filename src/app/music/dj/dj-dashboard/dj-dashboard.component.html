@@ -1,0 +1,62 @@
+<div class="dashboard">
+
+  <!-- Header -->
+  <header class="dashboard__header">
+    <div>
+      <h1 class="dashboard__title">Mis Fiestas</h1>
+      <p class="dashboard__user" *ngIf="user">{{ user.name }}</p>
+    </div>
+    <div class="dashboard__actions">
+      <button class="btn btn--primary btn--small" (click)="openCreateModal()">+ Nueva fiesta</button>
+      <button class="btn btn--ghost btn--small" (click)="logout()">Salir</button>
+    </div>
+  </header>
+
+  <!-- Lista de fiestas -->
+  <div class="party-list" *ngIf="!loading">
+    <div class="party-card" *ngFor="let party of parties" (click)="openPanel(party)">
+      <div class="party-card__info">
+        <span class="party-card__name">{{ party.name }}</span>
+        <span class="party-card__code">/fiesta/{{ party.code }}</span>
+      </div>
+      <div class="party-card__right">
+        <span class="party-card__status" [ngClass]="'status--' + party.status">
+          {{ statusLabel(party.status) }}
+        </span>
+        <button class="btn btn--icon" (click)="copyLink(party); $event.stopPropagation()" title="Copiar enlace">
+          📋
+        </button>
+      </div>
+    </div>
+
+    <div class="party-list__empty" *ngIf="parties.length === 0">
+      <p>No tienes fiestas todavía</p>
+      <button class="btn btn--primary" (click)="openCreateModal()">Crear mi primera fiesta</button>
+    </div>
+  </div>
+
+  <div class="dashboard__loading" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Modal crear fiesta -->
+  <div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h2 class="modal__title">Nueva Fiesta</h2>
+      <input
+        type="text"
+        class="input"
+        placeholder="Nombre de la fiesta (ej: Boda Ana & Pedro)"
+        [(ngModel)]="newPartyName"
+        (keyup.enter)="createParty()"
+      />
+      <p class="modal__error" *ngIf="createError">{{ createError }}</p>
+      <div class="modal__actions">
+        <button class="btn btn--ghost" (click)="closeModal()">Cancelar</button>
+        <button class="btn btn--primary" [disabled]="creating" (click)="createParty()">
+          {{ creating ? 'Creando...' : 'Crear' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

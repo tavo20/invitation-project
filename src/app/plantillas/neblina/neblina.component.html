@@ -41,6 +41,8 @@
 <audio #audioPlayer src="assets/songs/thinking_out.mp3"></audio>
 
 <section class="neblina-quote" #quoteSection>
+    <img class="neblina-quote__flower neblina-quote__flower--top" src="assets/neblina/flor_3.png" alt="" aria-hidden="true">
+    <img class="neblina-quote__flower neblina-quote__flower--bottom" src="assets/neblina/flor_3.png" alt="" aria-hidden="true">
     <div class="neblina-quote__mark neblina-quote__mark--top">“</div>
     <p class="neblina-quote__text">{{ data.quote }}</p>
     <div class="neblina-quote__mark neblina-quote__mark--bottom">”</div>
@@ -108,12 +110,14 @@
 <section class="neblina-ceremony" #ceremonySection>
     <div class="neblina-ceremony__card">
         <div class="neblina-ceremony__icon" aria-hidden="true">
-            <svg viewBox="0 0 120 120" role="presentation">
-                <path d="M28 94V56l14-11V31h11v6l7-6 16 13V42h11v12l15 12v28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M47 94V66h26v28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
-                <path d="M53 42h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
-                <path d="M60 32v20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
-                <path d="M28 94h64" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path>
+            <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="presentation">
+                <path d="M60 16v16"></path>
+                <path d="M54 22h12"></path>
+                <path d="M50 32h20v16H50z"></path>
+                <path d="M24 70l36-20 36 20"></path>
+                <path d="M30 70v30h60V70"></path>
+                <path d="M52 100V82a8 8 0 0 1 16 0v18"></path>
+                <path d="M20 100h80"></path>
             </svg>
         </div>
         <p class="neblina-ceremony__title">{{ data.ceremonyTitle }}</p>
@@ -208,6 +212,7 @@
 </section>
 
 <section class="neblina-final" #finalSection>
+    <img class="neblina-final__flower" src="assets/neblina/flor_5.png" alt="" aria-hidden="true">
     <div class="neblina-final__card">
         <p class="neblina-final__message">{{ data.finalMessage }}</p>
 

@@ -43,6 +43,19 @@ export const routes: Routes = [
             import('./ticket/ticket.component')
                 .then(m => m.TicketComponent)
     },
+    // ===== Music / Party Queue =====
+    {
+        path: 'dj',
+        loadChildren: () =>
+            import('./music/music.routes').then(m => m.musicRoutes)
+    },
+    {
+        path: 'fiesta/:code',
+        loadComponent: () =>
+            import('./music/guest/guest-view/guest-view.component')
+                .then(m => m.GuestViewComponent)
+    },
+    // ===== Fin Music =====
     {
         path: ':slug',
         component: HomeComponent

@@ -1,0 +1,47 @@
+<div class="login">
+  <div class="login__card">
+    <div class="login__icon">🎧</div>
+    <h1 class="login__title">DJ Panel</h1>
+    <p class="login__subtitle">
+      {{ mode === 'login' ? 'Inicia sesión para administrar tus fiestas' : 'Crea tu cuenta de DJ' }}
+    </p>
+
+    <div class="login__form">
+      <input
+        *ngIf="mode === 'register'"
+        type="text"
+        class="input"
+        placeholder="Tu nombre"
+        [(ngModel)]="name"
+        (keyup.enter)="submit()"
+      />
+      <input
+        type="email"
+        class="input"
+        placeholder="Correo electrónico"
+        [(ngModel)]="email"
+        (keyup.enter)="submit()"
+      />
+      <input
+        type="password"
+        class="input"
+        placeholder="Contraseña"
+        [(ngModel)]="password"
+        (keyup.enter)="submit()"
+      />
+
+      <p class="login__error" *ngIf="error">{{ error }}</p>
+
+      <button class="btn btn--primary" [disabled]="loading" (click)="submit()">
+        {{ loading ? 'Cargando...' : (mode === 'login' ? 'Entrar' : 'Crear cuenta') }}
+      </button>
+    </div>
+
+    <p class="login__toggle">
+      {{ mode === 'login' ? '¿No tienes cuenta?' : '¿Ya tienes cuenta?' }}
+      <a (click)="toggleMode()">
+        {{ mode === 'login' ? 'Regístrate' : 'Inicia sesión' }}
+      </a>
+    </p>
+  </div>
+</div>
