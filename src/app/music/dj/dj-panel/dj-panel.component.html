@@ -49,6 +49,74 @@
     </div>
   </div>
 
+  <!-- Secciones -->
+  <section class="sections">
+    <div class="sections__head">
+      <h2 class="sections__title">Secciones</h2>
+      <button class="btn btn--small btn--primary" type="button" (click)="openSectionForm()" *ngIf="!showSectionForm && party?.status !== 'finished'">
+        + Sección
+      </button>
+    </div>
+
+    <div class="sections__chips">
+      <button
+        type="button"
+        class="sections__chip"
+        *ngFor="let section of sections; trackBy: trackSection"
+        [class.sections__chip--active]="section._id === selectedSectionId"
+        (click)="selectSection(section._id)"
+      >
+        <span class="sections__chip-name">{{ sectionLabel(section) }}</span>
+        <span class="sections__chip-meta">{{ sectionStatusLabel(section.status) }}</span>
+      </button>
+    </div>
+
+    <div class="sections__detail" *ngIf="selectedSection as section">
+      <p class="sections__window" *ngIf="section.is_general">Cola libre, sin horario. Aquí se pide cualquier género.</p>
+      <p class="sections__window" *ngIf="!section.is_general">
+        {{ section.horario }} · top {{ section.top_count }}
+      </p>
+
+      <div class="sections__actions" *ngIf="!section.is_general && party?.status !== 'finished'">
+        <button class="btn btn--small btn--primary" type="button" *ngIf="section.status === 'scheduled'" (click)="openSection(section)">Abrir</button>
+        <button class="btn btn--small btn--warn" type="button" *ngIf="section.status === 'open'" (click)="closeSection(section)">Cerrar</button>
+        <button class="btn btn--small btn--outline" type="button" *ngIf="section.status !== 'closed'" (click)="editSection(section)">Editar</button>
+        <button class="btn btn--small btn--danger" type="button" *ngIf="section.status === 'scheduled'" (click)="deleteSection(section)">Eliminar</button>
+      </div>
+    </div>
+
+    <p class="sections__message" *ngIf="sectionMessage">{{ sectionMessage }}</p>
+
+    <form class="section-form" *ngIf="showSectionForm" (ngSubmit)="saveSection()">
+      <h3 class="section-form__title">{{ editingSectionId ? 'Editar sección' : 'Nueva sección' }}</h3>
+      <input class="input" type="text" placeholder="Género, por ejemplo Bachata" [(ngModel)]="sectionGenre" name="genre" />
+      <input class="input" type="text" placeholder="Horario, por ejemplo 12 a 1am" [(ngModel)]="sectionHorario" name="horario" />
+      <label class="section-form__label">
+        Cuántas se ponen
+        <input class="input" type="number" min="1" [(ngModel)]="sectionTopCount" name="topCount" />
+      </label>
+      <div class="section-form__actions">
+        <button class="btn btn--small btn--ghost" type="button" (click)="cancelSectionForm()">Cancelar</button>
+        <button class="btn btn--small btn--primary" type="submit" [disabled]="savingSection">
+          {{ savingSection ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </div>
+    </form>
+
+    <div class="ranking" *ngIf="selectedSection && !selectedSection.is_general && ranking.length">
+      <h3 class="ranking__title">{{ selectedSection.status === 'closed' ? 'Se van a poner' : 'Van ganando' }}</h3>
+      <div class="ranking__item" *ngFor="let req of ranking; let i = index">
+        <span class="ranking__pos">{{ i + 1 }}</span>
+        <img [src]="req.song.albumImage" class="ranking__img" [alt]="req.song.name" />
+        <div class="ranking__info">
+          <span class="ranking__name">{{ req.song.name }}</span>
+          <span class="ranking__artist">{{ req.song.artists }}</span>
+        </div>
+        <span class="ranking__likes">❤️ {{ req.likes }}</span>
+      </div>
+    </div>
+  </section>
+
   <!-- Now playing -->
   <div class="now-playing" *ngIf="nowPlaying">
     <div class="now-playing__badge">🔊 SONANDO AHORA</div>

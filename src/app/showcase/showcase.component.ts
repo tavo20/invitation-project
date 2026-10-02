@@ -94,7 +94,7 @@ export class ShowcaseComponent {
       nombre: 'Neblina',
       estilo: 'Azul & Rosa',
       descripcion: 'Diseñada para bodas: portada cinematográfica, tonos azules elegantes, RSVP en modal y lluvia de sobres con estilo. Pensada para un look sofisticado y actual.',
-      imagen: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_2_neblina.jpeg',
+      imagen: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Artur/Examples/neblina_01.jpg',
       link: '/neblina',
       tags: ['Neblina', 'Azul', 'Rosa', 'RSVP', 'Lluvia de Sobres'],
       category: 'Boda'

@@ -21,10 +21,11 @@ export class RequestService {
       .pipe(map((res) => res.data));
   }
 
-  getByParty(partyId: string): Observable<SongRequest[]> {
+  getByParty(partyId: string, sectionId?: string): Observable<SongRequest[]> {
+    const params = sectionId ? { section_id: sectionId } : undefined;
     return this.http
-      .get<ApiResponse<SongRequest[]>>(`${this.API}/by-party/${partyId}`)
-      .pipe(map((res) => res.data));
+      .get<ApiResponse<SongRequest[]>>(`${this.API}/by-party/${partyId}`, { params })
+      .pipe(map((res) => res.data ?? []));
   }
 
   toggleLike(requestId: string, sessionId: string): Observable<SongRequest> {

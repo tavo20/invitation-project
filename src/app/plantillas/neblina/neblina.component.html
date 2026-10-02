@@ -17,7 +17,7 @@
             <div class="neblina-hero__divider"></div>
             <p class="neblina-hero__date">{{ data.date }}</p>
             <div class="neblina-hero__divider"></div>
-
+            <p class="neblina-hero__location" *ngIf="data.location">{{ data.location }}</p>
         </div>
     </div>
 
@@ -75,8 +75,8 @@
             </div>
         </div>
 
-        <p class="neblina-save-date__date">14 DE FEB DEL 2027</p>
-        <a href="#" class="neblina-save-date__button">Confirmar asistencia</a>
+        <p class="neblina-save-date__date">{{ data.saveDateText }}</p>
+        <a [href]="data.confirmLink" class="neblina-save-date__button">Confirmar asistencia</a>
 
         <div>
             <img class="neblina-save-date__flower" src="assets/neblina/flor_4.png" alt="Mapa">
@@ -124,7 +124,7 @@
         <p class="neblina-ceremony__time">{{ data.ceremonyTime }}</p>
         <p class="neblina-ceremony__place">{{ data.ceremonyPlace }}</p>
         <p class="neblina-ceremony__address">{{ data.ceremonyAddress }}</p>
-        <a href="#" class="neblina-ceremony__button">{{ data.ceremonyButton }}</a>
+        <a [href]="data.ceremonyMapLink" target="_blank" rel="noopener noreferrer" class="neblina-ceremony__button">{{ data.ceremonyButton }}</a>
     </div>
 </section>
 
@@ -136,7 +136,7 @@
                 class="neblina-story__carousel-track"
                 [style.transform]="'translateX(-' + (currentStorySlide * 100) + '%)'">
                 <div class="neblina-story__carousel-slide" *ngFor="let image of data.storyImages; let i = index">
-                    <img [src]="image" [alt]="'Historia de Lucía y Santiago ' + (i + 1)">
+                    <img [src]="image" [alt]="'Historia de ' + data.names1 + ' y ' + data.names2 + ' ' + (i + 1)">
                 </div>
             </div>
         </div>

@@ -324,3 +324,187 @@ $radius-sm: 8px;
   animation: spin 0.8s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #333;
+  border-radius: $radius-sm;
+  background: $surface-2;
+  color: $text;
+  font-size: 0.9rem;
+  outline: none;
+  color-scheme: dark;
+
+  &::placeholder { color: $text-muted; }
+  &:focus { border-color: $accent; }
+}
+
+.sections {
+  padding: 0 16px 8px;
+
+  &__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+
+  &__chips {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  &__chip {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 8px 12px;
+    border: 1px solid #333;
+    border-radius: 12px;
+    background: $surface;
+    color: $text;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &--active {
+      border-color: $accent;
+      background: rgba($accent, 0.12);
+    }
+  }
+
+  &__chip-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+  }
+
+  &__chip-meta {
+    font-size: 0.68rem;
+    color: $text-muted;
+  }
+
+  &__detail {
+    margin-top: 12px;
+  }
+
+  &__window {
+    margin: 0 0 10px;
+    color: $text-muted;
+    font-size: 0.82rem;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  &__message {
+    margin: 0 0 10px;
+    color: $danger;
+    font-size: 0.82rem;
+  }
+}
+
+.section-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding: 14px;
+  background: $surface;
+  border-radius: $radius;
+
+  &__title {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.75rem;
+    color: $text-muted;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}
+
+.ranking {
+  margin-bottom: 8px;
+  padding: 12px;
+  background: $surface;
+  border-radius: $radius;
+  border: 1px solid rgba($accent, 0.25);
+
+  &__title {
+    margin: 0 0 10px;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: $accent;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+
+    & + & { border-top: 1px solid #2a2a2a; }
+  }
+
+  &__pos {
+    width: 18px;
+    font-weight: 700;
+    color: $accent;
+  }
+
+  &__img {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    object-fit: cover;
+  }
+
+  &__info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__artist {
+    font-size: 0.75rem;
+    color: $text-muted;
+  }
+
+  &__likes {
+    font-size: 0.75rem;
+    color: $text-muted;
+  }
+}

@@ -37,6 +37,26 @@
       <p class="header__user">Hola, {{ session.name }} 👋</p>
     </header>
 
+    <!-- Secciones -->
+    <div class="sections" *ngIf="sections.length">
+      <div class="sections__chips">
+        <button
+          type="button"
+          class="sections__chip"
+          *ngFor="let section of sections; trackBy: trackSection"
+          [class.sections__chip--active]="section._id === selectedSectionId"
+          (click)="selectSection(section._id)"
+        >
+          <span class="sections__chip-name">{{ sectionLabel(section) }}</span>
+          <span class="sections__chip-meta" *ngIf="section.is_general">Cualquier género</span>
+          <span class="sections__chip-meta" *ngIf="!section.is_general">{{ section.horario }}</span>
+        </button>
+      </div>
+      <p class="sections__hint" *ngIf="selectedSection && !selectedSection.is_general && canSuggest">
+        Solo {{ selectedSection.genre }}{{ selectedSection.horario ? ', ' + selectedSection.horario : '' }}. Se ponen las {{ selectedSection.top_count }} con más likes.
+      </p>
+    </div>
+
     <!-- Now Playing -->
     <div class="now-playing" *ngIf="nowPlaying">
       <div class="now-playing__badge">SONANDO AHORA</div>
@@ -61,9 +81,10 @@
         <input
           type="text"
           class="search__input"
-          placeholder="Buscar canción o artista..."
+          [placeholder]="canSuggest ? 'Buscar canción o artista...' : 'Ahora no se pueden pedir canciones'"
           [(ngModel)]="searchQuery"
           (input)="onSearchInput()"
+          [disabled]="!canSuggest"
         />
         <button class="search__clear" *ngIf="searchQuery" (click)="clearSearch()">✕</button>
       </div>
@@ -95,6 +116,21 @@
 
       <div class="search__empty" *ngIf="searching">
         Buscando...
+      </div>
+      <p class="search__blocked" *ngIf="!canSuggest">{{ requestBlockedMessage }}</p>
+      <p class="search__blocked" *ngIf="suggestError">{{ suggestError }}</p>
+    </div>
+
+    <div class="ranking" *ngIf="selectedSection && !selectedSection.is_general && ranking.length">
+      <h2 class="ranking__title">{{ selectedSection.status === 'closed' ? 'Se van a poner' : 'Van ganando' }}</h2>
+      <div class="ranking__item" *ngFor="let req of ranking; let i = index">
+        <span class="ranking__pos">{{ i + 1 }}</span>
+        <img [src]="req.song.albumImage" [alt]="req.song.name" class="ranking__img" />
+        <div class="ranking__info">
+          <span class="ranking__name">{{ req.song.name }}</span>
+          <span class="ranking__artist">{{ req.song.artists }}</span>
+        </div>
+        <span class="ranking__likes">{{ req.likes }}</span>
       </div>
     </div>
 

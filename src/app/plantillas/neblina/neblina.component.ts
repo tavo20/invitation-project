@@ -35,9 +35,11 @@ interface NeblinaInvitationData {
   inicial_1: string;
   inicial_2: string;
   date: string;
+  saveDateText: string;
   location: string;
   quote: string;
   countdownDate: string;
+  confirmLink: string;
   parentsTitle: string;
   brideLabel: string;
   brideParent1: string;
@@ -58,6 +60,7 @@ interface NeblinaInvitationData {
   ceremonyTime: string;
   ceremonyPlace: string;
   ceremonyAddress: string;
+  ceremonyMapLink: string;
   ceremonyButton: string;
   dressTitle: string;
   dressType: string;
@@ -181,53 +184,57 @@ export class NeblinaComponent implements OnInit, OnChanges, AfterViewInit, OnDes
   ];
 
   private readonly defaultData: NeblinaInvitationData = {
-    heroImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_neblina.jpeg',
-    monogram: 'LS',
-    names1: 'Lucía',
-    names2: 'Santiago',
-    date: '14 · 02 · 2027',
-    location: '',
-    inicial_1: 'L',
-    
-    inicial_2: 'S',
-    quote: 'El amor nos unió para siempre y queremos compartir este gran día contigo.',
-    countdownDate: 'February 14, 2027 18:00:00',
+    heroImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Artur/Examples/neblina_01.jpg',
+    monogram: 'GA',
+    names1: 'Guillermo',
+    names2: 'Alicia',
+    date: '12 · 06 · 2027',
+    saveDateText: '12 DE JUN DEL 2027',
+    location: 'La Calera, Cundinamarca',
+    inicial_1: 'G',
+    inicial_2: 'A',
+    quote: 'Hay amores que se sienten como casa: silenciosos, seguros y eternos.',
+    countdownDate: 'June 12, 2027 16:30:00',
+    confirmLink: '#',
     parentsTitle: 'Con la bendición de nuestros padres',
     brideLabel: 'Novia',
-    brideParent1: 'María Elena López',
-    brideParent2: 'Jorge Andrés Rivera',
+    brideParent1: 'Elena Vargas de Herrera',
+    brideParent2: 'Ricardo Herrera Mejía',
     groomLabel: 'Novio',
-    groomParent1: 'Marta Cecilia Rojas',
-    groomParent2: 'Luis Alberto Santiago',
+    groomParent1: 'Carmen Alicia Gómez',
+    groomParent2: 'Fernando Ruiz Palacio',
     padrinosLabel: 'Padrinos',
-    padrino1: 'Laura Martínez',
-    padrino2: 'Andrés Salazar',
+    padrino1: 'Isabel Duarte',
+    padrino2: 'Tomás Rincón',
     storyTitle: 'Nuestra historia',
-    storyText1: 'Todo comenzó con un encuentro inesperado, de esos que parecen escritos por el destino. Lo que empezó como una simple coincidencia se transformó rápidamente en una aventura favorita, llena de risas compartidas y apoyo incondicional.',
-    storyText2: 'A través de momentos difíciles descubrimos que, cuando el amor es verdadero, siempre encuentra la forma de hacerse más fuerte. Hoy queremos seguir escribiendo este libro de la mano, celebrando el comienzo de un nuevo capítulo juntos.',
+    storyText1: 'Guillermo y Alicia se conocieron en una cena de amigos y, sin prisa, empezaron a elegirse todos los días. Entre caminatas, café y conversaciones que se alargaban hasta tarde, entendieron que el otro era su lugar seguro.',
+    storyText2: 'Un atardecer en el jardín, entre árboles y silencio, él le pidió que escribieran juntos el resto de la historia. Hoy abren las puertas de su boda para celebrar ese sí con quienes más quieren.',
     storyImages: [
-      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/carru_1.jpeg',
-      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/carru_2.jpeg',
-      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_neblina.jpeg'
+      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Artur/Examples/neblina_01.jpg',
+      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Artur/Examples/neblina_02.jpg',
+      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Artur/Examples/neblina_03.jpg',
+      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Artur/Examples/neblina_04.jpg'
     ],
     itineraryTitle: 'ITINERARIO',
     itinerary: [
-      { label: 'Llegada de invitados', time: '6:00 PM' },
-      { label: 'Ceremonia', time: '6:30 PM' },
-      { label: 'Recepción', time: '7:30 PM' },
-      { label: 'Fin de la noche', time: '11:00 PM' }
+      { label: 'Llegada de invitados', time: '4:00 PM' },
+      { label: 'Ceremonia', time: '4:30 PM' },
+      { label: 'Cóctel de bienvenida', time: '5:30 PM' },
+      { label: 'Cena y brindis', time: '7:00 PM' },
+      { label: 'Fiesta', time: '9:00 PM' }
     ],
     ceremonyTitle: 'Ceremonia',
-    ceremonyTime: '6:30 PM',
-    ceremonyPlace: 'Iglesia de Guadalupe',
-    ceremonyAddress: 'San Francisco, calle 50',
+    ceremonyTime: '4:30 PM',
+    ceremonyPlace: 'Capilla San José',
+    ceremonyAddress: 'Hacienda El Encanto, La Calera',
+    ceremonyMapLink: 'https://maps.google.com/?q=La+Calera+Cundinamarca',
     ceremonyButton: 'VER MAPA',
     dressTitle: 'Dress Code',
-    dressType: 'Semi Formal',
+    dressType: 'Formal de jardín',
     dressColors: ['#6a6e78', '#8b7d86', '#c4b8ad', '#efeae4'],
-    dressNote: 'Por favor, evita vestir de blanco, está reservado para la novia.',
+    dressNote: 'El blanco queda reservado para Alicia. Evita tenis y colores neón.',
     palette: 'mist',
-    finalMessage: '¡Los esperamos con muchísima ilusión para celebrar juntos este día tan especial!',
+    finalMessage: 'Gracias por acompañarnos a decir que sí. Los esperamos con el corazón abierto para celebrar este día juntos.',
     giftTitle: 'Lluvia de sobres',
   };
 

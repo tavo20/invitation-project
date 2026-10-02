@@ -6,12 +6,15 @@ import { SongSearchService } from '../../services/song-search.service';
 import { RequestService } from '../../services/request.service';
 import { GuestSessionService } from '../../services/guest-session.service';
 import { PartyService } from '../../services/party.service';
+import { SectionService } from '../../services/section.service';
 import {
   Party,
+  PartySection,
   SongInfo,
   SongRequest,
   GuestSession,
   formatDuration,
+  sectionAcceptsRequests,
 } from '../../models/music.models';
 
 type ViewTab = 'pending' | 'played' | 'rejected' | 'mine';
@@ -40,6 +43,10 @@ export class GuestViewComponent implements OnInit, OnDestroy {
   searchTimeout: any = null;
 
   requests: SongRequest[] = [];
+  sections: PartySection[] = [];
+  selectedSectionId = '';
+  ranking: SongRequest[] = [];
+  suggestError = '';
   activeTab: ViewTab = 'pending';
   submittingTrackId = '';
   togglingLikeId = '';
@@ -56,6 +63,7 @@ export class GuestViewComponent implements OnInit, OnDestroy {
     private songSearch: SongSearchService,
     private requestService: RequestService,
     private guestSessionService: GuestSessionService,
+    private sectionService: SectionService,
   ) {}
 
   ngOnInit(): void {
@@ -85,10 +93,8 @@ export class GuestViewComponent implements OnInit, OnDestroy {
       next: (party) => {
         this.party = party;
         this.loading = false;
-        if (this.session) {
-          this.loadRequests();
-          this.startPolling();
-        }
+        this.loadSections();
+        if (this.session) this.startPolling();
       },
       error: () => {
         // Modo demo: permite probar sin backend de fiestas
@@ -122,8 +128,57 @@ export class GuestViewComponent implements OnInit, OnDestroy {
 
     this.entryError = '';
     this.session = this.guestSessionService.createSession(name, email, this.partyCode);
-    this.loadRequests();
+    this.loadSections();
     this.startPolling();
+  }
+
+  get selectedSection(): PartySection | null {
+    return this.sections.find((section) => section._id === this.selectedSectionId) ?? null;
+  }
+
+  get canSuggest(): boolean {
+    return !!this.selectedSection && sectionAcceptsRequests(this.selectedSection);
+  }
+
+  get requestBlockedMessage(): string {
+    const section = this.selectedSection;
+    if (!section) return 'Todavía no hay una sección para pedir canciones.';
+    if (section.status === 'closed') return 'Esta sección ya cerró. Estas son las que se van a poner.';
+    if (section.status === 'scheduled') return 'El DJ todavía no abre esta sección.';
+    return 'Esta sección no está recibiendo canciones.';
+  }
+
+  sectionLabel(section: PartySection): string {
+    return section.is_general ? 'General' : section.genre;
+  }
+
+  trackSection(_index: number, section: PartySection): string {
+    return section._id;
+  }
+
+  selectSection(sectionId: string): void {
+    if (this.selectedSectionId === sectionId) return;
+    this.selectedSectionId = sectionId;
+    this.suggestError = '';
+    this.clearSearch();
+    this.loadRequests();
+    this.loadRanking();
+  }
+
+  loadSections(): void {
+    if (!this.party || this.party._id === 'demo') return;
+    this.sectionService.getByParty(this.party._id).subscribe({
+      next: (sections) => {
+        this.sections = this.sortSections(sections);
+        const stillThere = this.sections.some((section) => section._id === this.selectedSectionId);
+        if (!stillThere) this.selectedSectionId = this.pickDefaultSection(this.sections);
+        if (this.session) {
+          this.loadRequests();
+          this.loadNowPlaying();
+          this.loadRanking();
+        }
+      },
+    });
   }
 
   onSearchInput(): void {
@@ -156,12 +211,18 @@ export class GuestViewComponent implements OnInit, OnDestroy {
   }
 
   suggestSong(song: SongInfo): void {
-    if (!this.party || !this.session || this.submittingTrackId) return;
+    if (!this.party || !this.session || !this.selectedSection || this.submittingTrackId) return;
+    if (!this.canSuggest) {
+      this.suggestError = this.requestBlockedMessage;
+      return;
+    }
 
+    this.suggestError = '';
     this.submittingTrackId = song.spotifyId;
     this.requestService
       .create({
         party_id: this.party._id,
+        section_id: this.selectedSection._id,
         song,
         guest: {
           session_id: this.session.session_id,
@@ -175,8 +236,9 @@ export class GuestViewComponent implements OnInit, OnDestroy {
           this.clearSearch();
           this.loadRequests();
         },
-        error: () => {
+        error: (err) => {
           this.submittingTrackId = '';
+          this.suggestError = err?.error?.message || 'No se pudo pedir la canción';
         },
       });
   }
@@ -186,15 +248,38 @@ export class GuestViewComponent implements OnInit, OnDestroy {
   }
 
   loadRequests(): void {
-    if (!this.party) return;
-    this.requestService.getByParty(this.party._id).subscribe({
+    if (!this.party || !this.selectedSectionId || this.party._id === 'demo') return;
+    this.requestService.getByParty(this.party._id, this.selectedSectionId).subscribe({
       next: (reqs) => (this.requests = reqs),
       error: () => {},
     });
   }
 
+  loadRanking(): void {
+    const section = this.selectedSection;
+    if (!section || section.is_general) {
+      this.ranking = [];
+      return;
+    }
+    this.sectionService.getRanking(section._id).subscribe({
+      next: (ranking) => (this.ranking = ranking),
+      error: () => (this.ranking = []),
+    });
+  }
+
+  nowPlayingRequest: SongRequest | null = null;
+
   get nowPlaying(): SongRequest | null {
-    return this.requests.find((r) => r.status === 'playing') ?? null;
+    return this.nowPlayingRequest;
+  }
+
+  loadNowPlaying(): void {
+    if (!this.party || this.party._id === 'demo') return;
+    this.requestService.getByParty(this.party._id).subscribe({
+      next: (reqs) => {
+        this.nowPlayingRequest = reqs.find((req) => req.status === 'playing') ?? null;
+      },
+    });
   }
 
   get filteredRequests(): SongRequest[] {
@@ -251,6 +336,7 @@ export class GuestViewComponent implements OnInit, OnDestroy {
   }
 
   canLike(req: SongRequest): boolean {
+    if (!this.selectedSection || !sectionAcceptsRequests(this.selectedSection)) return false;
     return req.status === 'pending' || req.status === 'queued';
   }
 
@@ -270,7 +356,23 @@ export class GuestViewComponent implements OnInit, OnDestroy {
   }
 
   private startPolling(): void {
-    this.pollInterval = setInterval(() => this.loadRequests(), this.POLL_MS);
+    this.stopPolling();
+    this.pollInterval = setInterval(() => this.loadSections(), this.POLL_MS);
+  }
+
+  private sortSections(sections: PartySection[]): PartySection[] {
+    return [...sections].sort((a, b) => {
+      if (a.is_general) return -1;
+      if (b.is_general) return 1;
+      return 0;
+    });
+  }
+
+  private pickDefaultSection(sections: PartySection[]): string {
+    const live = sections.find((section) => !section.is_general && sectionAcceptsRequests(section));
+    if (live) return live._id;
+    const general = sections.find((section) => section.is_general);
+    return general?._id ?? sections[0]?._id ?? '';
   }
 
   private stopPolling(): void {

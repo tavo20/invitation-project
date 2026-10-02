@@ -93,6 +93,39 @@ export interface CreatePartyPayload {
 }
 
 // ============================================================
+// Sección de la fiesta
+// General nace open y sin horario. El resto tiene género y horario.
+// ============================================================
+
+export type SectionStatus = 'scheduled' | 'open' | 'closed';
+
+export interface PartySection {
+  _id: string;
+  party_id: string;
+  genre: string;
+  horario?: string;
+  top_count: number;
+  status: SectionStatus;
+  is_general: boolean;
+  winners: string[];
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface CreateSectionPayload {
+  party_id: string;
+  genre: string;
+  horario: string;
+  top_count?: number;
+}
+
+export interface UpdateSectionPayload {
+  genre?: string;
+  horario?: string;
+  top_count?: number;
+}
+
+// ============================================================
 // Solicitud de canción (Song Request)
 // ============================================================
 
@@ -106,6 +139,7 @@ export type RequestStatus =
 export interface SongRequest {
   _id: string;
   party_id: string;
+  section_id?: string;
   song: SongInfo;
   suggested_by: GuestInfo;
   likes: number;
@@ -117,6 +151,7 @@ export interface SongRequest {
 
 export interface CreateRequestPayload {
   party_id: string;
+  section_id: string;
   song: SongInfo;
   guest: GuestInfo;
 }
@@ -198,6 +233,11 @@ export function trackToSongInfo(track: SpotifyTrack): SongInfo {
     spotifyUri: track.uri,
     spotifyUrl: track.external_urls.spotify,
   };
+}
+
+/** Se puede pedir y votar solo mientras la sección está abierta. */
+export function sectionAcceptsRequests(section: PartySection): boolean {
+  return section.status === 'open';
 }
 
 /** Formatea milisegundos a "3:05" */
