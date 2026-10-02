@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1080">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Great Vibes";
+        src: url("assets/fonts/great-vibes.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("assets/fonts/cormorant.woff2") format("woff2");
+        font-weight: 300 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("assets/fonts/cormorant-italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+      }
+      :root {
+        --canvas: #faf8f5;
+        --ink: #222222;
+        --accent: #a38c7b;
+        --muted: #6b625b;
+        --accent-ink: #7a6657;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--canvas);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--canvas);
+        font-family: "Cormorant Garamond", serif;
+        color: var(--ink);
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      .script {
+        font-family: "Great Vibes", cursive;
+        font-weight: 400;
+      }
+
+      /* ---------- background ---------- */
+      #bg {
+        background: radial-gradient(circle at 78% 40%, #f1ebe4 0%, var(--canvas) 55%);
+      }
+      .bg-ring {
+        position: absolute;
+        border: 1.5px solid rgba(163, 140, 123, 0.28);
+        border-radius: 50%;
+      }
+
+      /* ---------- phone ---------- */
+      .phone {
+        position: absolute;
+        background: #151515;
+        border-radius: 58px;
+        padding: 14px;
+        box-shadow:
+          0 40px 80px -30px rgba(60, 40, 25, 0.45),
+          0 12px 30px -12px rgba(60, 40, 25, 0.3);
+      }
+      .phone .screen {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 46px;
+        overflow: hidden;
+        background: #000;
+      }
+      .phone .screen img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top center;
+      }
+      .phone .notch {
+        position: absolute;
+        top: 24px;
+        left: 50%;
+        width: 96px;
+        height: 26px;
+        margin-left: -48px;
+        border-radius: 14px;
+        background: #151515;
+      }
+
+      /* ---------- scene 1 ---------- */
+      #s1-phone {
+        left: 588px;
+        top: 120px;
+        width: 380px;
+        height: 800px;
+      }
+      .s1-text {
+        position: absolute;
+        left: 80px;
+        top: 300px;
+        width: 470px;
+      }
+      .kicker {
+        font-size: 22px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--accent-ink);
+        font-weight: 600;
+      }
+      .s1-title {
+        display: block;
+        font-size: 104px;
+        line-height: 1.02;
+        margin-top: 22px;
+        color: var(--ink);
+      }
+      .s1-rule {
+        width: 90px;
+        height: 2px;
+        background: var(--accent);
+        margin: 34px 0 28px;
+      }
+      .s1-body {
+        font-size: 34px;
+        line-height: 1.3;
+        color: var(--muted);
+      }
+      #s1-names {
+        position: absolute;
+        left: 588px;
+        top: 942px;
+        width: 380px;
+        height: 40px;
+      }
+      .tpl-name {
+        position: absolute;
+        inset: 0;
+        text-align: center;
+        font-size: 28px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent-ink);
+        font-weight: 600;
+      }
+
+      /* ---------- scene 2 ---------- */
+      #s2-title {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 58px;
+        text-align: center;
+        font-size: 92px;
+        line-height: 1.1;
+      }
+      .fan {
+        position: absolute;
+        top: 214px;
+        width: 274px;
+        height: 580px;
+      }
+      .fan .phone {
+        inset: 0;
+        border-radius: 44px;
+        padding: 11px;
+      }
+      .fan .phone .screen {
+        border-radius: 34px;
+      }
+      .fan .phone .notch {
+        top: 18px;
+        width: 70px;
+        height: 20px;
+        margin-left: -35px;
+      }
+      #fan-a {
+        left: 92px;
+      }
+      #fan-b {
+        left: 403px;
+      }
+      #fan-c {
+        left: 714px;
+      }
+      .fan-cap {
+        position: absolute;
+        top: 846px;
+        width: 274px;
+        text-align: center;
+        font-size: 31px;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      #cap-a {
+        left: 92px;
+      }
+      #cap-b {
+        left: 403px;
+      }
+      #cap-c {
+        left: 714px;
+      }
+      #s2-extra {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 940px;
+        text-align: center;
+        font-size: 30px;
+        letter-spacing: 0.06em;
+        color: var(--accent-ink);
+        font-weight: 600;
+      }
+
+      /* ---------- scene 3 ---------- */
+      #s3-panel {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 38%, #34302c 0%, #1c1a18 70%);
+      }
+      .s3-wrap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: var(--canvas);
+      }
+      .s3-kicker {
+        font-size: 22px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: #c9b4a3;
+        font-weight: 600;
+      }
+      #s3-brand {
+        display: block;
+        font-size: 196px;
+        line-height: 1.05;
+        margin-top: 40px;
+        color: #fbf6f0;
+      }
+      #s3-rule {
+        width: 140px;
+        height: 2px;
+        background: #c9b4a3;
+        margin: 18px 0 30px;
+      }
+      #s3-tag {
+        width: 820px;
+        text-wrap: balance;
+        font-size: 44px;
+        line-height: 1.25;
+        font-style: italic;
+        color: #e9dfd5;
+      }
+      .s3-row {
+        display: flex;
+        align-items: center;
+        gap: 28px;
+        margin-top: 56px;
+      }
+      #s3-price {
+        padding: 16px 38px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 36px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+      #s3-wa {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 32px;
+        border-radius: 999px;
+        border: 2px solid #c9b4a3;
+        font-size: 36px;
+        font-weight: 600;
+        color: #fbf6f0;
+      }
+      #s3-wa svg {
+        width: 34px;
+        height: 34px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-za5o" id="root" data-composition-id="main" data-start="0" data-duration="12" data-width="1080" data-height="1080">
+      <!-- ground -->
+      <div data-hf-id="hf-7iqz" id="bg" class="layer clip" data-start="0" data-duration="12" data-track-index="0">
+        <div data-hf-id="hf-ubev" id="ring-1" class="bg-ring" style="left: 520px; top: 60px; width: 640px; height: 640px"></div>
+        <div data-hf-id="hf-0zlr" id="ring-2" class="bg-ring" style="left: -180px; top: 640px; width: 520px; height: 520px"></div>
+      </div>
+
+      <!-- 01 — Diseños -->
+      <div data-hf-id="hf-g96e" id="s1" class="layer clip" data-start="0" data-duration="6" data-track-index="1">
+        <div data-hf-id="hf-nqxq" id="s1-inner" class="layer">
+          <div data-hf-id="hf-pum0" id="s1-a" class="s1-text">
+            <p data-hf-id="hf-a57s" class="kicker">Invitaciones digitales</p>
+            <span data-hf-id="hf-ckkj" class="script s1-title">Invitaciones que enamoran</span>
+            <div data-hf-id="hf-5la3" class="s1-rule"></div>
+            <p data-hf-id="hf-61gr" class="s1-body">Diseños únicos para el día más importante de tu vida.</p>
+          </div>
+          <div data-hf-id="hf-yihv" id="s1-b" class="s1-text">
+            <p data-hf-id="hf-amul" class="kicker">Para cada estilo</p>
+            <span data-hf-id="hf-dhzb" class="script s1-title">Bodas y XV años</span>
+            <div data-hf-id="hf-hsqj" class="s1-rule"></div>
+            <p data-hf-id="hf-wy0j" class="s1-body">Con fotos, música, cuenta regresiva y tu historia.</p>
+          </div>
+
+          <div data-hf-id="hf-njsl" id="s1-phone" class="phone">
+            <div data-hf-id="hf-cdmk" class="screen">
+              <img data-hf-id="hf-sm3j" id="scr-1" src="assets/screens/neblina-0.png" alt="Plantilla Neblina">
+              <img data-hf-id="hf-7n0y" id="scr-2" src="assets/screens/flow-0.png" alt="Plantilla Flow">
+              <img data-hf-id="hf-wrx8" id="scr-3" src="assets/screens/sobre-amanecer-0.png" alt="Plantilla Sobre Amanecer">
+              <img data-hf-id="hf-2e1r" id="scr-4" src="assets/screens/xv-carmesi-0.png" alt="Plantilla XV Carmesí">
+            </div>
+            <div data-hf-id="hf-8kjy" class="notch"></div>
+          </div>
+          <div data-hf-id="hf-pa0u" id="s1-names">
+            <p data-hf-id="hf-0mxf" id="nm-1" class="tpl-name">Neblina</p>
+            <p data-hf-id="hf-w36v" id="nm-2" class="tpl-name">Flow</p>
+            <p data-hf-id="hf-4mpn" id="nm-3" class="tpl-name">Sobre Amanecer</p>
+            <p data-hf-id="hf-8zbn" id="nm-4" class="tpl-name">XV Carmesí</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 — Funciones -->
+      <div data-hf-id="hf-d4jg" id="s2" class="layer clip" data-start="5.8" data-duration="3.8" data-track-index="2">
+        <div data-hf-id="hf-mi2h" id="s2-inner" class="layer">
+          <span data-hf-id="hf-cbrz" id="s2-title" class="script">Todo en un solo enlace</span>
+          <div data-hf-id="hf-ip9m" id="fan-a" class="fan">
+            <div data-hf-id="hf-kda4" class="phone">
+              <div data-hf-id="hf-0hv8" class="screen"><img data-hf-id="hf-hche" src="assets/screens/xv-carmesi-2.png" alt="Confirmación de asistencia"></div>
+              <div data-hf-id="hf-zwuq" class="notch"></div>
+            </div>
+          </div>
+          <div data-hf-id="hf-er5l" id="fan-b" class="fan">
+            <div data-hf-id="hf-3kj8" class="phone">
+              <div data-hf-id="hf-zay5" class="screen"><img data-hf-id="hf-fmdo" src="assets/screens/sobre-amanecer-1.png" alt="Ubicación del evento"></div>
+              <div data-hf-id="hf-0b5r" class="notch"></div>
+            </div>
+          </div>
+          <div data-hf-id="hf-dzhs" id="fan-c" class="fan">
+            <div data-hf-id="hf-2dm5" class="phone">
+              <div data-hf-id="hf-zp96" class="screen"><img data-hf-id="hf-nzqq" src="assets/screens/flow-2.png" alt="Itinerario"></div>
+              <div data-hf-id="hf-0pgs" class="notch"></div>
+            </div>
+          </div>
+          <p data-hf-id="hf-7cai" id="cap-a" class="fan-cap">Confirma asistencia</p>
+          <p data-hf-id="hf-xamd" id="cap-b" class="fan-cap">Ubicación y mapa</p>
+          <p data-hf-id="hf-senz" id="cap-c" class="fan-cap">Itinerario</p>
+          <p data-hf-id="hf-f0z5" id="s2-extra">Mesas · Música para la fiesta · Lluvia de sobres</p>
+        </div>
+      </div>
+
+      <!-- 03 — Cierre -->
+      <div data-hf-id="hf-eqd7" id="s3" class="layer clip" data-start="9.2" data-duration="2.8" data-track-index="3">
+        <div data-hf-id="hf-anwy" id="s3-panel"></div>
+        <div data-hf-id="hf-f48b" class="s3-wrap">
+          <p data-hf-id="hf-zq71" id="s3-kicker" class="s3-kicker">Invitaciones digitales</p>
+          <span data-hf-id="hf-5ajp" id="s3-brand" class="script">InvitApp</span>
+          <div data-hf-id="hf-9bga" id="s3-rule"></div>
+          <p data-hf-id="hf-b8b7" id="s3-tag">Cada historia de amor merece una invitación inolvidable</p>
+          <div data-hf-id="hf-qtkq" id="s3-row" class="s3-row">
+            <div data-hf-id="hf-fvj8" id="s3-price">Desde $239</div>
+            <div data-hf-id="hf-0waf" id="s3-wa">
+              <svg data-hf-id="hf-u314" viewBox="0 0 24 24" fill="none" stroke="#c9b4a3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path data-hf-id="hf-ywo4" d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z" />
+                <path data-hf-id="hf-3oyq" d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1.2-1.6-2-1-1 .9c-1.3-.5-2.3-1.5-2.8-2.8l.9-1-1-2z" />
+              </svg>
+              321 858 1771
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+
+      // ground drift
+      tl.fromTo("#ring-1", { scale: 0.9, rotation: 0 }, { scale: 1.06, rotation: 12, duration: 12, ease: "none" }, 0);
+      tl.fromTo("#ring-2", { scale: 1, y: 0 }, { scale: 1.12, y: -40, duration: 12, ease: "none" }, 0);
+
+      // ---------- 01 — Diseños ----------
+      tl.fromTo("#s1-a .kicker", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.1);
+      tl.fromTo("#s1-a .s1-title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.25);
+      tl.fromTo("#s1-a .s1-rule", { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 0.6);
+      tl.fromTo("#s1-a .s1-body", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.75);
+
+      tl.fromTo("#s1-phone", { opacity: 0, y: 140, rotation: 4 }, { opacity: 1, y: 0, rotation: 0, duration: 0.9, ease: "expo.out" }, 0.3);
+      tl.fromTo("#s1-phone", { scale: 1 }, { scale: 1.035, duration: 5.2, ease: "none", immediateRender: false }, 0.4);
+
+      // screen carousel: neblina → flow → sobre → xv
+      const screens = ["#scr-1", "#scr-2", "#scr-3", "#scr-4"];
+      const names = ["#nm-1", "#nm-2", "#nm-3", "#nm-4"];
+      const swaps = [0, 1.75, 3.05, 4.35];
+      screens.forEach((s, i) => {
+        if (i === 0) {
+          tl.fromTo(s, { opacity: 1, scale: 1.08 }, { opacity: 1, scale: 1, duration: 1.6, ease: "power2.out" }, 0.3);
+          tl.fromTo(names[i], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 0.8);
+        } else {
+          tl.fromTo(s, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power2.out" }, swaps[i]);
+          tl.fromTo(names[i], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, swaps[i] + 0.1);
+          tl.to(names[i - 1], { opacity: 0, y: -10, duration: 0.25, ease: "power2.in" }, swaps[i] - 0.05);
+        }
+      });
+
+      // headline swap at 3.0
+      tl.to("#s1-a", { opacity: 0, y: -24, duration: 0.35, ease: "power2.in" }, 2.85);
+      tl.fromTo("#s1-b .kicker", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 3.15);
+      tl.fromTo("#s1-b .s1-title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 3.25);
+      tl.fromTo("#s1-b .s1-rule", { scaleX: 0, transformOrigin: "left center" }, { scaleX: 1, duration: 0.45, ease: "power2.out" }, 3.5);
+      tl.fromTo("#s1-b .s1-body", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 3.6);
+
+      // scene exit
+      tl.to("#s1-inner", { opacity: 0, scale: 0.94, duration: 0.4, ease: "power2.in" }, 5.6);
+
+      // ---------- 02 — Funciones ----------
+      tl.fromTo("#s2-title", { opacity: 0, y: 26 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, 5.95);
+      tl.fromTo("#fan-a", { opacity: 0, y: 160, rotation: 0 }, { opacity: 1, y: 22, rotation: -6, duration: 0.8, ease: "expo.out" }, 6.05);
+      tl.fromTo("#fan-b", { opacity: 0, y: 160, rotation: 0 }, { opacity: 1, y: -6, rotation: 0, duration: 0.8, ease: "expo.out" }, 6.2);
+      tl.fromTo("#fan-c", { opacity: 0, y: 160, rotation: 0 }, { opacity: 1, y: 22, rotation: 6, duration: 0.8, ease: "expo.out" }, 6.35);
+      tl.fromTo("#cap-a", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 6.6);
+      tl.fromTo("#cap-b", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 6.8);
+      tl.fromTo("#cap-c", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 7.0);
+      tl.fromTo("#s2-extra", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 7.6);
+      // gentle settle so the frame keeps breathing until the close
+      tl.fromTo(["#fan-a .phone", "#fan-b .phone", "#fan-c .phone"], { y: 0 }, { y: -12, duration: 2.2, ease: "sine.inOut" }, 7.0);
+
+      // ---------- 03 — Cierre ----------
+      tl.fromTo("#s3-panel", { yPercent: 100 }, { yPercent: 0, duration: 0.55, ease: "expo.inOut" }, 9.2);
+      tl.fromTo("#s3-kicker", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 9.6);
+      tl.fromTo("#s3-brand", { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.8, ease: "expo.out" }, 9.65);
+      tl.fromTo("#s3-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, 9.95);
+      tl.fromTo("#s3-tag", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 10.1);
+      tl.fromTo("#s3-price", { opacity: 0, y: 20, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 10.55);
+      tl.fromTo("#s3-wa", { opacity: 0, y: 20, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 10.7);
+      tl.fromTo("#s3-brand", { y: 0 }, { y: -6, duration: 1.4, ease: "sine.inOut", immediateRender: false }, 10.5);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

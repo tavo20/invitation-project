@@ -46,23 +46,38 @@
         </button>
       </div>
 
-      <button
-        *ngIf="invitationPerUser"
-        type="button"
-        class="create-btn"
-        (click)="onCreateInvitation()">
-        Crear invitación
-      </button>
+      <input
+        class="guest-search"
+        type="search"
+        placeholder="Buscar invitado"
+        [(ngModel)]="guestQuery"
+        *ngIf="!loading && !errorMessage && confirmations.length" />
+
+      <div class="list-actions" *ngIf="invitationId || invitationPerUser">
+        <a class="mesas-link" *ngIf="invitationId" [routerLink]="['/invitation/mesas', invitationId]">
+          Ver mesas
+        </a>
+        <button
+          *ngIf="invitationPerUser"
+          type="button"
+          class="create-btn"
+          (click)="onCreateInvitation()">
+          Crear invitación
+        </button>
+      </div>
     </header>
 
     <div class="list-state" *ngIf="loading">
       {{ invitationPerUser ? 'Cargando invitaciones…' : 'Cargando confirmaciones…' }}
     </div>
     <div class="list-state list-state--error" *ngIf="!loading && errorMessage">{{ errorMessage }}</div>
-    <div class="list-state" *ngIf="!loading && !errorMessage && filteredConfirmations.length === 0 && (!invitationPerUser || confirmations.length === 0)">
+    <div class="list-state" *ngIf="!loading && !errorMessage && confirmations.length === 0">
       {{ invitationPerUser ? 'Aún no hay invitaciones creadas.' : 'Aún no hay confirmaciones.' }}
     </div>
-    <div class="list-state" *ngIf="invitationPerUser && !loading && !errorMessage && confirmations.length > 0 && filteredConfirmations.length === 0">
+    <div class="list-state" *ngIf="!loading && !errorMessage && confirmations.length > 0 && filteredConfirmations.length === 0 && guestQuery.trim()">
+      Nadie coincide con esa búsqueda.
+    </div>
+    <div class="list-state" *ngIf="invitationPerUser && !loading && !errorMessage && confirmations.length > 0 && filteredConfirmations.length === 0 && !guestQuery.trim()">
       No hay registros con estado {{ statusLabel(statusFilter).toLowerCase() }}.
     </div>
 

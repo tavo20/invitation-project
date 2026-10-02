@@ -32,6 +32,8 @@ export interface ConfirmationDocument {
   id_invitacion: string;
   numero_confirmados: number;
   descripcion?: string;
+  mesa_id?: string | null;
+  deleted?: boolean;
   createdAt?: string;
   updatedAt?: string;
   __v?: number;
@@ -185,6 +187,7 @@ export class ConfirmationService {
       numero_confirmados?: number;
       descripcion?: string;
       status?: string;
+      mesa_id?: string | null;
     }
   ): Promise<boolean> {
     const response = await lastValueFrom(
@@ -193,7 +196,12 @@ export class ConfirmationService {
         payload
       )
     );
-    return response.success;
+
+    if (!response.success) {
+      throw new Error(response.message || 'No se pudo actualizar');
+    }
+
+    return true;
   }
 
   /** Elimina una confirmación por su _id. */

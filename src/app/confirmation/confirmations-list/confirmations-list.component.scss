@@ -156,6 +156,85 @@ $danger: #e8a0a8;
   }
 }
 
+.guest-search {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 22px;
+  padding: 13px 14px;
+  border: 1px solid $border;
+  background: rgba(15, 22, 38, 0.65);
+  color: $text-light;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+
+  &::placeholder {
+    color: $text-muted;
+  }
+
+  &:focus {
+    border-color: $silver;
+  }
+}
+
+.list-page--basic .guest-search {
+  background: #fff;
+  color: #222;
+  border-color: rgba(163, 140, 123, 0.35);
+
+  &::placeholder {
+    color: #999;
+  }
+
+  &:focus {
+    border-color: #A38C7B;
+  }
+}
+
+.list-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+
+  .mesas-link,
+  .create-btn {
+    margin-top: 0;
+  }
+}
+
+.mesas-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 22px;
+  border: 1px solid $border;
+  color: $silver;
+  text-decoration: none;
+  letter-spacing: 0.18em;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  transition: background-color 0.25s ease, color 0.25s ease;
+
+  &:hover {
+    background: rgba(175, 193, 221, 0.12);
+  }
+}
+
+.list-page--basic .mesas-link {
+  border-color: rgba(163, 140, 123, 0.45);
+  color: #222;
+  font-family: 'Cormorant Garamond', serif;
+
+  &:hover {
+    background: rgba(163, 140, 123, 0.12);
+  }
+}
+
 .create-btn {
   display: inline-flex;
   align-items: center;

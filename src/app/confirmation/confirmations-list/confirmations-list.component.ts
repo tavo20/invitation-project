@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
   ConfirmationDocument,
   ConfirmationService
@@ -13,7 +13,7 @@ type StatusFilter = 'todos' | ConfirmationStatus;
 @Component({
   selector: 'app-confirmations-list',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './confirmations-list.component.html',
   styleUrl: './confirmations-list.component.scss'
 })
@@ -33,6 +33,7 @@ export class ConfirmationsListComponent implements OnInit {
   editingItem: ConfirmationDocument | null = null;
   copiedId: string | null = null;
   statusFilter: StatusFilter = 'todos';
+  guestQuery = '';
   readonly statusFilters: StatusFilter[] = ['todos', 'confirmado', 'pendiente', 'cancelada'];
   readonly editStatuses: ConfirmationStatus[] = ['confirmado', 'pendiente', 'cancelada'];
   private readonly confirmationLinkBase = 'https://www.invitapp.art/invitation/confirmation/';
@@ -217,11 +218,13 @@ export class ConfirmationsListComponent implements OnInit {
   }
 
   get filteredConfirmations(): ConfirmationDocument[] {
-    // if (!this.invitationPerUser) {
-    //   return this.confirmations.filter((item) => this.getStatus(item) === 'confirmado');
-    // }
-    if (this.statusFilter === 'todos') return this.confirmations;
-    return this.confirmations.filter((item) => this.getStatus(item) === this.statusFilter);
+    const query = this.guestQuery.trim().toLowerCase();
+    const byStatus = this.statusFilter === 'todos'
+      ? this.confirmations
+      : this.confirmations.filter((item) => this.getStatus(item) === this.statusFilter);
+
+    if (!query) return byStatus;
+    return byStatus.filter((item) => item.names.toLowerCase().includes(query));
   }
 
   setStatusFilter(status: StatusFilter): void {
