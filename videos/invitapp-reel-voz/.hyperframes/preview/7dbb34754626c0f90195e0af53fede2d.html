@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head><script data-hf-gsap-fallback>
+(function(){
+  var cdnBase="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/";
+  var loaded={};
+  function loadFallback(file){
+    if(loaded[file])return loaded[file];
+    return loaded[file]=new Promise(function(ok,fail){
+      var s=document.createElement("script");
+      s.src=cdnBase+file;s.onload=ok;s.onerror=fail;
+      document.head.appendChild(s);
+    });
+  }
+  document.addEventListener("error",function(e){
+    var t=e.target;
+    if(!t||t.tagName!=="SCRIPT"||!t.src)return;
+    var m=t.src.match(/gsap[^/]*\/dist\/(.+\.js)/);
+    if(m)loadFallback(m[1]);
+  },true);
+})();
+</script>
+<meta name="hyperframes-studio-preview">
+<base href="/api/projects/invitapp-reel-voz/preview/"><style data-hyperframes-text-rendering="true">html,body,*{text-rendering:geometricPrecision}</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Great Vibes";
+        src: url("assets/fonts/great-vibes.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("assets/fonts/cormorant.woff2") format("woff2");
+        font-weight: 300 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("assets/fonts/cormorant-italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+      }
+      :root {
+        --canvas: #faf8f5;
+        --ink: #222222;
+        --accent: #a38c7b;
+        --accent-ink: #7a6657;
+        --muted: #6b625b;
+        --ok: #2f7d4f;
+        --wait: #a86b12;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--canvas);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--canvas);
+        font-family: "Cormorant Garamond", serif;
+        color: var(--ink);
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      .script {
+        font-family: "Great Vibes", cursive;
+        font-weight: 400;
+      }
+
+      /* ground */
+      #bg {
+        background: radial-gradient(circle at 50% 46%, #f1ebe4 0%, var(--canvas) 62%);
+      }
+      .bg-ring {
+        position: absolute;
+        border: 1.5px solid rgba(163, 140, 123, 0.26);
+        border-radius: 50%;
+      }
+
+      /* captions */
+      #captions {
+        position: absolute;
+        left: 70px;
+        right: 70px;
+        top: 236px;
+        height: 230px;
+      }
+      .cap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        gap: 0 16px;
+        text-align: center;
+        font-size: 66px;
+        line-height: 1.12;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .cap .w {
+        display: inline-block;
+      }
+
+      /* 01 chaos */
+      .note {
+        position: absolute;
+        width: 420px;
+      }
+      .note-card {
+        background: #fff;
+        border: 1.5px solid rgba(163, 140, 123, 0.35);
+        border-radius: 22px;
+        padding: 26px 30px;
+        font-size: 40px;
+        font-weight: 600;
+        color: var(--ink);
+        box-shadow: 0 18px 40px -22px rgba(60, 40, 25, 0.45);
+      }
+      .note-card small {
+        display: block;
+        font-size: 26px;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent-ink);
+        margin-bottom: 6px;
+      }
+
+      /* phone */
+      #phone {
+        position: absolute;
+        left: 291px;
+        top: 520px;
+        width: 498px;
+        height: 1045px;
+        background: #151515;
+        border-radius: 66px;
+        padding: 14px;
+        box-shadow:
+          0 50px 90px -34px rgba(60, 40, 25, 0.5),
+          0 14px 34px -14px rgba(60, 40, 25, 0.32);
+      }
+      #screen {
+        position: relative;
+        width: 470px;
+        height: 1017px;
+        border-radius: 54px;
+        overflow: hidden;
+        background: #0f1626;
+      }
+      #screen img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 470px;
+        height: 1017px;
+      }
+      #notch {
+        position: absolute;
+        top: 26px;
+        left: 50%;
+        width: 110px;
+        height: 30px;
+        margin-left: -55px;
+        border-radius: 16px;
+        background: #151515;
+      }
+      .tap {
+        position: absolute;
+        width: 96px;
+        height: 96px;
+        margin: -48px 0 0 -48px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 0 0 6px rgba(163, 140, 123, 0.45);
+      }
+      .hl {
+        position: absolute;
+        border: 4px solid #e8c47a;
+        border-radius: 14px;
+        box-shadow: 0 0 24px rgba(232, 196, 122, 0.55);
+      }
+
+      /* chips */
+      .chip {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 30px;
+        border-radius: 999px;
+        background: #fff;
+        font-size: 40px;
+        font-weight: 700;
+        color: var(--ink);
+        box-shadow: 0 20px 44px -20px rgba(60, 40, 25, 0.5);
+        border: 1.5px solid rgba(163, 140, 123, 0.3);
+        white-space: nowrap;
+      }
+      .dot {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        flex: none;
+      }
+      .chip svg {
+        width: 38px;
+        height: 38px;
+        flex: none;
+        display: block;
+      }
+
+      /* close */
+      #close-panel {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 42%, #34302c 0%, #1c1a18 72%);
+      }
+      .close-wrap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 560px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: #fbf6f0;
+      }
+      #c-kicker {
+        font-size: 30px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: #c9b4a3;
+        font-weight: 600;
+      }
+      #c-brand {
+        display: block;
+        font-size: 250px;
+        line-height: 1.05;
+        margin-top: 50px;
+      }
+      #c-rule {
+        width: 180px;
+        height: 2px;
+        background: #c9b4a3;
+        margin: 26px 0 44px;
+      }
+      #c-tag {
+        width: 860px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0 14px;
+        font-size: 62px;
+        line-height: 1.22;
+        font-style: italic;
+        color: #e9dfd5;
+      }
+      #c-tag .w {
+        display: inline-block;
+      }
+      .c-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 26px;
+        margin-top: 90px;
+      }
+      #c-price {
+        padding: 22px 56px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 50px;
+        font-weight: 700;
+      }
+      #c-wa {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 20px 48px;
+        border-radius: 999px;
+        border: 2px solid #c9b4a3;
+        font-size: 50px;
+        font-weight: 600;
+      }
+      #c-wa svg {
+        width: 48px;
+        height: 48px;
+        display: block;
+      }
+    </style>
+  <script data-hyperframes-preview-runtime="1" src="/api/runtime.js"></script>
+<meta name="hyperframes-project-signature" content="f99325f1ea1f8db44d33d411">
+</head>
+  <body>
+    <div data-hf-id="hf-coex" id="root" data-composition-id="main" data-start="0" data-duration="30" data-width="1080" data-height="1920">
+      <audio data-hf-id="hf-m3qt" id="vo" src="assets/narracion.mp3" data-start="0" data-duration="28.7" data-track-index="9" data-end="28.7"></audio>
+
+      <div data-hf-id="hf-itlr" id="bg" class="layer clip" data-start="0" data-duration="30" data-track-index="0">
+        <div data-hf-id="hf-p616" id="ring-1" class="bg-ring" style="left: 380px; top: 300px; width: 900px; height: 900px"></div>
+        <div data-hf-id="hf-swub" id="ring-2" class="bg-ring" style="left: -260px; top: 1240px; width: 700px; height: 700px"></div>
+      </div>
+
+      <!-- 01 — El caos -->
+      <div data-hf-id="hf-5nej" id="s1" class="layer clip" data-start="0" data-duration="3" data-track-index="1">
+        <div data-hf-id="hf-nrcz" id="n1" class="note" style="left: 90px; top: 600px"><div data-hf-id="hf-b6r0" class="note-card"><small data-hf-id="hf-ejo7">Lista</small>invitados_FINAL_v7.xlsx</div></div>
+        <div data-hf-id="hf-1p0g" id="n2" class="note" style="left: 570px; top: 690px"><div data-hf-id="hf-1gwe" class="note-card"><small data-hf-id="hf-s38a">WhatsApp</small>47 mensajes sin leer</div></div>
+        <div data-hf-id="hf-zcba" id="n3" class="note" style="left: 150px; top: 930px"><div data-hf-id="hf-qlzi" class="note-card"><small data-hf-id="hf-cyh4">Pendiente</small>¿Quién ya confirmó?</div></div>
+        <div data-hf-id="hf-7cwh" id="n4" class="note" style="left: 560px; top: 1060px"><div data-hf-id="hf-l4zo" class="note-card"><small data-hf-id="hf-dm5j">Mesas</small>¿La tía Rosa en la 3?</div></div>
+        <div data-hf-id="hf-68sv" id="n5" class="note" style="left: 110px; top: 1260px"><div data-hf-id="hf-bktg" class="note-card"><small data-hf-id="hf-y0zw">Conteo</small>¿Cuántos van al final?</div></div>
+      </div>
+
+      <!-- 02–04 — El celular -->
+      <div data-hf-id="hf-bnk6" id="s2" class="layer clip" data-start="2.4" data-duration="19.4" data-track-index="2">
+        <div data-hf-id="hf-5iuv" id="phone">
+          <div data-hf-id="hf-ccvt" id="screen">
+            <img loading="lazy" data-hf-preview-lazy data-hf-id="hf-o0o3" id="sc-inv" src="assets/screens/01-invitacion.png" alt="Invitación Carlos y Andrea">
+            <img loading="lazy" data-hf-preview-lazy data-hf-id="hf-9t01" id="sc-rsvp" src="assets/screens/02-invitacion-rsvp.png" alt="Botón Confirma aquí">
+            <img loading="lazy" data-hf-preview-lazy data-hf-id="hf-pk5j" id="sc-form" src="assets/screens/03b-rsvp-lleno.png" alt="Formulario de confirmación lleno">
+            <img loading="lazy" data-hf-preview-lazy data-hf-id="hf-kfb2" id="sc-panel" src="assets/screens/04-confirmaciones.png" alt="Panel de confirmaciones">
+            <img loading="lazy" data-hf-preview-lazy data-hf-id="hf-jl18" id="sc-list" src="assets/screens/05-confirmaciones-lista.png" alt="Lista de confirmaciones">
+            <img loading="lazy" data-hf-preview-lazy data-hf-id="hf-ldsh" id="sc-mesas" src="assets/screens/07-mesa-abierta.png" alt="Mesas">
+            <img loading="lazy" data-hf-preview-lazy data-hf-id="hf-p70q" id="sc-sel" src="assets/screens/08-invitado-seleccionado.png" alt="Invitado seleccionado">
+            <img loading="lazy" data-hf-preview-lazy data-hf-id="hf-9qai" id="sc-seat" src="assets/screens/09-invitado-sentado.png" alt="Invitado sentado en la mesa 4">
+            <div data-hf-id="hf-glv0" id="tap-1" class="tap" style="left: 235px; top: 465px"></div>
+            <div data-hf-id="hf-pgit" id="tap-2" class="tap" style="left: 235px; top: 852px"></div>
+            <div data-hf-id="hf-94z0" id="tap-3" class="tap" style="left: 235px; top: 997px"></div>
+            <div data-hf-id="hf-9a62" id="hl-sel" class="hl" style="left: 26px; top: 306px; width: 418px; height: 100px"></div>
+            <div data-hf-id="hf-azty" id="hl-mesa" class="hl" style="left: 30px; top: 772px; width: 410px; height: 180px"></div>
+          </div>
+          <div data-hf-id="hf-8x41" id="notch"></div>
+        </div>
+
+        <div data-hf-id="hf-c8i4" id="chip-rsvp" class="chip" style="left: 600px; top: 1440px">
+          <svg data-hf-id="hf-gh7m" viewBox="0 0 24 24" fill="none" stroke="#2f7d4f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-m1lh" cx="12" cy="12" r="10" /><path data-hf-id="hf-9l35" d="M7.5 12.5l3 3 6-6.5" /></svg>
+          ¡Confirmado!
+        </div>
+        <div data-hf-id="hf-9gya" id="chip-ok" class="chip" style="left: 40px; top: 700px"><span data-hf-id="hf-8ikc" class="dot" style="background: #2f7d4f"></span>6 confirmados</div>
+        <div data-hf-id="hf-prbm" id="chip-wait" class="chip" style="left: 640px; top: 860px"><span data-hf-id="hf-s3l2" class="dot" style="background: #d29a2c"></span>4 pendientes</div>
+        <div data-hf-id="hf-cig4" id="chip-people" class="chip" style="left: 60px; top: 1040px">
+          <svg data-hf-id="hf-s84v" viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-5hgg" cx="9" cy="8" r="3.2" /><path data-hf-id="hf-oczf" d="M3 19a6 6 0 0 1 12 0" /><circle data-hf-id="hf-3l7j" cx="17" cy="9" r="2.6" /><path data-hf-id="hf-gb68" d="M15.5 14.2A5 5 0 0 1 21 19" /></svg>
+          12 personas
+        </div>
+        <div data-hf-id="hf-unzk" id="chip-cupo" class="chip" style="left: 560px; top: 1440px">
+          <svg data-hf-id="hf-gfly" viewBox="0 0 24 24" fill="none" stroke="#2f7d4f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-jqh5" cx="12" cy="12" r="10" /><path data-hf-id="hf-j11x" d="M7.5 12.5l3 3 6-6.5" /></svg>
+          Mesa 4 · 1/8
+        </div>
+      </div>
+
+      <!-- captions (word-synced to the voiceover) -->
+      <div data-hf-id="hf-7ius" id="cap-layer" class="layer clip" data-start="0" data-duration="21.7" data-track-index="5">
+        <div data-hf-id="hf-iuvo" id="captions"></div>
+      </div>
+
+      <!-- 05 — Cierre -->
+      <div data-hf-id="hf-4sfd" id="s5" class="layer clip" data-start="21.3" data-duration="8.7" data-track-index="3">
+        <div data-hf-id="hf-tec2" id="close-panel"></div>
+        <div data-hf-id="hf-hszt" class="close-wrap">
+          <p data-hf-id="hf-ivnr" id="c-kicker">Invitaciones digitales</p>
+          <span data-hf-id="hf-6o4k" id="c-brand" class="script">InvitApp</span>
+          <div data-hf-id="hf-xj4f" id="c-rule"></div>
+          <p data-hf-id="hf-xq3g" id="c-tag"></p>
+          <div data-hf-id="hf-xfw8" class="c-row">
+            
+            <div data-hf-id="hf-1gky" id="c-wa">
+              <svg data-hf-id="hf-u314" viewBox="0 0 24 24" fill="none" stroke="#c9b4a3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path data-hf-id="hf-ywo4" d="M3.5 20.5l1.3-4.2A8.5 8.5 0 1 1 8 19.4z" />
+                <path data-hf-id="hf-3oyq" d="M9 8.5c0 3.5 3 6.5 6.5 6.5l1.2-1.6-2-1-1 .9c-1.3-.5-2.3-1.5-2.8-2.8l.9-1-1-2z" />
+              </svg>
+              321 858 1771
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    
+  <script>const WORDS = [["Organizar", 0, 0.522], ["tu", 0.58, 0.662], ["boda", 0.685, 0.975], ["no", 1.045, 1.149], ["deber\xEDa", 1.196, 1.544], ["ser", 1.591, 1.718], ["un", 1.776, 1.823], ["caos.", 1.869, 2.392], ["Con", 2.67, 2.856], ["InvitApp,", 2.926, 3.622], ["tus", 3.738, 3.901], ["invitados", 3.971, 4.447], ["confirman", 4.505, 5.074], ["desde", 5.143, 5.399], ["la", 5.457, 5.515], ["invitaci\xF3n,", 5.55, 6.235], ["en", 6.269, 6.339], ["un", 6.455, 6.525], ["toque.", 6.583, 7.129], ["Y", 7.454, 7.57], ["t\xFA", 7.663, 7.767], ["ves", 7.825, 7.999], ["en", 8.069, 8.139], ["tiempo", 8.185, 8.499], ["real", 8.58, 8.882], ["qui\xE9n", 8.998, 9.265], ["confirm\xF3,", 9.311, 10.043], ["qui\xE9n", 10.368, 10.565], ["est\xE1", 10.612, 10.786], ["pendiente", 10.855, 11.447], ["y", 11.529, 11.575], ["cu\xE1ntas", 11.691, 12.086], ["personas", 12.144, 12.608], ["van.", 12.666, 13.131], ["Despu\xE9s", 13.642, 14.222], ["armas", 14.303, 14.594], ["tus", 14.652, 14.791], ["mesas:", 14.861, 15.43], ["eliges", 15.755, 16.173], ["al", 16.243, 16.301], ["invitado,", 16.359, 17.114], ["tocas", 17.23, 17.601], ["la", 17.671, 17.752], ["mesa,", 17.822, 18.356], ["y", 18.739, 18.82], ["listo.", 18.901, 19.459], ["Sin", 19.842, 20.074], ["pasarte", 20.121, 20.562], ["del", 20.608, 20.724], ["cupo.", 20.794, 21.398], ["InvitApp.", 21.723, 22.675], ["Invitaciones", 22.919, 23.731], ["que", 23.824, 23.929], ["enamoran,", 23.998, 24.857], ["y", 25.032, 25.101], ["una", 25.217, 25.345], ["fiesta", 25.415, 25.821], ["bajo", 25.879, 26.169], ["control.", 26.216, 26.959], ["Escr\xEDbenos.", 27.284, 28.7]];
+const CHUNKS = [8, 5, 6, 8, 7, 4, 8, 4];
+const tl = gsap.timeline({ paused: true });
+const at = (word, nth = 1) => {
+  let seen = 0;
+  for (const [t, s] of WORDS) if (t.replace(/[.,:]/g, "") === word && ++seen === nth) return s;
+  throw new Error("word not found: " + word);
+};
+tl.fromTo("#ring-1", { scale: 0.92, rotation: 0 }, { scale: 1.06, rotation: 14, duration: 30, ease: "none" }, 0);
+tl.fromTo("#ring-2", { scale: 1, y: 0 }, { scale: 1.12, y: -60, duration: 30, ease: "none" }, 0);
+const capRoot = document.getElementById("captions");
+let wi = 0;
+const chunkStarts = CHUNKS.map((n) => {
+  const s = WORDS[wi][1];
+  wi += n;
+  return s;
+});
+wi = 0;
+CHUNKS.forEach((n, ci) => {
+  const box = document.createElement("div");
+  box.className = "cap";
+  box.id = "cap-" + ci;
+  const words = WORDS.slice(wi, wi + n);
+  words.forEach(([t], k) => {
+    const sp = document.createElement("span");
+    sp.className = "w";
+    sp.id = `cap-${ci}-${k}`;
+    sp.textContent = t;
+    box.appendChild(sp);
+  });
+  capRoot.appendChild(box);
+  const start = Math.max(0, chunkStarts[ci] - 0.08);
+  const end = ci + 1 < CHUNKS.length ? chunkStarts[ci + 1] - 0.1 : 21.55;
+  tl.fromTo(box, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.22, ease: "power2.out" }, start);
+  tl.to(box, { opacity: 0, duration: 0.15, ease: "power1.in" }, end - 0.15);
+  words.forEach(([, s], k) => {
+    tl.fromTo(`#cap-${ci}-${k}`, { opacity: 0.22 }, { opacity: 1, duration: 0.12, ease: "none" }, s);
+  });
+  wi += n;
+});
+const notes = ["#n1", "#n2", "#n3", "#n4", "#n5"];
+const tilts = [-7, 6, -4, 8, -6];
+notes.forEach((n, i) => {
+  tl.fromTo(n, { opacity: 0, scale: 0.7, rotation: 0 }, { opacity: 1, scale: 1, rotation: tilts[i], duration: 0.45, ease: "back.out(1.8)" }, 0.1 + i * 0.28);
+  tl.fromTo(`${n} .note-card`, { x: 0 }, { x: 10, duration: 0.06, ease: "none", repeat: 5, yoyo: true }, at("caos") + i * 0.02);
+  tl.to(n, { opacity: 0, y: 200, rotation: tilts[i] * 3, duration: 0.4, ease: "power2.in", immediateRender: false }, 2.45 + i * 0.03);
+});
+tl.fromTo("#phone", { opacity: 0, y: 220 }, { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" }, 2.55);
+const showScreen = (id, t, fromY = 40) => tl.fromTo(id, { opacity: 0, y: fromY }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, t);
+const tap = (id, t) => {
+  tl.fromTo(id, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.18, ease: "power2.out" }, t);
+  tl.to(id, { opacity: 0, scale: 1.6, duration: 0.4, ease: "power1.out" }, t + 0.22);
+};
+tl.set("#sc-inv", { opacity: 1 }, 0);
+tl.fromTo("#sc-inv", { scale: 1.06 }, { scale: 1, duration: 1.4, ease: "power2.out" }, 2.6);
+showScreen("#sc-rsvp", at("tus"));
+tap("#tap-1", at("confirman") + 0.1);
+showScreen("#sc-form", at("desde"));
+tap("#tap-2", at("toque") - 0.05);
+tl.fromTo("#chip-rsvp", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, at("toque") + 0.15);
+tl.to("#chip-rsvp", { opacity: 0, duration: 0.25 }, at("Y") - 0.2);
+showScreen("#sc-panel", at("Y") - 0.05);
+const chipIn = (id, t, fromX) => tl.fromTo(id, { opacity: 0, x: fromX }, { opacity: 1, x: 0, duration: 0.45, ease: "back.out(1.6)" }, t);
+chipIn("#chip-ok", at("confirm\xF3"), -60);
+chipIn("#chip-wait", at("pendiente"), 60);
+chipIn("#chip-people", at("personas"), -60);
+showScreen("#sc-list", at("van") + 0.1, 120);
+tl.to(["#chip-ok", "#chip-wait", "#chip-people"], { opacity: 0, duration: 0.3 }, at("Despu\xE9s") - 0.15);
+showScreen("#sc-mesas", at("Despu\xE9s"));
+showScreen("#sc-sel", at("eliges"));
+tl.fromTo("#hl-sel", { opacity: 0 }, { opacity: 1, duration: 0.25 }, at("invitado"));
+tl.to("#hl-sel", { opacity: 0, duration: 0.2 }, at("tocas") + 0.3);
+tap("#tap-3", at("tocas") + 0.15);
+showScreen("#sc-seat", at("listo") - 0.1, 0);
+tl.fromTo("#hl-mesa", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, at("listo"));
+tl.fromTo("#chip-cupo", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, at("Sin"));
+tl.to("#phone", { y: -16, duration: 2.5, ease: "sine.inOut", immediateRender: false }, at("Sin") - 0.5);
+tl.fromTo("#close-panel", { yPercent: 100 }, { yPercent: 0, duration: 0.55, ease: "expo.inOut" }, 21.3);
+tl.fromTo("#c-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at("InvitApp", 2) - 0.1);
+tl.fromTo("#c-brand", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8, ease: "expo.out" }, at("InvitApp", 2));
+tl.fromTo("#c-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, at("InvitApp", 2) + 0.4);
+const tag = document.getElementById("c-tag");
+WORDS.slice(-9, -1).forEach(([t, s], k) => {
+  const sp = document.createElement("span");
+  sp.className = "w";
+  sp.id = "tag-" + k;
+  sp.textContent = t;
+  tag.appendChild(sp);
+  tl.fromTo("#tag-" + k, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, s - 0.05);
+});
+tl.fromTo("#c-wa", { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, at("Escr\xEDbenos") + 0.1);
+window.__timelines["main"] = tl;
+tl.seek(0);</script></body>
+</html>

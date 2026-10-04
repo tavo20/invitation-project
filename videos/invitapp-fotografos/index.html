@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Great Vibes";
+        src: url("assets/fonts/great-vibes.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("assets/fonts/cormorant.woff2") format("woff2");
+        font-weight: 300 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("assets/fonts/cormorant-italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+      }
+      :root {
+        --canvas: #faf8f5;
+        --ink: #222222;
+        --accent: #a38c7b;
+        --accent-ink: #7a6657;
+        --muted: #5f564f;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--canvas);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--canvas);
+        font-family: "Cormorant Garamond", serif;
+        color: var(--ink);
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      .script {
+        font-family: "Great Vibes", cursive;
+        font-weight: 400;
+      }
+      #bg {
+        background: radial-gradient(circle at 50% 50%, #f1ebe4 0%, var(--canvas) 62%);
+      }
+      .bg-ring {
+        position: absolute;
+        border: 1.5px solid rgba(163, 140, 123, 0.26);
+        border-radius: 50%;
+      }
+
+      /* hook: shutter + polaroids */
+      #flash {
+        position: absolute;
+        inset: 0;
+        background: #fff;
+      }
+      #iris {
+        position: absolute;
+        left: 340px;
+        top: 760px;
+        width: 400px;
+        height: 400px;
+      }
+      .pol {
+        position: absolute;
+        width: 300px;
+        padding: 14px 14px 0;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 24px 50px -24px rgba(60, 40, 25, 0.55);
+      }
+      .pol-img {
+        width: 272px;
+        height: 330px;
+        overflow: hidden;
+        border-radius: 4px;
+        background: #ddd;
+      }
+      .pol-img img {
+        width: 272px;
+        height: 589px;
+        display: block;
+      }
+      .pol p {
+        height: 70px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 44px;
+        color: var(--ink);
+      }
+      .badge {
+        position: absolute;
+        right: -22px;
+        top: -22px;
+        padding: 10px 20px;
+        border-radius: 999px;
+        background: #23603b;
+        color: #fff;
+        font-size: 30px;
+        font-weight: 700;
+        white-space: nowrap;
+      }
+
+      /* phones */
+      .cam {
+        position: absolute;
+        inset: 0;
+        transform-origin: 540px 960px;
+      }
+      .phone {
+        position: absolute;
+        left: 291px;
+        top: 520px;
+        width: 498px;
+        height: 1045px;
+        background: #151515;
+        border-radius: 66px;
+        padding: 14px;
+        box-shadow:
+          0 50px 90px -34px rgba(60, 40, 25, 0.5),
+          0 14px 34px -14px rgba(60, 40, 25, 0.32);
+      }
+      .screen {
+        position: relative;
+        width: 470px;
+        height: 1017px;
+        border-radius: 54px;
+        overflow: hidden;
+        background: #0f1626;
+      }
+      .screen img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 470px;
+        height: 1017px;
+      }
+      .notch {
+        position: absolute;
+        top: 26px;
+        left: 50%;
+        width: 110px;
+        height: 30px;
+        margin-left: -55px;
+        border-radius: 16px;
+        background: #151515;
+      }
+      .tap {
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        margin: -32px 0 0 -32px;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 0 5px rgba(163, 140, 123, 0.5);
+      }
+      .hl {
+        position: absolute;
+        border: 3px solid #e8c47a;
+        border-radius: 10px;
+        box-shadow: 0 0 18px rgba(232, 196, 122, 0.6);
+      }
+
+      /* chips */
+      .chip {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 34px;
+        border-radius: 999px;
+        background: #fff;
+        font-size: 44px;
+        font-weight: 700;
+        color: var(--ink);
+        box-shadow: 0 20px 44px -20px rgba(60, 40, 25, 0.55);
+        border: 1.5px solid rgba(163, 140, 123, 0.3);
+        white-space: nowrap;
+      }
+      .chip svg {
+        width: 42px;
+        height: 42px;
+        flex: none;
+        display: block;
+      }
+
+      /* section titles */
+      .title-block {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 630px;
+        text-align: center;
+      }
+      .kicker {
+        font-size: 30px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--accent-ink);
+        font-weight: 700;
+      }
+      .big-title {
+        display: block;
+        font-size: 128px;
+        line-height: 1.05;
+        margin-top: 10px;
+      }
+      #ask {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 820px;
+        text-align: center;
+        font-size: 190px;
+        line-height: 1.1;
+      }
+
+      /* benefit 2: package card */
+      #pkg {
+        position: absolute;
+        left: 150px;
+        top: 860px;
+        width: 780px;
+        background: #fff;
+        border-radius: 28px;
+        padding: 46px 54px 40px;
+        box-shadow: 0 30px 60px -30px rgba(60, 40, 25, 0.5);
+        border: 1.5px solid rgba(163, 140, 123, 0.3);
+      }
+      #pkg h3 {
+        font-size: 56px;
+        font-weight: 700;
+        margin-bottom: 18px;
+      }
+      .row {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        font-size: 46px;
+        font-weight: 600;
+        padding: 12px 0;
+        border-top: 1.5px solid #eee6de;
+      }
+      .row svg {
+        width: 40px;
+        height: 40px;
+        flex: none;
+        display: block;
+      }
+      #row-new {
+        background: #f6efe6;
+        border-radius: 14px;
+        padding: 14px 16px;
+        margin: 6px -16px 0;
+        border-top: none;
+        color: #5b4636;
+      }
+      #pkg-tag {
+        position: absolute;
+        right: -40px;
+        bottom: -44px;
+        padding: 16px 30px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 40px;
+        font-weight: 700;
+        white-space: nowrap;
+        box-shadow: 0 16px 34px -16px rgba(60, 40, 25, 0.6);
+      }
+
+      /* benefit 3: guests grid */
+      #guests {
+        position: absolute;
+        left: 75px;
+        top: 760px;
+        width: 930px;
+        height: 760px;
+      }
+      .mini {
+        position: absolute;
+        width: 118px;
+        height: 250px;
+        background: #151515;
+        border-radius: 20px;
+        padding: 5px;
+        box-shadow: 0 14px 26px -16px rgba(60, 40, 25, 0.6);
+      }
+      .mini img {
+        width: 108px;
+        height: 240px;
+        border-radius: 15px;
+        display: block;
+      }
+
+      /* statement */
+      #st1 {
+        position: absolute;
+        left: 60px;
+        right: 60px;
+        top: 700px;
+        text-align: center;
+        font-size: 92px;
+        line-height: 1.1;
+        font-weight: 600;
+      }
+      #st2 {
+        position: absolute;
+        left: 40px;
+        right: 40px;
+        top: 960px;
+        text-align: center;
+        font-size: 64px;
+        line-height: 1.2;
+        font-weight: 600;
+        color: var(--muted);
+      }
+      #st2 .script {
+        display: block;
+        font-size: 170px;
+        line-height: 1.15;
+        color: var(--ink);
+      }
+
+      /* captions */
+      #cap-band {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 600px;
+        background: linear-gradient(to bottom, var(--canvas) 0%, var(--canvas) 72%, rgba(250, 248, 245, 0) 100%);
+      }
+      #captions {
+        position: absolute;
+        left: 70px;
+        right: 70px;
+        top: 236px;
+        height: 230px;
+      }
+      .cap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        gap: 0 16px;
+        text-align: center;
+        font-size: 66px;
+        line-height: 1.12;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .cap .w {
+        display: inline-block;
+      }
+
+      /* close */
+      #close-panel {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 42%, #34302c 0%, #1c1a18 72%);
+      }
+      .close-wrap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: #fbf6f0;
+      }
+      #c-kicker {
+        font-size: 30px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #c9b4a3;
+        font-weight: 600;
+      }
+      #c-brand {
+        display: block;
+        font-size: 250px;
+        line-height: 1.05;
+        margin-top: 50px;
+      }
+      #c-rule {
+        width: 180px;
+        height: 2px;
+        background: #c9b4a3;
+        margin: 26px 0 44px;
+      }
+      #c-tag {
+        width: 860px;
+        font-size: 62px;
+        line-height: 1.22;
+        font-style: italic;
+        color: #e9dfd5;
+      }
+      #c-cta {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-top: 80px;
+        padding: 24px 52px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 48px;
+        font-weight: 700;
+      }
+      #c-cta svg {
+        width: 46px;
+        height: 46px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-zbsf" id="root" data-composition-id="main" data-start="0" data-duration="71.5" data-width="1080" data-height="1920">
+      <audio data-hf-id="hf-ltxf" id="vo" src="assets/narracion.mp3" data-start="0" data-duration="67.6" data-track-index="9"></audio>
+      <audio data-hf-id="hf-kt70" id="bgm" src="assets/musica.mp3" data-start="0" data-duration="71.5" data-track-index="10" data-volume="1" data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;volume&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:1,&quot;v&quot;:0.17},{&quot;t&quot;:61.8,&quot;v&quot;:0.17},{&quot;t&quot;:62.6,&quot;v&quot;:0.32},{&quot;t&quot;:69.5,&quot;v&quot;:0.32},{&quot;t&quot;:71.5,&quot;v&quot;:0}]}]}"></audio>
+
+      <div data-hf-id="hf-bhtd" id="bg" class="layer clip" data-start="0" data-duration="71.5" data-track-index="0">
+        <div data-hf-id="hf-p616" id="ring-1" class="bg-ring" style="left: 380px; top: 300px; width: 900px; height: 900px"></div>
+        <div data-hf-id="hf-swub" id="ring-2" class="bg-ring" style="left: -260px; top: 1240px; width: 700px; height: 700px"></div>
+      </div>
+
+      <!-- 1 hook -->
+      <div data-hf-id="hf-3ct3" id="s-hook" class="layer clip" data-start="0" data-duration="6.2" data-track-index="1">
+        <svg data-hf-id="hf-rpp0" id="iris" viewBox="0 0 100 100" fill="none" stroke="#222" stroke-width="2.2" stroke-linejoin="round">
+          <circle data-hf-id="hf-l104" cx="50" cy="50" r="46" />
+          <g data-hf-id="hf-9apq" id="iris-blades">
+            <path data-hf-id="hf-qit3" d="M50 4 L72 40 L50 50 Z" />
+            <path data-hf-id="hf-ccew" d="M89.8 27 L72 64 L50 50 Z" />
+            <path data-hf-id="hf-wrco" d="M89.8 73 L50 72 L50 50 Z" />
+            <path data-hf-id="hf-0qot" d="M50 96 L28 60 L50 50 Z" />
+            <path data-hf-id="hf-voqd" d="M10.2 73 L28 36 L50 50 Z" />
+            <path data-hf-id="hf-7nk4" d="M10.2 27 L50 28 L50 50 Z" />
+          </g>
+        </svg>
+        <div data-hf-id="hf-ckt1" id="pols"></div>
+        <div data-hf-id="hf-hmg5" id="flash"></div>
+      </div>
+
+      <!-- 2–3 invitation + features -->
+      <div data-hf-id="hf-zz36" id="s-inv" class="layer clip" data-start="5.6" data-duration="17.9" data-track-index="2">
+        <div data-hf-id="hf-e0xm" id="cam-a" class="cam"><div data-hf-id="hf-q008" id="phone-a" class="phone"><div data-hf-id="hf-5rj0" id="screen-a" class="screen"></div><div data-hf-id="hf-8kjy" class="notch"></div></div></div>
+        <div data-hf-id="hf-vbto" id="chips-a"></div>
+      </div>
+
+      <!-- 4 ask -->
+      <div data-hf-id="hf-dr7z" id="s-ask" class="layer clip" data-start="23.2" data-duration="1.8" data-track-index="1">
+        <span data-hf-id="hf-noz6" id="ask" class="script">¿Qué ganas tú?</span>
+      </div>
+
+      <!-- 5 benefit 1 -->
+      <div data-hf-id="hf-1rxu" id="s-b1" class="layer clip" data-start="24.8" data-duration="8.3" data-track-index="1">
+        <div data-hf-id="hf-jgw2" id="b1-title" class="title-block"><p data-hf-id="hf-s3h8" class="kicker">Primero</p><span data-hf-id="hf-vrxn" class="script big-title">Más sesiones</span></div>
+        <div data-hf-id="hf-uls7" id="b1-pols"></div>
+      </div>
+
+      <!-- 6 benefit 2 -->
+      <div data-hf-id="hf-fdnn" id="s-b2" class="layer clip" data-start="32.9" data-duration="7.6" data-track-index="1">
+        <div data-hf-id="hf-8kh5" id="b2-title" class="title-block"><p data-hf-id="hf-iejz" class="kicker">Segundo</p><span data-hf-id="hf-fafy" class="script big-title">Paquetes más valiosos</span></div>
+        <div data-hf-id="hf-d3q5" id="pkg">
+          <h3 data-hf-id="hf-xzll">Paquete Boda</h3>
+          <div data-hf-id="hf-zf65" id="row-1" class="row"><svg data-hf-id="hf-gh7m" viewBox="0 0 24 24" fill="none" stroke="#2f7d4f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-m1lh" cx="12" cy="12" r="10" /><path data-hf-id="hf-9l35" d="M7.5 12.5l3 3 6-6.5" /></svg>Cobertura del evento</div>
+          <div data-hf-id="hf-7jtz" id="row-2" class="row"><svg data-hf-id="hf-gfly" viewBox="0 0 24 24" fill="none" stroke="#2f7d4f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-jqh5" cx="12" cy="12" r="10" /><path data-hf-id="hf-j11x" d="M7.5 12.5l3 3 6-6.5" /></svg>Sesión preboda</div>
+          <div data-hf-id="hf-emu0" id="row-3" class="row"><svg data-hf-id="hf-gtwz" viewBox="0 0 24 24" fill="none" stroke="#2f7d4f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-ozdc" cx="12" cy="12" r="10" /><path data-hf-id="hf-k7z0" d="M7.5 12.5l3 3 6-6.5" /></svg>Álbum impreso</div>
+          <div data-hf-id="hf-0y44" id="row-new" class="row"><svg data-hf-id="hf-h880" viewBox="0 0 24 24" fill="none" stroke="#2f7d4f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-ol2b" cx="12" cy="12" r="10" /><path data-hf-id="hf-jtnz" d="M7.5 12.5l3 3 6-6.5" /></svg>Invitación digital InvitApp</div>
+          <div data-hf-id="hf-b8xl" id="pkg-tag">o como servicio adicional</div>
+        </div>
+      </div>
+
+      <!-- 7 benefit 3 -->
+      <div data-hf-id="hf-5gk9" id="s-b3" class="layer clip" data-start="40.3" data-duration="10.5" data-track-index="2">
+        <div data-hf-id="hf-mnmo" id="b3-title" class="title-block"><p data-hf-id="hf-6dik" class="kicker">Tercero</p><span data-hf-id="hf-dpsi" class="script big-title">Tu trabajo llega más lejos</span></div>
+        <div data-hf-id="hf-a2tl" id="cam-b" class="cam"><div data-hf-id="hf-ynw3" id="phone-b" class="phone"><div data-hf-id="hf-efev" id="screen-b" class="screen"></div><div data-hf-id="hf-zwuq" class="notch"></div></div></div>
+        <div data-hf-id="hf-pe2a" id="guests"></div>
+        <div data-hf-id="hf-3zpj" id="chips-b"></div>
+      </div>
+
+      <!-- 8 catalog -->
+      <div data-hf-id="hf-apif" id="s-cat" class="layer clip" data-start="50.6" data-duration="7" data-track-index="2">
+        <div data-hf-id="hf-9b5s" id="cam-c" class="cam"><div data-hf-id="hf-ups2" id="phone-c" class="phone"><div data-hf-id="hf-ahau" id="screen-c" class="screen"></div><div data-hf-id="hf-0b5r" class="notch"></div></div></div>
+        <div data-hf-id="hf-01li" id="chips-c"></div>
+      </div>
+
+      <!-- 9 statement -->
+      <div data-hf-id="hf-k8ln" id="s-st" class="layer clip" data-start="57.3" data-duration="5" data-track-index="1">
+        <p data-hf-id="hf-vskm" id="st1">No es solo una invitación.</p>
+        <p data-hf-id="hf-ktzv" id="st2">Es una herramienta para <span data-hf-id="hf-ot27" class="script">vender más</span></p>
+      </div>
+
+      <!-- captions -->
+      <div data-hf-id="hf-qud8" id="cap-layer" class="layer clip" data-start="0" data-duration="62.4" data-track-index="5">
+        <div data-hf-id="hf-4v5x" id="cap-band"></div>
+        <div data-hf-id="hf-iuvo" id="captions"></div>
+      </div>
+
+      <!-- 10 close -->
+      <div data-hf-id="hf-jr9o" id="s-close" class="layer clip" data-start="62.2" data-duration="9.3" data-track-index="3">
+        <div data-hf-id="hf-tec2" id="close-panel"></div>
+        <div data-hf-id="hf-hszt" class="close-wrap">
+          <p data-hf-id="hf-5qxf" id="c-kicker">Invitaciones digitales para fotógrafos</p>
+          <span data-hf-id="hf-6o4k" id="c-brand" class="script">InvitApp</span>
+          <div data-hf-id="hf-xj4f" id="c-rule"></div>
+          <p data-hf-id="hf-1lr0" id="c-tag">Más sesiones, mejores paquetes y tu trabajo en cada invitación.</p>
+          <div data-hf-id="hf-ut7k" id="c-cta">
+            <svg data-hf-id="hf-mih4" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path data-hf-id="hf-g4au" d="M4 5h16v11H9l-5 4z" />
+              <path data-hf-id="hf-gmy7" d="M8 9.5h8M8 12.5h5" />
+            </svg>
+            Escríbenos y empieza hoy
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const WORDS = [["Fotógrafo…", 0.0, 0.894], ["¿y", 1.265, 1.451], ["si", 1.521, 1.625], ["cada", 1.683, 1.892], ["boda", 1.939, 2.183], ["que", 2.229, 2.299], ["fotografías", 2.357, 3.1], ["te", 3.251, 3.367], ["trajera", 3.413, 3.796], ["nuevos", 3.855, 4.191], ["clientes?", 4.226, 4.957], ["Con", 5.793, 5.991], ["InvitApp,", 6.049, 6.803], ["ofreces", 7.024, 7.477], ["a", 7.523, 7.546], ["tus", 7.593, 7.732], ["parejas", 7.79, 8.185], ["una", 8.301, 8.406], ["invitación", 8.429, 9.009], ["digital", 9.056, 9.636], ["hermosa…", 9.694, 10.716], ["hecha", 11.006, 11.355], ["con", 11.401, 11.54], ["tus", 11.587, 11.749], ["fotos.", 11.807, 12.457], ["Con", 13.096, 13.305], ["música,", 13.351, 14.025], ["cuenta", 14.118, 14.454], ["regresiva,", 14.536, 15.314], ["ubicación,", 15.43, 16.475], ["confirmación", 16.695, 17.392], ["de", 17.427, 17.485], ["asistencia,", 17.52, 18.379], ["organización", 18.495, 19.25], ["de", 19.296, 19.354], ["mesas…", 19.424, 20.097], ["y", 20.422, 20.503], ["código", 20.62, 21.003], ["QR", 21.096, 21.479], ["para", 21.606, 21.781], ["la", 21.827, 21.873], ["entrada.", 21.897, 22.582], ["¿Qué", 23.418, 23.673], ["ganas", 23.719, 23.975], ["tú?", 24.033, 24.428], ["Primero:", 24.996, 25.658], ["más", 25.914, 26.181], ["sesiones.", 26.204, 27.04], ["Tus", 27.435, 27.667], ["clientes", 27.713, 28.085], ["querrán", 28.143, 28.398], ["una", 28.456, 28.607], ["preboda", 28.665, 29.223], ["o", 29.397, 29.513], ["un", 29.594, 29.652], ["pre-quince", 29.71, 30.267], ["para", 30.36, 30.523], ["lucir", 30.569, 30.86], ["sus", 30.894, 31.034], ["fotos", 31.103, 31.428], ["en", 31.486, 31.545], ["la", 31.603, 31.649], ["invitación.", 31.684, 32.52], ["Segundo:", 33.182, 34.099], ["paquetes", 34.435, 34.865], ["más", 34.911, 35.039], ["valiosos.", 35.074, 35.84], ["Inclúyela", 36.13, 36.687], ["en", 36.722, 36.769], ["tus", 36.815, 36.966], ["paquetes,", 37.013, 37.756], ["o", 37.872, 37.941], ["véndela", 37.999, 38.371], ["como", 38.417, 38.615], ["servicio", 38.661, 39.126], ["adicional.", 39.149, 39.892], ["Y", 40.542, 40.623], ["tercero:", 40.716, 41.482], ["tu", 41.877, 41.982], ["trabajo", 42.028, 42.434], ["llega", 42.458, 42.69], ["más", 42.736, 42.876], ["lejos.", 42.945, 43.526], ["Cada", 43.862, 44.083], ["invitación", 44.106, 44.722], ["lleva", 44.745, 45.012], ["tus", 45.058, 45.232], ["créditos…", 45.279, 46.115], ["y", 46.417, 46.509], ["cientos", 46.579, 47.009], ["de", 47.044, 47.09], ["invitados", 47.113, 47.682], ["ven", 47.798, 47.961], ["tus", 48.007, 48.17], ["fotos", 48.228, 48.669], ["y", 48.843, 48.936], ["llegan", 48.959, 49.319], ["a", 49.377, 49.4], ["tu", 49.447, 49.528], ["perfil.", 49.586, 50.225], ["Además,", 50.91, 51.734], ["tienes", 51.908, 52.186], ["tu", 52.233, 52.302], ["propio", 52.36, 52.639], ["catálogo", 52.674, 53.196], ["de", 53.243, 53.312], ["diseños", 53.37, 53.905], ["con", 53.974, 54.09], ["tu", 54.137, 54.218], ["marca,", 54.288, 54.81], ["para", 54.88, 55.066], ["mostrárselo", 55.1, 55.704], ["a", 55.727, 55.751], ["tus", 55.785, 55.936], ["clientes.", 55.971, 56.691], ["No", 57.527, 57.689], ["es", 57.747, 57.817], ["solo", 57.864, 58.107], ["una", 58.154, 58.247], ["invitación.", 58.282, 59.141], ["Es", 59.501, 59.663], ["una", 59.779, 59.895], ["herramienta", 59.919, 60.522], ["para", 60.58, 60.743], ["vender", 60.789, 61.161], ["más.", 61.254, 61.811], ["InvitApp.", 62.658, 63.506], ["Escríbenos", 63.947, 64.748], ["y", 64.922, 64.992], ["empieza", 65.073, 65.665], ["a", 65.689, 65.712], ["ofrecerla", 65.735, 66.327], ["a", 66.35, 66.374], ["tus", 66.42, 66.583], ["clientes.", 66.617, 67.569]];
+      const tl = gsap.timeline({ paused: true });
+      const clean = (t) => t.replace(/[.,:;¿?¡!…]/g, "");
+      const at = (word, nth = 1) => {
+        let seen = 0;
+        for (const [t, s] of WORDS) if (clean(t) === word && ++seen === nth) return s;
+        throw new Error("word not found: " + word + " #" + nth);
+      };
+      const el = (tag, props, parent) => Object.assign(parent.appendChild(document.createElement(tag)), props);
+      const $ = (id) => document.getElementById(id);
+
+      tl.fromTo("#ring-1", { scale: 0.92, rotation: 0 }, { scale: 1.06, rotation: 16, duration: 71.5, ease: "none" }, 0);
+      tl.fromTo("#ring-2", { scale: 1, y: 0 }, { scale: 1.14, y: -70, duration: 71.5, ease: "none" }, 0);
+
+      const ICON_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="#2f7d4f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>';
+      const ICON = {
+        cam: '<svg viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+        music: '<svg viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>',
+        clock: '<svg viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/></svg>',
+        pin: '<svg viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+        ok: ICON_OK,
+        table: '<svg viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><circle cx="12" cy="3.5" r="1.5"/><circle cx="12" cy="20.5" r="1.5"/><circle cx="3.5" cy="12" r="1.5"/><circle cx="20.5" cy="12" r="1.5"/></svg>',
+        qr: '<svg viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v.01M17 20h4M20 17v3"/></svg>',
+        ig: '<svg viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.4" cy="6.6" r="0.6" fill="#7a6657"/></svg>',
+        users: '<svg viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 19a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/></svg>',
+        brand: '<svg viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12l-8 8-9-9V3h8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>',
+      };
+
+      // ---------- captions (skip where the same words are already big on screen) ----------
+      const closeIdx = WORDS.findIndex((w) => w[1] === at("InvitApp", 2));
+      const skip = (s) => (s > 23.2 && s < 24.8) || (s > 57.3 && s < 62.3);
+      const chunks = [];
+      let cur = [];
+      WORDS.slice(0, closeIdx).forEach((w) => {
+        cur.push(w);
+        if (/[.?:…]$/.test(w[0]) || (/,$/.test(w[0]) && cur.length >= 3) || cur.length >= 7) {
+          chunks.push(cur);
+          cur = [];
+        }
+      });
+      if (cur.length) chunks.push(cur);
+      chunks.forEach((ws, ci) => {
+        if (skip(ws[0][1])) return;
+        const box = el("div", { className: "cap", id: "cap-" + ci }, $("captions"));
+        ws.forEach(([t], k) => el("span", { className: "w", id: `cap-${ci}-${k}`, textContent: t }, box));
+        const start = Math.max(0, ws[0][1] - 0.08);
+        const next = ci + 1 < chunks.length ? chunks[ci + 1][0][1] - 0.1 : Infinity;
+        const end = Math.min(next, ws[ws.length - 1][2] + 0.7);
+        tl.fromTo(box, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.2, ease: "power2.out" }, start);
+        tl.to(box, { opacity: 0, duration: 0.15, ease: "power1.in" }, end - 0.15);
+        ws.forEach(([, s], k) => tl.fromTo(`#cap-${ci}-${k}`, { opacity: 0.22 }, { opacity: 1, duration: 0.12, ease: "none" }, s));
+      });
+
+      // ---------- helpers: phones with a camera, taps, highlights, chips ----------
+      const W = 470, H = 1017;
+      const O = { x: 540, y: 960 }, T = { x: 540, y: 1150 };
+      const cams = {};
+      const phone = (key, screens) => {
+        screens.forEach((n) => el("img", { id: `${key}-${n}`, src: `assets/screens/${n}.png`, alt: n }, $("screen-" + key)));
+        cams[key] = { x: 0, y: 0, scale: 1 };
+        tl.set("#cam-" + key, { x: 0, y: 0, scale: 1 }, 0);
+      };
+      const show = (key, n, t, d = 0.35) => tl.fromTo(`#${key}-${n}`, { opacity: 0 }, { opacity: 1, duration: d, ease: "power1.inOut" }, t);
+      const focus = (key, fx, fy, k, t, d = 0.9) => {
+        const P = { x: 305 + fx * W, y: 534 + fy * H };
+        const to = k === 1 ? { x: 0, y: 0, scale: 1 } : { x: T.x - O.x - k * (P.x - O.x), y: T.y - O.y - k * (P.y - O.y), scale: k };
+        tl.fromTo("#cam-" + key, { ...cams[key] }, { ...to, duration: d, ease: "power3.inOut", immediateRender: false }, t);
+        cams[key] = to;
+      };
+      let n = 0;
+      const tap = (key, fx, fy, t) => {
+        const id = "tap-" + n++;
+        el("div", { className: "tap", id, style: `left:${fx * W}px;top:${fy * H}px` }, $("screen-" + key));
+        tl.fromTo("#" + id, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.18, ease: "power2.out" }, t);
+        tl.to("#" + id, { opacity: 0, scale: 1.8, duration: 0.45, ease: "power1.out" }, t + 0.25);
+      };
+      const hl = (key, fx, fy, fw, fh, t, until) => {
+        const id = "hl-" + n++;
+        el("div", { className: "hl", id, style: `left:${(fx - fw / 2) * W}px;top:${(fy - fh / 2) * H}px;width:${fw * W}px;height:${fh * H}px` }, $("screen-" + key));
+        tl.fromTo("#" + id, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, t);
+        tl.to("#" + id, { opacity: 0, duration: 0.25 }, until);
+      };
+      const chip = (parent, html, x, y, t, until) => {
+        const id = "chip-" + n++;
+        el("div", { className: "chip", id, innerHTML: html, style: `left:${x}px;top:${y}px` }, $(parent));
+        tl.fromTo("#" + id, { opacity: 0, y: 30, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, t);
+        tl.to("#" + id, { opacity: 0, duration: 0.25 }, until);
+      };
+      // chip centred horizontally (width estimated from text length)
+      const chipC = (parent, icon, text, y, t, until) => chip(parent, icon + text, Math.round(540 - (text.length * 21 + 120) / 2), y, t, until);
+
+      // ---------- 1 hook ----------
+      tl.fromTo("#iris", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 0);
+      tl.fromTo("#iris-blades", { rotation: 0, scale: 1, transformOrigin: "50px 50px" }, { rotation: 60, scale: 0.15, duration: 0.25, ease: "power2.in" }, 0.75);
+      tl.fromTo("#flash", { opacity: 0 }, { opacity: 0.95, duration: 0.06 }, 1.0);
+      tl.to("#flash", { opacity: 0, duration: 0.45, ease: "power1.out" }, 1.08);
+      tl.to("#iris", { opacity: 0, scale: 1.3, duration: 0.3 }, 1.05);
+      const covers = [["neblina-0", "Neblina", 70, 560, -6], ["flow-0", "Flow", 390, 600, 4], ["xv-carmesi-0", "XV Carmesí", 710, 560, -3],
+        ["sobre-amanecer-0", "Sobre Amanecer", 120, 1060, 5], ["elegante-0", "Elegante", 430, 1100, -4], ["rustico-0", "Rústico", 740, 1060, 6]];
+      covers.forEach(([img, label, x, y, r], i) => {
+        const p = el("div", { className: "pol", id: "pol-" + i, style: `left:${x}px;top:${y}px` }, $("pols"));
+        p.innerHTML = `<div class="pol-img"><img src="assets/screens/${img}.png" alt="${label}"></div><p class="script">${label}</p>`;
+        tl.fromTo("#pol-" + i, { opacity: 0, y: 80, rotation: 0 }, { opacity: 1, y: 0, rotation: r, duration: 0.5, ease: "back.out(1.6)" }, at("y") + i * 0.22);
+        if (i % 2 === 0) {
+          el("span", { className: "badge", id: "bd-" + i, textContent: "+1 cliente" }, p);
+          tl.fromTo("#bd-" + i, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2.4)" }, at("nuevos") + i * 0.12);
+        }
+        tl.to("#pol-" + i, { opacity: 0, y: -60, duration: 0.35, ease: "power2.in", immediateRender: false }, 5.55 + i * 0.03);
+      });
+
+      // ---------- 2 invitation made with your photos ----------
+      phone("a", ["f1-portada", "f2-cuenta-regresiva", "a2-ceremonia", "b4-mensaje", "d7-sentado", "e1-qr"]);
+      tl.set("#a-f1-portada", { opacity: 1 }, 0);
+      tl.fromTo("#phone-a", { opacity: 0, y: 260 }, { opacity: 1, y: 0, duration: 0.9, ease: "expo.out" }, 5.7);
+      focus("a", 0.5, 0.33, 1.55, at("hecha") - 0.3, 1.0);
+      hl("a", 0.5, 0.335, 0.76, 0.5, at("fotos") - 0.2, at("música") - 0.3);
+      chipC("chips-a", ICON.cam, "Tus fotos, protagonistas", 1500, at("fotos"), at("música") - 0.3);
+
+      // ---------- 3 feature montage ----------
+      focus("a", 0.5, 0.5, 1, at("música") - 0.3, 0.6);
+      const feats = [
+        ["música", null, ICON.music, "Música", [0.89, 0.945]],
+        ["cuenta", "f2-cuenta-regresiva", ICON.clock, "Cuenta regresiva", null],
+        ["ubicación", "a2-ceremonia", ICON.pin, "Ubicación", null],
+        ["confirmación", "b4-mensaje", ICON.ok, "Confirmación de asistencia", null],
+        ["organización", "d7-sentado", ICON.table, "Organización de mesas", null],
+        ["QR", "e1-qr", ICON.qr, "Código QR de entrada", null],
+      ];
+      feats.forEach(([word, scr, icon, label, tapAt], i) => {
+        const t = at(word) - 0.15;
+        const until = i + 1 < feats.length ? at(feats[i + 1][0]) - 0.45 : 23.1;
+        if (scr) show("a", scr, t);
+        if (tapAt) tap("a", tapAt[0], tapAt[1], t + 0.1);
+        chipC("chips-a", icon, label, 1480, t, until);
+      });
+      tl.to("#phone-a", { opacity: 0, y: 120, duration: 0.4, ease: "power2.in", immediateRender: false }, 23.0);
+
+      // ---------- 4 ask ----------
+      tl.fromTo("#ask", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, at("Qué"));
+      tl.to("#ask", { opacity: 0, y: -40, duration: 0.3, immediateRender: false }, 24.6);
+
+      // ---------- 5 benefit 1: more sessions ----------
+      tl.fromTo("#b1-title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, at("Primero") - 0.1);
+      [["neblina-0", "Preboda", 90, 900, -5, at("preboda")], ["xv-carmesi-0", "Pre-quince", 390, 960, 3, at("pre-quince")], ["flow-0", "Tu invitación", 690, 900, -3, at("invitación", 2)]].forEach(([img, label, x, y, r, t], i) => {
+        const p = el("div", { className: "pol", id: "b1p-" + i, style: `left:${x}px;top:${y}px` }, $("b1-pols"));
+        p.innerHTML = `<div class="pol-img"><img src="assets/screens/${img}.png" alt="${label}"></div><p class="script">${label}</p>`;
+        tl.fromTo("#b1p-" + i, { opacity: 0, y: 90, rotation: 0 }, { opacity: 1, y: 0, rotation: r, duration: 0.55, ease: "back.out(1.6)" }, t - 0.15);
+      });
+      tl.to(["#b1-title", "#b1-pols"], { opacity: 0, duration: 0.3, immediateRender: false }, 32.8);
+
+      // ---------- 6 benefit 2: richer packages ----------
+      tl.fromTo("#b2-title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, at("Segundo") - 0.1);
+      tl.fromTo("#pkg", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }, at("Segundo") + 0.3);
+      ["#row-1", "#row-2", "#row-3"].forEach((r, i) => tl.fromTo(r, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, at("paquetes") + i * 0.25));
+      tl.fromTo("#row-new", { opacity: 0, x: 60, scale: 0.95 }, { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.8)" }, at("Inclúyela"));
+      tl.fromTo("#pkg-tag", { opacity: 0, scale: 0.6, rotation: 0 }, { opacity: 1, scale: 1, rotation: -4, duration: 0.45, ease: "back.out(2)" }, at("véndela"));
+      tl.to(["#b2-title", "#pkg"], { opacity: 0, duration: 0.3, immediateRender: false }, 40.3);
+
+      // ---------- 7 benefit 3: your work reaches further ----------
+      tl.fromTo("#b3-title", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, at("tercero") - 0.1);
+      tl.to("#b3-title", { opacity: 0, duration: 0.3, immediateRender: false }, at("Cada") - 0.4);
+      phone("b", ["f3-photos-by"]);
+      tl.set("#b-f3-photos-by", { opacity: 1 }, 0);
+      tl.fromTo("#phone-b", { opacity: 0, y: 260 }, { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" }, at("Cada") - 0.5);
+      focus("b", 0.5, 0.872, 2.6, at("créditos") - 0.5, 1.0);
+      hl("b", 0.5, 0.872, 0.32, 0.04, at("créditos"), at("cientos") - 0.3);
+      tap("b", 0.5, 0.872, at("créditos") + 0.5);
+      chipC("chips-b", ICON.ig, "Photos by: tu perfil", 1480, at("créditos") + 0.1, at("cientos") - 0.3);
+      tl.to("#phone-b", { opacity: 0, scale: 0.6, duration: 0.4, ease: "power2.in", immediateRender: false }, at("cientos") - 0.3);
+      const gimgs = ["f1-portada", "neblina-0", "flow-0", "xv-carmesi-0", "sobre-amanecer-0", "elegante-0", "rustico-0"];
+      let g = 0;
+      for (let r = 0; r < 3; r++)
+        for (let c = 0; c < 6; c++, g++) {
+          const m = el("div", { className: "mini", id: "mini-" + g, style: `left:${c * 160 + 12}px;top:${r * 268}px` }, $("guests"));
+          el("img", { src: `assets/screens/${gimgs[g % gimgs.length]}.png`, alt: "" }, m);
+          const order = (r * 7 + c * 5) % 18;
+          tl.fromTo("#mini-" + g, { opacity: 0, scale: 0.5, y: 30 }, { opacity: 1, scale: 1, y: 0, duration: 0.35, ease: "back.out(1.8)" }, at("cientos") + order * 0.09);
+        }
+      chipC("chips-b", ICON.users, "Cientos de invitados ven tu trabajo", 1560, at("ven"), 50.6);
+      chipC("chips-b", ICON.ig, "Y llegan a tu perfil", 1660, at("perfil") - 0.2, 50.6);
+
+      // ---------- 8 your own branded catalog ----------
+      phone("c", ["g2-catalogo-disenos", "g1-catalogo-partner"]);
+      tl.set("#c-g2-catalogo-disenos", { opacity: 1 }, 0);
+      tl.fromTo("#phone-c", { opacity: 0, y: 260 }, { opacity: 1, y: 0, duration: 0.8, ease: "expo.out" }, at("Además") - 0.2);
+      show("c", "g1-catalogo-partner", at("marca") - 0.4);
+      focus("c", 0.5, 0.26, 1.8, at("marca") - 0.4);
+      hl("c", 0.5, 0.265, 0.8, 0.17, at("marca"), 57.2);
+      chipC("chips-c", ICON.brand, "Tu catálogo con tu marca", 1600, at("marca"), 57.2);
+
+      // ---------- 9 statement ----------
+      tl.fromTo("#st1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, at("No") - 0.1);
+      tl.fromTo("#st2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, at("Es") - 0.1);
+      tl.fromTo("#st2 .script", { scale: 0.8 }, { scale: 1, duration: 0.6, ease: "back.out(2)" }, at("vender") - 0.1);
+
+      // ---------- 10 close ----------
+      tl.fromTo("#close-panel", { yPercent: 100 }, { yPercent: 0, duration: 0.6, ease: "expo.inOut" }, 62.2);
+      const tB = at("InvitApp", 2);
+      tl.fromTo("#c-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, tB - 0.1);
+      tl.fromTo("#c-brand", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8, ease: "expo.out" }, tB);
+      tl.fromTo("#c-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, tB + 0.4);
+      tl.fromTo("#c-tag", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, tB + 0.6);
+      tl.fromTo("#c-cta", { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, at("Escríbenos"));
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

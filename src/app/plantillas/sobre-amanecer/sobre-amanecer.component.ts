@@ -42,6 +42,10 @@ interface SobreAmanecerData {
   heroImage?: string;
   musicLabel?: string;
   audioSrc?: string;
+  openHint?: string;
+  letterKicker?: string;
+  scrollHint?: string;
+  playMusicOnOpen?: boolean;
   storyText?: string;
   month?: string;
   dayOfWeek?: string;
@@ -95,10 +99,15 @@ interface ItineraryItem {
 })
 export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
   @Input() invitationData: Partial<SobreAmanecerData> | null = null;
+  @Input() confirmation: any = null;
   @ViewChild('audioPlayer') audioPlayerRef!: ElementRef<HTMLAudioElement>;
 
   selectedPalette: PaletteName = 'burgundy';
   isPlaying = false;
+
+  /** Estado del sobre de portada: cerrado → abriéndose → abierto */
+  envelopeState: 'closed' | 'opening' | 'open' = 'closed';
+  private envelopeTimer: ReturnType<typeof setTimeout> | null = null;
   progress = 0;
   days = 0;
   hours = 0;
@@ -246,6 +255,10 @@ export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
     announceMessage: 'No lo creían, pero nuestro día llegó.',
     heroImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/portada_2_neblina.jpeg',
     musicLabel: 'Dale play a nuestra canción',
+    openHint: 'Toca para abrir',
+    letterKicker: 'Te invitamos a nuestra boda',
+    scrollHint: 'Desliza para ver más',
+    playMusicOnOpen: true,
     audioSrc: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Fonseca%20-%20Prometo%20(LyricLetra).mp3',
     storyText: 'Nuestra historia continúa... por ello, con el amor que nos une, la bendición de Dios y el apoyo de nuestros padres, uniremos nuestras vidas y queremos que seas parte de este nuevo capítulo.',
     month: 'ENERO',
@@ -372,7 +385,26 @@ export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
     if (this.countdownInterval) {
       clearInterval(this.countdownInterval);
     }
+    if (this.envelopeTimer) {
+      clearTimeout(this.envelopeTimer);
+    }
     this.stopCarousel();
+  }
+
+  openEnvelope(): void {
+    if (this.envelopeState !== 'closed') return;
+    this.envelopeState = 'opening';
+    // Abrir el sobre es un gesto del invitado: el navegador permite iniciar la música aquí.
+    if (this.data.playMusicOnOpen !== false) {
+      this.startMusic();
+    }
+    this.envelopeTimer = setTimeout(() => (this.envelopeState = 'open'), 3300);
+  }
+
+  private startMusic(): void {
+    const audio = this.audioPlayerRef?.nativeElement;
+    if (!audio || !this.data.audioSrc || this.isPlaying) return;
+    audio.play().catch(() => undefined);
   }
 
   nextEventPhoto(): void {
@@ -429,12 +461,13 @@ export class SobreAmanecerComponent implements OnInit, OnChanges, OnDestroy {
     const audio = this.audioPlayerRef?.nativeElement;
     if (!audio || !this.data.audioSrc) return;
 
-    if (this.isPlaying) {
-      audio.pause();
+    // isPlaying lo actualizan los eventos (play)/(pause) del <audio>,
+    // así el botón no queda marcado si el navegador bloquea la reproducción.
+    if (audio.paused) {
+      audio.play().catch(() => undefined);
     } else {
-      void audio.play();
+      audio.pause();
     }
-    this.isPlaying = !this.isPlaying;
   }
 
   onTimeUpdate(): void {

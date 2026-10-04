@@ -63,6 +63,12 @@ export const routes: Routes = [
     },
     // ===== Fin Music =====
     {
+        path: 'baby',
+        loadComponent: () =>
+            import('./plantillas/baby/baby.component')
+                .then(m => m.BabyComponent)
+    },
+    {
         path: ':slug',
         component: HomeComponent
     },

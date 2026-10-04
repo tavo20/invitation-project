@@ -2,29 +2,63 @@
     <div class="card-frame">
         <div class="envelope-card">
             <!-- 1. SECCIÓN SUPERIOR: SOBRE REALISTA -->
-            <div class="envelope">
-                <!-- Solapa superior principal con punta suavizada y nombres -->
-                <div class="top-flap-wrapper">
-                    <div class="top-flap">
-                        <div class="names">
-                            <div class="name">{{ data.names1 }}</div>
-                            <div class="ampersand">&amp;</div>
-                            <div class="name">{{ data.names2 }}</div>
-                        </div>
-                    </div>
+            <div class="envelope"
+                [class.is-opening]="envelopeState !== 'closed'"
+                [class.is-open]="envelopeState === 'open'"
+                role="button"
+                tabindex="0"
+                [attr.aria-label]="envelopeState === 'closed' ? (data.openHint || 'Abrir invitación') : null"
+                [attr.aria-expanded]="envelopeState !== 'closed'"
+                (click)="openEnvelope()"
+                (keydown.enter)="openEnvelope()"
+                (keydown.space)="$event.preventDefault(); openEnvelope()">
+                <!-- Carta dentro del sobre: sube al abrirlo -->
+                <div class="letter" aria-hidden="true">
+                    <p class="letter__kicker">{{ data.letterKicker }}</p>
+                    <p class="letter__names">{{ data.names1 }} <span>&amp;</span> {{ data.names2 }}</p>
+                    <div class="letter__rule"></div>
+                    <p class="letter__date">{{ data.date }}</p>
                 </div>
 
-                <!-- Solapas laterales cruzadas -->
-                <div class="side-flap-left"></div>
-                <div class="side-flap-right"></div>
+                <!-- Solapas laterales (debajo de todo) -->
+                <div class="side-flap side-flap--left"></div>
+                <div class="side-flap side-flap--right"></div>
 
-                <!-- Cuerpo inferior del sobre -->
-                <div class="envelope-bottom-body"></div>
+                <!-- Solapa inferior que sube hacia el centro -->
+                <div class="bottom-flap-wrapper">
+                    <div class="bottom-flap"></div>
+                </div>
+
+                <!-- Solapa superior principal con nombres; el borde claro simula el grosor del papel -->
+                <div class="top-flap-wrapper">
+                    <div class="top-flap-hinge">
+                        <div class="top-flap-edge"></div>
+                        <div class="top-flap">
+                            <div class="names">
+                                <div class="name">{{ data.names1 }}</div>
+                                <div class="ampersand">&amp;</div>
+                                <div class="name">{{ data.names2 }}</div>
+                            </div>
+                        </div>
+                        <!-- Cara interna de la solapa (se ve mientras gira) -->
+                        <div class="top-flap-back"></div>
+                    </div>
+                </div>
 
                 <!-- Fecha en la base del sobre -->
                 <div class="date-footer">
                     <span class="date">{{ data.date }}</span>
                 </div>
+
+                <!-- Indicaciones: tocar para abrir / deslizar -->
+                <p class="open-hint">{{ data.openHint }}</p>
+                <p class="scroll-hint">
+                    {{ data.scrollHint }}
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+                </p>
+
+                <!-- Textura de papel y sombra de bordes -->
+                <div class="paper-grain" aria-hidden="true"></div>
             </div>
 
             <!-- 2. SECCIÓN INFERIOR: BASE FLORAL ACUARELA -->
@@ -113,6 +147,8 @@
             <audio
                 #audioPlayer
                 [src]="data.audioSrc"
+                (play)="isPlaying = true"
+                (pause)="isPlaying = false"
                 (timeupdate)="onTimeUpdate()"
                 (ended)="onAudioEnded()">
             </audio>
@@ -548,6 +584,23 @@
     </section>
 
     <!-- Selector dinámico de paleta de colores -->
+    <!-- Botón flotante de música (controla la misma canción del reproductor) -->
+    <button
+        *ngIf="data.audioSrc"
+        type="button"
+        class="music-fab"
+        [class.is-playing]="isPlaying"
+        (click)="togglePlayPause()"
+        [attr.aria-label]="isPlaying ? 'Pausar música' : 'Reproducir música'"
+        [attr.aria-pressed]="isPlaying">
+        <svg *ngIf="!isPlaying" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M9 18V6l10-1.8V16" />
+            <circle cx="6.5" cy="18" r="2.5" />
+            <circle cx="16.5" cy="16" r="2.5" />
+        </svg>
+        <span *ngIf="isPlaying" class="music-fab__bars" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+    </button>
+
     <div class="palette-picker" aria-label="Cambiar paleta de colores">
         <button
             type="button"

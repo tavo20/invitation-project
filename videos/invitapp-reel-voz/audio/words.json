@@ -1,0 +1,362 @@
+[
+ {
+  "text": "Organizar",
+  "start": 0.0,
+  "end": 0.522,
+  "id": 0
+ },
+ {
+  "text": "tu",
+  "start": 0.58,
+  "end": 0.662,
+  "id": 1
+ },
+ {
+  "text": "boda",
+  "start": 0.685,
+  "end": 0.975,
+  "id": 2
+ },
+ {
+  "text": "no",
+  "start": 1.045,
+  "end": 1.149,
+  "id": 3
+ },
+ {
+  "text": "debería",
+  "start": 1.196,
+  "end": 1.544,
+  "id": 4
+ },
+ {
+  "text": "ser",
+  "start": 1.591,
+  "end": 1.718,
+  "id": 5
+ },
+ {
+  "text": "un",
+  "start": 1.776,
+  "end": 1.823,
+  "id": 6
+ },
+ {
+  "text": "caos.",
+  "start": 1.869,
+  "end": 2.392,
+  "id": 7
+ },
+ {
+  "text": "Con",
+  "start": 2.67,
+  "end": 2.856,
+  "id": 8
+ },
+ {
+  "text": "InvitApp,",
+  "start": 2.926,
+  "end": 3.622,
+  "id": 9
+ },
+ {
+  "text": "tus",
+  "start": 3.738,
+  "end": 3.901,
+  "id": 10
+ },
+ {
+  "text": "invitados",
+  "start": 3.971,
+  "end": 4.447,
+  "id": 11
+ },
+ {
+  "text": "confirman",
+  "start": 4.505,
+  "end": 5.074,
+  "id": 12
+ },
+ {
+  "text": "desde",
+  "start": 5.143,
+  "end": 5.399,
+  "id": 13
+ },
+ {
+  "text": "la",
+  "start": 5.457,
+  "end": 5.515,
+  "id": 14
+ },
+ {
+  "text": "invitación,",
+  "start": 5.55,
+  "end": 6.235,
+  "id": 15
+ },
+ {
+  "text": "en",
+  "start": 6.269,
+  "end": 6.339,
+  "id": 16
+ },
+ {
+  "text": "un",
+  "start": 6.455,
+  "end": 6.525,
+  "id": 17
+ },
+ {
+  "text": "toque.",
+  "start": 6.583,
+  "end": 7.129,
+  "id": 18
+ },
+ {
+  "text": "Y",
+  "start": 7.454,
+  "end": 7.57,
+  "id": 19
+ },
+ {
+  "text": "tú",
+  "start": 7.663,
+  "end": 7.767,
+  "id": 20
+ },
+ {
+  "text": "ves",
+  "start": 7.825,
+  "end": 7.999,
+  "id": 21
+ },
+ {
+  "text": "en",
+  "start": 8.069,
+  "end": 8.139,
+  "id": 22
+ },
+ {
+  "text": "tiempo",
+  "start": 8.185,
+  "end": 8.499,
+  "id": 23
+ },
+ {
+  "text": "real",
+  "start": 8.58,
+  "end": 8.882,
+  "id": 24
+ },
+ {
+  "text": "quién",
+  "start": 8.998,
+  "end": 9.265,
+  "id": 25
+ },
+ {
+  "text": "confirmó,",
+  "start": 9.311,
+  "end": 10.043,
+  "id": 26
+ },
+ {
+  "text": "quién",
+  "start": 10.368,
+  "end": 10.565,
+  "id": 27
+ },
+ {
+  "text": "está",
+  "start": 10.612,
+  "end": 10.786,
+  "id": 28
+ },
+ {
+  "text": "pendiente",
+  "start": 10.855,
+  "end": 11.447,
+  "id": 29
+ },
+ {
+  "text": "y",
+  "start": 11.529,
+  "end": 11.575,
+  "id": 30
+ },
+ {
+  "text": "cuántas",
+  "start": 11.691,
+  "end": 12.086,
+  "id": 31
+ },
+ {
+  "text": "personas",
+  "start": 12.144,
+  "end": 12.608,
+  "id": 32
+ },
+ {
+  "text": "van.",
+  "start": 12.666,
+  "end": 13.131,
+  "id": 33
+ },
+ {
+  "text": "Después",
+  "start": 13.642,
+  "end": 14.222,
+  "id": 34
+ },
+ {
+  "text": "armas",
+  "start": 14.303,
+  "end": 14.594,
+  "id": 35
+ },
+ {
+  "text": "tus",
+  "start": 14.652,
+  "end": 14.791,
+  "id": 36
+ },
+ {
+  "text": "mesas:",
+  "start": 14.861,
+  "end": 15.43,
+  "id": 37
+ },
+ {
+  "text": "eliges",
+  "start": 15.755,
+  "end": 16.173,
+  "id": 38
+ },
+ {
+  "text": "al",
+  "start": 16.243,
+  "end": 16.301,
+  "id": 39
+ },
+ {
+  "text": "invitado,",
+  "start": 16.359,
+  "end": 17.114,
+  "id": 40
+ },
+ {
+  "text": "tocas",
+  "start": 17.23,
+  "end": 17.601,
+  "id": 41
+ },
+ {
+  "text": "la",
+  "start": 17.671,
+  "end": 17.752,
+  "id": 42
+ },
+ {
+  "text": "mesa,",
+  "start": 17.822,
+  "end": 18.356,
+  "id": 43
+ },
+ {
+  "text": "y",
+  "start": 18.739,
+  "end": 18.82,
+  "id": 44
+ },
+ {
+  "text": "listo.",
+  "start": 18.901,
+  "end": 19.459,
+  "id": 45
+ },
+ {
+  "text": "Sin",
+  "start": 19.842,
+  "end": 20.074,
+  "id": 46
+ },
+ {
+  "text": "pasarte",
+  "start": 20.121,
+  "end": 20.562,
+  "id": 47
+ },
+ {
+  "text": "del",
+  "start": 20.608,
+  "end": 20.724,
+  "id": 48
+ },
+ {
+  "text": "cupo.",
+  "start": 20.794,
+  "end": 21.398,
+  "id": 49
+ },
+ {
+  "text": "InvitApp.",
+  "start": 21.723,
+  "end": 22.675,
+  "id": 50
+ },
+ {
+  "text": "Invitaciones",
+  "start": 22.919,
+  "end": 23.731,
+  "id": 51
+ },
+ {
+  "text": "que",
+  "start": 23.824,
+  "end": 23.929,
+  "id": 52
+ },
+ {
+  "text": "enamoran,",
+  "start": 23.998,
+  "end": 24.857,
+  "id": 53
+ },
+ {
+  "text": "y",
+  "start": 25.032,
+  "end": 25.101,
+  "id": 54
+ },
+ {
+  "text": "una",
+  "start": 25.217,
+  "end": 25.345,
+  "id": 55
+ },
+ {
+  "text": "fiesta",
+  "start": 25.415,
+  "end": 25.821,
+  "id": 56
+ },
+ {
+  "text": "bajo",
+  "start": 25.879,
+  "end": 26.169,
+  "id": 57
+ },
+ {
+  "text": "control.",
+  "start": 26.216,
+  "end": 26.959,
+  "id": 58
+ },
+ {
+  "text": "Escríbenos.",
+  "start": 27.284,
+  "end": 28.7,
+  "id": 59
+ }
+]

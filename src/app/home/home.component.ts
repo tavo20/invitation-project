@@ -15,6 +15,8 @@ import { AzulGrisColoresComponent } from '../plantillas/azul-gris-colores/azul-g
 import { NeblinaComponent } from '../plantillas/neblina/neblina.component';
 import { SobreAmanecerComponent } from '../plantillas/sobre-amanecer/sobre-amanecer.component';
 import { XvLilaComponent } from '../plantillas/xv-lila/xv-lila.component';
+import { BabyComponent } from '../plantillas/baby/baby.component';
+import { ArcoVerdeComponent } from '../plantillas/arco-verde/arco-verde.component';
 import { ConfirmationService } from '../shared/services/confirmation.service';
 import { lastValueFrom } from 'rxjs';
 
@@ -46,6 +48,8 @@ export class HomeComponent {
     "neblina": NeblinaComponent,
     "sobre-amanecer": SobreAmanecerComponent,
     "xv-lila": XvLilaComponent,
+    "baby": BabyComponent,
+    "arco-verde": ArcoVerdeComponent,
   }
   public templateComponent: any = null;
 

@@ -1,0 +1,258 @@
+<main class="baby-page">
+  <section class="hero" aria-label="Portada">
+    <!-- decoración: nubes y estrellas -->
+    <img
+      *ngFor="let c of clouds"
+      class="hero__cloud"
+      [class.hero__cloud--flip]="c.flip"
+      [src]="data.cloudImage"
+      alt=""
+      aria-hidden="true"
+      [style.left.%]="c.left"
+      [style.top.px]="c.top"
+      [style.width.%]="c.size"
+      [style.animation-delay.s]="c.delay" />
+
+    <svg
+      *ngFor="let s of stars"
+      class="hero__star"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      [style.left.%]="s.left"
+      [style.top.px]="s.top"
+      [style.width.%]="s.size">
+      <path d="M12 2.5l2.6 6.1 6.6.6-5 4.4 1.5 6.5L12 16.7l-5.7 3.4 1.5-6.5-5-4.4 6.6-.6z" />
+    </svg>
+
+    <!-- contenido -->
+    <img class="hero__bunny" [src]="data.heroImage" alt="Conejita bebé" />
+
+    <h1 class="hero__title">
+      <span class="hero__baby">{{ data.title }}</span>
+      <span class="hero__shower">{{ data.subtitle }}</span>
+    </h1>
+
+    <p class="hero__kicker">{{ data.kicker }}</p>
+    <p class="hero__name">{{ data.babyName }}</p>
+
+    <figure class="hero__eco">
+      <img [src]="data.ecoImage" [alt]="'Ecografía de ' + data.babyName" />
+    </figure>
+
+    <!-- Latidos del bebé: onda de puntos que se colorea mientras suena -->
+    <div *ngIf="data.heartbeatSrc" class="heartbeat" [class.is-playing]="heartbeatPlaying">
+      <p class="heartbeat__label">{{ data.heartbeatLabel }}</p>
+      <div class="heartbeat__player">
+        <button
+          type="button"
+          class="heartbeat__btn"
+          (click)="toggleHeartbeat()"
+          [attr.aria-label]="heartbeatPlaying ? 'Pausar latidos' : 'Escuchar latidos'"
+          [attr.aria-pressed]="heartbeatPlaying">
+          <svg *ngIf="!heartbeatPlaying" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" fill="currentColor" />
+            <path d="M10.2 9.2v5.6l4.6-2.8z" fill="#ffffff" />
+          </svg>
+          <svg *ngIf="heartbeatPlaying" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" fill="currentColor" />
+            <path d="M10 9.4v5.2M14 9.4v5.2" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+        </button>
+        <canvas #heartbeatCanvas class="heartbeat__wave" aria-hidden="true"></canvas>
+      </div>
+      <audio
+        #heartbeatAudio
+        [src]="data.heartbeatSrc"
+        crossorigin="anonymous"
+        loop
+        preload="auto"
+        (play)="onHeartbeatPlay()"
+        (pause)="onHeartbeatPause()"></audio>
+    </div>
+
+    <!-- Los papás, debajo de los latidos -->
+    <div class="hero__parents">
+      <p class="hero__parents-label">{{ data.parentsLabel }}</p>
+      <p class="hero__parents-names">{{ data.parentsNames }}</p>
+    </div>
+  </section>
+
+  <section class="details" aria-label="Detalles del evento">
+    <img
+      *ngFor="let c of detailClouds"
+      class="deco-cloud"
+      [class.deco-cloud--flip]="c.flip"
+      [src]="data.cloudImage"
+      alt=""
+      aria-hidden="true"
+      [style.left.%]="c.left"
+      [style.top.px]="c.top"
+      [style.width.%]="c.size"
+      [style.animation-delay.s]="c.delay" />
+    <svg
+      *ngFor="let s of detailStars"
+      class="deco-star"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      [style.left.%]="s.left"
+      [style.top.px]="s.top"
+      [style.width.%]="s.size">
+      <path d="M12 2.5l2.6 6.1 6.6.6-5 4.4 1.5 6.5L12 16.7l-5.7 3.4 1.5-6.5-5-4.4 6.6-.6z" />
+    </svg>
+
+    <p class="details__message">{{ data.message }}</p>
+
+    <!-- Video de los papás (o foto si no hay video). Va silenciado: los celulares solo reproducen solos los videos sin sonido. -->
+    <figure class="photo-frame details__photo" [class.details__photo--video]="data.parentsVideo">
+      <ng-container *ngIf="data.parentsVideo; else parentsPhoto">
+      <video
+        #parentsVideoEl
+        [src]="data.parentsVideo"
+        [poster]="data.parentsVideoPoster ?? ''"
+        autoplay
+        muted
+        [muted]="true"
+        (canplay)="playMuted($event)"
+        loop
+        playsinline
+        preload="metadata"
+        disablepictureinpicture
+        [attr.aria-label]="'Video de ' + data.parentsNames"></video>
+
+      <!-- botón para activar / quitar el sonido del video -->
+      <button
+        type="button"
+        class="video-sound"
+        (click)="toggleVideoSound(parentsVideoEl)"
+        [attr.aria-label]="videoMuted ? 'Activar sonido del video' : 'Silenciar video'"
+        [attr.aria-pressed]="!videoMuted">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor" fill-opacity="0.15" />
+          <ng-container *ngIf="videoMuted; else soundOn">
+            <path d="M16 9.5l5 5M21 9.5l-5 5" />
+          </ng-container>
+          <ng-template #soundOn>
+            <path d="M15.5 9a4 4 0 0 1 0 6" />
+            <path d="M18 6.5a7.5 7.5 0 0 1 0 11" />
+          </ng-template>
+        </svg>
+      </button>
+      </ng-container>
+      <ng-template #parentsPhoto>
+        <img [src]="data.parentsImage" [style.object-position]="data.parentsImagePosition" [alt]="data.parentsNames" />
+      </ng-template>
+    </figure>
+
+    <p class="details__parents">{{ guestNames }}</p>
+
+    <div class="ornament" aria-hidden="true">
+      <span></span>
+      <svg viewBox="0 0 24 24"><path d="M12 2.5l2.6 6.1 6.6.6-5 4.4 1.5 6.5L12 16.7l-5.7 3.4 1.5-6.5-5-4.4 6.6-.6z" /></svg>
+      <span></span>
+    </div>
+
+    <p class="details__celebrate">{{ data.celebrateText }}</p>
+
+    <div class="details__date">
+      <span class="details__side">{{ data.dayOfWeek }}</span>
+      <span class="details__day">{{ data.dayNumber }}</span>
+      <span class="details__side">{{ data.month }}</span>
+    </div>
+
+    <p class="details__time">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M12 7.5V12l3 2" /></svg>
+      {{ data.time }}
+    </p>
+
+    <div class="details__place">
+      <p class="details__place-label">{{ data.placeLabel }}</p>
+      <p class="details__place-name">{{ data.placeName }}</p>
+      <p *ngIf="data.placeAddress" class="details__place-address">{{ data.placeAddress }}</p>
+    </div>
+
+    <a *ngIf="data.mapLink" class="details__map" [href]="data.mapLink" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z" />
+        <circle cx="12" cy="9.5" r="2.5" />
+      </svg>
+      {{ data.mapButtonText }}
+    </a>
+  </section>
+
+  <section class="gift" aria-labelledby="gift-title">
+    <img
+      *ngFor="let c of giftClouds"
+      class="deco-cloud"
+      [class.deco-cloud--flip]="c.flip"
+      [src]="data.cloudImage"
+      alt=""
+      aria-hidden="true"
+      [style.left.%]="c.left"
+      [style.top.px]="c.top"
+      [style.width.%]="c.size"
+      [style.animation-delay.s]="c.delay" />
+    <svg
+      *ngFor="let s of giftStars"
+      class="deco-star"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+      [style.left.%]="s.left"
+      [style.top.px]="s.top"
+      [style.width.%]="s.size">
+      <path d="M12 2.5l2.6 6.1 6.6.6-5 4.4 1.5 6.5L12 16.7l-5.7 3.4 1.5-6.5-5-4.4 6.6-.6z" />
+    </svg>
+
+    <svg class="gift__icon" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+      <rect x="5" y="12" width="22" height="6" rx="1" />
+      <path d="M7 18v10h18V18M16 12v16" />
+      <path d="M16 12c-1.5-3.5-6.5-5.5-7.5-2.5S12.5 12 16 12zM16 12c1.5-3.5 6.5-5.5 7.5-2.5S19.5 12 16 12z" />
+    </svg>
+
+    <p id="gift-title" class="gift__text">
+      <strong>{{ data.giftHighlight }}</strong> {{ data.giftText }}
+    </p>
+
+    <p class="gift__question">{{ data.confirmQuestion }}</p>
+
+    <a class="confirm-btn" [href]="data.confirmLink || '#'">
+      <span class="confirm-btn__icon" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <!-- sobre -->
+          <path d="M6 15.5 L20 6 L34 15.5 V33 a1.5 1.5 0 0 1 -1.5 1.5 H7.5 A1.5 1.5 0 0 1 6 33 Z" />
+          <path d="M6 15.5 L20 25 L34 15.5" />
+          <path d="M6 33.5 L16 24 M34 33.5 L24 24" />
+          <!-- corazón que late -->
+          <path class="confirm-btn__heart" d="M20 22.2 c-3.6-2.5-5.2-4.3-5.2-6.3 a2.7 2.7 0 0 1 5.2-1.2 a2.7 2.7 0 0 1 5.2 1.2 c0 2-1.6 3.8-5.2 6.3z" fill="currentColor" stroke="none" />
+          <!-- destellos -->
+          <path d="M33 4.5 v3 M31.5 6 h3 M7.5 5 v2.4 M6.3 6.2 h2.4" stroke-width="1.2" />
+        </svg>
+      </span>
+      <span class="confirm-btn__text">{{ data.confirmButtonText }}</span>
+    </a>
+  </section>
+
+  <!-- Botón flotante de música -->
+  <ng-container *ngIf="data.musicSrc">
+    <button
+      type="button"
+      class="music-fab"
+      [class.is-playing]="musicPlaying"
+      (click)="toggleMusic()"
+      [attr.aria-label]="musicPlaying ? 'Pausar música' : 'Reproducir música'"
+      [attr.aria-pressed]="musicPlaying">
+      <svg *ngIf="!musicPlaying" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M9 18V6l10-1.8V16" />
+        <circle cx="6.5" cy="18" r="2.5" />
+        <circle cx="16.5" cy="16" r="2.5" />
+      </svg>
+      <span *ngIf="musicPlaying" class="music-fab__bars" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+    </button>
+    <audio
+      #musicAudio
+      [src]="data.musicSrc"
+      loop
+      preload="none"
+      (play)="onMusicPlay()"
+      (pause)="onMusicPause()"></audio>
+  </ng-container>
+</main>

@@ -385,6 +385,18 @@ export class MainService {
       },
       template: "xv-lila",
       active: true
+    },
+    {
+      id: "arco-verde-demo",
+      slug: "arco-verde",
+      data: {
+        names1: "Valentina",
+        names2: "Sebastián",
+        dateShort: "18/08",
+        heroImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Artur/Examples/folow_03.jpg"
+      },
+      template: "arco-verde",
+      active: true
     }
   ]
 

@@ -43,56 +43,68 @@
     width: 100%;
     height: 490px;
     position: relative;
-    // background-color: var(--sobre-sombra, #44222b);
-    background-color: var(--sobre-color, #633642);
+    background-color: var(--sobre-sombra, #44222b);
     overflow: hidden;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+
+    &.is-opening {
+        cursor: default;
+    }
 }
 
-/* 1. CUERPO INFERIOR DEL SOBRE (Bolsillo frontal) */
-.envelope-bottom-body {
+/* 1. SOLAPAS LATERALES: triángulos que llegan al centro, más oscuras hacia el doblez */
+.side-flap {
     position: absolute;
-    bottom: -21px;
-    left: 0;
-    width: 100%;
-    height: 280px;
-    // background: linear-gradient(180deg, var(--sobre-color, #633642) 0%, var(--sobre-sombra, #44222b) 100%);
+    top: 0;
+    width: 52%;
+    height: 100%;
     z-index: 1;
-    /* La sombra empieza a dominar desde el 60% hacia arriba */
-    // background: linear-gradient(3deg,
-    //         var(--sobre-color, #633642) 0%,
-    //         var(--sobre-sombra, #44222b) 60%,
-    //         var(--sobre-sombra) 100%);
 }
 
-/* 2. SOLAPA LATERAL IZQUIERDA (Triángulo cruzado) */
-.side-flap-left {
-    position: absolute;
-    top: 80px;
+.side-flap--left {
     left: 0;
-    width: 140px;
-    height: 160px;
-    // background: linear-gradient(135deg, var(--sobre-sombra, #44222b) 0%, var(--sobre-color, #633642) 70%);
-    clip-path: polygon(0 0, 100% 50%, 0 100%);
-    filter: drop-shadow(4px 4px 6px rgba(0, 0, 0, 0.35));
-    z-index: 2;
-    background-color: var(--sobre-sombra, #44222b);
+    clip-path: polygon(0 0, 100% 52%, 0 100%);
+    background: linear-gradient(90deg,
+            var(--sobre-luz, #733f4d) 0%,
+            var(--sobre-color, #633642) 55%,
+            var(--sobre-sombra, #44222b) 100%);
 }
 
-/* 3. SOLAPA LATERAL DERECHA (Triángulo cruzado) */
-.side-flap-right {
-    position: absolute;
-    top: 80px;
+.side-flap--right {
     right: 0;
-    width: 140px;
-    height: 160px;
-    // background: linear-gradient(-135deg, var(--sobre-sombra, #44222b) 0%, var(--sobre-color, #633642) 70%);
-    clip-path: polygon(100% 0, 0 50%, 100% 100%);
-    filter: drop-shadow(-4px 4px 6px rgba(0, 0, 0, 0.35));
-    z-index: 2;
-    background-color: var(--sobre-sombra, #44222b);
+    clip-path: polygon(100% 0, 0 52%, 100% 100%);
+    background: linear-gradient(270deg,
+            var(--sobre-luz, #733f4d) 0%,
+            var(--sobre-color, #633642) 55%,
+            var(--sobre-sombra, #44222b) 100%);
 }
 
-/* 4. SOLAPA SUPERIOR PRINCIPAL (Con punta suavizada y sombra profunda) */
+/* 2. SOLAPA INFERIOR: sube hacia el centro y proyecta sombra sobre las laterales */
+.bottom-flap-wrapper {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 66%;
+    z-index: 2;
+    filter: drop-shadow(0 -2px 3px rgba(0, 0, 0, 0.28)) drop-shadow(0 -8px 14px rgba(0, 0, 0, 0.18));
+}
+
+.bottom-flap {
+    width: 100%;
+    height: 100%;
+    clip-path: polygon(0 100%, 0 62%, 46% 2%, 54% 2%, 100% 62%, 100% 100%);
+    background:
+        radial-gradient(ellipse 70% 45% at 50% 100%, rgba(255, 255, 255, 0.08), transparent 70%),
+        linear-gradient(0deg,
+            var(--sobre-luz, #733f4d) 0%,
+            var(--sobre-color, #633642) 55%,
+            var(--sobre-sombra-profunda, #562c37) 100%);
+}
+
+/* 3. SOLAPA SUPERIOR PRINCIPAL (con punta suavizada y sombra profunda) */
 .top-flap-wrapper {
     position: absolute;
     top: 0;
@@ -100,17 +112,58 @@
     width: 100%;
     height: 295px;
     z-index: 3;
-    /* Sombra que cae directamente sobre las solapas laterales y el fondo */
-    filter: drop-shadow(0 14px 12px rgba(0, 0, 0, 0.48)) drop-shadow(0 30px 4px rgba(0, 0, 0, 0.3));
+    perspective: 1100px;
+    perspective-origin: 50% 0;
+    /* Sombra que cae sobre las solapas de abajo */
+    filter: drop-shadow(0 6px 5px rgba(0, 0, 0, 0.42)) drop-shadow(0 18px 18px rgba(0, 0, 0, 0.28));
+}
+
+/* Bisagra: gira la solapa hacia arriba al abrir el sobre */
+.top-flap-hinge {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 0;
+    transform-style: preserve-3d;
+    transition: transform 1.1s cubic-bezier(0.55, 0.05, 0.3, 1) 0.35s;
+}
+
+.envelope.is-opening .top-flap-hinge {
+    transform: rotateX(180deg);
+}
+
+.top-flap-edge,
+.top-flap {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Cara interna de la solapa: papel más claro */
+.top-flap-back {
+    position: absolute;
+    inset: 0;
+    transform: rotateX(180deg);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 56%, 53% 99%, 47% 99%, 0% 56%);
+    background: linear-gradient(0deg, var(--sobre-luz, #733f4d) 0%, var(--sobre-color, #633642) 100%);
+}
+
+/* Borde claro del doblez: asoma 3px por debajo de la solapa */
+.top-flap-edge {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 3px);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 56%, 53% 99%, 47% 99%, 0% 56%);
+    background: linear-gradient(180deg, transparent 40%, rgba(255, 255, 255, 0.22) 100%), var(--sobre-luz, #733f4d);
 }
 
 .top-flap {
+    position: relative;
     width: 100%;
     height: 100%;
-    // background: linear-gradient(180deg,
-    //         var(--sobre-luz, #733f4d) 0%,
-    //         var(--sobre-color, #633642) 75%,
-    //         var(--sobre-sombra-profunda, #562c37) 100%);
     /* Triángulo superior con punta suave/redondeada */
     clip-path: polygon(0% 0%,
             100% 0%,
@@ -123,16 +176,25 @@
     align-items: center;
     justify-content: flex-start;
     padding-top: 55px;
-    background: linear-gradient(180deg, var(--sobre-luz, #733f4d) 0%, var(--sobre-color, #633642) 50%, var(--sobre-sombra-profunda, #562c37) 80%, var(--sobre-color, #633642) 100% /* Tono mucho más oscuro para el remate */);
+    background:
+        radial-gradient(ellipse 80% 55% at 50% 0%, rgba(255, 255, 255, 0.10), transparent 70%),
+        linear-gradient(180deg,
+            var(--sobre-luz, #733f4d) 0%,
+            var(--sobre-color, #633642) 50%,
+            var(--sobre-sombra-profunda, #562c37) 82%,
+            var(--sobre-color, #633642) 100%);
 }
 
-/* Tipografía */
+/* Tipografía: nombres con un leve relieve sobre el papel */
 .names {
     font-family: 'Alex Brush', cursive;
     color: var(--texto-color, #ffffff);
     text-align: center;
     user-select: none;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+    text-shadow:
+        0 -1px 0 rgba(0, 0, 0, 0.35),
+        0 1px 0 rgba(255, 255, 255, 0.12),
+        0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
 .name {
@@ -147,13 +209,192 @@
     opacity: 0.9;
 }
 
-/* Fecha en la base */
+/* 6. CARTA dentro del sobre */
+.letter {
+    position: absolute;
+    left: 8%;
+    right: 8%;
+    top: 120px;
+    height: 222px;
+    z-index: 0;
+    padding: 36px 22px 0;
+    text-align: center;
+    background: var(--paper, #f6f1ea);
+    border-radius: 3px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.25);
+    transform: translateY(40px);
+}
+
+/* La carta sube, sale del sobre y baja quedando por delante */
+.envelope.is-opening .letter {
+    animation: letter-out 2.1s cubic-bezier(0.45, 0.05, 0.25, 1) 1.1s forwards;
+}
+
+@keyframes letter-out {
+    0% {
+        transform: translateY(40px);
+        z-index: 0;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.25);
+    }
+    48% {
+        transform: translateY(-150px);
+        z-index: 0;
+    }
+    52% {
+        transform: translateY(-150px);
+        z-index: 6;
+    }
+    100% {
+        transform: translateY(-58px) scale(1.04);
+        z-index: 6;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+}
+
+.letter__kicker {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #6d6258;
+}
+
+.letter__names {
+    margin: 14px 0 0;
+    font-family: 'Alex Brush', cursive;
+    font-size: 40px;
+    line-height: 1.1;
+    color: var(--sobre-color, #633642);
+
+    span {
+        font-size: 26px;
+    }
+}
+
+.letter__rule {
+    width: 70px;
+    height: 1px;
+    margin: 14px auto;
+    background: var(--sobre-color, #633642);
+    opacity: 0.5;
+}
+
+.letter__date {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    color: #4b423b;
+}
+
+/* Indicaciones */
+.open-hint,
+.scroll-hint {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 72px;
+    z-index: 4;
+    margin: 0;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.85);
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.open-hint {
+    left: 50%;
+    right: auto;
+    top: 348px;
+    bottom: auto;
+    transform: translateX(-50%);
+    padding: 9px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.14);
+    font-size: 14px;
+    letter-spacing: 3px;
+    white-space: nowrap;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+    animation: hint-pulse 2s ease-in-out infinite;
+}
+
+.envelope.is-opening .open-hint {
+    animation: none;
+    opacity: 0;
+}
+
+.scroll-hint {
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+
+    svg {
+        width: 18px;
+        height: 18px;
+        animation: hint-bounce 1.6s ease-in-out infinite;
+    }
+}
+
+.envelope.is-open .scroll-hint {
+    opacity: 1;
+}
+
+@keyframes hint-pulse {
+    0%, 100% { opacity: 0.75; }
+    50% { opacity: 1; }
+}
+
+@keyframes hint-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+}
+
+/* Sin animaciones si el celular pide reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+    .top-flap-hinge {
+        transition: none;
+    }
+
+    .envelope.is-opening .letter {
+        animation: none;
+        z-index: 6;
+        transform: translateY(-58px);
+    }
+
+    .open-hint,
+    .scroll-hint svg {
+        animation: none;
+    }
+}
+
+/* Fecha en la base, estampada en bajo relieve */
 .date-footer {
     position: absolute;
     bottom: 35px;
     width: 100%;
     text-align: center;
-    z-index: 2;
+    z-index: 4;
+}
+
+/* Al abrir, la fecha pasa a la carta */
+.date-footer {
+    transition: opacity 0.6s ease 2.2s;
+}
+
+.envelope.is-opening .date-footer {
+    opacity: 0;
 }
 
 .date {
@@ -161,8 +402,22 @@
     font-size: 15px;
     font-weight: 600;
     letter-spacing: 3px;
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    color: rgba(255, 255, 255, 0.88);
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.35), 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* 5. TEXTURA DE PAPEL + viñeta suave en los bordes */
+.paper-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    background:
+        radial-gradient(ellipse 120% 90% at 50% 45%, transparent 60%, rgba(0, 0, 0, 0.22) 100%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0.55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: auto, 220px 220px;
+    mix-blend-mode: soft-light;
+    opacity: 0.9;
 }
 
 /* Base floral acuarela en la parte inferior */
@@ -1304,5 +1559,66 @@
 
     .finale-section {
         padding: 52px 20px 80px;
+    }
+}
+/* Botón flotante de música */
+.music-fab {
+    position: fixed;
+    right: 18px;
+    bottom: 22px;
+    z-index: 10;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: var(--sobre-color, #633642);
+    color: var(--texto-color, #ffffff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 10px 24px -10px rgba(0, 0, 0, 0.6);
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.2s ease;
+
+    &:active {
+        transform: scale(0.94);
+    }
+
+    svg {
+        width: 22px;
+        height: 22px;
+    }
+}
+
+.music-fab__bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 18px;
+
+    span {
+        width: 3px;
+        height: 100%;
+        border-radius: 2px;
+        background: currentColor;
+        transform-origin: bottom;
+        animation: music-fab-bar 1s ease-in-out infinite;
+
+        &:nth-child(2) { animation-delay: -0.4s; }
+        &:nth-child(3) { animation-delay: -0.7s; }
+        &:nth-child(4) { animation-delay: -0.2s; }
+    }
+}
+
+@keyframes music-fab-bar {
+    0%, 100% { transform: scaleY(0.3); }
+    50% { transform: scaleY(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .music-fab__bars span {
+        animation: none;
+        transform: scaleY(0.7);
     }
 }

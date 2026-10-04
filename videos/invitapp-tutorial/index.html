@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Great Vibes";
+        src: url("assets/fonts/great-vibes.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("assets/fonts/cormorant.woff2") format("woff2");
+        font-weight: 300 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("assets/fonts/cormorant-italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+      }
+      :root {
+        --canvas: #faf8f5;
+        --ink: #222222;
+        --accent: #a38c7b;
+        --accent-ink: #7a6657;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--canvas);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--canvas);
+        font-family: "Cormorant Garamond", serif;
+        color: var(--ink);
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      .script {
+        font-family: "Great Vibes", cursive;
+        font-weight: 400;
+      }
+      #bg {
+        background: radial-gradient(circle at 50% 50%, #f1ebe4 0%, var(--canvas) 62%);
+      }
+      .bg-ring {
+        position: absolute;
+        border: 1.5px solid rgba(163, 140, 123, 0.26);
+        border-radius: 50%;
+      }
+
+      /* hook */
+      .q {
+        position: absolute;
+        left: 90px;
+        width: 900px;
+      }
+      .q-card {
+        background: #fff;
+        border: 1.5px solid rgba(163, 140, 123, 0.35);
+        border-radius: 28px;
+        padding: 34px 40px;
+        font-size: 62px;
+        line-height: 1.12;
+        font-weight: 600;
+        text-align: center;
+        box-shadow: 0 24px 50px -26px rgba(60, 40, 25, 0.45);
+      }
+      #caos {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1330px;
+        text-align: center;
+        font-size: 150px;
+        line-height: 1.1;
+        color: var(--ink);
+      }
+
+      /* camera + phone */
+      #cam {
+        position: absolute;
+        inset: 0;
+        transform-origin: 540px 960px;
+      }
+      #phone {
+        position: absolute;
+        left: 291px;
+        top: 520px;
+        width: 498px;
+        height: 1045px;
+        background: #151515;
+        border-radius: 66px;
+        padding: 14px;
+        box-shadow:
+          0 50px 90px -34px rgba(60, 40, 25, 0.5),
+          0 14px 34px -14px rgba(60, 40, 25, 0.32);
+      }
+      #screen {
+        position: relative;
+        width: 470px;
+        height: 1017px;
+        border-radius: 54px;
+        overflow: hidden;
+        background: #0f1626;
+      }
+      #screen img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 470px;
+        height: 1017px;
+      }
+      #notch {
+        position: absolute;
+        top: 26px;
+        left: 50%;
+        width: 110px;
+        height: 30px;
+        margin-left: -55px;
+        border-radius: 16px;
+        background: #151515;
+      }
+      .tap {
+        position: absolute;
+        width: 64px;
+        height: 64px;
+        margin: -32px 0 0 -32px;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 0 5px rgba(163, 140, 123, 0.5);
+      }
+      .hl {
+        position: absolute;
+        border: 3px solid #e8c47a;
+        border-radius: 10px;
+        box-shadow: 0 0 18px rgba(232, 196, 122, 0.6);
+      }
+      #scanline {
+        position: absolute;
+        left: 80px;
+        width: 310px;
+        top: 320px;
+        height: 4px;
+        background: #5fd38d;
+        box-shadow: 0 0 18px 4px rgba(95, 211, 141, 0.7);
+      }
+
+      /* chips */
+      .chip {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 32px;
+        border-radius: 999px;
+        background: #fff;
+        font-size: 42px;
+        font-weight: 700;
+        color: var(--ink);
+        box-shadow: 0 20px 44px -20px rgba(60, 40, 25, 0.55);
+        border: 1.5px solid rgba(163, 140, 123, 0.3);
+        white-space: nowrap;
+      }
+      .dot {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        flex: none;
+      }
+      .chip svg {
+        width: 40px;
+        height: 40px;
+        flex: none;
+        display: block;
+      }
+
+      /* captions */
+      #cap-band {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 600px;
+        background: linear-gradient(to bottom, var(--canvas) 0%, var(--canvas) 72%, rgba(250, 248, 245, 0) 100%);
+      }
+      #captions {
+        position: absolute;
+        left: 70px;
+        right: 70px;
+        top: 236px;
+        height: 230px;
+      }
+      .cap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        gap: 0 16px;
+        text-align: center;
+        font-size: 66px;
+        line-height: 1.12;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .cap .w {
+        display: inline-block;
+      }
+
+      /* close */
+      #close-panel {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 42%, #34302c 0%, #1c1a18 72%);
+      }
+      .close-wrap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 560px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: #fbf6f0;
+      }
+      #c-kicker {
+        font-size: 30px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: #c9b4a3;
+        font-weight: 600;
+      }
+      #c-brand {
+        display: block;
+        font-size: 250px;
+        line-height: 1.05;
+        margin-top: 50px;
+      }
+      #c-rule {
+        width: 180px;
+        height: 2px;
+        background: #c9b4a3;
+        margin: 26px 0 44px;
+      }
+      #c-tag {
+        width: 860px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0 14px;
+        font-size: 62px;
+        line-height: 1.22;
+        font-style: italic;
+        color: #e9dfd5;
+      }
+      #c-tag .w {
+        display: inline-block;
+      }
+      #c-cta {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-top: 90px;
+        padding: 24px 56px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #fff;
+        font-size: 50px;
+        font-weight: 700;
+      }
+      #c-cta svg {
+        width: 48px;
+        height: 48px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-g7sb" id="root" data-composition-id="main" data-start="0" data-duration="134.5" data-width="1080" data-height="1920">
+      <audio data-hf-id="hf-1c84" id="vo" src="assets/narracion.mp3" data-start="0" data-duration="131.05" data-track-index="9"></audio>
+      <audio data-hf-id="hf-8vq0" id="bgm" src="assets/musica.mp3" data-start="0" data-duration="134.5" data-track-index="10" data-volume="1" data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;volume&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:1.2,&quot;v&quot;:0.16},{&quot;t&quot;:120.2,&quot;v&quot;:0.16},{&quot;t&quot;:121.2,&quot;v&quot;:0.3},{&quot;t&quot;:131.2,&quot;v&quot;:0.3},{&quot;t&quot;:132,&quot;v&quot;:0.45},{&quot;t&quot;:133,&quot;v&quot;:0.45},{&quot;t&quot;:134.5,&quot;v&quot;:0}]}]}"></audio>
+
+      <div data-hf-id="hf-4izr" id="bg" class="layer clip" data-start="0" data-duration="134.5" data-track-index="0">
+        <div data-hf-id="hf-p616" id="ring-1" class="bg-ring" style="left: 380px; top: 300px; width: 900px; height: 900px"></div>
+        <div data-hf-id="hf-swub" id="ring-2" class="bg-ring" style="left: -260px; top: 1240px; width: 700px; height: 700px"></div>
+      </div>
+
+      <!-- hook -->
+      <div data-hf-id="hf-us3l" id="s1" class="layer clip" data-start="0" data-duration="9.6" data-track-index="1">
+        <div data-hf-id="hf-vam2" id="q1" class="q" style="top: 620px"><div data-hf-id="hf-t2o8" class="q-card">¿Cuántos invitados confirmaron?</div></div>
+        <div data-hf-id="hf-4ym0" id="q2" class="q" style="top: 850px"><div data-hf-id="hf-qu76" class="q-card">¿Quién falta?</div></div>
+        <div data-hf-id="hf-oql6" id="q3" class="q" style="top: 1030px"><div data-hf-id="hf-e0me" class="q-card">¿Y dónde se sienta cada uno?</div></div>
+        <span data-hf-id="hf-qt89" id="caos" class="script">¡Qué caos!</span>
+      </div>
+
+      <!-- phone walkthrough -->
+      <div data-hf-id="hf-6sc9" id="s2" class="layer clip" data-start="9.4" data-duration="111.9" data-track-index="2">
+        <div data-hf-id="hf-ftaq" id="cam">
+          <div data-hf-id="hf-5iuv" id="phone">
+            <div data-hf-id="hf-ccvt" id="screen"></div>
+            <div data-hf-id="hf-8x41" id="notch"></div>
+          </div>
+        </div>
+        <div data-hf-id="hf-f8d2" id="chips"></div>
+      </div>
+
+      <!-- captions -->
+      <div data-hf-id="hf-jn4c" id="cap-layer" class="layer clip" data-start="0" data-duration="120.9" data-track-index="5">
+        <div data-hf-id="hf-4v5x" id="cap-band"></div>
+        <div data-hf-id="hf-iuvo" id="captions"></div>
+      </div>
+
+      <!-- close -->
+      <div data-hf-id="hf-8g4y" id="s5" class="layer clip" data-start="120.6" data-duration="13.9" data-track-index="3">
+        <div data-hf-id="hf-tec2" id="close-panel"></div>
+        <div data-hf-id="hf-hszt" class="close-wrap">
+          <p data-hf-id="hf-ivnr" id="c-kicker">Invitaciones digitales</p>
+          <span data-hf-id="hf-6o4k" id="c-brand" class="script">InvitApp</span>
+          <div data-hf-id="hf-xj4f" id="c-rule"></div>
+          <p data-hf-id="hf-xq3g" id="c-tag"></p>
+          <div data-hf-id="hf-ut7k" id="c-cta">
+            <svg data-hf-id="hf-mih4" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path data-hf-id="hf-g4au" d="M4 5h16v11H9l-5 4z" />
+              <path data-hf-id="hf-gmy7" d="M8 9.5h8M8 12.5h5" />
+            </svg>
+            Escríbenos y empieza hoy
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ElevenLabs word timings for assets/narracion.mp3: [text, start, end]
+      const WORDS = [["¿Cuántos", 0.0, 0.453], ["invitados", 0.511, 1.01], ["confirmaron?", 1.068, 1.985], ["¿Quién", 2.009, 2.426], ["falta?", 2.485, 3.146], ["¿Y", 3.17, 3.46], ["dónde", 3.553, 3.796], ["se", 3.843, 3.924], ["va", 3.971, 4.052], ["a", 4.075, 4.098], ["sentar", 4.133, 4.528], ["cada", 4.609, 4.83], ["uno?", 4.923, 5.399], ["Organizar", 6.049, 6.641], ["tu", 6.722, 6.803], ["boda", 6.861, 7.21], ["no", 7.338, 7.488], ["debería", 7.535, 7.906], ["ser", 7.964, 8.115], ["un", 8.173, 8.22], ["caos.", 8.278, 8.87], ["Con", 9.822, 10.054], ["InvitApp,", 10.136, 10.971], ["tus", 11.157, 11.366], ["invitados", 11.447, 12.028], ["reciben", 12.19, 12.701], ["una", 12.794, 12.922], ["invitación", 12.957, 13.584], ["digital,", 13.63, 14.362], ["con", 14.629, 14.826], ["su", 14.872, 14.977], ["música,", 15.035, 15.824], ["sus", 15.917, 16.184], ["fotos", 16.242, 16.834], ["y", 17.252, 17.357], ["todos", 17.45, 17.694], ["los", 17.717, 17.833], ["detalles", 17.879, 18.297], ["de", 18.332, 18.379], ["la", 18.425, 18.483], ["fiesta.", 18.53, 19.168], ["Al", 20.109, 20.259], ["final", 20.306, 20.573], ["de", 20.608, 20.643], ["la", 20.701, 20.747], ["invitación", 20.759, 21.374], ["encuentran", 21.42, 21.885], ["el", 21.931, 21.966], ["botón:", 22.013, 22.605], ["Confirma", 22.628, 23.232], ["aquí.", 23.255, 23.812], ["Escriben", 24.497, 25.124], ["su", 25.171, 25.275], ["nombre…", 25.345, 26.006], ["eligen", 26.448, 26.866], ["cuántas", 26.935, 27.284], ["personas", 27.342, 27.829], ["van…", 27.91, 28.445], ["y", 28.758, 28.874], ["si", 28.967, 29.06], ["quieren,", 29.13, 29.791], ["te", 30.07, 30.186], ["dejan", 30.244, 30.476], ["un", 30.569, 30.604], ["mensaje:", 30.65, 31.486], ["si", 31.811, 31.986], ["son", 32.044, 32.241], ["vegetarianos,", 32.287, 33.321], ["o", 33.472, 33.588], ["simplemente", 33.634, 34.4], ["un", 34.621, 34.784], ["saludo.", 34.842, 35.55], ["Un", 36.153, 36.339], ["toque", 36.397, 36.722], ["en", 36.838, 36.908], ["Confirmar", 36.989, 37.547], ["asistencia…", 37.593, 38.58], ["y", 38.928, 39.021], ["listo.", 39.126, 39.822], ["Su", 40.171, 40.345], ["respuesta", 40.426, 40.914], ["queda", 40.972, 41.181], ["guardada", 41.227, 41.866], ["al", 41.9, 41.993], ["instante", 42.075, 42.609], ["en", 42.655, 42.725], ["tu", 42.771, 42.864], ["panel.", 42.922, 43.595], ["Ahora", 44.606, 45.0], ["tú.", 45.082, 45.627], ["Desde", 45.859, 46.173], ["tu", 46.219, 46.312], ["panel", 46.37, 46.881], ["ves", 47.299, 47.589], ["el", 47.671, 47.74], ["resumen", 47.822, 48.286], ["de", 48.332, 48.402], ["tu", 48.448, 48.541], ["boda", 48.599, 48.924], ["en", 49.006, 49.087], ["tiempo", 49.145, 49.493], ["real:", 49.586, 50.202], ["cuántas", 50.538, 50.921], ["personas", 50.979, 51.49], ["van", 51.572, 51.734], ["en", 51.781, 51.827], ["total…", 51.873, 52.686], ["cuántas", 52.976, 53.487], ["ya", 53.545, 53.72], ["confirmaron…", 53.778, 54.904], ["cuántas", 55.206, 55.67], ["están", 55.763, 56.042], ["pendientes…", 56.1, 57.087], ["y", 57.354, 57.482], ["quiénes", 57.609, 58.05], ["cancelaron.", 58.12, 59.13], ["Con", 59.838, 60.071], ["un", 60.175, 60.233], ["toque", 60.291, 60.57], ["filtras,", 60.651, 61.417], ["por", 61.51, 61.708], ["ejemplo,", 61.731, 62.451], ["solo", 62.567, 62.915], ["los", 62.95, 63.101], ["pendientes,", 63.182, 64.122], ["para", 64.239, 64.482], ["escribirles", 64.529, 65.33], ["y", 65.411, 65.446], ["recordarles.", 65.562, 66.7], ["Y", 67.304, 67.408], ["puedes", 67.524, 67.872], ["buscar", 67.919, 68.279], ["a", 68.325, 68.348], ["cualquier", 68.383, 68.824], ["invitado", 68.883, 69.405], ["por", 69.486, 69.626], ["su", 69.672, 69.765], ["nombre…", 69.823, 70.461], ["y", 70.798, 70.914], ["leer", 71.007, 71.355], ["los", 71.448, 71.599], ["mensajes", 71.658, 72.273], ["que", 72.343, 72.424], ["te", 72.482, 72.552], ["dejaron.", 72.598, 73.329], ["Cuando", 74.235, 74.548], ["ya", 74.606, 74.699], ["sabes", 74.746, 75.036], ["quién", 75.106, 75.291], ["va,", 75.338, 75.709], ["armas", 76.023, 76.441], ["tus", 76.487, 76.638], ["mesas.", 76.731, 77.404], ["Creas", 77.892, 78.322], ["cada", 78.415, 78.624], ["mesa", 78.67, 78.96], ["con", 79.018, 79.169], ["su", 79.216, 79.32], ["nombre", 79.401, 79.819], ["y", 79.901, 79.982], ["cuántos", 80.098, 80.493], ["puestos", 80.551, 80.969], ["tiene.", 81.027, 81.526], ["Para", 82.118, 82.374], ["sentar", 82.408, 82.757], ["a", 82.838, 82.861], ["alguien", 82.896, 83.233], ["es", 83.302, 83.372], ["muy", 83.418, 83.523], ["fácil:", 83.569, 84.185], ["tocas", 84.487, 84.916], ["al", 84.997, 85.055], ["invitado…", 85.113, 85.938], ["y", 86.24, 86.356], ["después", 86.437, 87.052], ["tocas", 87.424, 87.853], ["su", 87.9, 88.028], ["mesa.", 88.097, 88.724], ["Así", 89.038, 89.328], ["de", 89.374, 89.444], ["simple.", 89.479, 90.071], ["Cada", 90.733, 90.989], ["mesa", 91.035, 91.29], ["te", 91.348, 91.43], ["muestra", 91.465, 91.882], ["cuántos", 91.952, 92.347], ["puestos", 92.405, 92.858], ["van", 92.939, 93.078], ["ocupados…", 93.125, 94.019], ["y", 94.355, 94.46], ["si", 94.541, 94.646], ["te", 94.704, 94.785], ["pasas", 94.843, 95.156], ["del", 95.203, 95.319], ["cupo,", 95.377, 95.981], ["InvitApp", 96.109, 96.898], ["te", 97.026, 97.119], ["avisa.", 97.153, 97.804], ["Y", 98.465, 98.57], ["siempre", 98.674, 99.057], ["sabes", 99.104, 99.51], ["quién", 99.603, 99.8], ["todavía", 99.847, 100.358], ["no", 100.404, 100.485], ["tiene", 100.544, 100.764], ["mesa,", 100.822, 101.298], ["para", 101.333, 101.53], ["que", 101.588, 101.681], ["nadie", 101.774, 102.122], ["se", 102.157, 102.25], ["quede", 102.308, 102.529], ["de", 102.587, 102.657], ["pie.", 102.703, 103.202], ["Y", 104.154, 104.282], ["dos", 104.386, 104.584], ["días", 104.642, 104.99], ["antes", 105.048, 105.42], ["del", 105.466, 105.594], ["evento,", 105.64, 106.349], ["cada", 106.581, 106.836], ["invitado", 106.883, 107.37], ["confirmado", 107.416, 108.241], ["recibe", 108.461, 108.949], ["su", 108.995, 109.1], ["propio", 109.158, 109.529], ["código", 109.611, 110.064], ["QR", 110.156, 110.609], ["para", 110.772, 110.992], ["entrar", 111.016, 111.422], ["a", 111.48, 111.503], ["la", 111.55, 111.619], ["fiesta.", 111.666, 112.374], ["En", 113.012, 113.198], ["la", 113.291, 113.361], ["entrada", 113.407, 113.906], ["solo", 113.999, 114.324], ["lo", 114.382, 114.475], ["escanean,", 114.545, 115.509], ["y", 115.799, 115.927], ["ven", 116.019, 116.17], ["al", 116.252, 116.31], ["instante", 116.368, 117.006], ["quién", 117.122, 117.494], ["llega", 117.517, 118.016], ["y", 118.109, 118.167], ["con", 118.26, 118.458], ["cuántas", 118.539, 119.201], ["personas.", 119.247, 120.199], ["InvitApp.", 121.221, 122.196], ["Invitaciones", 122.66, 123.705], ["que", 123.798, 123.903], ["enamoran…", 123.972, 124.913], ["y", 125.215, 125.319], ["una", 125.447, 125.574], ["fiesta", 125.656, 126.132], ["bajo", 126.213, 126.55], ["control.", 126.596, 127.409], ["Escríbenos", 127.954, 129.011], ["y", 129.348, 129.475], ["empieza", 129.603, 130.242], ["hoy.", 130.288, 131.054]];
+      const tl = gsap.timeline({ paused: true });
+      const clean = (t) => t.replace(/[.,:;¿?¡!…]/g, "");
+      const at = (word, nth = 1) => {
+        let seen = 0;
+        for (const [t, s] of WORDS) if (clean(t) === word && ++seen === nth) return s;
+        throw new Error("word not found: " + word + " #" + nth);
+      };
+      const el = (tag, props, parent) => Object.assign(parent.appendChild(document.createElement(tag)), props);
+
+      // ground drift
+      tl.fromTo("#ring-1", { scale: 0.92, rotation: 0 }, { scale: 1.06, rotation: 20, duration: 134.5, ease: "none" }, 0);
+      tl.fromTo("#ring-2", { scale: 1, y: 0 }, { scale: 1.14, y: -80, duration: 134.5, ease: "none" }, 0);
+
+      // ---------- captions ----------
+      const closeIdx = WORDS.findIndex((w) => w[1] === at("InvitApp", 3));
+      const chunks = [];
+      let cur = [];
+      WORDS.slice(0, closeIdx).forEach((w) => {
+        cur.push(w);
+        const t = w[0];
+        if (/[.?:…]$/.test(t) || (/,$/.test(t) && cur.length >= 3) || cur.length >= 7) {
+          chunks.push(cur);
+          cur = [];
+        }
+      });
+      if (cur.length) chunks.push(cur);
+      const capRoot = document.getElementById("captions");
+      chunks.forEach((ws, ci) => {
+        const box = el("div", { className: "cap", id: "cap-" + ci }, capRoot);
+        ws.forEach(([t], k) => el("span", { className: "w", id: `cap-${ci}-${k}`, textContent: t }, box));
+        const start = Math.max(0, ws[0][1] - 0.08);
+        const next = ci + 1 < chunks.length ? chunks[ci + 1][0][1] - 0.1 : Infinity;
+        const end = Math.min(next, ws[ws.length - 1][2] + 0.7);
+        tl.fromTo(box, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.2, ease: "power2.out" }, start);
+        tl.to(box, { opacity: 0, duration: 0.15, ease: "power1.in" }, end - 0.15);
+        ws.forEach(([, s], k) => tl.fromTo(`#cap-${ci}-${k}`, { opacity: 0.22 }, { opacity: 1, duration: 0.12, ease: "none" }, s));
+      });
+
+      // ---------- hook ----------
+      [["#q1", -4, at("Cuántos")], ["#q2", 3, at("Quién")], ["#q3", -2, at("Y")]].forEach(([q, r, t], i) => {
+        tl.fromTo(q, { opacity: 0, scale: 0.75, rotation: 0 }, { opacity: 1, scale: 1, rotation: r, duration: 0.5, ease: "back.out(1.8)" }, t);
+        tl.fromTo(`${q} .q-card`, { x: 0 }, { x: 12, duration: 0.06, ease: "none", repeat: 7, yoyo: true }, at("caos") + i * 0.03);
+        tl.to(q, { opacity: 0, y: 260, rotation: r * 4, duration: 0.45, ease: "power2.in", immediateRender: false }, 9.0 + i * 0.05);
+      });
+      tl.fromTo("#caos", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, at("caos"));
+      tl.to("#caos", { opacity: 0, duration: 0.35, immediateRender: false }, 9.0);
+
+      // ---------- phone, screens, taps, highlights ----------
+      const screen = document.getElementById("screen");
+      const SCREENS = ["a1-portada", "a2-ceremonia", "a3-vestimenta", "a4-confirma", "b1-form", "b2-nombre", "b3-personas", "b4-mensaje",
+        "c1-panel", "c2-filtro-pendientes", "c3-busqueda", "d1-mesas", "d2-nueva-mesa", "d3-mesa-creada", "d4-sin-mesa",
+        "d5-alexis-seleccionado", "d6-tocar-mesa", "d7-sentado", "d8-cupo", "d9-sin-mesa-despues", "e1-qr", "e2-escaneo"];
+      SCREENS.forEach((n) => el("img", { id: "sc-" + n, src: `assets/screens/${n}.png`, alt: n }, screen));
+      const scanline = el("div", { id: "scanline" }, screen);
+      const W = 470, H = 1017;
+      const show = (n, t, d = 0.35) =>
+        tl.fromTo("#sc-" + n, { opacity: 0 }, { opacity: 1, duration: d, ease: "power1.inOut" }, t);
+      let tapN = 0;
+      const tap = (fx, fy, t) => {
+        const id = "tap-" + tapN++;
+        el("div", { className: "tap", id, style: `left:${fx * W}px;top:${fy * H}px` }, screen);
+        tl.fromTo("#" + id, { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.18, ease: "power2.out" }, t);
+        tl.to("#" + id, { opacity: 0, scale: 1.8, duration: 0.45, ease: "power1.out" }, t + 0.25);
+      };
+      let hlN = 0;
+      const hl = (fx, fy, fw, fh, t, until) => {
+        const id = "hl-" + hlN++;
+        el("div", { className: "hl", id, style: `left:${(fx - fw / 2) * W}px;top:${(fy - fh / 2) * H}px;width:${fw * W}px;height:${fh * H}px` }, screen);
+        tl.fromTo("#" + id, { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, t);
+        tl.to("#" + id, { opacity: 0, duration: 0.25 }, until);
+      };
+
+      // camera: bring screen point (fx, fy) to canvas point T at zoom k
+      const O = { x: 540, y: 960 }, T = { x: 540, y: 1150 };
+      let cam = { x: 0, y: 0, scale: 1 };
+      tl.set("#cam", { x: 0, y: 0, scale: 1 }, 0);
+      const focus = (fx, fy, k, t, d = 0.9) => {
+        const P = { x: 305 + fx * W, y: 534 + fy * H };
+        const to = { x: T.x - O.x - k * (P.x - O.x), y: T.y - O.y - k * (P.y - O.y), scale: k };
+        tl.fromTo("#cam", { ...cam }, { ...to, duration: d, ease: "power3.inOut", immediateRender: false }, t);
+        cam = to;
+      };
+      const wide = (t, d = 0.9) => {
+        tl.fromTo("#cam", { ...cam }, { x: 0, y: 0, scale: 1, duration: d, ease: "power3.inOut", immediateRender: false }, t);
+        cam = { x: 0, y: 0, scale: 1 };
+      };
+
+      // chips (canvas level, above the camera)
+      const chips = document.getElementById("chips");
+      const ICON_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="#2f7d4f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>';
+      const ICON_WARN = '<svg viewBox="0 0 24 24" fill="none" stroke="#b7791f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></svg>';
+      const ICON_CAL = '<svg viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>';
+      const ICON_PEOPLE = '<svg viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 19a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.6"/><path d="M15.5 14.2A5 5 0 0 1 21 19"/></svg>';
+      const dot = (c) => `<span class="dot" style="background:${c}"></span>`;
+      let chipN = 0;
+      const chip = (html, x, y, t, until) => {
+        const id = "chip-" + chipN++;
+        el("div", { className: "chip", id, innerHTML: html, style: `left:${x}px;top:${y}px` }, chips);
+        tl.fromTo("#" + id, { opacity: 0, y: 30, scale: 0.85 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.8)" }, t);
+        tl.to("#" + id, { opacity: 0, duration: 0.3 }, until);
+      };
+
+      // A — the invitation
+      tl.fromTo("#phone", { opacity: 0, y: 260 }, { opacity: 1, y: 0, duration: 0.9, ease: "expo.out" }, 9.5);
+      tl.set("#sc-a1-portada", { opacity: 1 }, 0);
+      focus(0.5, 0.3, 1.45, at("fotos") - 0.3, 1.2);
+      show("a2-ceremonia", at("detalles") - 0.1);
+      wide(at("detalles") - 0.1);
+      show("a3-vestimenta", at("fiesta") + 0.4);
+
+      // B — the guest confirms
+      show("a4-confirma", at("botón") - 0.2);
+      focus(0.5, 0.5, 1.9, at("botón") - 0.2);
+      tap(0.5, 0.5, at("Confirma") + 0.15);
+      show("b1-form", at("Escriben") - 0.3);
+      focus(0.5, 0.466, 1.9, at("Escriben") - 0.3);
+      show("b2-nombre", at("nombre") - 0.05, 0.6);
+      focus(0.5, 0.353, 1.9, at("eligen") - 0.1);
+      tap(0.84, 0.353, at("personas") - 0.1);
+      show("b3-personas", at("personas") + 0.1, 0.2);
+      focus(0.5, 0.6, 1.8, at("mensaje") - 0.2);
+      show("b4-mensaje", at("vegetarianos") - 0.4, 0.6);
+      focus(0.5, 0.866, 1.8, at("toque") - 0.1);
+      tap(0.5, 0.866, at("Confirmar") + 0.3);
+      chip(ICON_OK + "¡Asistencia confirmada!", 210, 1480, at("listo") - 0.1, at("Ahora") - 0.3);
+      wide(at("Su"));
+
+      // C — the couple's dashboard
+      show("c1-panel", at("Ahora") - 0.1);
+      focus(0.5, 0.2, 2.0, at("resumen") - 0.2);
+      chip(ICON_PEOPLE + "12 personas", 90, 1440, at("total") - 0.3, at("filtras") - 0.3);
+      chip(dot("#2f7d4f") + "6 confirmados", 560, 1440, at("confirmaron", 2) - 0.2, at("filtras") - 0.3);
+      chip(dot("#d29a2c") + "4 pendientes", 90, 1560, at("pendientes") - 0.2, at("filtras") - 0.3);
+      chip(dot("#c0504d") + "2 cancelaron", 560, 1560, at("cancelaron") - 0.2, at("filtras") - 0.3);
+      focus(0.5, 0.29, 2.0, at("filtras") - 0.2);
+      tap(0.757, 0.257, at("pendientes", 2) - 0.25);
+      show("c2-filtro-pendientes", at("pendientes", 2));
+      focus(0.5, 0.74, 1.5, at("escribirles") - 0.2);
+      show("c3-busqueda", at("buscar") - 0.2);
+      focus(0.5, 0.41, 2.0, at("buscar") - 0.2);
+      hl(0.5, 0.41, 0.84, 0.065, at("nombre", 2) - 0.3, at("leer") - 0.2);
+      focus(0.5, 0.79, 1.9, at("leer") - 0.1);
+      hl(0.42, 0.818, 0.66, 0.07, at("mensajes") - 0.1, at("Cuando") - 0.3);
+
+      // D — tables
+      show("d1-mesas", at("Cuando") - 0.1);
+      wide(at("Cuando") - 0.1);
+      focus(0.62, 0.26, 1.8, at("Creas") - 0.3);
+      tap(0.67, 0.26, at("Creas") + 0.2);
+      show("d2-nueva-mesa", at("Creas") + 0.5);
+      focus(0.5, 0.47, 1.6, at("Creas") + 0.5);
+      hl(0.5, 0.434, 0.78, 0.055, at("nombre", 3) - 0.2, at("puestos") - 0.2);
+      hl(0.5, 0.548, 0.78, 0.055, at("puestos") - 0.1, at("tiene") + 0.3);
+      tap(0.5, 0.65, at("tiene") + 0.2);
+      show("d3-mesa-creada", at("tiene") + 0.55);
+      focus(0.5, 0.73, 1.6, at("tiene") + 0.55);
+      hl(0.5, 0.73, 0.94, 0.11, at("tiene") + 0.9, at("sentar", 2) - 0.3);
+      show("d4-sin-mesa", at("sentar", 2) - 0.1);
+      focus(0.5, 0.66, 1.8, at("sentar", 2) - 0.1);
+      tap(0.4, 0.67, at("invitado", 2));
+      show("d5-alexis-seleccionado", at("invitado", 2) + 0.25, 0.2);
+      show("d6-tocar-mesa", at("después") - 0.3);
+      focus(0.5, 0.92, 1.6, at("después") - 0.3);
+      tap(0.5, 0.975, at("mesa", 2) - 0.1);
+      show("d7-sentado", at("Así") - 0.2);
+      focus(0.5, 0.83, 1.8, at("Así") - 0.2);
+      hl(0.5, 0.83, 0.94, 0.13, at("Así"), at("cupo") - 0.4);
+      chip(ICON_OK + "Mesa 4 · 1 de 8 puestos", 170, 1480, at("ocupados") - 0.2, at("cupo") - 0.4);
+      show("d8-cupo", at("pasas") - 0.2);
+      focus(0.5, 0.47, 1.9, at("pasas") - 0.2);
+      chip(ICON_WARN + "Te avisa si te pasas del cupo", 110, 1480, at("avisa") - 0.3, at("siempre") - 0.3);
+      show("d9-sin-mesa-despues", at("siempre") - 0.1);
+      focus(0.5, 0.64, 1.7, at("siempre") - 0.1);
+      hl(0.5, 0.73, 0.94, 0.075, at("tiene", 2) - 0.2, at("dos") - 0.3);
+
+      // E — QR ticket
+      show("e1-qr", at("dos") - 0.2);
+      wide(at("dos") - 0.2);
+      chip(ICON_CAL + "2 días antes del evento", 175, 1480, at("dos"), at("entrada") - 0.3);
+      focus(0.5, 0.46, 1.6, at("QR") - 0.6);
+      tl.fromTo("#scanline", { opacity: 0, y: 0 }, { opacity: 1, y: 0, duration: 0.15 }, at("escanean") - 0.2);
+      tl.fromTo("#scanline", { y: 0 }, { y: 290, duration: 0.9, ease: "sine.inOut", repeat: 1, yoyo: true, immediateRender: false }, at("escanean") - 0.05);
+      tl.to("#scanline", { opacity: 0, duration: 0.15 }, at("ven") - 0.2);
+      show("e2-escaneo", at("ven") - 0.1);
+      focus(0.5, 0.5, 1.6, at("ven") - 0.1);
+      chip(ICON_OK + "Sofía & Mateo · 2 personas", 160, 1480, at("llega"), 120.4);
+
+      // ---------- close ----------
+      tl.fromTo("#close-panel", { yPercent: 100 }, { yPercent: 0, duration: 0.6, ease: "expo.inOut" }, 120.6);
+      const tBrand = at("InvitApp", 3);
+      tl.fromTo("#c-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, tBrand - 0.1);
+      tl.fromTo("#c-brand", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8, ease: "expo.out" }, tBrand);
+      tl.fromTo("#c-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, tBrand + 0.4);
+      const tag = document.getElementById("c-tag");
+      const closeWords = WORDS.slice(closeIdx + 1);
+      const ctaIdx = closeWords.findIndex((w) => clean(w[0]) === "Escríbenos");
+      closeWords.slice(0, ctaIdx).forEach(([t, s], k) => {
+        el("span", { className: "w", id: "tag-" + k, textContent: t }, tag);
+        tl.fromTo("#tag-" + k, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, s - 0.05);
+      });
+      tl.fromTo("#c-cta", { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "back.out(1.6)" }, at("Escríbenos") - 0.1);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

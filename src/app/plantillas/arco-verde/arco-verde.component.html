@@ -1,0 +1,219 @@
+<main class="arco-page">
+  <section class="hero" aria-label="Portada">
+    <div class="hero__photo">
+      <img [src]="data.heroImage" [style.object-position]="data.heroImagePosition" [alt]="data.names1 + ' y ' + data.names2">
+      <div class="hero__shade" aria-hidden="true"></div>
+    </div>
+
+    <header class="hero__top">
+      <p class="hero__tab">{{ data.saveTheDateLabel }}</p>
+      <p class="hero__date">{{ data.dateShort }}</p>
+    </header>
+
+    <h1 class="hero__names">
+      <span class="hero__amp" aria-hidden="true">&amp;</span>
+      <span class="hero__name">{{ data.names1 }}</span>
+      <span class="hero__name">{{ data.names2 }}</span>
+    </h1>
+  </section>
+
+  <section class="invite" aria-label="Invitación">
+    <p class="invite__text">{{ data.inviteText }}</p>
+
+    <div class="invite__date">
+      <span class="invite__side">{{ data.month }}</span>
+      <span class="invite__day">
+        {{ data.dayNumber }}
+        <small class="invite__year">{{ data.year }}</small>
+      </span>
+      <span class="invite__side">{{ data.time }}</span>
+    </div>
+
+    <p class="invite__text">{{ data.welcomeText }}</p>
+
+    <p class="invite__signature">{{ signature }}</p>
+
+    <!-- Ceremonia -->
+    <article class="event">
+      <svg class="event__art event__art--chapel" viewBox="0 0 60 64" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true">
+        <path d="M30 2 V10 M26.5 5.5 H33.5" />
+        <path d="M22 26 L30 12 L38 26" />
+        <path d="M23.5 26 V38 H36.5 V26" />
+        <path d="M27.5 38 V31 Q30 28 32.5 31 V38" />
+        <path d="M6 62 V38 L30 26 L54 38 V62" />
+        <path d="M2 40 L30 25.5 L58 40" />
+        <path d="M24 62 V49 Q30 42 36 49 V62" />
+        <path d="M11 47 Q14 43.5 17 47 V54 H11 Z M43 47 Q46 43.5 49 47 V54 H43 Z" />
+        <path d="M2 62 H58" />
+      </svg>
+      <p class="event__title">{{ data.ceremonyTitle }}</p>
+      <p class="event__time">{{ data.ceremonyTime }}</p>
+      <p class="event__place">{{ data.ceremonyPlace }}</p>
+      <p class="event__address">{{ data.ceremonyAddress }}</p>
+      <a *ngIf="data.ceremonyMapLink" class="event__map" [href]="data.ceremonyMapLink" target="_blank" rel="noopener noreferrer">{{ data.mapButtonText }}</a>
+    </article>
+
+    <div class="event__divider" aria-hidden="true"><span></span></div>
+
+    <!-- Recepción -->
+    <article class="event">
+      <svg class="event__art" viewBox="0 0 200 64" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 22 L100 6 L192 22" />
+        <path d="M14 22 H186" />
+        <path d="M18 26 H182" />
+        <path d="M78 22 L100 12 L122 22" />
+        <path d="M22 26 V56 M38 26 V56 M54 26 V56 M70 26 V56 M86 26 V56 M114 26 V56 M130 26 V56 M146 26 V56 M162 26 V56 M178 26 V56" />
+        <path d="M22 36 Q30 29 38 36 M38 36 Q46 29 54 36 M54 36 Q62 29 70 36 M70 36 Q78 29 86 36 M114 36 Q122 29 130 36 M130 36 Q138 29 146 36 M146 36 Q154 29 162 36 M162 36 Q170 29 178 36" />
+        <path d="M90 56 V36 Q100 26 110 36 V56" />
+        <path d="M22 46 H86 M114 46 H178" />
+        <path d="M26 46 V52 M30 46 V52 M34 46 V52 M42 46 V52 M46 46 V52 M50 46 V52 M58 46 V52 M62 46 V52 M66 46 V52 M74 46 V52 M78 46 V52 M82 46 V52 M118 46 V52 M122 46 V52 M126 46 V52 M134 46 V52 M138 46 V52 M142 46 V52 M150 46 V52 M154 46 V52 M158 46 V52 M166 46 V52 M170 46 V52 M174 46 V52" />
+        <path d="M10 56 H190 M4 60 H196" />
+      </svg>
+      <p class="event__title">{{ data.receptionTitle }}</p>
+      <p class="event__time">{{ data.receptionTime }}</p>
+      <p class="event__place">{{ data.receptionPlace }}</p>
+      <p class="event__address">{{ data.receptionAddress }}</p>
+      <a *ngIf="data.receptionMapLink" class="event__map" [href]="data.receptionMapLink" target="_blank" rel="noopener noreferrer">{{ data.mapButtonText }}</a>
+    </article>
+  </section>
+
+  <section class="photo2" aria-label="Foto">
+    <img [src]="data.secondImage" [style.object-position]="data.secondImagePosition" [alt]="data.names1 + ' y ' + data.names2">
+    <div class="photo2__dome" aria-hidden="true"></div>
+  </section>
+
+  <section class="dress" aria-labelledby="dress-title">
+    <h2 id="dress-title" class="dress__title">{{ data.dressTitle }}</h2>
+    <p class="dress__text">{{ data.dressText }}</p>
+
+    <p class="dress__label">{{ data.womenLabel }}</p>
+    <ul class="dress__swatches" [attr.aria-label]="data.womenLabel">
+      <li *ngFor="let color of data.womenColors" class="dress__swatch" [style.background]="color"></li>
+    </ul>
+
+    <p class="dress__label">{{ data.menLabel }}</p>
+    <ul class="dress__swatches" [attr.aria-label]="data.menLabel">
+      <li *ngFor="let color of data.menColors" class="dress__swatch" [style.background]="color"></li>
+    </ul>
+  </section>
+
+  <section class="rsvp" aria-labelledby="rsvp-title">
+    <h2 id="rsvp-title" class="rsvp__title">{{ data.rsvpTitle }}</h2>
+    <p class="rsvp__subtitle">{{ data.rsvpSubtitle }}</p>
+    <p class="rsvp__text">{{ data.rsvpText }}</p>
+    <a class="rsvp__button" [href]="data.confirmLink || '#'">{{ data.rsvpButtonText }}</a>
+  </section>
+
+  <section class="itinerary" aria-labelledby="itinerary-title">
+    <h2 id="itinerary-title" class="itinerary__title">{{ data.itineraryTitle }}</h2>
+    <p class="itinerary__subtitle">{{ data.itinerarySubtitle }}</p>
+
+    <ol class="itinerary__list">
+      <li *ngFor="let item of data.itinerary; let odd = odd" class="itinerary__item" [class.itinerary__item--right]="odd">
+        <div class="itinerary__text">
+          <p class="itinerary__time">{{ item.time }}</p>
+          <p class="itinerary__name">{{ item.title }}</p>
+        </div>
+        <span class="itinerary__icon" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" [ngSwitch]="item.icon">
+            <!-- anillos -->
+            <g *ngSwitchCase="'rings'">
+              <circle cx="12.5" cy="19" r="6.5" />
+              <circle cx="19.5" cy="19" r="6.5" />
+              <path d="M10.3 12.6 L11.6 10.4 H13.4 L14.7 12.6 L12.5 14.7 Z" />
+            </g>
+            <!-- brindis -->
+            <g *ngSwitchCase="'toast'">
+              <path d="M8.5 7 H14 L13.2 13.5 A2.6 2.6 0 0 1 8.2 13 Z" transform="rotate(-14 11 13)" />
+              <path d="M10.6 16 L11.4 24.5 M8.6 25 H13.4" transform="rotate(-14 11 13)" />
+              <path d="M18 7 H23.5 L23.8 13 A2.6 2.6 0 0 1 18.8 13.5 Z" transform="rotate(14 21 13)" />
+              <path d="M21.4 16 L20.6 24.5 M18.6 25 H23.4" transform="rotate(14 21 13)" />
+              <path d="M15 4.5 V2.5 M12.8 5.2 L11.8 3.6 M17.2 5.2 L18.2 3.6" />
+            </g>
+            <!-- novios -->
+            <g *ngSwitchCase="'couple'">
+              <circle cx="11" cy="9" r="2.6" />
+              <path d="M7.5 27 L9 15.5 Q11 13.5 13 15.5 L14.5 27 Z" />
+              <circle cx="21" cy="9" r="2.6" />
+              <path d="M18 27 V16 Q21 13.5 24 16 V27 M21 16 V20" />
+              <path d="M14 18 Q16 16.5 18 18" />
+            </g>
+            <!-- cena -->
+            <g *ngSwitchCase="'dinner'">
+              <circle cx="16" cy="17" r="7" />
+              <circle cx="16" cy="17" r="4.4" stroke-width="0.8" />
+              <path d="M5 8 V13 Q5 14.5 6.3 14.5 V26 M6.3 8 V12 M7.6 8 V13 Q7.6 14.5 6.3 14.5" />
+              <path d="M26.5 26 V8 Q24 10 24.2 16 H26.5" />
+            </g>
+            <!-- primer baile -->
+            <g *ngSwitchCase="'dance'">
+              <path d="M12 23 V9 L24 6.5 V20" />
+              <circle cx="9.5" cy="23" r="2.6" />
+              <circle cx="21.5" cy="20" r="2.6" />
+              <path d="M12 12.5 L24 10" />
+            </g>
+            <!-- pastel -->
+            <g *ngSwitchCase="'cake'">
+              <path d="M7 27 H25 M8.5 27 V20 H23.5 V27" />
+              <path d="M10.5 20 V14.5 H21.5 V20" />
+              <path d="M8.5 23 Q10.4 24.6 12.3 23 Q14.2 24.6 16 23 Q17.8 24.6 19.7 23 Q21.6 24.6 23.5 23" stroke-width="0.9" />
+              <path d="M16 14.5 V10.5" />
+              <path d="M16 8.8 Q14.7 7.2 16 5.5 Q17.3 7.2 16 8.8 Z" />
+            </g>
+            <!-- fiesta -->
+            <g *ngSwitchCase="'party'">
+              <path d="M6 27 L11.5 11.5 L21 21 Z" />
+              <path d="M8.5 20 L13 24.5 M10 15.5 L17 22.5" stroke-width="0.9" />
+              <path d="M17 6 Q19 8.5 17.5 11 M22 10.5 Q24.5 9.5 26 11.5 M20 4 V5.5 M26.5 6 L25.4 7.1 M27 16 H25.5" />
+              <circle cx="22.5" cy="15" r="0.9" fill="currentColor" stroke="none" />
+            </g>
+          </svg>
+        </span>
+      </li>
+    </ol>
+  </section>
+
+  <section class="photo3" aria-label="Cuenta regresiva">
+    <img [src]="data.thirdImage" [style.object-position]="data.thirdImagePosition" [alt]="data.names1 + ' y ' + data.names2">
+    <div class="countdown" role="timer" aria-live="off">
+      <div class="countdown__unit" *ngFor="let unit of countdown">
+        <div class="countdown__digits">
+          <span class="countdown__digit" *ngFor="let d of unit.digits">{{ d }}</span>
+        </div>
+        <span class="countdown__label">{{ unit.label }}</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" aria-labelledby="contact-title">
+    <h2 id="contact-title" class="contact__title">{{ data.contactTitle }}</h2>
+    <p class="contact__text">{{ data.contactText }}</p>
+    <svg class="contact__rings" viewBox="0 0 64 44" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <!-- anillo izquierdo con diamante -->
+      <circle cx="24" cy="28" r="13" />
+      <circle cx="24" cy="28" r="10.6" stroke-width="0.8" opacity="0.6" />
+      <path d="M19.5 15.2 L22 11 H26 L28.5 15.2 L24 19.5 Z" />
+      <path d="M19.5 15.2 H28.5 M22 11 L24 19.5 L26 11" stroke-width="0.8" />
+      <!-- anillo derecho entrelazado -->
+      <circle cx="40" cy="28" r="13" />
+      <circle cx="40" cy="28" r="10.6" stroke-width="0.8" opacity="0.6" />
+      <!-- destellos -->
+      <path d="M33 7 V11 M31 9 H35 M45 12 V15 M43.5 13.5 H46.5" stroke-width="1" />
+    </svg>
+    <p class="contact__closing">{{ data.closingText }}</p>
+    <p class="contact__couple">
+      <span>{{ data.names1 }}</span>
+      <svg class="contact__heart" viewBox="0 0 24 24" aria-label="y" role="img">
+        <path d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" fill="currentColor" />
+      </svg>
+      <span>{{ data.names2 }}</span>
+    </p>
+  </section>
+
+  <app-music-player
+    [src]="data.audioSrc ?? ''"
+    [autoPlayOnFirstTouch]="!!data.autoPlayMusic"
+    background="rgba(38, 63, 45, 0.92)"
+    color="#fbf8f2">
+  </app-music-player>
+</main>
