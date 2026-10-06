@@ -397,6 +397,106 @@ export class MainService {
       },
       template: "arco-verde",
       active: true
+    },
+    {
+      id: "flor-palida-demo",
+      slug: "flor-palida",
+      data: {
+        // portada
+        kicker: ["Nuestra", "historia", "continúa"],
+        names1: "Alexéi",
+        names2: "María",
+        weddingDate: "2027-09-08", // formato AAAA-MM-DD
+        saveTheDateLabel: "Save the date",
+        flowerImage: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flor_palida.png",
+        // bienvenida
+        greetingTitle: "¡Queridos familiares y amigos!",
+        greetingLines: [
+          "En nuestra vida está por suceder",
+          "algo muy importante.",
+          "Seremos muy felices de compartir con ustedes",
+          "este día tan especial: ¡el día de nuestra boda!",
+          "Los invitamos a la celebración",
+          "que será el comienzo de nuestra familia."
+        ],
+        waitingTitle: "¡Los esperamos!",
+        time: "16:00",
+        quote: "La felicidad está en las personas cercanas",
+        // lugar
+        venueTitle: "Lugar de la celebración",
+        venueLines: [
+          "Complejo campestre «Hacienda del Bosque»",
+          "Región de Moscú, distrito de Odintsovo,",
+          "Solnechnaya, calle Beriózovaya 12"
+        ],
+        mapButtonText: "Abrir mapa",
+        mapLink: "https://www.google.com/maps/search/?api=1&query=Solnechnaya+Beriozovaya+12+Odintsovo",
+        // dress code
+        dressTitle: "Dress code",
+        dressText: "Les agradeceremos mucho si acompañan el estilo de nuestra celebración: looks elegantes en tonos suaves y naturales.",
+        dressColors: ["#e4dad4", "#d6c3be", "#b8a39b", "#9b9e8d", "#8a7d74"],
+        // cierre
+        closingTitle: "Con amor,",
+        closingTagline: "Siempre juntos"
+      },
+      template: "flor-palida",
+      active: true
+    },
+    {
+      id: "azul-k7p3x9qm",
+      slug: "azul",
+      data: {
+        // portada
+        heroImage: "assets/baby/conejita.png",
+        cloudImage: "assets/baby/nube.png",
+        title: "Baby",
+        subtitle: "Shower",
+        kicker: "La dulce espera de",
+        babyName: "Azul",
+        ecoImage: "assets/baby/eco.jpg",
+        heartbeatSrc: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Baby/latidos.mp3",
+        heartbeatLabel: "Escucha mis latidos",
+        musicSrc: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Baby/cancion_azuk.mp3",
+        autoPlayMusic: true,
+        // papás
+        parentsLabel: "Mis papitos",
+        parentsNames: "Gustavo & Gissel",
+        parentsPhoto: "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Baby/us.jpg",
+        parentsPhotoPosition: "center 28%",
+        // detalles
+        message: "Sé que me esperan con amor y emoción, por eso deseo que compartas con ellos esta hermosa espera. ¡Muy pronto estaremos juntos!",
+        parentsVideo: "assets/baby/revelacion.mp4",
+        parentsVideoPoster: "assets/baby/revelacion-poster.jpg",
+        parentsImage: "assets/new-claude-our/basic_02.jpg", // se muestra si no hay video
+        parentsImagePosition: "center 30%",
+        guestNames: "Juan & Laura", // si llega una confirmación, se usan los nombres del invitado
+        celebrateText: "Acompáñanos a celebrar el día",
+        dayOfWeek: "Domingo",
+        dayNumber: "25",
+        month: "Octubre",
+        time: "3:00 PM",
+        placeLabel: "Lugar",
+        placeName: "Segundo piso Pan de Oro",
+        placeAddress: "",
+        mapLink: "https://maps.app.goo.gl/BkTY9MEaYLakEoKG7",
+        mapButtonText: "Mapa de ubicación",
+        // regalo
+        giftHighlight: "Tu presencia es importante,",
+        giftText: "el mejor regalo que podemos recibir",
+        // confirmación
+        confirmQuestion: "¿Nos acompañas?",
+        confirmButtonText: "Confirmar asistencia",
+        confirmLink: "https://www.invitapp.art/invitation/confirmation/azul-k7p3x9qm",
+        typeConfirmation: "basic",
+        // datos que muestra la página de confirmación
+        names1: "Gustavo",
+        names2: "Gissel",
+        dateText: "25 · 10 · 2026",
+        linkInvitation: "https://www.invitapp.art/azul",
+        linkListInvitation: "https://www.invitapp.art/invitation/confirmations/list/azul-k7p3x9qm"
+      },
+      template: "baby",
+      active: true
     }
   ]
 

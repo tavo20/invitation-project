@@ -1,0 +1,109 @@
+<main class="flor">
+  <section class="flor-cover">
+    <img class="flor-cover__branch" [src]="data.flowerImage" alt="" aria-hidden="true">
+
+    <p class="flor-cover__kicker">
+      <span *ngFor="let word of data.kicker">{{ word }}</span>
+    </p>
+
+    <div class="flor-cover__date">
+      <p class="numbers" [attr.aria-label]="data.weddingDate">
+        <span *ngFor="let part of dateParts">{{ part }}</span>
+      </p>
+      <span class="divider" aria-hidden="true"></span>
+      <p class="save"><span>{{ saveTheDate[0] }}</span><span>{{ saveTheDate[1] }}</span></p>
+    </div>
+
+    <div class="flor-cover__names">
+      <span class="monogram" aria-hidden="true">{{ monogram }}</span>
+      <h1>
+        <span>{{ data.names1 }}</span>
+        <span class="amp">&amp;</span>
+        <span>{{ data.names2 }}</span>
+      </h1>
+    </div>
+
+    <span class="flor-cover__scroll" aria-hidden="true"></span>
+  </section>
+
+  <section class="flor-welcome">
+    <h2 class="flor-welcome__title">{{ data.greetingTitle }}</h2>
+    <span class="flor-rule" aria-hidden="true"></span>
+
+    <p class="flor-welcome__text">
+      <ng-container *ngFor="let line of data.greetingLines; let last = last">{{ line }}<br *ngIf="!last"></ng-container>
+    </p>
+
+    <span class="flor-rule" aria-hidden="true"></span>
+
+    <h3 class="flor-welcome__waiting">{{ data.waitingTitle }}</h3>
+    <p class="flor-welcome__when">
+      {{ longDate }}<br>
+      a las {{ data.time }}
+    </p>
+
+    <p class="flor-welcome__quote">{{ data.quote }}</p>
+  </section>
+
+  <section class="flor-calendar">
+    <span class="flor-calendar__mark" aria-hidden="true"></span>
+
+    <header class="flor-calendar__header">
+      <span class="ghost" aria-hidden="true">{{ monthName }}</span>
+      <h2>{{ monthName }}</h2>
+    </header>
+
+    <div class="flor-calendar__grid" role="grid" [attr.aria-label]="longDate">
+      <span *ngFor="let wd of weekDays" class="weekday">{{ wd }}</span>
+      <span *ngFor="let day of calendarDays" class="day" [class.is-wedding]="day === weddingDay">
+        <ng-container *ngIf="day">
+          {{ day }}
+          <svg *ngIf="day === weddingDay" class="heart" viewBox="0 0 24 22" aria-hidden="true">
+            <path d="M12 21.4 10.6 20C5.4 15.4 2 12.3 2 8.5 2 5.4 4.4 3 7.5 3c1.7 0 3.4.8 4.5 2.1C13.1 3.8 14.8 3 16.5 3 19.6 3 22 5.4 22 8.5c0 3.8-3.4 6.9-8.6 11.5L12 21.4Z" />
+          </svg>
+        </ng-container>
+      </span>
+    </div>
+
+    <span class="flor-rule" aria-hidden="true"></span>
+  </section>
+
+  <section class="flor-info">
+    <h2 class="flor-info__title">{{ data.venueTitle }}</h2>
+    <p class="flor-info__text">
+      <ng-container *ngFor="let line of data.venueLines; let last = last">{{ line }}<br *ngIf="!last"></ng-container>
+    </p>
+    <a class="flor-info__button" [href]="data.mapLink" target="_blank" rel="noopener">
+      {{ data.mapButtonText }}
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" />
+      </svg>
+    </a>
+
+    <span class="flor-rule" aria-hidden="true"></span>
+
+    <h2 class="flor-info__title">{{ data.dressTitle }}</h2>
+    <p class="flor-info__text flor-info__text--narrow">{{ data.dressText }}</p>
+    <ul class="flor-info__palette" aria-label="Paleta de colores">
+      <li *ngFor="let color of data.dressColors" [style.background]="color"></li>
+    </ul>
+  </section>
+
+  <section class="flor-closing">
+    <img class="flor-closing__branch" [src]="data.flowerImage" alt="" aria-hidden="true">
+
+    <h2 class="flor-closing__title">{{ data.closingTitle }}</h2>
+
+    <p class="flor-closing__names">
+      <span>{{ data.names1 }}</span>
+      <span class="second"><span class="amp">&amp;</span> {{ data.names2 }}</span>
+    </p>
+
+    <!-- corazón de trazo fino, como dibujado a mano -->
+    <svg class="flor-closing__heart" viewBox="0 0 60 56" aria-hidden="true">
+      <path d="M30 51 C 18 42 6 32 6 20 C 6 11 13 6 20 7 C 25 8 28 12 30 17 C 32 11 36 7 42 7 C 50 7 55 13 54 21 C 53 32 42 42 31 50" />
+    </svg>
+
+    <p class="flor-closing__tagline">{{ data.closingTagline }}</p>
+  </section>
+</main>

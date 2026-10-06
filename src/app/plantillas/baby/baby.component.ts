@@ -17,6 +17,8 @@ interface BabyData {
   // detalles
   message: string;
   parentsImage: string;
+  parentsPhoto?: string;
+  parentsPhotoPosition?: string;
   parentsImagePosition?: string;
   parentsVideo?: string;
   parentsVideoPoster?: string;
@@ -93,6 +95,8 @@ export class BabyComponent implements AfterViewInit, OnDestroy {
     heartbeatSrc: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Baby/latidos.mp3',
     heartbeatLabel: 'Escucha mis latidos',
     parentsLabel: 'Mis papitos',
+    parentsPhoto: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Baby/us.jpg',
+    parentsPhotoPosition: 'center 28%',
     musicSrc: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Baby/cancion_azuk.mp3',
     autoPlayMusic: true,
     message: 'Sé que me esperan con amor y emoción, por eso deseo que compartas con ellos esta hermosa espera. ¡Muy pronto estaremos juntos!',
@@ -113,7 +117,7 @@ export class BabyComponent implements AfterViewInit, OnDestroy {
     mapLink: 'https://maps.app.goo.gl/BkTY9MEaYLakEoKG7',
     mapButtonText: 'Mapa de ubicación',
     giftHighlight: 'Tu presencia es importante,',
-    giftText: 'el mejor regalo que podemos recibir, pero si deseas hacernos un detalle adicional, te lo agradeceremos con todo el corazón.',
+    giftText: 'el mejor regalo que podemos recibir',
     confirmQuestion: '¿Nos acompañas?',
     confirmButtonText: 'Confirmar asistencia',
     confirmLink: ''

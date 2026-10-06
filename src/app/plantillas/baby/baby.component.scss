@@ -251,6 +251,7 @@ $gold: #d9b45a;
 .hero__parents {
   position: relative;
   z-index: 1;
+  width: 100%;
   margin-top: 30px;
   display: flex;
   flex-direction: column;
@@ -273,6 +274,16 @@ $gold: #d9b45a;
   font-size: 50px;
   line-height: 1.1;
   color: $rose-ink;
+}
+
+// foto de los papás bajo sus nombres, recortada en vertical para centrar las caras
+.hero__parents-photo {
+  margin-top: 16px;
+
+  img {
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
 }
 
 /* ---------- Detalles del evento ---------- */

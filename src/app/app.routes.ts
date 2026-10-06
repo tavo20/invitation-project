@@ -69,6 +69,12 @@ export const routes: Routes = [
                 .then(m => m.BabyComponent)
     },
     {
+        path: 'verde-oliva',
+        loadComponent: () =>
+            import('./plantillas/verde-oliva/verde-oliva.component')
+                .then(m => m.VerdeOlivaComponent)
+    },
+    {
         path: ':slug',
         component: HomeComponent
     },

@@ -17,6 +17,7 @@ import { SobreAmanecerComponent } from '../plantillas/sobre-amanecer/sobre-amane
 import { XvLilaComponent } from '../plantillas/xv-lila/xv-lila.component';
 import { BabyComponent } from '../plantillas/baby/baby.component';
 import { ArcoVerdeComponent } from '../plantillas/arco-verde/arco-verde.component';
+import { FlorPalidaComponent } from '../plantillas/flor-palida/flor-palida.component';
 import { ConfirmationService } from '../shared/services/confirmation.service';
 import { lastValueFrom } from 'rxjs';
 
@@ -50,6 +51,7 @@ export class HomeComponent {
     "xv-lila": XvLilaComponent,
     "baby": BabyComponent,
     "arco-verde": ArcoVerdeComponent,
+    "flor-palida": FlorPalidaComponent,
   }
   public templateComponent: any = null;
 

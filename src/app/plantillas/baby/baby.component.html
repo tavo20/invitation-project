@@ -74,6 +74,9 @@
     <div class="hero__parents">
       <p class="hero__parents-label">{{ data.parentsLabel }}</p>
       <p class="hero__parents-names">{{ data.parentsNames }}</p>
+      <figure *ngIf="data.parentsPhoto" class="photo-frame hero__parents-photo">
+        <img [src]="data.parentsPhoto" [style.object-position]="data.parentsPhotoPosition" [alt]="data.parentsNames" loading="lazy" />
+      </figure>
     </div>
   </section>
 

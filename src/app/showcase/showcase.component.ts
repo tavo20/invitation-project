@@ -152,6 +152,15 @@ export class ShowcaseComponent {
       link: '/sobre-amanecer',
       tags: ['Sobre', 'Floral', 'Colores dinámicos'],
       category: 'Boda'
+    },
+    {
+      nombre: 'Arco Verde',
+      estilo: 'Verde & Blanco',
+      descripcion: 'Portada con foto en arco y "Save the Date", panel verde con ceremonia y recepción, dress code con paleta de colores, itinerario con iconos y cuenta regresiva. Fresca y elegante.',
+      imagen: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Cliente_Marca/Artur/Examples/folow_03.jpg',
+      link: '/arco-verde',
+      tags: ['Arco', 'Música', 'Itinerario', 'Countdown', 'Dress Code'],
+      category: 'Boda'
     }
 
   ];

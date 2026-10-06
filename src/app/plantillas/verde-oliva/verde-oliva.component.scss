@@ -1,0 +1,966 @@
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@500&display=swap');
+
+$olive: #5a5f50;
+$olive-dark: #474c40;
+$line: #a2a792;
+$motif: #b9bea9;
+$ink: #ecebdf;
+
+:host {
+  display: block;
+  min-height: 100dvh;
+  background: #3a3e34;
+}
+
+.oliva {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+// grano fino reutilizable
+%paper-grain {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+  opacity: 0.08;
+}
+
+// papel verde oliva de la portada, reutilizable en otras secciones
+%olive-paper {
+  background-color: $olive;
+  background-image:
+    // viñeta: bordes hundidos
+    radial-gradient(ellipse 75% 65% at 50% 48%, transparent 55%, rgba($olive-dark, 0.9) 130%),
+    // moteado oscuro del papel
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='d'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012' numOctaves='2' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 .12  0 0 0 0 .13  0 0 0 0 .1  0 1.4 0 0 -.62'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23d)'/%3E%3C/svg%3E");
+
+  // grano y fibras encima de todo, para que el marco también parezca impreso
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.004 .35' numOctaves='2' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+    z-index: 2;
+    mix-blend-mode: overlay;
+    opacity: 0.32;
+  }
+}
+
+
+.oliva-page {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  @extend %olive-paper;
+}
+
+.oliva-deco {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+
+  &__vines {
+    fill: none;
+    stroke: $motif;
+    stroke-width: 3;
+    stroke-linecap: round;
+    opacity: 0.16;
+
+    .leaf {
+      fill: $motif;
+      stroke: none;
+    }
+  }
+
+  &__outer,
+  &__inner {
+    fill: none;
+    stroke: $line;
+    stroke-linejoin: round;
+  }
+
+  &__outer {
+    stroke-width: 5;
+    opacity: 0.85;
+  }
+
+  &__inner {
+    stroke-width: 3;
+    opacity: 0.8;
+  }
+}
+
+.oliva-cover {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 18% 44px; // 44px = LACE_SPACE
+  color: $ink;
+  text-align: center;
+
+  &__rings {
+    width: min(38%, 170px);
+    margin-bottom: 7%;
+    fill: none;
+    stroke: $ink;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 0.6px rgba($ink, 0.6));
+
+    .thin {
+      stroke-width: 0.9;
+    }
+
+    .spark,
+    .sprig path:not(.thin) {
+      fill: $ink;
+      stroke: none;
+    }
+
+    .sprig {
+      opacity: 0.85;
+    }
+  }
+
+  &__names {
+    margin: 0;
+    font-family: 'Pinyon Script', cursive;
+    font-weight: 400;
+    font-size: clamp(46px, 14vw, 66px);
+    line-height: 0.95;
+    // ligero corrido de tinta, como impreso
+    text-shadow: 0 0 1px rgba($ink, 0.45);
+
+    span {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .first {
+      transform: translateX(-6%);
+    }
+
+    .second {
+      transform: translateX(10%);
+    }
+  }
+
+  &__tagline {
+    margin: 9% 0 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(13px, 3.8vw, 17px);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-shadow: 0 0 1px rgba($ink, 0.35);
+  }
+}
+
+$lace: #f3efe3;
+
+$cream: #f3efe3;
+$sage-soft: #e1e3d8;
+$text: #4b5043;
+
+.oliva-lace {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 100%;
+  height: 72px;
+
+  .lace {
+    fill: none;
+    stroke: var(--lace);
+    stroke-linecap: round;
+  }
+
+  .net-line {
+    fill: none;
+    stroke: var(--lace);
+    stroke-width: 0.7;
+  }
+
+  .net {
+    stroke: none;
+    opacity: 0.85;
+  }
+
+  .cord {
+    stroke-width: 2.4;
+
+    &--thin {
+      stroke-width: 1.2;
+    }
+  }
+
+  .dot,
+  .solid {
+    fill: var(--lace);
+    stroke: none;
+  }
+
+  .hole {
+    fill: var(--lace-hole);
+    stroke: none;
+  }
+
+  // encaje crema sobre el verde de la portada
+  &.oliva-lace-cover,
+  &.oliva-lace-location,
+  &.oliva-lace-dress {
+    --lace: #{$lace};
+    --lace-hole: #{$olive};
+    // sombra suave para que el encaje parezca pegado sobre el papel
+    filter: drop-shadow(0 -1px 1.5px rgba(0, 0, 0, 0.35));
+  }
+
+  // encaje tenue, tono sobre tono, al pie de la sección crema
+  &.oliva-lace-soft {
+    --lace: #dcddd0;
+    --lace-hole: #{$cream};
+    opacity: 0.9;
+  }
+}
+
+.oliva-intro {
+  position: relative;
+  // continúa la banda crema del encaje de la portada
+  margin-top: -1px;
+  padding: 36px 9% 120px;
+  background: $cream;
+  color: $text;
+  text-align: center;
+  overflow: hidden;
+
+  &::after {
+    @extend %paper-grain;
+  }
+
+  &__title {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(26px, 7.6vw, 36px);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+
+    .initial {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 2.6em;
+      line-height: 0;
+      text-transform: none;
+      vertical-align: -0.12em;
+      margin-right: -0.08em;
+    }
+
+    .line {
+      display: block;
+    }
+  }
+
+  &__text {
+    margin: 22px auto 0;
+    max-width: 30ch;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 4.4vw, 19px);
+    line-height: 1.35;
+  }
+
+  &__subtitle {
+    margin: 40px 0 18px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(24px, 6.8vw, 30px);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  &__days {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(8px, 2.6vw, 14px);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: clamp(42px, 12vw, 52px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: $sage-soft;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(19px, 5.4vw, 23px);
+    }
+
+    .is-day {
+      width: clamp(66px, 19vw, 84px);
+      background: none;
+      color: $cream;
+      font-size: clamp(26px, 7.6vw, 32px);
+
+      .heart {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        fill: $olive;
+      }
+
+      span {
+        position: relative;
+        margin-top: -8%;
+      }
+    }
+  }
+
+  &__month {
+    margin: 14px 0 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(22px, 6.4vw, 28px);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+}
+
+.oliva-timeline {
+  position: relative;
+  margin-top: -1px;
+  padding: 24px 0 48px;
+  background: $cream;
+  color: $text;
+  overflow: hidden;
+
+  &::after {
+    @extend %paper-grain;
+  }
+
+  &__title {
+    margin: 0 0 8px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(26px, 7.6vw, 36px);
+    letter-spacing: 0.01em;
+    text-align: center;
+    text-transform: uppercase;
+
+    .initial {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 2.6em;
+      line-height: 0;
+      text-transform: none;
+      vertical-align: -0.12em;
+      margin-right: -0.06em;
+    }
+  }
+
+  &__board {
+    position: relative;
+    width: 100%;
+  }
+
+  &__line {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+
+    path {
+      fill: none;
+      stroke: $olive;
+      stroke-width: 0.8;
+      stroke-linecap: round;
+    }
+
+    .heart {
+      fill: $olive;
+      stroke: none;
+    }
+  }
+
+  &__item {
+    position: absolute;
+    left: 8%;
+    width: 44%;
+
+    &.is-right {
+      left: auto;
+      right: 8%;
+      text-align: right;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .time {
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(30px, 8.6vw, 40px);
+      line-height: 1.1;
+    }
+
+    .title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(17px, 4.8vw, 20px);
+      line-height: 1.15;
+    }
+  }
+}
+
+.oliva-location {
+  position: relative;
+  margin-top: -1px;
+  padding: 48px 10% 150px;
+  color: $ink;
+  text-align: center;
+  @extend %olive-paper;
+
+  > :not(.oliva-lace) {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__title {
+    margin: 0 0 18px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(28px, 8vw, 38px);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    text-shadow: 0 0 1px rgba($ink, 0.35);
+
+    .initial {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 2.6em;
+      line-height: 0;
+      text-transform: none;
+      vertical-align: -0.12em;
+      margin-right: -0.06em;
+    }
+  }
+
+  &__address {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 5vw, 21px);
+    line-height: 1.3;
+  }
+
+  &__hint {
+    margin: 22px 0 18px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 5vw, 21px);
+  }
+
+  &__button {
+    display: inline-block;
+    padding: 12px 30px;
+    background: $cream;
+    color: $text;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(15px, 4.2vw, 18px);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  &__bow {
+    display: block;
+    width: min(36%, 150px);
+    margin: 44px auto 0;
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.35));
+
+    .fabric {
+      fill: $cream;
+    }
+
+    .inner {
+      fill: #dcd9ca;
+    }
+
+    .fold {
+      fill: none;
+      stroke: #c9c6b6;
+      stroke-width: 1.1;
+      stroke-linecap: round;
+    }
+
+    .edge {
+      fill: none;
+      stroke: #d8d5c6;
+      stroke-width: 1.4;
+      stroke-dasharray: 0.1 3.2;
+      stroke-linecap: round;
+    }
+  }
+}
+
+.oliva-dress {
+  position: relative;
+  margin-top: -1px;
+  padding: 40px 10% 120px;
+  background: $cream;
+  color: $text;
+  text-align: center;
+  overflow: hidden;
+
+  &::after {
+    @extend %paper-grain;
+  }
+
+  &__title {
+    margin: 0 0 14px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(28px, 8vw, 38px);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+
+    .initial {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 2.6em;
+      line-height: 0;
+      text-transform: none;
+      vertical-align: -0.12em;
+      margin-right: -0.04em;
+    }
+  }
+
+  &__text {
+    margin: 0 auto;
+    max-width: 28ch;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 5vw, 21px);
+    line-height: 1.3;
+  }
+
+  &__palette {
+    display: flex;
+    justify-content: center;
+    gap: clamp(8px, 2.6vw, 14px);
+    margin: 28px 0 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      width: clamp(44px, 12.5vw, 56px);
+      aspect-ratio: 1;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+      // el blanco necesita un borde para distinguirse del papel
+      outline: 1px solid rgba($text, 0.18);
+      outline-offset: -1px;
+    }
+  }
+
+  &__edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 72px;
+    @extend %olive-paper;
+
+    .oliva-lace {
+      transform: scaleY(-1);
+    }
+  }
+}
+
+// título con inicial caligráfica, compartido por las secciones nuevas
+%section-title {
+  margin: 0;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: clamp(28px, 8vw, 38px);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+
+  .initial {
+    font-family: 'Pinyon Script', cursive;
+    font-size: 2.6em;
+    line-height: 0;
+    text-transform: none;
+    vertical-align: -0.12em;
+    margin-right: -0.04em;
+  }
+}
+
+.oliva-rsvp {
+  position: relative;
+  margin-top: -1px;
+  padding: 56px 10% 64px;
+  color: $ink;
+  text-align: center;
+  @extend %olive-paper;
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  &__title {
+    @extend %section-title;
+    text-shadow: 0 0 1px rgba($ink, 0.35);
+  }
+
+  &__text {
+    margin: 18px auto 0;
+    max-width: 30ch;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 5vw, 21px);
+    line-height: 1.3;
+  }
+
+  &__button {
+    display: inline-block;
+    margin-top: 26px;
+    padding: 12px 40px;
+    background: $cream;
+    color: $text;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: clamp(15px, 4.2vw, 18px);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+  }
+}
+
+.oliva-wishes {
+  position: relative;
+  padding: 56px 8% 64px;
+  background: $cream;
+  color: $text;
+  text-align: center;
+  overflow: hidden;
+
+  &::after {
+    @extend %paper-grain;
+  }
+
+  &__title {
+    @extend %section-title;
+    margin-bottom: 28px;
+  }
+
+  &__stack {
+    position: relative;
+    margin: 0 auto;
+    max-width: 330px;
+  }
+
+  // el sobre asoma por la izquierda y por la derecha de la tarjeta
+  &__envelope {
+    position: absolute;
+    top: -28px;
+    left: -16%;
+    width: 132%;
+    transform: rotate(-9deg);
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.15));
+
+    .paper {
+      fill: #bcc1b1;
+    }
+
+    .flap,
+    .seam {
+      fill: none;
+      stroke: #a7ad9b;
+      stroke-width: 1.4;
+    }
+  }
+
+  &__card {
+    position: relative;
+    padding: 34px 9% 38px;
+    color: $ink;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+    @extend %olive-paper;
+
+    p {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(17px, 4.8vw, 20px);
+      line-height: 1.3;
+
+      & + p {
+        margin-top: 18px;
+      }
+    }
+  }
+}
+
+// ===== Sobre de apertura =====
+// Orden: sello (0–0.35s) → solapa (0.3–1.1s) → carta sube (1.1–1.9s) → desvanecido (1.9–2.6s)
+
+.oliva-envelope {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  background: $cream;
+  cursor: pointer;
+  transition: opacity 0.7s ease 1.9s;
+  -webkit-tap-highlight-color: transparent;
+
+  &::after {
+    @extend %paper-grain;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &.is-opening {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &__body {
+    position: relative;
+    width: min(84vw, 400px);
+    aspect-ratio: 10 / 7;
+    perspective: 900px;
+  }
+
+  // interior del sobre, un tono más oscuro
+  &__back {
+    position: absolute;
+    inset: 0;
+    background: $olive-dark;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  &__letter {
+    position: absolute;
+    left: 6%;
+    right: 6%;
+    top: 6%;
+    height: 88%;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 9%;
+    background: $cream;
+    color: $text;
+    text-align: center;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
+    transition: transform 0.8s cubic-bezier(0.3, 0.7, 0.3, 1) 1.1s;
+
+    p {
+      margin: 0;
+    }
+
+    .names {
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(26px, 7.5vw, 36px);
+      line-height: 1.1;
+
+      span {
+        font-size: 0.8em;
+      }
+    }
+
+    .tagline {
+      margin-top: 6px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(11px, 3.2vw, 14px);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+  }
+
+  // bolsillo delantero: el sobre completo menos la V de arriba
+  &__front {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    clip-path: polygon(0 0, 50% 52%, 100% 0, 100% 100%, 0 100%);
+    @extend %olive-paper;
+  }
+
+  &__seams {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+
+    path {
+      fill: none;
+      stroke: rgba(0, 0, 0, 0.22);
+      stroke-width: 0.5;
+      vector-effect: non-scaling-stroke;
+    }
+  }
+
+  // solapa: gira hacia atrás y, ya abierta, pasa detrás de la carta
+  &__flap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 60%;
+    z-index: 3;
+    transform-origin: top center;
+    filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.3));
+    transition:
+      transform 0.8s cubic-bezier(0.5, 0, 0.3, 1) 0.3s,
+      z-index 0s linear 0.7s;
+
+
+    svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    path {
+      fill: none;
+      stroke: rgba($lace, 0.55);
+      stroke-width: 1.4;
+      stroke-dasharray: 2 4;
+      vector-effect: non-scaling-stroke;
+    }
+  }
+
+  &__flap-paper {
+    position: absolute;
+    inset: 0;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    @extend %olive-paper;
+  }
+
+  // sello de cera crema sobre la punta de la solapa
+  &__seal {
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    z-index: 4;
+    width: clamp(64px, 19vw, 84px);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 3px 4px rgba(0, 0, 0, 0.35));
+    transition: transform 0.35s ease, opacity 0.35s ease;
+
+    svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .wax {
+      fill: #ebe5d3;
+    }
+
+    .ring {
+      fill: none;
+      stroke: #cfc8b2;
+      stroke-width: 2;
+    }
+
+    span {
+      position: relative;
+      font-family: 'Pinyon Script', cursive;
+      font-size: clamp(20px, 5.8vw, 26px);
+      color: $olive;
+      white-space: nowrap;
+    }
+  }
+
+  &__hint {
+    margin: 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $text;
+    animation: oliva-hint 2.2s ease-in-out infinite;
+    transition: opacity 0.3s ease;
+  }
+
+  &.is-opening {
+    .oliva-envelope__seal {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.25);
+    }
+
+    .oliva-envelope__flap {
+      transform: rotateX(180deg);
+      z-index: 0;
+    }
+
+    .oliva-envelope__letter {
+      transform: translateY(-62%);
+    }
+
+    .oliva-envelope__hint {
+      opacity: 0;
+    }
+  }
+}
+
+@keyframes oliva-hint {
+  0%, 100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oliva-envelope,
+  .oliva-envelope * {
+    transition-duration: 0.01s !important;
+    animation: none !important;
+  }
+}
