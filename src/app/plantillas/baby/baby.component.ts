@@ -159,10 +159,12 @@ export class BabyComponent implements OnInit, AfterViewInit, OnDestroy {
     this.envelopeOpen = true;
 
     // el toque al sobre cuenta como el primer toque: aquí arranca la música
+    // (el pointerdown de onFirstTouch llega antes que este click y ya marcó firstTouchHandled)
     this.removeFirstTouch();
-    if (!this.firstTouchHandled && this.data.musicSrc && this.data.autoPlayMusic) {
-      this.firstTouchHandled = true;
-      this.musicAudioRef?.nativeElement.play().catch(() => undefined);
+    this.firstTouchHandled = true;
+    const music = this.musicAudioRef?.nativeElement;
+    if (music?.paused && this.data.musicSrc && this.data.autoPlayMusic) {
+      music.play().catch(() => undefined);
     }
 
     // sello → solapa → sale la tarjeta → se desvanece el sobre

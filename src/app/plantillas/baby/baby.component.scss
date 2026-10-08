@@ -764,8 +764,7 @@ $env-flap: #ecc6bf;
   display: block;
   width: var(--env-w);
   height: calc(var(--env-w) * 0.68);
-  /* espacio arriba para que la tarjeta pueda salir */
-  margin-top: calc(var(--env-w) * 0.42);
+  margin-top: 36px;
   padding: 0;
   border: 0;
   background: none;
@@ -773,7 +772,6 @@ $env-flap: #ecc6bf;
   perspective: 900px;
   -webkit-tap-highlight-color: transparent;
   animation: envelope-float 4s ease-in-out infinite;
-  transition: transform 0.8s ease;
 
   &:disabled {
     cursor: default;
@@ -885,7 +883,7 @@ $env-flap: #ecc6bf;
   z-index: 4;
   left: 0;
   right: 0;
-  bottom: 9%;
+  bottom: 6%;
   font-family: 'Allura', cursive;
   font-size: 26px;
   line-height: 1;
@@ -952,8 +950,9 @@ $env-flap: #ecc6bf;
 
 /* ---- secuencia de apertura ---- */
 .envelope-intro.is-open {
+  /* se queda quieto donde está (pausar en vez de quitar la animación evita un salto) */
   .envelope {
-    animation: none;
+    animation-play-state: paused;
   }
 
   .envelope__seal {
@@ -967,10 +966,6 @@ $env-flap: #ecc6bf;
   .envelope__card {
     animation: card-rise 0.9s 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
-}
-
-.envelope-intro.is-leaving .envelope {
-  transform: translateY(24px) scale(1.06);
 }
 
 @keyframes seal-pop {
@@ -1001,9 +996,11 @@ $env-flap: #ecc6bf;
   animation: page-reveal 0.9s ease-out both;
 }
 
+/* solo opacidad: un transform en .baby-page haría que el botón de música (position: fixed)
+   quede pegado a la página en vez de flotar sobre la pantalla */
 @keyframes page-reveal {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
