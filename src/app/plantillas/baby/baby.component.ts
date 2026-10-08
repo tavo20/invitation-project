@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, NgZone, OnDestroy, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface BabyData {
@@ -41,6 +41,10 @@ interface BabyData {
   confirmQuestion: string;
   confirmButtonText: string;
   confirmLink?: string;
+  // sobre de apertura
+  showEnvelope?: boolean;
+  envelopeKicker: string;
+  envelopeHint: string;
 }
 
 interface Decoration {
@@ -58,7 +62,7 @@ interface Decoration {
   templateUrl: './baby.component.html',
   styleUrl: './baby.component.scss'
 })
-export class BabyComponent implements AfterViewInit, OnDestroy {
+export class BabyComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() invitationData: Partial<BabyData> | null = null;
   @Input() confirmation: any = null;
 
@@ -120,8 +124,63 @@ export class BabyComponent implements AfterViewInit, OnDestroy {
     giftText: 'el mejor regalo que podemos recibir',
     confirmQuestion: '¿Nos acompañas?',
     confirmButtonText: 'Confirmar asistencia',
-    confirmLink: ''
+    confirmLink: '',
+    showEnvelope: true,
+    envelopeKicker: 'Tienes una invitación',
+    envelopeHint: 'Toca el sobre para abrirla'
   };
+
+  // ---------- Sobre de apertura ----------
+
+  /** Nubes y estrellas del sobre (top en % de la pantalla) */
+  readonly introClouds: Decoration[] = [
+    { left: -14, top: 8, size: 42, delay: 0 },
+    { left: 70, top: 14, size: 38, delay: 1.4, flip: true },
+    { left: 78, top: 72, size: 34, delay: 0.7 },
+    { left: -10, top: 80, size: 36, delay: 2, flip: true }
+  ];
+
+  readonly introStars: Decoration[] = [
+    { left: 22, top: 20, size: 4.4 },
+    { left: 80, top: 30, size: 3.8 },
+    { left: 10, top: 66, size: 4 },
+    { left: 86, top: 88, size: 3.6 }
+  ];
+
+  envelopeVisible = true;
+  envelopeOpen = false;
+  envelopeLeaving = false;
+  /** La invitación entra con una animación suave cuando el sobre se va. */
+  revealed = false;
+  private envelopeTimers: ReturnType<typeof setTimeout>[] = [];
+
+  openEnvelope(): void {
+    if (this.envelopeOpen) return;
+    this.envelopeOpen = true;
+
+    // el toque al sobre cuenta como el primer toque: aquí arranca la música
+    this.removeFirstTouch();
+    if (!this.firstTouchHandled && this.data.musicSrc && this.data.autoPlayMusic) {
+      this.firstTouchHandled = true;
+      this.musicAudioRef?.nativeElement.play().catch(() => undefined);
+    }
+
+    // sello → solapa → sale la tarjeta → se desvanece el sobre
+    const quick = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    this.envelopeTimers.push(
+      setTimeout(() => {
+        this.envelopeLeaving = true;
+        this.revealed = true;
+      }, quick ? 150 : 2100),
+      setTimeout(() => this.closeEnvelopeIntro(), quick ? 500 : 2900)
+    );
+  }
+
+  private closeEnvelopeIntro(): void {
+    this.envelopeVisible = false;
+    document.body.style.overflow = '';
+    window.scrollTo(0, 0);
+  }
 
   /** Nubes repartidas como en la referencia: a los lados, a distintas alturas */
   readonly clouds: Decoration[] = [
@@ -210,6 +269,16 @@ export class BabyComponent implements AfterViewInit, OnDestroy {
 
   // ---------- Latidos: onda de puntos dibujada con el audio real ----------
 
+  ngOnInit(): void {
+    if (this.data.showEnvelope === false) {
+      this.envelopeVisible = false;
+      this.revealed = true;
+    } else {
+      // mientras el sobre está cerrado, la página de atrás no se desplaza
+      document.body.style.overflow = 'hidden';
+    }
+  }
+
   ngAfterViewInit(): void {
     if (this.data.musicSrc && this.data.autoPlayMusic) {
       document.addEventListener('pointerdown', this.onFirstTouch, { passive: true });
@@ -222,6 +291,8 @@ export class BabyComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.envelopeTimers.forEach(clearTimeout);
+    document.body.style.overflow = '';
     this.stopLoop();
     this.resizeObserver?.disconnect();
     this.heartbeatAudioRef?.nativeElement.pause();
@@ -289,7 +360,7 @@ export class BabyComponent implements AfterViewInit, OnDestroy {
     this.firstTouchHandled = true;
     // si el primer toque es en los latidos, el video o el botón de música, ese control decide
     const target = event.target as HTMLElement | null;
-    if (target?.closest('.heartbeat, .video-sound, .music-fab')) return;
+    if (target?.closest('.heartbeat, .video-sound, .music-fab, .envelope')) return;
     this.zone.run(() => this.musicAudioRef?.nativeElement.play().catch(() => undefined));
   };
 

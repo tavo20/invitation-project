@@ -1,4 +1,74 @@
-<main class="baby-page">
+<!-- Apertura: sobre que se abre y deja ver la invitación -->
+<div
+  *ngIf="envelopeVisible"
+  class="envelope-intro"
+  [class.is-open]="envelopeOpen"
+  [class.is-leaving]="envelopeLeaving">
+  <img
+    *ngFor="let c of introClouds"
+    class="deco-cloud envelope-intro__cloud"
+    [class.deco-cloud--flip]="c.flip"
+    [src]="data.cloudImage"
+    alt=""
+    aria-hidden="true"
+    [style.left.%]="c.left"
+    [style.top.%]="c.top"
+    [style.width.%]="c.size"
+    [style.animation-delay.s]="c.delay" />
+
+  <svg
+    *ngFor="let s of introStars"
+    class="deco-star envelope-intro__star"
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    [style.left.%]="s.left"
+    [style.top.%]="s.top"
+    [style.width.%]="s.size">
+    <path d="M12 2.5l2.6 6.1 6.6.6-5 4.4 1.5 6.5L12 16.7l-5.7 3.4 1.5-6.5-5-4.4 6.6-.6z" />
+  </svg>
+
+  <p class="envelope-intro__kicker">{{ data.envelopeKicker }}</p>
+
+  <button
+    type="button"
+    class="envelope"
+    (click)="openEnvelope()"
+    [disabled]="envelopeOpen"
+    aria-label="Abrir la invitación">
+    <span class="envelope__back"></span>
+
+    <!-- tarjetita que sale del sobre -->
+    <span class="envelope__card">
+      <img class="envelope__bunny" [src]="data.heroImage" alt="" />
+      <span class="envelope__title">{{ data.title }} <em>{{ data.subtitle }}</em></span>
+      <span class="envelope__name">{{ data.babyName }}</span>
+    </span>
+
+    <span class="envelope__pocket">
+      <span class="envelope__side envelope__side--left"></span>
+      <span class="envelope__side envelope__side--right"></span>
+      <span class="envelope__side envelope__side--bottom"></span>
+    </span>
+
+    <span class="envelope__to">
+      <small>Para</small>
+      {{ guestNames }}
+    </span>
+
+    <span class="envelope__flap"></span>
+
+    <!-- sello de corazón -->
+    <span class="envelope__seal" aria-hidden="true">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" />
+      </svg>
+    </span>
+  </button>
+
+  <p class="envelope-intro__hint">{{ data.envelopeHint }}</p>
+</div>
+
+<main class="baby-page" [class.is-revealed]="revealed">
   <section class="hero" aria-label="Portada">
     <!-- decoración: nubes y estrellas -->
     <img
