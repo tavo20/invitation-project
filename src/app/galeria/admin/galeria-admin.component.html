@@ -1,0 +1,155 @@
+<div class="adm">
+
+  <div class="adm__state" *ngIf="loading">
+    <span class="spinner" aria-hidden="true"></span>
+    <p>Cargando el panel…</p>
+  </div>
+
+  <div class="adm__state" *ngIf="!loading && blocked">
+    <ng-container [ngSwitch]="blocked">
+      <ng-container *ngSwitchCase="'missing'">
+        <p class="adm__state-title">Necesitas tu enlace de anfitrión</p>
+        <p>Abre el enlace privado que te enviamos por WhatsApp.</p>
+      </ng-container>
+      <ng-container *ngSwitchCase="'invalid'">
+        <p class="adm__state-title">Este enlace ya no es válido</p>
+        <p>Escríbenos y te enviamos uno nuevo.</p>
+      </ng-container>
+      <ng-container *ngSwitchCase="'notFound'">
+        <p class="adm__state-title">Esta invitación no tiene álbum</p>
+        <p>Escríbenos para activarlo.</p>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div class="adm__state" *ngIf="!loading && loadError">
+    <p class="adm__state-title">No pudimos abrir el panel</p>
+    <p>{{ loadError }}</p>
+  </div>
+
+  <ng-container *ngIf="!loading && admin">
+
+    <header class="adm__header">
+      <p class="adm__kicker">Panel del anfitrión</p>
+      <h1 class="adm__title">{{ title || 'Álbum del evento' }}</h1>
+      <p class="adm__private">🔒 Este enlace es solo para ti. No lo compartas.</p>
+      <p class="adm__mock" *ngIf="isMock">Modo de prueba: nada se guarda</p>
+    </header>
+
+    <!-- Cifras -->
+    <section class="stats" aria-label="Resumen">
+      <div class="stat"><strong>{{ admin.stats.images }}</strong><span>fotos</span></div>
+      <div class="stat"><strong>{{ admin.stats.videos }}</strong><span>videos</span></div>
+      <div class="stat"><strong>{{ admin.stats.guests }}</strong><span>invitados</span></div>
+      <div class="stat"><strong>{{ size(admin.stats.totalBytes) }}</strong><span>en total</span></div>
+    </section>
+
+    <!-- Configuración -->
+    <section class="card">
+      <h2 class="card__title">Ajustes del álbum</h2>
+
+      <button type="button" class="switch-row" (click)="toggleOpen()" [disabled]="savingConfig" role="switch" [attr.aria-checked]="isOpen">
+        <span class="switch-row__text">
+          <strong>Recibir fotos</strong>
+          <small>{{ isOpen ? 'Los invitados pueden subir fotos y videos' : 'Cerrado: solo se pueden ver' }}</small>
+        </span>
+        <span class="switch" [class.is-on]="isOpen" aria-hidden="true"></span>
+      </button>
+
+      <button type="button" class="switch-row" (click)="toggleApproval()" [disabled]="savingConfig" role="switch" [attr.aria-checked]="admin.gallery.requireApproval">
+        <span class="switch-row__text">
+          <strong>Aprobar antes de publicar</strong>
+          <small>{{ admin.gallery.requireApproval ? 'Revisas cada foto antes de que la vean todos' : 'Las fotos se publican al instante' }}</small>
+        </span>
+        <span class="switch" [class.is-on]="admin.gallery.requireApproval" aria-hidden="true"></span>
+      </button>
+    </section>
+
+    <!-- Compartir -->
+    <section class="card share">
+      <h2 class="card__title">Link para tus invitados</h2>
+      <p class="card__hint">Compártelo o imprime el QR y ponlo en las mesas.</p>
+      <div class="share__body">
+        <img class="share__qr" *ngIf="qr" [src]="qr" alt="Código QR del álbum" />
+        <div class="share__actions">
+          <a class="share__url" [href]="guestUrl" target="_blank" rel="noopener">{{ guestUrl }}</a>
+          <button type="button" class="btn" (click)="copyGuestLink()">{{ copied ? 'Copiado' : 'Copiar link' }}</button>
+          <button type="button" class="btn" (click)="downloadQr()" [disabled]="!qr">Descargar QR</button>
+        </div>
+      </div>
+    </section>
+
+    <button type="button" class="download" (click)="downloadAlbum()" [disabled]="!admin.stats.posts">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" /></svg>
+      Descargar todo el álbum (ZIP)
+    </button>
+
+    <!-- Moderación -->
+    <section class="mod">
+      <div class="filters" role="tablist">
+        <button type="button" role="tab" class="filter" [class.is-active]="filter === 'all'" (click)="setFilter('all')">
+          Todas <span>{{ admin.stats.posts }}</span>
+        </button>
+        <button type="button" role="tab" class="filter" [class.is-active]="filter === 'pending'" (click)="setFilter('pending')">
+          Por aprobar <span [class.is-alert]="admin.stats.pending">{{ admin.stats.pending }}</span>
+        </button>
+        <button type="button" role="tab" class="filter" [class.is-active]="filter === 'hidden'" (click)="setFilter('hidden')">
+          Ocultas <span>{{ admin.stats.hidden }}</span>
+        </button>
+      </div>
+
+      <p class="mod__empty" *ngIf="!posts.length && !loadingPosts">
+        {{ filter === 'pending' ? 'No hay fotos esperando aprobación.' : filter === 'hidden' ? 'No has ocultado ninguna publicación.' : 'Todavía nadie ha subido fotos.' }}
+      </p>
+
+      <div class="mod__grid">
+        <article class="item" *ngFor="let post of posts; trackBy: trackPost" [class.is-busy]="busyPostId === post._id">
+          <button type="button" class="item__thumb" (click)="viewing = post" [attr.aria-label]="'Ver publicación de ' + post.author.name">
+            <img [src]="post.media[0].thumbUrl" alt="" loading="lazy" />
+            <span class="item__count" *ngIf="post.media.length > 1">{{ post.media.length }}</span>
+            <span class="item__video" *ngIf="post.media.length === 1 && post.media[0].type === 'video'">▶</span>
+            <span class="item__status item__status--{{ post.status }}" *ngIf="post.status !== 'visible'">
+              {{ post.status === 'pending' ? 'Por aprobar' : 'Oculta' }}
+            </span>
+          </button>
+          <div class="item__meta">
+            <strong>{{ post.author.name }}</strong>
+            <small>{{ timeAgo(post.createdAt) }}</small>
+          </div>
+          <div class="item__actions">
+            <button type="button" class="act act--ok" *ngIf="post.status === 'pending'" (click)="setStatus(post, 'visible')" [disabled]="busyPostId === post._id">Aprobar</button>
+            <button type="button" class="act" *ngIf="post.status === 'visible'" (click)="setStatus(post, 'hidden')" [disabled]="busyPostId === post._id">Ocultar</button>
+            <button type="button" class="act" *ngIf="post.status === 'hidden'" (click)="setStatus(post, 'visible')" [disabled]="busyPostId === post._id">Mostrar</button>
+            <button type="button" class="act act--danger" (click)="remove(post)" [disabled]="busyPostId === post._id" aria-label="Borrar">Borrar</button>
+          </div>
+        </article>
+      </div>
+
+      <button type="button" class="more" *ngIf="nextCursor" (click)="loadPosts()" [disabled]="loadingPosts">
+        {{ loadingPosts ? 'Cargando…' : 'Ver más' }}
+      </button>
+    </section>
+
+    <!-- Vista ampliada -->
+    <div class="viewer" *ngIf="viewing" (click)="viewing = null" role="dialog" aria-modal="true">
+      <div class="viewer__panel" (click)="$event.stopPropagation()">
+        <header class="viewer__head">
+          <div>
+            <strong>{{ viewing.author.name }}</strong>
+            <small *ngIf="viewing.author.email"> · {{ viewing.author.email }}</small>
+          </div>
+          <button type="button" class="viewer__close" (click)="viewing = null" aria-label="Cerrar">×</button>
+        </header>
+        <p class="viewer__caption" *ngIf="viewing.caption">{{ viewing.caption }}</p>
+        <div class="viewer__media">
+          <ng-container *ngFor="let m of viewing.media">
+            <img *ngIf="m.type === 'image'" [src]="m.url" alt="" />
+            <video *ngIf="m.type === 'video'" [src]="m.url" [poster]="m.thumbUrl" controls playsinline preload="metadata"></video>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" *ngIf="toast" role="status">{{ toast }}</div>
+  </ng-container>
+</div>

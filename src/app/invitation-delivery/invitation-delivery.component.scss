@@ -216,6 +216,22 @@ $paper-deep: #efeae2;
   }
 }
 
+.link-qr {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 14px;
+
+  img {
+    width: 112px;
+    height: 112px;
+    padding: 6px;
+    border: 1px solid $line;
+    border-radius: 10px;
+    background: #fff;
+  }
+}
+
 .footer-note {
   margin: 34px 0 0;
   text-align: center;

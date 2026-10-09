@@ -49,6 +49,19 @@ export const routes: Routes = [
             import('./ticket/ticket.component')
                 .then(m => m.TicketComponent)
     },
+    // ===== Galería de fotos y videos del evento =====
+    {
+        path: 'invitation/galeria/:id/admin',
+        loadComponent: () =>
+            import('./galeria/admin/galeria-admin.component')
+                .then(m => m.GaleriaAdminComponent)
+    },
+    {
+        path: 'invitation/galeria/:id',
+        loadComponent: () =>
+            import('./galeria/guest/galeria-guest.component')
+                .then(m => m.GaleriaGuestComponent)
+    },
     // ===== Music / Party Queue =====
     {
         path: 'dj',

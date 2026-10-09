@@ -19,14 +19,18 @@
     </header>
 
     <section class="links" aria-label="Enlaces de la invitación">
-      <article class="link-row" *ngFor="let link of links" [attr.data-key]="link.key">
+      <article class="link-row" *ngFor="let link of links; let i = index" [attr.data-key]="link.key">
         <div class="link-copy">
-          <p class="link-index">{{ link.key === 'invitation' ? '01' : link.key === 'confirm' ? '02' : '03' }}</p>
+          <p class="link-index">{{ (i + 1).toString().padStart(2, '0') }}</p>
           <h2 class="link-label">{{ link.label }}</h2>
           <p class="link-desc">{{ link.description }}</p>
           <a class="link-url" [href]="link.url" target="_blank" rel="noopener noreferrer">
             {{ link.url }}
           </a>
+          <div class="link-qr" *ngIf="link.qr">
+            <img [src]="link.qr" alt="Código QR del álbum" />
+            <button type="button" class="btn btn-copy" (click)="downloadQr(link)">Descargar QR</button>
+          </div>
         </div>
 
         <div class="link-actions">

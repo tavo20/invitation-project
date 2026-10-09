@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { MainService } from '../shared/services/main.service';
+import { GaleriaService } from '../galeria/services/galeria.service';
+import { downloadDataUrl, galleryGuestUrl, galleryQrDataUrl } from '../galeria/services/galeria-qr';
 
 interface DeliveryLink {
   key: string;
@@ -9,6 +11,8 @@ interface DeliveryLink {
   description: string;
   url: string;
   openLabel: string;
+  /** QR del link (data URL), para imprimir. */
+  qr?: string;
 }
 
 @Component({
@@ -30,7 +34,8 @@ export class InvitationDeliveryComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private main: MainService
+    private main: MainService,
+    private galeria: GaleriaService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -86,8 +91,36 @@ export class InvitationDeliveryComponent implements OnInit {
         openLabel: 'Ver lista'
       }
     ].filter((link) => !!link.url);
+
+    const invitationId = record.id_invitation || record.id;
+    if (invitationId) void this.addGalleryLink(invitationId);
 console.log(record);
     console.log(this.links);
+  }
+
+  /** La sección del álbum solo aparece si ya se creó la galería de esta invitación. */
+  private async addGalleryLink(invitationId: string): Promise<void> {
+    try {
+      await this.galeria.getGallery(invitationId);
+    } catch {
+      return;
+    }
+    const url = galleryGuestUrl(invitationId);
+    this.links = [
+      ...this.links,
+      {
+        key: 'gallery',
+        label: 'Álbum de fotos del evento',
+        description: 'Tus invitados suben aquí sus fotos y videos. Imprime el QR y ponlo en las mesas',
+        url,
+        openLabel: 'Ver álbum',
+        qr: await galleryQrDataUrl(url).catch(() => undefined)
+      }
+    ];
+  }
+
+  downloadQr(link: DeliveryLink): void {
+    if (link.qr) downloadDataUrl(link.qr, `qr-album-${this.names1 || 'evento'}.png`);
   }
 
   async copyLink(link: DeliveryLink): Promise<void> {
