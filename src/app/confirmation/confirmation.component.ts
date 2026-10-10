@@ -31,6 +31,9 @@ export class ConfirmationComponent implements OnInit {
   public loading = true;
   public guestError = '';
 
+  private readonly defaultDisclaimer =
+    'Cuéntanos algo a los anfitriones: si necesitas menú vegetariano, alguna indicación especial, o simplemente deja un lindo mensaje para ellos.';
+
   public form = this.fb.group({
     numero_confirmados: [1, [Validators.required, Validators.min(1)]],
     names: ['', [Validators.required, Validators.minLength(2)]],
@@ -78,6 +81,14 @@ export class ConfirmationComponent implements OnInit {
   get maxGuests(): number {
     const allowed = Number(this.guestInvite?.numero_confirmados);
     return allowed > 0 ? allowed : 1;
+  }
+
+  get disclaimer(): string {
+    const incoming = this.invitation?.disclaimer;
+    if (typeof incoming === 'string' && incoming.trim()) {
+      return incoming.trim();
+    }
+    return this.defaultDisclaimer;
   }
 
   get showForm(): boolean {

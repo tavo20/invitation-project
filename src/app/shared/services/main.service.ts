@@ -832,10 +832,17 @@ export class MainService {
     return [...this.data, ...this.template_fijos, ...this.platillas_vendidas, ...this.photographers_para_vender, invitation].find((item: any) => (item.id === id && item.active || item.id_invitacion === id && item.active));
   }
   public async getDataById_Invitation({ id }: { id: string }): Promise<any> {
-    // const invitations: ConfirmationInviteContext[] = await lastValueFrom(this.getInvitationsAvailable());
     const invitation: ConfirmationInviteContext = await lastValueFrom(this.getInvitationById_Invitation(id));
-    const x = [...this.data, ...this.template_fijos, ...this.platillas_vendidas, ...this.photographers_para_vender, invitation];
-    return [...this.data, ...this.template_fijos, ...this.platillas_vendidas, ...this.photographers_para_vender, invitation].find((item: any) => (item.id === id && item.active || item.id_invitation === id && item.active));
+    const sources = [
+      ...(invitation ? [invitation] : []),
+      ...this.data,
+      ...this.template_fijos,
+      ...this.platillas_vendidas,
+      ...this.photographers_para_vender,
+    ];
+    return sources.find((item: any) =>
+      (item?.id === id && item?.active) || (item?.id_invitation === id && item?.active)
+    );
   }
 
 

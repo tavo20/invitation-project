@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Great Vibes";
+        src: url("assets/fonts/great-vibes.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("assets/fonts/cormorant.woff2") format("woff2");
+        font-weight: 300 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("assets/fonts/cormorant-italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+      }
+      :root {
+        --canvas: #faf8f5;
+        --ink: #222222;
+        --accent: #a38c7b;
+        --accent-ink: #7a6657;
+        --muted: #6b625b;
+        --like: #e0445a;
+        --ok: #2f7d4f;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--canvas);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--canvas);
+        font-family: "Cormorant Garamond", serif;
+        color: var(--ink);
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      .script {
+        font-family: "Great Vibes", cursive;
+        font-weight: 400;
+      }
+
+      /* fondo */
+      #bg {
+        background: radial-gradient(circle at 50% 46%, #f1ebe4 0%, var(--canvas) 62%);
+      }
+      .bg-ring {
+        position: absolute;
+        border: 1.5px solid rgba(163, 140, 123, 0.26);
+        border-radius: 50%;
+      }
+
+      /* subtítulos */
+      #captions {
+        position: absolute;
+        left: 70px;
+        right: 70px;
+        top: 236px;
+        height: 230px;
+      }
+      .cap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        gap: 0 16px;
+        text-align: center;
+        font-size: 66px;
+        line-height: 1.12;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .cap .w {
+        display: inline-block;
+      }
+
+      /* 01–02 — fotos regadas que se vuelven álbum */
+      .pol {
+        position: absolute;
+        width: 280px;
+        height: 280px;
+        padding: 10px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 22px 40px -22px rgba(60, 40, 25, 0.55);
+      }
+      .pol img {
+        display: block;
+        width: 260px;
+        height: 260px;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+      #promise {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1470px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      #p-kicker {
+        font-size: 32px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--accent-ink);
+      }
+      #p-title {
+        display: block;
+        font-size: 124px;
+        line-height: 1.1;
+        margin-top: 26px;
+        color: var(--ink);
+      }
+
+      /* 03 — tarjeta de mesa con QR */
+      #card {
+        position: absolute;
+        left: 200px;
+        top: 540px;
+        width: 680px;
+        height: 960px;
+        padding: 56px 60px;
+        border-radius: 28px;
+        background: #fffdfb;
+        border: 2px solid rgba(163, 140, 123, 0.35);
+        box-shadow:
+          0 50px 90px -40px rgba(60, 40, 25, 0.5),
+          0 14px 34px -16px rgba(60, 40, 25, 0.3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      #card-kicker {
+        font-size: 30px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--accent-ink);
+      }
+      #card-names {
+        display: block;
+        font-size: 96px;
+        line-height: 1.15;
+        margin-top: 8px;
+      }
+      #card-text {
+        font-size: 40px;
+        line-height: 1.2;
+        font-style: italic;
+        color: var(--muted);
+        margin-top: 6px;
+        width: 580px;
+      }
+      #qr-box {
+        position: relative;
+        width: 420px;
+        height: 420px;
+        margin-top: 40px;
+        padding: 14px;
+        background: #fff;
+        border-radius: 18px;
+        border: 2px solid rgba(163, 140, 123, 0.3);
+      }
+      #qr-box img {
+        display: block;
+        width: 388px;
+        height: 388px;
+      }
+      #card-foot {
+        margin-top: 38px;
+        font-size: 28px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--accent);
+      }
+      .corner {
+        position: absolute;
+        width: 70px;
+        height: 70px;
+        border: 0 solid #e8c47a;
+      }
+      #scan {
+        position: absolute;
+        left: -26px;
+        top: -26px;
+        width: 472px;
+        height: 472px;
+      }
+      #scan-line {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        top: 18px;
+        height: 8px;
+        border-radius: 4px;
+        background: #e8c47a;
+        box-shadow: 0 0 26px 6px rgba(232, 196, 122, 0.6);
+      }
+
+      /* celular */
+      #phone {
+        position: absolute;
+        left: 291px;
+        top: 520px;
+        width: 498px;
+        height: 1045px;
+        background: #151515;
+        border-radius: 66px;
+        padding: 14px;
+        box-shadow:
+          0 50px 90px -34px rgba(60, 40, 25, 0.5),
+          0 14px 34px -14px rgba(60, 40, 25, 0.32);
+      }
+      #screen {
+        position: relative;
+        width: 470px;
+        height: 1017px;
+        border-radius: 54px;
+        overflow: hidden;
+        background: var(--canvas);
+      }
+      #screen img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 470px;
+        height: 1017px;
+      }
+      #notch {
+        position: absolute;
+        top: 26px;
+        left: 50%;
+        width: 110px;
+        height: 30px;
+        margin-left: -55px;
+        border-radius: 16px;
+        background: #151515;
+      }
+      .tap {
+        position: absolute;
+        width: 96px;
+        height: 96px;
+        margin: -48px 0 0 -48px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 0 0 6px rgba(163, 140, 123, 0.45);
+      }
+      .hl {
+        position: absolute;
+        border: 4px solid #e8c47a;
+        border-radius: 14px;
+        box-shadow: 0 0 24px rgba(232, 196, 122, 0.55);
+      }
+
+      /* 05 — álbum en vivo */
+      .mini {
+        position: absolute;
+        width: 170px;
+        height: 170px;
+        padding: 8px;
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 18px 34px -18px rgba(60, 40, 25, 0.55);
+      }
+      .mini img {
+        display: block;
+        width: 154px;
+        height: 154px;
+        object-fit: cover;
+        border-radius: 4px;
+      }
+      .heart {
+        position: absolute;
+        width: 76px;
+        height: 76px;
+      }
+      .heart svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* chips */
+      .chip {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 34px;
+        border-radius: 999px;
+        background: #fff;
+        font-size: 42px;
+        font-weight: 700;
+        color: var(--ink);
+        box-shadow: 0 20px 44px -20px rgba(60, 40, 25, 0.5);
+        border: 1.5px solid rgba(163, 140, 123, 0.3);
+        white-space: nowrap;
+      }
+      .chip svg {
+        width: 40px;
+        height: 40px;
+        flex: none;
+        display: block;
+      }
+      .chip-row {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1606px;
+        display: flex;
+        justify-content: center;
+      }
+      .chip-row .chip {
+        position: relative;
+      }
+
+      /* 07 — cierre */
+      #close-panel {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 42%, #34302c 0%, #1c1a18 72%);
+      }
+      .close-wrap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 560px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: #fbf6f0;
+      }
+      #c-kicker {
+        font-size: 30px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: #c9b4a3;
+        font-weight: 600;
+      }
+      #c-brand {
+        display: block;
+        font-size: 250px;
+        line-height: 1.05;
+        margin-top: 50px;
+      }
+      #c-rule {
+        width: 180px;
+        height: 2px;
+        background: #c9b4a3;
+        margin: 26px 0 44px;
+      }
+      #c-tag {
+        width: 860px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0 14px;
+        font-size: 58px;
+        line-height: 1.22;
+        font-style: italic;
+        color: #e9dfd5;
+      }
+      #c-tag .w {
+        display: inline-block;
+      }
+      .c-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+        margin-top: 90px;
+      }
+      #c-cta {
+        padding: 22px 64px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #1c1a18;
+        font-size: 54px;
+        font-weight: 700;
+      }
+      #c-site {
+        font-size: 44px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: #c9b4a3;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-ca28" id="root" data-composition-id="main" data-start="0" data-duration="26" data-width="1080" data-height="1920">
+      <audio data-hf-id="hf-8st0" id="vo" src="assets/narracion.mp3" data-start="0" data-duration="24.75" data-track-index="9"></audio>
+      <audio data-hf-id="hf-00d7" id="bgm" src="assets/musica.mp3" data-start="0" data-duration="26" data-track-index="10" data-volume="1" data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;volume&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.8,&quot;v&quot;:0.15},{&quot;t&quot;:24.6,&quot;v&quot;:0.15},{&quot;t&quot;:25.1,&quot;v&quot;:0.3},{&quot;t&quot;:25.4,&quot;v&quot;:0.3},{&quot;t&quot;:26,&quot;v&quot;:0}]}]}" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;vo&quot;],&quot;strength&quot;:0.8}" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n1&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:160,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n2&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:250,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n3&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:400,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n4&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:1000,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n5&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:1600,&quot;gain&quot;:-14.8,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n6&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:2500,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;gain&quot;,&quot;id&quot;:&quot;n7&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;gain&quot;:0}}]}"></audio>
+
+      <div data-hf-id="hf-5ifm" id="bg" class="layer clip" data-start="0" data-duration="26" data-track-index="0">
+        <div data-hf-id="hf-6qip" id="ring-1" class="bg-ring" data-layout-allow-overflow="" style="left: 380px; top: 300px; width: 900px; height: 900px"></div>
+        <div data-hf-id="hf-0ook" id="ring-2" class="bg-ring" data-layout-allow-overflow="" style="left: -260px; top: 1240px; width: 700px; height: 700px"></div>
+      </div>
+
+      <!-- 01–02 — ¿Y las fotos? → un solo álbum -->
+      <div data-hf-id="hf-0qhn" id="s1" class="layer clip" data-start="0" data-duration="7.95" data-track-index="1">
+        <div data-hf-id="hf-s8gm" id="pol-0" class="pol" style="left: 108px; top: 560px"><img data-hf-id="hf-ph12" src="assets/stock/foto-101.jpg" alt="Novia con sus invitados"></div>
+        <div data-hf-id="hf-k5gq" id="pol-1" class="pol" style="left: 400px; top: 560px"><img data-hf-id="hf-iqoq" src="assets/stock/foto-277.jpg" alt="Brindis"></div>
+        <div data-hf-id="hf-omoi" id="pol-2" class="pol" style="left: 692px; top: 560px"><img data-hf-id="hf-wvdh" src="assets/stock/foto-084.jpg" alt="Novios con el ramo"></div>
+        <div data-hf-id="hf-6qin" id="pol-3" class="pol" style="left: 108px; top: 852px"><img data-hf-id="hf-48wx" src="assets/stock/foto-197.jpg" alt="Invitados bailando"></div>
+        <div data-hf-id="hf-8ted" id="pol-4" class="pol" style="left: 400px; top: 852px"><img data-hf-id="hf-9vfo" src="assets/stock/foto-050.jpg" alt="Novia sonriendo"></div>
+        <div data-hf-id="hf-7anb" id="pol-5" class="pol" style="left: 692px; top: 852px"><img data-hf-id="hf-x8ho" src="assets/stock/foto-017.jpg" alt="Novio con champaña"></div>
+        <div data-hf-id="hf-1iov" id="pol-6" class="pol" style="left: 108px; top: 1144px"><img data-hf-id="hf-flrl" src="assets/stock/foto-080.jpg" alt="Novios en las escaleras"></div>
+        <div data-hf-id="hf-s0df" id="pol-7" class="pol" style="left: 400px; top: 1144px"><img data-hf-id="hf-wwu5" src="assets/stock/foto-064.jpg" alt="Primer baile"></div>
+        <div data-hf-id="hf-otur" id="pol-8" class="pol" style="left: 692px; top: 1144px"><img data-hf-id="hf-d245" src="assets/stock/foto-007.jpg" alt="Amigos brindando"></div>
+        <div data-hf-id="hf-cu04" id="promise">
+          <p data-hf-id="hf-2v2h" id="p-kicker">Nuevo en InvitApp</p>
+          <span data-hf-id="hf-d4ho" id="p-title" class="script">Álbum del evento</span>
+        </div>
+      </div>
+
+      <!-- 03 — Escanea el QR -->
+      <div data-hf-id="hf-e1iw" id="s3" class="layer clip" data-start="7.6" data-duration="2.55" data-track-index="2">
+        <div data-hf-id="hf-55rf" id="card">
+          <p data-hf-id="hf-m0ti" id="card-kicker">Mesa 4</p>
+          <span data-hf-id="hf-ynv3" id="card-names" class="script">Sofía &amp; Mateo</span>
+          <p data-hf-id="hf-xqap" id="card-text">Escanea y comparte tus fotos de la fiesta</p>
+          <div data-hf-id="hf-syu0" id="qr-box">
+            <img data-hf-id="hf-xjd0" src="assets/qr.png" alt="Código QR del álbum">
+            <div data-hf-id="hf-vz0a" id="scan">
+              <div data-hf-id="hf-w378" class="corner" style="left: 0; top: 0; border-top-width: 8px; border-left-width: 8px; border-top-left-radius: 22px"></div>
+              <div data-hf-id="hf-0vh1" class="corner" style="right: 0; top: 0; border-top-width: 8px; border-right-width: 8px; border-top-right-radius: 22px"></div>
+              <div data-hf-id="hf-qc42" class="corner" style="left: 0; bottom: 0; border-bottom-width: 8px; border-left-width: 8px; border-bottom-left-radius: 22px"></div>
+              <div data-hf-id="hf-2ez3" class="corner" style="right: 0; bottom: 0; border-bottom-width: 8px; border-right-width: 8px; border-bottom-right-radius: 22px"></div>
+              <div data-hf-id="hf-6j9l" id="scan-line"></div>
+            </div>
+          </div>
+          <p data-hf-id="hf-u7zw" id="card-foot">Álbum del evento</p>
+        </div>
+      </div>
+
+      <!-- 03–06 — El celular -->
+      <div data-hf-id="hf-1s19" id="s4" class="layer clip" data-start="9.7" data-duration="9.45" data-track-index="3">
+        <div data-hf-id="hf-klg1" id="mini-0" class="mini" style="left: 70px; top: 640px"><img data-hf-id="hf-euv9" src="assets/stock/foto-276.jpg" alt="Copas de champaña"></div>
+        <div data-hf-id="hf-43ic" id="mini-1" class="mini" style="left: 846px; top: 760px"><img data-hf-id="hf-ucvy" src="assets/stock/foto-291.jpg" alt="Ramo de novia"></div>
+        <div data-hf-id="hf-ifjh" id="mini-2" class="mini" style="left: 64px; top: 1170px"><img data-hf-id="hf-vkew" src="assets/stock/foto-295.jpg" alt="Damas de honor"></div>
+        <div data-hf-id="hf-yt7x" id="mini-3" class="mini" style="left: 852px; top: 1240px"><img data-hf-id="hf-nygm" src="assets/stock/foto-019.jpg" alt="Novios bajo un árbol"></div>
+
+        <div data-hf-id="hf-5iuv" id="phone">
+          <div data-hf-id="hf-ccvt" id="screen">
+            <img data-hf-id="hf-fn5t" id="sc-grid" src="assets/screens/01-album-grid.png" alt="Álbum del evento de Sofía y Mateo">
+            <img data-hf-id="hf-lqas" id="sc-compose" src="assets/screens/02-composer.png" alt="Nueva publicación con tres fotos">
+            <img data-hf-id="hf-shuo" id="sc-upload" src="assets/screens/03-uploading.png" alt="Subiendo fotos">
+            <img data-hf-id="hf-68ds" id="sc-done" src="assets/screens/04-published.png" alt="Publicado">
+            <img data-hf-id="hf-ggpv" id="sc-live" src="assets/screens/05-grid-new.png" alt="Álbum con la nueva publicación">
+            <img data-hf-id="hf-pbsi" id="sc-like" src="assets/screens/07-feed-like.png" alt="Me gusta en una foto">
+            <img data-hf-id="hf-60om" id="sc-admin" src="assets/screens/08-admin.png" alt="Panel de los anfitriones">
+            <div data-hf-id="hf-w4wc" id="tap-fab" class="tap" style="left: 235px; top: 953px"></div>
+            <div data-hf-id="hf-ohd1" id="tap-pub" class="tap" style="left: 413px; top: 530px"></div>
+            <div data-hf-id="hf-cqzr" id="hl-zip" class="hl" style="left: 16px; top: 740px; width: 438px; height: 62px"></div>
+            <div data-hf-id="hf-u8b0" id="tap-zip" class="tap" style="left: 235px; top: 771px"></div>
+          </div>
+          <div data-hf-id="hf-8x41" id="notch"></div>
+        </div>
+
+        <div data-hf-id="hf-awxa" id="heart-0" class="heart" style="left: 830px; top: 1080px"><svg data-hf-id="hf-ulu9" viewBox="0 0 24 24"><path data-hf-id="hf-b5u0" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg></div>
+        <div data-hf-id="hf-5pk4" id="heart-1" class="heart" style="left: 170px; top: 960px"><svg data-hf-id="hf-1tol" viewBox="0 0 24 24"><path data-hf-id="hf-kr0g" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg></div>
+        <div data-hf-id="hf-unxu" id="heart-2" class="heart" style="left: 900px; top: 1420px"><svg data-hf-id="hf-30lo" viewBox="0 0 24 24"><path data-hf-id="hf-jk3d" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg></div>
+        <div data-hf-id="hf-u5cp" id="heart-3" class="heart" style="left: 120px; top: 1440px"><svg data-hf-id="hf-2man" viewBox="0 0 24 24"><path data-hf-id="hf-jyee" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg></div>
+
+        <div data-hf-id="hf-r8y1" class="chip-row">
+          <div data-hf-id="hf-twyt" id="chip-done" class="chip">
+            <svg data-hf-id="hf-gh7m" viewBox="0 0 24 24" fill="none" stroke="#2f7d4f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-m1lh" cx="12" cy="12" r="10" /><path data-hf-id="hf-9l35" d="M7.5 12.5l3 3 6-6.5" /></svg>
+            ¡Publicado en segundos!
+          </div>
+        </div>
+        <div data-hf-id="hf-y5fh" class="chip-row">
+          <div data-hf-id="hf-i11a" id="chip-count" class="chip">
+            <svg data-hf-id="hf-s84v" viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect data-hf-id="hf-kusa" x="3" y="5" width="18" height="15" rx="2" /><circle data-hf-id="hf-1ofz" cx="9" cy="11" r="2" /><path data-hf-id="hf-ans2" d="M21 17l-5-5-9 8" /></svg>
+            <span data-hf-id="hf-ujap" id="count-photos">0</span> fotos · <span data-hf-id="hf-vr9o" id="count-videos">0</span> videos
+          </div>
+        </div>
+        <div data-hf-id="hf-zcck" class="chip-row">
+          <div data-hf-id="hf-jb4f" id="chip-zip" class="chip">
+            <svg data-hf-id="hf-92ng" viewBox="0 0 24 24" fill="none" stroke="#2f7d4f" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path data-hf-id="hf-u4ja" d="M12 4v11M7 10.5l5 5 5-5M5 20h14" /></svg>
+            Álbum completo descargado
+          </div>
+        </div>
+      </div>
+
+      <!-- subtítulos sincronizados con la voz -->
+      <div data-hf-id="hf-l0rb" id="cap-layer" class="layer clip" data-start="0" data-duration="18.95" data-track-index="5">
+        <div data-hf-id="hf-iuvo" id="captions"></div>
+      </div>
+
+      <!-- 07 — Cierre -->
+      <div data-hf-id="hf-f93w" id="s7" class="layer clip" data-start="18.75" data-duration="7.25" data-track-index="4">
+        <div data-hf-id="hf-ybp5" id="close-panel" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-hszt" class="close-wrap">
+          <p data-hf-id="hf-64uc" id="c-kicker">Álbum del evento</p>
+          <span data-hf-id="hf-6o4k" id="c-brand" class="script">InvitApp</span>
+          <div data-hf-id="hf-xj4f" id="c-rule"></div>
+          <p data-hf-id="hf-xq3g" id="c-tag"></p>
+          <div data-hf-id="hf-xfw8" class="c-row">
+            <div data-hf-id="hf-nxy6" id="c-cta">Escríbenos</div>
+            <p data-hf-id="hf-6hl0" id="c-site">www.invitapp.art</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // tiempos por palabra de ElevenLabs para assets/narracion.mp3: [texto, inicio, fin]
+      const WORDS = [["Cien", 0.0, 0.313], ["invitados", 0.36, 0.824], ["tomando", 0.894, 1.231], ["fotos…", 1.289, 1.95], ["¿y", 2.218, 2.38], ["cuántas", 2.473, 2.81], ["te", 2.856, 2.937], ["llegan?", 2.961, 3.553], ["Con", 3.959, 4.145], ["el", 4.214, 4.272], ["álbum", 4.342, 4.598], ["de", 4.656, 4.714], ["InvitApp,", 4.772, 5.538], ["todas", 5.712, 6.014], ["llegan", 6.037, 6.316], ["a", 6.362, 6.385], ["un", 6.455, 6.536], ["solo", 6.594, 6.815], ["lugar.", 6.85, 7.43], ["Tus", 7.767, 7.964], ["invitados", 8.046, 8.522], ["escanean", 8.591, 9.044], ["el", 9.102, 9.183], ["QR", 9.253, 9.543], ["de", 9.659, 9.718], ["su", 9.752, 9.857], ["mesa,", 9.915, 10.379], ["y", 10.414, 10.484], ["suben", 10.553, 10.855], ["fotos", 10.913, 11.32], ["y", 11.389, 11.424], ["videos", 11.471, 11.889], ["en", 11.947, 12.016], ["segundos.", 12.074, 12.887], ["Todos", 13.224, 13.526], ["ven", 13.584, 13.711], ["el", 13.769, 13.827], ["álbum", 13.909, 14.176], ["crecer", 14.234, 14.547], ["en", 14.605, 14.652], ["vivo.", 14.698, 15.221], ["Y", 15.592, 15.708], ["tú", 15.801, 15.906], ["descargas", 15.964, 16.44], ["el", 16.509, 16.579], ["álbum", 16.649, 16.904], ["completo,", 16.974, 17.659], ["con", 17.728, 17.891], ["un", 17.972, 18.03], ["toque.", 18.088, 18.634], ["InvitApp.", 19.075, 19.923], ["Todos", 20.213, 20.538], ["tus", 20.585, 20.747], ["recuerdos,", 20.84, 21.595], ["en", 21.769, 21.92], ["un", 22.036, 22.105], ["solo", 22.175, 22.465], ["álbum.", 22.547, 23.139], ["Escríbenos.", 23.429, 24.706]];
+      // subtítulos: palabras por bloque en orden de lectura (las últimas 9 son el cierre)
+      const CHUNKS = [8, 5, 6, 8, 7, 7, 6, 3];
+      const CAP_END = 18.85;
+
+      const tl = gsap.timeline({ paused: true });
+      const at = (word, nth = 1) => {
+        let seen = 0;
+        for (const [t, s] of WORDS) if (t.replace(/[.,:…¿?]/g, "") === word && ++seen === nth) return s;
+        throw new Error("word not found: " + word);
+      };
+
+      // fondo
+      tl.fromTo("#ring-1", { scale: 0.92, rotation: 0 }, { scale: 1.06, rotation: 14, duration: 26, ease: "none" }, 0);
+      tl.fromTo("#ring-2", { scale: 1, y: 0 }, { scale: 1.12, y: -60, duration: 26, ease: "none" }, 0);
+
+      // ---------- subtítulos ----------
+      const capRoot = document.getElementById("captions");
+      let wi = 0;
+      const chunkStarts = CHUNKS.map((n) => {
+        const s = WORDS[wi][1];
+        wi += n;
+        return s;
+      });
+      wi = 0;
+      CHUNKS.forEach((n, ci) => {
+        const box = document.createElement("div");
+        box.className = "cap";
+        box.id = "cap-" + ci;
+        const words = WORDS.slice(wi, wi + n);
+        words.forEach(([t], k) => {
+          const sp = document.createElement("span");
+          sp.className = "w";
+          sp.id = `cap-${ci}-${k}`;
+          sp.textContent = t;
+          box.appendChild(sp);
+        });
+        capRoot.appendChild(box);
+        const start = Math.max(0, chunkStarts[ci] - 0.08);
+        const end = ci + 1 < CHUNKS.length ? chunkStarts[ci + 1] - 0.1 : CAP_END;
+        tl.fromTo(box, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.22, ease: "power2.out" }, start);
+        tl.to(box, { opacity: 0, duration: 0.15, ease: "power1.in" }, end - 0.15);
+        words.forEach(([, s], k) => {
+          tl.fromTo(`#cap-${ci}-${k}`, { opacity: 0.22 }, { opacity: 1, duration: 0.12, ease: "none" }, s);
+        });
+        wi += n;
+      });
+
+      // ---------- 01 — fotos regadas en cien celulares ----------
+      // posición regada de cada foto, relativa a su casilla en la cuadrícula final
+      const GRID = [[108, 560], [400, 560], [692, 560], [108, 852], [400, 852], [692, 852], [108, 1144], [400, 1144], [692, 1144]];
+      const SCATTER = [[40, 520, -12], [700, 500, 10], [380, 720, -4], [60, 960, 7], [720, 920, -9], [400, 1170, 5], [30, 1390, -6], [740, 1350, 11], [390, 1540, -10]];
+      SCATTER.forEach(([x, y, r], i) => {
+        const id = "#pol-" + i;
+        const dx = x - GRID[i][0];
+        const dy = y - GRID[i][1];
+        // caen una a una, como fotos tomadas desde distintos celulares
+        tl.fromTo(id, { opacity: 0, x: dx, y: dy - 160, rotation: r * 2, scale: 0.8 }, { opacity: 1, y: dy, rotation: r, scale: 0.94, duration: 0.5, ease: "back.out(1.6)" }, 0.05 + i * 0.2);
+        // "¿y cuántas te llegan?": se alejan y se apagan
+        const ox = (x + 140 - 540) * 0.14;
+        const oy = (y + 140 - 1100) * 0.1;
+        tl.to(id, { x: dx + ox, y: dy + oy, rotation: r * 1.6, opacity: 0.42, duration: 1.2, ease: "power2.out", immediateRender: false }, at("y") + i * 0.03);
+        // "Con el álbum…": todas vuelan a su lugar en un solo álbum
+        tl.to(id, { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1, duration: 0.95, ease: "expo.inOut", immediateRender: false }, at("Con") + 0.05 + i * 0.07);
+        // salida hacia la escena del QR
+        tl.to(id, { scale: 1.12, opacity: 0, duration: 0.4, ease: "power2.in", immediateRender: false }, 7.5 + (i % 3) * 0.02);
+      });
+      tl.fromTo("#p-kicker", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at("InvitApp") - 0.05);
+      tl.fromTo("#p-title", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8, ease: "expo.out" }, at("todas"));
+      tl.to("#promise", { opacity: 0, y: 30, duration: 0.35, ease: "power2.in" }, 7.5);
+
+      // ---------- 03 — la tarjeta de la mesa ----------
+      tl.fromTo("#card", { opacity: 0, y: 120, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "expo.out" }, 7.7);
+      tl.fromTo("#scan", { opacity: 0, scale: 1.12 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, at("escanean"));
+      tl.fromTo("#scan-line", { y: 0, opacity: 0 }, { y: 420, opacity: 1, duration: 0.7, ease: "sine.inOut" }, at("escanean") + 0.15);
+      tl.to("#scan-line", { y: 0, duration: 0.5, ease: "sine.inOut", immediateRender: false }, at("escanean") + 0.85);
+      tl.to("#card", { opacity: 0, y: -80, scale: 0.9, duration: 0.4, ease: "power2.in", immediateRender: false }, at("su"));
+
+      // ---------- 03–06 — el celular ----------
+      tl.fromTo("#phone", { opacity: 0, y: 260 }, { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" }, 9.75);
+      const showScreen = (id, t, fromY = 40) =>
+        tl.fromTo(id, { opacity: 0, y: fromY }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, t);
+      const tap = (id, t) => {
+        tl.fromTo(id, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.18, ease: "power2.out" }, t);
+        tl.to(id, { opacity: 0, scale: 1.6, duration: 0.4, ease: "power1.out", immediateRender: false }, t + 0.22);
+      };
+      tl.fromTo("#sc-grid", { scale: 1.05 }, { scale: 1, duration: 1, ease: "power2.out" }, 9.75);
+
+      // 04 — suben en segundos
+      tap("#tap-fab", at("suben") - 0.15);
+      showScreen("#sc-compose", at("suben") + 0.15, 120);
+      tap("#tap-pub", at("videos") - 0.05);
+      showScreen("#sc-upload", at("videos") + 0.2, 0);
+      showScreen("#sc-done", at("segundos") + 0.35, 0);
+      tl.fromTo("#chip-done", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2)" }, at("segundos") + 0.4);
+      tl.to("#chip-done", { opacity: 0, duration: 0.25, immediateRender: false }, at("Todos") - 0.1);
+
+      // 05 — el álbum crece en vivo
+      showScreen("#sc-live", at("Todos") - 0.05, 0);
+      const MINI = [[-60, 40, -8], [60, 30, 7], [-60, -30, 6], [60, -20, -7]];
+      MINI.forEach(([fx, fy, r], i) => {
+        tl.fromTo("#mini-" + i, { opacity: 0, x: fx, y: fy, scale: 0.6, rotation: 0 }, { opacity: 1, x: 0, y: 0, scale: 1, rotation: r, duration: 0.5, ease: "back.out(1.7)" }, at("Todos") + 0.1 + i * 0.18);
+        tl.to("#mini-" + i, { opacity: 0, scale: 0.85, duration: 0.3, ease: "power2.in", immediateRender: false }, at("Y") - 0.25);
+      });
+      [0, 1, 2, 3].forEach((i) => {
+        const t = at("crecer") - 0.2 + i * 0.22;
+        tl.fromTo("#heart-" + i, { opacity: 0, scale: 0.3, y: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, t);
+        tl.to("#heart-" + i, { y: -220, opacity: 0, duration: 1.1, ease: "power1.in", immediateRender: false }, t + 0.35);
+      });
+      showScreen("#sc-like", at("vivo") - 0.1, 0);
+      tl.fromTo("#chip-count", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2)" }, at("álbum", 2) - 0.1);
+      const counter = { photos: 0, videos: 0 };
+      const photosEl = document.getElementById("count-photos");
+      const videosEl = document.getElementById("count-videos");
+      tl.fromTo(counter, { photos: 0, videos: 0 }, {
+        photos: 214,
+        videos: 31,
+        duration: 1.2,
+        ease: "power2.out",
+        onUpdate: () => {
+          photosEl.textContent = Math.round(counter.photos);
+          videosEl.textContent = Math.round(counter.videos);
+        },
+      }, at("álbum", 2));
+      tl.to("#chip-count", { opacity: 0, duration: 0.25, immediateRender: false }, at("Y") - 0.15);
+
+      // 06 — descárgalo todo
+      showScreen("#sc-admin", at("Y") - 0.05, 120);
+      tl.fromTo("#hl-zip", { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, at("completo"));
+      tap("#tap-zip", at("un", 2) - 0.05);
+      tl.fromTo("#chip-zip", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2)" }, at("toque") + 0.05);
+      tl.to("#phone", { y: -16, duration: 2.6, ease: "sine.inOut", immediateRender: false }, at("Y") - 0.2);
+
+      // ---------- 07 — cierre ----------
+      tl.fromTo("#close-panel", { yPercent: 100 }, { yPercent: 0, duration: 0.55, ease: "expo.inOut" }, 18.75);
+      tl.fromTo("#c-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at("InvitApp", 2) - 0.1);
+      tl.fromTo("#c-brand", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8, ease: "expo.out" }, at("InvitApp", 2));
+      tl.fromTo("#c-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, at("InvitApp", 2) + 0.4);
+      const tag = document.getElementById("c-tag");
+      WORDS.slice(-8, -1).forEach(([t, s], k) => {
+        const sp = document.createElement("span");
+        sp.className = "w";
+        sp.id = "tag-" + k;
+        sp.textContent = t;
+        tag.appendChild(sp);
+        tl.fromTo("#tag-" + k, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, s - 0.05);
+      });
+      tl.fromTo("#c-cta", { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, at("Escríbenos") - 0.05);
+      tl.fromTo("#c-site", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at("Escríbenos") + 0.35);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

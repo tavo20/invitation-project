@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1080, height=1920">
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Great Vibes";
+        src: url("assets/fonts/great-vibes.woff2") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("assets/fonts/cormorant.woff2") format("woff2");
+        font-weight: 300 700;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "Cormorant Garamond";
+        src: url("assets/fonts/cormorant-italic.woff2") format("woff2");
+        font-weight: 400;
+        font-style: italic;
+      }
+      :root {
+        --canvas: #faf8f5;
+        --ink: #222222;
+        --accent: #a38c7b;
+        --accent-ink: #7a6657;
+        --muted: #6b625b;
+        --like: #e0445a;
+        --play: #1db954;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: var(--canvas);
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: var(--canvas);
+        font-family: "Cormorant Garamond", serif;
+        color: var(--ink);
+      }
+      .layer {
+        position: absolute;
+        inset: 0;
+      }
+      .script {
+        font-family: "Great Vibes", cursive;
+        font-weight: 400;
+      }
+
+      /* fondo */
+      #bg {
+        background: radial-gradient(circle at 50% 46%, #f1ebe4 0%, var(--canvas) 62%);
+      }
+      .bg-ring {
+        position: absolute;
+        border: 1.5px solid rgba(163, 140, 123, 0.26);
+        border-radius: 50%;
+      }
+
+      /* subtítulos */
+      #captions {
+        position: absolute;
+        left: 70px;
+        right: 70px;
+        top: 236px;
+        height: 230px;
+      }
+      .cap {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        gap: 0 16px;
+        text-align: center;
+        font-size: 66px;
+        line-height: 1.12;
+        font-weight: 600;
+        color: var(--ink);
+      }
+      .cap .w {
+        display: inline-block;
+      }
+
+      /* 01 — pedidos regados */
+      .note {
+        position: absolute;
+        width: 440px;
+      }
+      .note-card {
+        background: #fff;
+        border: 1.5px solid rgba(163, 140, 123, 0.35);
+        border-radius: 22px;
+        padding: 26px 30px;
+        font-size: 42px;
+        font-weight: 600;
+        line-height: 1.12;
+        color: var(--ink);
+        box-shadow: 0 18px 40px -22px rgba(60, 40, 25, 0.45);
+      }
+      .note-card small {
+        display: block;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent-ink);
+        margin-bottom: 6px;
+      }
+
+      /* 02 — la lista ordenada */
+      #list-card {
+        position: absolute;
+        left: 140px;
+        top: 600px;
+        width: 800px;
+        padding: 30px 34px;
+        border-radius: 34px;
+        background: #fff;
+        border: 1.5px solid rgba(163, 140, 123, 0.3);
+        box-shadow:
+          0 50px 90px -40px rgba(60, 40, 25, 0.45),
+          0 14px 34px -16px rgba(60, 40, 25, 0.25);
+      }
+      .song {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        padding: 18px 0;
+        border-bottom: 1.5px solid rgba(163, 140, 123, 0.18);
+      }
+      .song:last-child {
+        border-bottom: 0;
+      }
+      .song__pos {
+        width: 40px;
+        font-size: 44px;
+        font-weight: 700;
+        color: var(--accent-ink);
+        text-align: center;
+      }
+      .song img {
+        width: 120px;
+        height: 120px;
+        border-radius: 14px;
+        object-fit: cover;
+        display: block;
+      }
+      .song__info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .song__name {
+        font-size: 46px;
+        font-weight: 700;
+        line-height: 1.1;
+      }
+      .song__artist {
+        font-size: 34px;
+        color: var(--muted);
+      }
+      .song__likes {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 38px;
+        font-weight: 700;
+        color: var(--like);
+      }
+      .song__likes svg {
+        width: 38px;
+        height: 38px;
+        display: block;
+      }
+      #promise {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1250px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      #p-kicker {
+        font-size: 32px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: var(--accent-ink);
+      }
+      #p-title {
+        display: block;
+        font-size: 124px;
+        line-height: 1.1;
+        margin-top: 26px;
+      }
+      .eq {
+        display: flex;
+        align-items: flex-end;
+        gap: 8px;
+        height: 70px;
+        margin-top: 20px;
+      }
+      .eq span {
+        display: block;
+        width: 14px;
+        height: 70px;
+        border-radius: 7px;
+        background: var(--accent);
+        transform-origin: 50% 100%;
+      }
+
+      /* celular */
+      #phone {
+        position: absolute;
+        left: 291px;
+        top: 520px;
+        width: 498px;
+        height: 1045px;
+        background: #151515;
+        border-radius: 66px;
+        padding: 14px;
+        box-shadow:
+          0 50px 90px -34px rgba(60, 40, 25, 0.5),
+          0 14px 34px -14px rgba(60, 40, 25, 0.32);
+      }
+      #screen {
+        position: relative;
+        width: 470px;
+        height: 1017px;
+        border-radius: 54px;
+        overflow: hidden;
+        background: #121212;
+      }
+      #screen img {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 470px;
+        height: 1017px;
+      }
+      #notch {
+        position: absolute;
+        top: 26px;
+        left: 50%;
+        width: 110px;
+        height: 30px;
+        margin-left: -55px;
+        border-radius: 16px;
+        background: #151515;
+      }
+      .tap {
+        position: absolute;
+        width: 96px;
+        height: 96px;
+        margin: -48px 0 0 -48px;
+        border-radius: 50%;
+        border: 4px solid rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.25);
+        box-shadow: 0 0 0 6px rgba(163, 140, 123, 0.45);
+      }
+      .hl {
+        position: absolute;
+        border: 4px solid #e8c47a;
+        border-radius: 16px;
+        box-shadow: 0 0 24px rgba(232, 196, 122, 0.55);
+      }
+      .heart {
+        position: absolute;
+        width: 76px;
+        height: 76px;
+      }
+      .heart svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* chips */
+      .chip {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 18px 34px;
+        border-radius: 999px;
+        background: #fff;
+        font-size: 42px;
+        font-weight: 700;
+        color: var(--ink);
+        box-shadow: 0 20px 44px -20px rgba(60, 40, 25, 0.5);
+        border: 1.5px solid rgba(163, 140, 123, 0.3);
+        white-space: nowrap;
+      }
+      .chip svg {
+        width: 40px;
+        height: 40px;
+        flex: none;
+        display: block;
+      }
+      .chip-row {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 1606px;
+        display: flex;
+        justify-content: center;
+      }
+      .chip .eq {
+        height: 38px;
+        gap: 5px;
+        margin-top: 0;
+      }
+      .chip .eq span {
+        width: 8px;
+        height: 38px;
+        border-radius: 4px;
+        background: var(--play);
+      }
+
+      /* 07 — cierre */
+      #close-panel {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 50% 42%, #34302c 0%, #1c1a18 72%);
+      }
+      .close-wrap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 560px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        color: #fbf6f0;
+      }
+      #c-kicker {
+        font-size: 30px;
+        letter-spacing: 0.34em;
+        text-transform: uppercase;
+        color: #c9b4a3;
+        font-weight: 600;
+      }
+      #c-brand {
+        display: block;
+        font-size: 250px;
+        line-height: 1.05;
+        margin-top: 50px;
+      }
+      #c-rule {
+        width: 180px;
+        height: 2px;
+        background: #c9b4a3;
+        margin: 26px 0 44px;
+      }
+      #c-tag {
+        width: 900px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0 14px;
+        font-size: 58px;
+        line-height: 1.22;
+        font-style: italic;
+        color: #e9dfd5;
+      }
+      #c-tag .w {
+        display: inline-block;
+      }
+      .c-row {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 28px;
+        margin-top: 90px;
+      }
+      #c-cta {
+        padding: 22px 64px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: #1c1a18;
+        font-size: 54px;
+        font-weight: 700;
+      }
+      #c-site {
+        font-size: 44px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        color: #c9b4a3;
+      }
+    </style>
+  </head>
+  <body>
+    <div data-hf-id="hf-nqst" id="root" data-composition-id="main" data-start="0" data-duration="27" data-width="1080" data-height="1920">
+      <audio data-hf-id="hf-zyn8" id="vo" src="assets/narracion.mp3" data-start="0" data-duration="25.54" data-track-index="9"></audio>
+      <audio data-hf-id="hf-lrfb" id="bgm" src="assets/musica.mp3" data-start="0" data-duration="27" data-track-index="10" data-volume="1" data-automation="{&quot;version&quot;:1,&quot;lanes&quot;:[{&quot;target&quot;:&quot;volume&quot;,&quot;points&quot;:[{&quot;t&quot;:0,&quot;v&quot;:0},{&quot;t&quot;:0.6,&quot;v&quot;:0.18},{&quot;t&quot;:25.5,&quot;v&quot;:0.18},{&quot;t&quot;:25.9,&quot;v&quot;:0.34},{&quot;t&quot;:26.3,&quot;v&quot;:0.34},{&quot;t&quot;:27,&quot;v&quot;:0}]}]}" data-fx-carve="{&quot;enabled&quot;:true,&quot;sources&quot;:[&quot;vo&quot;],&quot;strength&quot;:0.8}" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n1&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:160,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n2&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:250,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n3&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:400,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n4&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:1000,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n5&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:1600,&quot;gain&quot;:-14.8,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;n6&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;frequency&quot;:2500,&quot;gain&quot;:-7.4,&quot;q&quot;:2.06}},{&quot;type&quot;:&quot;gain&quot;,&quot;id&quot;:&quot;n7&quot;,&quot;fromCarve&quot;:true,&quot;params&quot;:{&quot;gain&quot;:0}}]}"></audio>
+
+      <div data-hf-id="hf-s233" id="bg" class="layer clip" data-start="0" data-duration="27" data-track-index="0">
+        <div data-hf-id="hf-6qip" id="ring-1" class="bg-ring" data-layout-allow-overflow="" style="left: 380px; top: 300px; width: 900px; height: 900px"></div>
+        <div data-hf-id="hf-0ook" id="ring-2" class="bg-ring" data-layout-allow-overflow="" style="left: -260px; top: 1240px; width: 700px; height: 700px"></div>
+      </div>
+
+      <!-- 01 — Todos quieren su canción -->
+      <div data-hf-id="hf-53qu" id="s1" class="layer clip" data-start="0" data-duration="3.7" data-track-index="1">
+        <div data-hf-id="hf-dk8w" id="n1" class="note" style="left: 80px; top: 600px"><div data-hf-id="hf-u2ut" class="note-card"><small data-hf-id="hf-xxk8">Mesa 2</small>¡Pon la de Carlos Vives!</div></div>
+        <div data-hf-id="hf-97t0" id="n2" class="note" style="left: 570px; top: 720px"><div data-hf-id="hf-vsxy" class="note-card"><small data-hf-id="hf-a3pc">Tía Carmen</small>¿Y una salsa?</div></div>
+        <div data-hf-id="hf-m1dy" id="n3" class="note" style="left: 130px; top: 950px"><div data-hf-id="hf-mnzg" class="note-card"><small data-hf-id="hf-h9r0">Los primos</small>¡Que suene Karol G!</div></div>
+        <div data-hf-id="hf-13l5" id="n4" class="note" style="left: 560px; top: 1110px"><div data-hf-id="hf-ig0l" class="note-card"><small data-hf-id="hf-vy13">Mesa 7</small>¡La hora loca ya!</div></div>
+        <div data-hf-id="hf-fbkb" id="n5" class="note" style="left: 100px; top: 1320px"><div data-hf-id="hf-ifv2" class="note-card"><small data-hf-id="hf-0c72">Don Héctor</small>Una de Marc Anthony, porfa</div></div>
+      </div>
+
+      <!-- 02 — La música la eligen tus invitados -->
+      <div data-hf-id="hf-bru6" id="s2" class="layer clip" data-start="3.1" data-duration="4.15" data-track-index="2">
+        <div data-hf-id="hf-zr6k" id="list-card">
+          <div data-hf-id="hf-0rpt" id="song-0" class="song">
+            <span data-hf-id="hf-fp75" class="song__pos">1</span>
+            <img data-hf-id="hf-rx9e" src="assets/covers/vivir-mi-vida.jpg" alt="Vivir Mi Vida">
+            <div data-hf-id="hf-n021" class="song__info"><span data-hf-id="hf-f9m1" class="song__name">Vivir Mi Vida</span><span data-hf-id="hf-erzh" class="song__artist">Marc Anthony</span></div>
+            <span data-hf-id="hf-upf3" class="song__likes"><svg data-hf-id="hf-ulu9" viewBox="0 0 24 24"><path data-hf-id="hf-b5u0" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg>12</span>
+          </div>
+          <div data-hf-id="hf-4214" id="song-1" class="song">
+            <span data-hf-id="hf-gw48" class="song__pos">2</span>
+            <img data-hf-id="hf-8afu" src="assets/covers/provenza.jpg" alt="Provenza">
+            <div data-hf-id="hf-dwql" class="song__info"><span data-hf-id="hf-i6lk" class="song__name">Provenza</span><span data-hf-id="hf-sfsb" class="song__artist">Karol G</span></div>
+            <span data-hf-id="hf-xacv" class="song__likes"><svg data-hf-id="hf-1tol" viewBox="0 0 24 24"><path data-hf-id="hf-kr0g" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg>9</span>
+          </div>
+          <div data-hf-id="hf-exir" id="song-2" class="song">
+            <span data-hf-id="hf-ght7" class="song__pos">3</span>
+            <img data-hf-id="hf-4inu" src="assets/covers/la-gota-fria.jpg" alt="La Gota Fría">
+            <div data-hf-id="hf-f3no" class="song__info"><span data-hf-id="hf-93w7" class="song__name">La Gota Fría</span><span data-hf-id="hf-3d9k" class="song__artist">Carlos Vives</span></div>
+            <span data-hf-id="hf-uwip" class="song__likes"><svg data-hf-id="hf-30lo" viewBox="0 0 24 24"><path data-hf-id="hf-jk3d" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg>7</span>
+          </div>
+        </div>
+        <div data-hf-id="hf-cu04" id="promise">
+          <p data-hf-id="hf-2v2h" id="p-kicker">Nuevo en InvitApp</p>
+          <span data-hf-id="hf-ps2g" id="p-title" class="script">Música de la fiesta</span>
+          <div data-hf-id="hf-mo8j" class="eq" id="p-eq"><span data-hf-id="hf-pi8b" id="eq-0"></span><span data-hf-id="hf-lk4a" id="eq-1"></span><span data-hf-id="hf-hm09" id="eq-2"></span><span data-hf-id="hf-gucg" id="eq-3"></span><span data-hf-id="hf-cw8f" id="eq-4"></span></div>
+        </div>
+      </div>
+
+      <!-- 03–06 — El celular -->
+      <div data-hf-id="hf-tld3" id="s4" class="layer clip" data-start="6.95" data-duration="13.15" data-track-index="3">
+        <div data-hf-id="hf-5iuv" id="phone">
+          <div data-hf-id="hf-ccvt" id="screen">
+            <img data-hf-id="hf-l7q9" id="sc-home" src="assets/screens/01-guest-home.png" alt="Fiesta de Sofía y Mateo">
+            <img data-hf-id="hf-kucg" id="sc-search" src="assets/screens/02-search-results.png" alt="Resultados de La bicicleta">
+            <img data-hf-id="hf-eami" id="sc-req" src="assets/screens/03-requested-list.png" alt="Canción pedida en la lista">
+            <img data-hf-id="hf-5z8o" id="sc-top" src="assets/screens/04-voted-top.png" alt="La canción en el primer lugar">
+            <img data-hf-id="hf-dltx" id="sc-dj" src="assets/screens/05-dj-queue.png" alt="Panel del DJ">
+            <img data-hf-id="hf-ieis" id="sc-djplay" src="assets/screens/06-dj-playing.png" alt="Sonando ahora en el panel del DJ">
+            <div data-hf-id="hf-rflu" id="tap-search" class="tap" style="left: 235px; top: 194px"></div>
+            <div data-hf-id="hf-0z2d" id="tap-pedir" class="tap" style="left: 391px; top: 275px"></div>
+            <div data-hf-id="hf-ov72" id="hl-req" class="hl" style="left: 17px; top: 796px; width: 435px; height: 98px"></div>
+            <div data-hf-id="hf-24uk" id="hl-top" class="hl" style="left: 17px; top: 70px; width: 435px; height: 98px"></div>
+            <div data-hf-id="hf-tzgz" id="tap-play" class="tap" style="left: 236px; top: 187px"></div>
+            <div data-hf-id="hf-llzy" id="hl-now" class="hl" style="left: 17px; top: 106px; width: 435px; height: 132px"></div>
+          </div>
+        </div>
+
+        <div data-hf-id="hf-awxa" id="heart-0" class="heart" style="left: 830px; top: 1080px"><svg data-hf-id="hf-2man" viewBox="0 0 24 24"><path data-hf-id="hf-jyee" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg></div>
+        <div data-hf-id="hf-5pk4" id="heart-1" class="heart" style="left: 170px; top: 960px"><svg data-hf-id="hf-3t7q" viewBox="0 0 24 24"><path data-hf-id="hf-irhb" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg></div>
+        <div data-hf-id="hf-486k" id="heart-2" class="heart" style="left: 900px; top: 1400px"><svg data-hf-id="hf-3ewp" viewBox="0 0 24 24"><path data-hf-id="hf-j5sc" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg></div>
+        <div data-hf-id="hf-a78o" id="heart-3" class="heart" style="left: 110px; top: 1420px"><svg data-hf-id="hf-4lts" viewBox="0 0 24 24"><path data-hf-id="hf-hyv9" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg></div>
+        <div data-hf-id="hf-bxmr" id="heart-4" class="heart" style="left: 880px; top: 760px"><svg data-hf-id="hf-47ir" viewBox="0 0 24 24"><path data-hf-id="hf-id6a" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg></div>
+        <div data-hf-id="hf-moqg" id="heart-5" class="heart" style="left: 130px; top: 700px"><svg data-hf-id="hf-z1je" viewBox="0 0 24 24"><path data-hf-id="hf-h697" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg></div>
+
+        <div data-hf-id="hf-r8y1" class="chip-row">
+          <div data-hf-id="hf-syl1" id="chip-req" class="chip">
+            <svg data-hf-id="hf-gh7m" viewBox="0 0 24 24" fill="none" stroke="#2f7d4f" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle data-hf-id="hf-m1lh" cx="12" cy="12" r="10" /><path data-hf-id="hf-9l35" d="M7.5 12.5l3 3 6-6.5" /></svg>
+            ¡Canción pedida!
+          </div>
+        </div>
+        <div data-hf-id="hf-y5fh" class="chip-row">
+          <div data-hf-id="hf-jxbj" id="chip-top" class="chip">
+            <svg data-hf-id="hf-yn8d" viewBox="0 0 24 24"><path data-hf-id="hf-hkk8" fill="#e0445a" d="M12 20.6l-1.3-1.2C5.6 14.8 2.5 12 2.5 8.4 2.5 5.6 4.7 3.4 7.4 3.4c1.8 0 3.5.9 4.6 2.3 1.1-1.4 2.8-2.3 4.6-2.3 2.7 0 4.9 2.2 4.9 5 0 3.6-3.1 6.4-8.2 11z" /></svg>
+            Primer lugar · 15 me gusta
+          </div>
+        </div>
+        <div data-hf-id="hf-zcck" class="chip-row">
+          <div data-hf-id="hf-t8ia" id="chip-dj" class="chip">
+            <svg data-hf-id="hf-s84v" viewBox="0 0 24 24" fill="none" stroke="#7a6657" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path data-hf-id="hf-l9zx" d="M3 14v-2a9 9 0 0 1 18 0v2" /><rect data-hf-id="hf-u0yf" x="2.5" y="14" width="5" height="7" rx="2" /><rect data-hf-id="hf-fpbo" x="16.5" y="14" width="5" height="7" rx="2" /></svg>
+            Panel del DJ
+          </div>
+        </div>
+        <div data-hf-id="hf-yy1j" class="chip-row">
+          <div data-hf-id="hf-0e02" id="chip-play" class="chip">
+            <div data-hf-id="hf-q0s6" class="eq"><span data-hf-id="hf-dke4" id="ceq-0"></span><span data-hf-id="hf-ec1x" id="ceq-1"></span><span data-hf-id="hf-khrq" id="ceq-2"></span><span data-hf-id="hf-ofvr" id="ceq-3"></span></div>
+            Sonando ahora
+          </div>
+        </div>
+      </div>
+
+      <!-- subtítulos sincronizados con la voz -->
+      <div data-hf-id="hf-4w2j" id="cap-layer" class="layer clip" data-start="0" data-duration="20.05" data-track-index="5">
+        <div data-hf-id="hf-iuvo" id="captions"></div>
+      </div>
+
+      <!-- 07 — Cierre -->
+      <div data-hf-id="hf-01uu" id="s7" class="layer clip" data-start="19.9" data-duration="7.1" data-track-index="4">
+        <div data-hf-id="hf-ybp5" id="close-panel" data-layout-allow-overflow=""></div>
+        <div data-hf-id="hf-hszt" class="close-wrap">
+          <p data-hf-id="hf-lmy8" id="c-kicker">Música de la fiesta</p>
+          <span data-hf-id="hf-6o4k" id="c-brand" class="script">InvitApp</span>
+          <div data-hf-id="hf-xj4f" id="c-rule"></div>
+          <p data-hf-id="hf-xq3g" id="c-tag"></p>
+          <div data-hf-id="hf-xfw8" class="c-row">
+            <div data-hf-id="hf-nxy6" id="c-cta">Escríbenos</div>
+            <p data-hf-id="hf-6hl0" id="c-site">www.invitapp.art</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // tiempos por palabra de ElevenLabs para assets/narracion.mp3: [texto, inicio, fin]
+      const WORDS = [["En", 0.0, 0.128], ["tu", 0.186, 0.267], ["fiesta,", 0.313, 0.894], ["todos", 1.045, 1.3], ["quieren", 1.358, 1.567], ["escuchar", 1.602, 1.985], ["su", 2.032, 2.113], ["canción…", 2.171, 2.833], ["Con", 3.274, 3.471], ["InvitApp,", 3.529, 4.272], ["la", 4.47, 4.609], ["música", 4.667, 5.062], ["la", 5.12, 5.178], ["eligen", 5.224, 5.619], ["tus", 5.666, 5.805], ["invitados.", 5.886, 6.699], ["Entran", 7.105, 7.465], ["al", 7.523, 7.581], ["link", 7.616, 7.825], ["de", 7.872, 7.918], ["la", 7.964, 8.034], ["fiesta,", 8.081, 8.673], ["buscan", 8.789, 9.218], ["su", 9.265, 9.369], ["canción…", 9.427, 10.182], ["y", 10.495, 10.577], ["la", 10.658, 10.739], ["piden", 10.797, 11.111], ["en", 11.169, 11.215], ["un", 11.297, 11.366], ["toque.", 11.424, 12.028], ["Los", 12.376, 12.585], ["demás", 12.643, 12.934], ["votan,", 13.003, 13.642], ["y", 13.7, 13.781], ["las", 13.862, 14.002], ["favoritas", 14.06, 14.733], ["suben.", 14.907, 15.627], ["El", 15.975, 16.149], ["DJ", 16.219, 16.509], ["ve", 16.637, 16.834], ["la", 16.904, 16.985], ["lista,", 17.031, 17.624], ["la", 17.774, 17.902], ["pone…", 17.972, 18.703], ["¡y", 18.738, 18.947], ["a", 19.017, 19.052], ["bailar!", 19.11, 19.702], ["InvitApp.", 20.189, 21.072], ["Tu", 21.362, 21.536], ["fiesta,", 21.594, 22.209], ["con", 22.279, 22.453], ["la", 22.511, 22.581], ["música", 22.639, 23.08], ["de", 23.127, 23.196], ["todos.", 23.254, 23.87], ["Escríbenos.", 24.253, 25.542]];
+      // subtítulos: palabras por bloque en orden de lectura (las últimas 9 son el cierre)
+      const CHUNKS = [8, 8, 6, 3, 6, 3, 4, 5, 5];
+      const CAP_END = 19.95;
+
+      const tl = gsap.timeline({ paused: true });
+      const at = (word, nth = 1) => {
+        let seen = 0;
+        for (const [t, s] of WORDS) if (t.replace(/[.,:…¿?¡!]/g, "") === word && ++seen === nth) return s;
+        throw new Error("word not found: " + word);
+      };
+
+      // fondo
+      tl.fromTo("#ring-1", { scale: 0.92, rotation: 0 }, { scale: 1.06, rotation: 14, duration: 27, ease: "none" }, 0);
+      tl.fromTo("#ring-2", { scale: 1, y: 0 }, { scale: 1.12, y: -60, duration: 27, ease: "none" }, 0);
+
+      // ---------- subtítulos ----------
+      const capRoot = document.getElementById("captions");
+      let wi = 0;
+      const chunkStarts = CHUNKS.map((n) => {
+        const s = WORDS[wi][1];
+        wi += n;
+        return s;
+      });
+      wi = 0;
+      CHUNKS.forEach((n, ci) => {
+        const box = document.createElement("div");
+        box.className = "cap";
+        box.id = "cap-" + ci;
+        const words = WORDS.slice(wi, wi + n);
+        words.forEach(([t], k) => {
+          const sp = document.createElement("span");
+          sp.className = "w";
+          sp.id = `cap-${ci}-${k}`;
+          sp.textContent = t;
+          box.appendChild(sp);
+        });
+        capRoot.appendChild(box);
+        const start = Math.max(0, chunkStarts[ci] - 0.08);
+        const end = ci + 1 < CHUNKS.length ? chunkStarts[ci + 1] - 0.1 : CAP_END;
+        tl.fromTo(box, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.22, ease: "power2.out" }, start);
+        tl.to(box, { opacity: 0, duration: 0.15, ease: "power1.in" }, end - 0.15);
+        words.forEach(([, s], k) => {
+          tl.fromTo(`#cap-${ci}-${k}`, { opacity: 0.22 }, { opacity: 1, duration: 0.12, ease: "none" }, s);
+        });
+        wi += n;
+      });
+
+      // ---------- 01 — todos piden su canción ----------
+      const notes = ["#n1", "#n2", "#n3", "#n4", "#n5"];
+      const tilts = [-7, 6, -4, 8, -6];
+      notes.forEach((n, i) => {
+        tl.fromTo(n, { opacity: 0, scale: 0.7, rotation: 0 }, { opacity: 1, scale: 1, rotation: tilts[i], duration: 0.45, ease: "back.out(1.8)" }, 0.1 + i * 0.3);
+        tl.fromTo(`${n} .note-card`, { x: 0 }, { x: 10, duration: 0.06, ease: "none", repeat: 5, yoyo: true }, at("canción") + i * 0.03);
+        // "Con InvitApp…": los pedidos se juntan en el centro y se ordenan
+        tl.to(n, { x: 540 - 220 - parseFloat(document.querySelector(n).style.left), y: 860 - parseFloat(document.querySelector(n).style.top), scale: 0.4, opacity: 0, rotation: 0, duration: 0.5, ease: "power2.in", immediateRender: false }, 3.05 + i * 0.04);
+      });
+
+      // ---------- 02 — una lista ordenada ----------
+      tl.fromTo("#list-card", { opacity: 0, scale: 0.85, y: 40 }, { opacity: 1, scale: 1, y: 0, duration: 0.6, ease: "expo.out" }, 3.35);
+      [0, 1, 2].forEach((i) => {
+        tl.fromTo("#song-" + i, { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 3.55 + i * 0.16);
+      });
+      tl.fromTo("#p-kicker", { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at("InvitApp") - 0.05);
+      tl.fromTo("#p-title", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8, ease: "expo.out" }, at("música"));
+      tl.fromTo("#p-eq", { opacity: 0 }, { opacity: 1, duration: 0.3 }, at("eligen"));
+      [0, 1, 2, 3, 4].forEach((i) => {
+        tl.fromTo("#eq-" + i, { scaleY: 0.25 }, { scaleY: 1, duration: 0.22 + i * 0.04, ease: "sine.inOut", repeat: 7, yoyo: true }, at("eligen") + i * 0.05);
+      });
+      tl.to(["#list-card", "#promise"], { opacity: 0, y: -40, duration: 0.35, ease: "power2.in", immediateRender: false }, 6.85);
+
+      // ---------- 03–06 — el celular ----------
+      tl.fromTo("#phone", { opacity: 0, y: 260 }, { opacity: 1, y: 0, duration: 0.7, ease: "expo.out" }, 7.0);
+      const showScreen = (id, t, fromY = 40) =>
+        tl.fromTo(id, { opacity: 0, y: fromY }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, t);
+      const tap = (id, t) => {
+        tl.fromTo(id, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.18, ease: "power2.out" }, t);
+        tl.to(id, { opacity: 0, scale: 1.6, duration: 0.4, ease: "power1.out", immediateRender: false }, t + 0.22);
+      };
+      const chipIn = (id, t, out) => {
+        tl.fromTo(id, { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(2)" }, t);
+        if (out) tl.to(id, { opacity: 0, duration: 0.25, immediateRender: false }, out);
+      };
+      const hl = (id, t, out) => {
+        tl.fromTo(id, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, t);
+        if (out) tl.to(id, { opacity: 0, duration: 0.2, immediateRender: false }, out);
+      };
+      tl.fromTo("#sc-home", { scale: 1.05 }, { scale: 1, duration: 1, ease: "power2.out" }, 7.0);
+
+      // 03 — buscan su canción
+      tap("#tap-search", at("buscan") - 0.2);
+      showScreen("#sc-search", at("buscan") + 0.05, 0);
+
+      // 04 — la piden en un toque
+      tap("#tap-pedir", at("piden") - 0.1);
+      showScreen("#sc-req", at("piden") + 0.2, 60);
+      hl("#hl-req", at("en") + 0.05, at("Los") - 0.1);
+      chipIn("#chip-req", at("toque") - 0.05, at("Los") - 0.1);
+
+      // 05 — los demás votan y sube
+      [0, 1, 2, 3, 4, 5].forEach((i) => {
+        const t = at("demás") + i * 0.16;
+        tl.fromTo("#heart-" + i, { opacity: 0, scale: 0.3, y: 0 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.4)" }, t);
+        tl.to("#heart-" + i, { y: -220, opacity: 0, duration: 1.1, ease: "power1.in", immediateRender: false }, t + 0.35);
+      });
+      showScreen("#sc-top", at("favoritas"), -40);
+      hl("#hl-top", at("favoritas") + 0.3, at("El") - 0.1);
+      chipIn("#chip-top", at("suben") - 0.05, at("El") - 0.1);
+
+      // 06 — el DJ la pone
+      showScreen("#sc-dj", at("El") - 0.05, 120);
+      chipIn("#chip-dj", at("DJ"), at("pone") - 0.2);
+      tap("#tap-play", at("pone") - 0.1);
+      showScreen("#sc-djplay", at("pone") + 0.15, 0);
+      hl("#hl-now", at("pone") + 0.35);
+      chipIn("#chip-play", at("y", 3) - 0.05);
+      [0, 1, 2, 3].forEach((i) => {
+        tl.fromTo("#ceq-" + i, { scaleY: 0.3 }, { scaleY: 1, duration: 0.2 + i * 0.05, ease: "sine.inOut", repeat: 5, yoyo: true }, at("y", 3) + i * 0.04);
+      });
+      tl.to("#phone", { y: -16, duration: 2.4, ease: "sine.inOut", immediateRender: false }, at("El") - 0.2);
+
+      // ---------- 07 — cierre ----------
+      tl.fromTo("#close-panel", { yPercent: 100 }, { yPercent: 0, duration: 0.55, ease: "expo.inOut" }, 19.9);
+      tl.fromTo("#c-kicker", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at("InvitApp", 2) - 0.1);
+      tl.fromTo("#c-brand", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.8, ease: "expo.out" }, at("InvitApp", 2));
+      tl.fromTo("#c-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, at("InvitApp", 2) + 0.4);
+      const tag = document.getElementById("c-tag");
+      WORDS.slice(-8, -1).forEach(([t, s], k) => {
+        const sp = document.createElement("span");
+        sp.className = "w";
+        sp.id = "tag-" + k;
+        sp.textContent = t;
+        tag.appendChild(sp);
+        tl.fromTo("#tag-" + k, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, s - 0.05);
+      });
+      tl.fromTo("#c-cta", { opacity: 0, y: 24, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, at("Escríbenos") - 0.05);
+      tl.fromTo("#c-site", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, at("Escríbenos") + 0.35);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

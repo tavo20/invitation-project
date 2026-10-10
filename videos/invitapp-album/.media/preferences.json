@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "instagram-reels",
+      "confirmed_in": [
+        "invitapp-album"
+      ],
+      "updated_at": "2026-10-10T02:03:54.147Z"
+    },
+    "aspect": {
+      "value": "1080x1920",
+      "confirmed_in": [
+        "invitapp-album"
+      ],
+      "updated_at": "2026-10-10T02:03:54.223Z"
+    },
+    "flow": {
+      "value": "companion",
+      "confirmed_in": [
+        "invitapp-album"
+      ],
+      "updated_at": "2026-10-10T02:03:54.290Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "invitapp-album"
+      ],
+      "updated_at": "2026-10-10T02:03:54.366Z"
+    },
+    "voice": {
+      "value": "elevenlabs-male",
+      "confirmed_in": [
+        "invitapp-album"
+      ],
+      "updated_at": "2026-10-10T02:03:54.451Z"
+    }
+  },
+  "sightings": {}
+}

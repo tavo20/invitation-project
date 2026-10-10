@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "instagram-reels",
+      "confirmed_in": [
+        "invitapp-musica"
+      ],
+      "updated_at": "2026-10-10T02:30:09.754Z"
+    },
+    "aspect": {
+      "value": "1080x1920",
+      "confirmed_in": [
+        "invitapp-musica"
+      ],
+      "updated_at": "2026-10-10T02:30:09.822Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "invitapp-musica"
+      ],
+      "updated_at": "2026-10-10T02:30:09.892Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "invitapp-musica"
+      ],
+      "updated_at": "2026-10-10T02:30:09.963Z"
+    },
+    "voice": {
+      "value": "elevenlabs-male",
+      "confirmed_in": [
+        "invitapp-musica"
+      ],
+      "updated_at": "2026-10-10T02:30:10.031Z"
+    }
+  },
+  "sightings": {}
+}

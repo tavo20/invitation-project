@@ -1,0 +1,74 @@
+{
+ "la-bicicleta": {
+  "name": "La Bicicleta",
+  "artists": "Carlos Vives & Shakira",
+  "album": "VIVES",
+  "ms": 229510
+ },
+ "provenza": {
+  "name": "PROVENZA",
+  "artists": "KAROL G",
+  "album": "MAÑANA SERÁ BONITO",
+  "ms": 207616
+ },
+ "vivir-mi-vida": {
+  "name": "Vivir Mi Vida",
+  "artists": "Marc Anthony",
+  "album": "3.0",
+  "ms": 252359
+ },
+ "la-gota-fria": {
+  "name": "La Gota Fría",
+  "artists": "Carlos Vives",
+  "album": "Clásicos de la Provincia",
+  "ms": 215493
+ },
+ "robarte-un-beso": {
+  "name": "Robarte un Beso",
+  "artists": "Carlos Vives & Sebastián Yatra",
+  "album": "VIVES",
+  "ms": 194742
+ },
+ "tusa": {
+  "name": "Ay, DiOs Mío!",
+  "artists": "KAROL G",
+  "album": "Ay, DiOs Mío! - Single",
+  "ms": 189241
+ },
+ "cali-pachanguero": {
+  "name": "Cali Pachanguero",
+  "artists": "Grupo Niche",
+  "album": "Virtual Hits",
+  "ms": 288392
+ },
+ "felices-los-4": {
+  "name": "Felices los 4",
+  "artists": "Maluma",
+  "album": "Felices los 4 (4 Versiones) - EP",
+  "ms": 229849
+ },
+ "srch-0": {
+  "name": "La Bicicleta (Remix) [feat. Maluma]",
+  "artists": "Carlos Vives & Shakira",
+  "album": "La Bicicleta (Remix) [feat. Maluma] - Single",
+  "ms": 254069
+ },
+ "srch-1": {
+  "name": "La Bicicleta",
+  "artists": "Enigma Norteño & Fuerza Regida",
+  "album": "La Bicicleta - Single",
+  "ms": 225000
+ },
+ "srch-2": {
+  "name": "La Bicicleta",
+  "artists": "Enigma Norteño",
+  "album": "Seguimos En El Ruedo",
+  "ms": 217176
+ },
+ "despacito": {
+  "name": "Despacito",
+  "artists": "Luis Fonsi & Daddy Yankee",
+  "album": "VIDA",
+  "ms": 229387
+ }
+}
