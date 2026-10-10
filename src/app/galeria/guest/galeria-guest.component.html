@@ -25,6 +25,11 @@
       <p class="gal__subtitle" *ngIf="isOpen">Comparte tus fotos y videos de la celebración</p>
       <p class="gal__mock" *ngIf="isMock">Modo de prueba: nada se guarda</p>
 
+      <div class="scope" role="group" aria-label="Qué publicaciones ver">
+        <button type="button" class="scope__btn" [class.is-active]="scope === 'all'" [attr.aria-pressed]="scope === 'all'" (click)="setScope('all')">Todas</button>
+        <button type="button" class="scope__btn" [class.is-active]="scope === 'mine'" [attr.aria-pressed]="scope === 'mine'" (click)="setScope('mine')">Mis fotos</button>
+      </div>
+
       <div class="gal__tabs" role="tablist" *ngIf="posts.length">
         <button
           type="button"
@@ -51,8 +56,22 @@
 
     <p class="gal__banner" *ngIf="!isOpen">El álbum está cerrado: ya no se pueden subir fotos, pero puedes seguir viéndolas.</p>
 
+    <div class="gal__state gal__state--inline" *ngIf="loadingScope">
+      <span class="spinner" aria-hidden="true"></span>
+    </div>
+
     <!-- ===== Vacío ===== -->
-    <div class="gal__empty" *ngIf="!posts.length">
+    <div class="gal__empty" *ngIf="!posts.length && !loadingScope && scope === 'mine'">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 21c1.2-4 4.3-6 8-6s6.8 2 8 6" />
+      </svg>
+      <p class="gal__empty-title">Aún no has subido nada</p>
+      <p *ngIf="isOpen">Aquí verás las fotos y videos que compartas.</p>
+      <button type="button" class="btn btn--primary" *ngIf="isOpen" (click)="pickFiles()">Subir fotos o videos</button>
+    </div>
+
+    <div class="gal__empty" *ngIf="!posts.length && !loadingScope && scope === 'all'">
       <svg viewBox="0 0 24 24" aria-hidden="true">
         <path d="M4 7h3l2-2.5h6L17 7h3a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z" />
         <circle cx="12" cy="13" r="4" />
@@ -84,6 +103,12 @@
 
     <!-- ===== Feed ===== -->
     <div class="feed" *ngIf="view === 'feed' && posts.length">
+      <div class="feed__bar" *ngIf="openedFromGrid">
+        <button type="button" class="feed__back" (click)="backToGrid()" aria-label="Volver a la cuadrícula">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+        </button>
+        <span class="feed__bar-title">{{ scope === 'mine' ? 'Mis fotos' : 'Publicaciones' }}</span>
+      </div>
       <article class="post" *ngFor="let post of posts; trackBy: trackPost" [id]="'post-' + post._id">
         <header class="post__head">
           <span class="post__avatar" aria-hidden="true">{{ initial(post.author.name) }}</span>

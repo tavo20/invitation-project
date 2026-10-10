@@ -47,14 +47,16 @@ export class GaleriaService {
   async getPosts(
     invitationId: string,
     sessionId: string,
-    opts: { cursor?: string | null; after?: string | null; limit?: number } = {},
+    opts: { cursor?: string | null; after?: string | null; limit?: number; mine?: boolean } = {},
   ): Promise<PostsPage> {
     const limit = opts.limit ?? 18;
-    if (this.mock) return this.mock.list(sessionId, opts.cursor ?? null, opts.after ?? null, limit);
+    if (this.mock) return this.mock.list(sessionId, opts.cursor ?? null, opts.after ?? null, limit, !!opts.mine);
 
     const params: Record<string, string> = { session_id: sessionId, limit: String(limit) };
     if (opts.cursor) params['cursor'] = opts.cursor;
     if (opts.after) params['after'] = opts.after;
+    // solo las del invitado (visibles y por aprobar)
+    if (opts.mine) params['mine'] = '1';
     return this.request(this.http.get<ApiResponse<PostsPage>>(`${this.API}/${invitationId}/posts`, { params }));
   }
 

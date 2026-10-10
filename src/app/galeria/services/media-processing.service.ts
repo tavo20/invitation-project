@@ -91,53 +91,114 @@ export class MediaProcessingService {
   // ---------- Videos ----------
 
   private async prepareVideo(file: File, limits: GalleryLimits): Promise<PreparedMedia> {
+    const contentType = this.videoContentType(file);
+    if (!contentType) {
+      throw new Error(`"${file.name}" tiene un formato de video que no aceptamos. Usa MP4 o MOV.`);
+    }
     if (file.size > limits.maxVideoMB * MB) {
       throw new Error(`"${file.name}" pesa demasiado (máx. ${limits.maxVideoMB} MB)`);
     }
 
-    const contentType = file.type || VIDEO_TYPE_BY_EXT[this.ext(file.name)] || 'video/mp4';
+    const info = await this.readVideo(file);
+    if (info.duration !== undefined && info.duration > limits.maxVideoSeconds) {
+      throw new Error(`"${file.name}" dura ${Math.round(info.duration)} s (máx. ${limits.maxVideoSeconds} s)`);
+    }
+
+    // si este navegador no pudo sacar un cuadro (p. ej. HEVC en Chrome), va una portada genérica
+    const thumb = info.frame ?? (await this.placeholderThumb(info.width, info.height));
+
+    return {
+      type: 'video',
+      file,
+      contentType,
+      thumb,
+      thumbType: thumb.type,
+      previewUrl: URL.createObjectURL(thumb),
+      width: info.width,
+      height: info.height,
+      ...(info.duration !== undefined ? { duration: info.duration } : {}),
+    };
+  }
+
+  /** Normaliza el tipo a los que acepta el backend: video/mp4, video/quicktime o video/webm. */
+  private videoContentType(file: File): string | null {
+    const type = file.type.toLowerCase();
+    if (type === 'video/mp4' || type === 'video/quicktime' || type === 'video/webm') return type;
+    if (type === 'video/x-m4v') return 'video/mp4';
+    return VIDEO_TYPE_BY_EXT[this.ext(file.name)] ?? null;
+  }
+
+  /**
+   * Lee duración, tamaño y un cuadro de portada. Nunca falla: si el navegador no sabe
+   * decodificar el video, devuelve lo que pudo y el archivo se sube igual.
+   */
+  private async readVideo(file: File): Promise<{ width: number; height: number; duration?: number; frame?: Blob }> {
     const url = URL.createObjectURL(file);
     const video = document.createElement('video');
     video.muted = true;
     video.playsInline = true;
+    video.setAttribute('playsinline', '');
     video.preload = 'auto';
     video.src = url;
 
+    const result: { width: number; height: number; duration?: number; frame?: Blob } = { width: 1080, height: 1920 };
     try {
-      await this.waitFor(video, 'loadeddata', 15000);
-      const duration = Math.round(video.duration * 10) / 10;
-      if (!isFinite(duration)) throw new Error('sin duración');
-      if (duration > limits.maxVideoSeconds) {
-        throw new Error(`"${file.name}" dura ${Math.round(duration)} s (máx. ${limits.maxVideoSeconds} s)`);
+      // iOS no dispara loadeddata sin reproducir; loadedmetadata sí
+      await this.waitFor(video, 'loadedmetadata', 10000);
+      if (isFinite(video.duration) && video.duration > 0) {
+        result.duration = Math.round(video.duration * 10) / 10;
+      }
+      if (video.videoWidth && video.videoHeight) {
+        result.width = video.videoWidth;
+        result.height = video.videoHeight;
       }
 
       // un cuadro cerca del inicio como portada (el primer cuadro suele salir negro)
-      video.currentTime = Math.min(1, duration / 3);
-      await this.waitFor(video, 'seeked', 5000).catch(() => undefined);
-
-      const width = video.videoWidth || 1080;
-      const height = video.videoHeight || 1920;
-      const thumb = await this.encode(video, THUMB_MAX_SIDE, 0.75, width, height);
-
-      return {
-        type: 'video',
-        file,
-        contentType,
-        thumb: thumb.blob,
-        thumbType: thumb.blob.type,
-        previewUrl: URL.createObjectURL(thumb.blob),
-        width,
-        height,
-        duration,
-      };
-    } catch (error) {
-      if (error instanceof Error && error.message.includes('máx.')) throw error;
-      throw new Error(`No pudimos leer el video "${file.name}". Prueba con un MP4.`);
+      video.currentTime = Math.min(1, (result.duration ?? 3) / 3);
+      await this.waitFor(video, 'seeked', 5000);
+      if (video.readyState >= 2 && video.videoWidth) {
+        result.frame = (await this.encode(video, THUMB_MAX_SIDE, 0.75, result.width, result.height)).blob;
+      }
+    } catch {
+      // sin metadatos o sin cuadro: se sigue con lo que haya
     } finally {
       video.removeAttribute('src');
       video.load();
       URL.revokeObjectURL(url);
     }
+    return result;
+  }
+
+  /** Portada genérica (degradado + ícono de play) con la proporción del video. */
+  private async placeholderThumb(width: number, height: number): Promise<Blob> {
+    const scale = THUMB_MAX_SIDE / Math.max(width, height);
+    const canvas = document.createElement('canvas');
+    canvas.width = Math.max(1, Math.round(width * scale));
+    canvas.height = Math.max(1, Math.round(height * scale));
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('canvas no disponible');
+
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0, '#3a302a');
+    gradient.addColorStop(1, '#8a7566');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const r = Math.min(canvas.width, canvas.height) * 0.14;
+    const cx = canvas.width / 2;
+    const cy = canvas.height / 2;
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+    ctx.beginPath();
+    ctx.moveTo(cx - r * 0.6, cy - r);
+    ctx.lineTo(cx + r, cy);
+    ctx.lineTo(cx - r * 0.6, cy + r);
+    ctx.closePath();
+    ctx.fill();
+
+    let blob = await this.toBlob(canvas, 'image/webp', 0.8);
+    if (!blob || blob.type !== 'image/webp') blob = await this.toBlob(canvas, 'image/jpeg', 0.8);
+    if (!blob) throw new Error('no se pudo crear la portada');
+    return blob;
   }
 
   private waitFor(el: HTMLMediaElement, event: string, timeoutMs: number): Promise<void> {

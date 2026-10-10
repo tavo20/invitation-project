@@ -128,10 +128,11 @@ export class GaleriaMockBackend {
     return this.view(post, payload.session_id);
   }
 
-  list(sessionId: string, cursor: string | null, after: string | null, limit: number): PostsPage {
+  list(sessionId: string, cursor: string | null, after: string | null, limit: number, mine = false): PostsPage {
     let items = this.posts.filter(
       (p) => p.status === 'visible' || (p.status === 'pending' && p.session_id === sessionId),
     );
+    if (mine) items = items.filter((p) => p.session_id === sessionId);
     if (after) items = items.filter((p) => p.createdAt > after);
     if (cursor) {
       const index = items.findIndex((p) => p._id === cursor);

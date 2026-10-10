@@ -1,4 +1,4 @@
-import { Component, ElementRef, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -10,6 +10,7 @@ import { MediaProcessingService } from '../services/media-processing.service';
 import { ConfirmationService } from '../../shared/services/confirmation.service';
 
 type ViewMode = 'grid' | 'feed';
+type Scope = 'all' | 'mine';
 
 /** Cada cuánto se buscan publicaciones nuevas de otros invitados. */
 const POLL_MS = 12000;
@@ -36,6 +37,12 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
   nextCursor: string | null = null;
   loadingMore = false;
   view: ViewMode = 'grid';
+  /** 'mine': solo lo que subió este invitado. */
+  scope: Scope = 'all';
+  loadingScope = false;
+  /** El feed se abrió tocando una miniatura: "Volver" regresa a la cuadrícula donde estaba. */
+  openedFromGrid = false;
+  private gridScrollY = 0;
 
   /** Índice de la foto visible en cada carrusel (por id de post). */
   slideIndex: Record<string, number> = {};
@@ -96,7 +103,7 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
 
     try {
       this.gallery = await this.galeria.getGallery(this.invitationId);
-      const page = await this.galeria.getPosts(this.invitationId, this.guest.session_id);
+      const page = await this.fetchPage();
       this.posts = page.items;
       this.nextCursor = page.nextCursor;
       this.startPolling();
@@ -150,13 +157,51 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
     }
   }
 
+  /** Pide una página del alcance actual (todas o solo las mías). */
+  private async fetchPage(opts: { cursor?: string | null; after?: string | null; limit?: number } = {}) {
+    const mine = this.scope === 'mine';
+    const page = await this.galeria.getPosts(this.invitationId, this.guest.session_id, { ...opts, mine });
+    // por si el backend todavía no filtra por `mine`
+    return mine ? { ...page, items: page.items.filter((p) => p.author.isMine) } : page;
+  }
+
+  async setScope(scope: Scope): Promise<void> {
+    if (this.scope === scope) return;
+    this.scope = scope;
+    this.openedFromGrid = false;
+    this.posts = [];
+    this.nextCursor = null;
+    this.loadingScope = true;
+    try {
+      const page = await this.fetchPage();
+      if (this.scope !== scope) return;
+      this.posts = page.items;
+      this.nextCursor = page.nextCursor;
+      // si el backend no filtra, la primera página puede no traer nada propio: se sigue buscando
+      if (!this.posts.length && this.nextCursor) await this.loadMore();
+    } catch (error) {
+      this.showToast(this.galeria.errorMessage(error, 'No se pudieron cargar las publicaciones'));
+    } finally {
+      if (this.scope === scope) this.loadingScope = false;
+    }
+  }
+
   async loadMore(): Promise<void> {
     if (!this.nextCursor || this.loadingMore) return;
     this.loadingMore = true;
+    const scope = this.scope;
     try {
-      const page = await this.galeria.getPosts(this.invitationId, this.guest.session_id, { cursor: this.nextCursor });
-      this.posts = [...this.posts, ...page.items.filter((p) => !this.posts.some((q) => q._id === p._id))];
-      this.nextCursor = page.nextCursor;
+      let added = 0;
+      // en "mis fotos" una página puede quedar vacía tras filtrar; se avanza hasta encontrar algo
+      for (let i = 0; i < 5 && this.nextCursor && !added; i++) {
+        const page = await this.fetchPage({ cursor: this.nextCursor });
+        if (this.scope !== scope) return;
+        const fresh = page.items.filter((p) => !this.posts.some((q) => q._id === p._id));
+        this.posts = [...this.posts, ...fresh];
+        this.nextCursor = page.nextCursor;
+        added = fresh.length;
+        if (scope === 'all') break;
+      }
     } catch {
       // se reintenta la próxima vez que el sentinel entre en pantalla
     } finally {
@@ -174,18 +219,19 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
   }
 
   private async fetchNew(): Promise<void> {
+    if (this.loadingScope) return;
+    const scope = this.scope;
     const newest = this.posts[0]?.createdAt;
     if (!newest) {
-      const page = await this.galeria.getPosts(this.invitationId, this.guest.session_id).catch(() => null);
-      if (page && !this.posts.length) {
+      const page = await this.fetchPage().catch(() => null);
+      if (page && this.scope === scope && !this.posts.length) {
         this.posts = page.items;
         this.nextCursor = page.nextCursor;
       }
       return;
     }
-    const page = await this.galeria
-      .getPosts(this.invitationId, this.guest.session_id, { after: newest, limit: 50 })
-      .catch(() => null);
+    const page = await this.fetchPage({ after: newest, limit: 50 }).catch(() => null);
+    if (this.scope !== scope) return;
     const fresh = page?.items.filter((p) => !this.posts.some((q) => q._id === p._id)) ?? [];
     if (fresh.length) this.posts = [...fresh, ...this.posts];
   }
@@ -193,13 +239,41 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
   // ---------- Vista ----------
 
   setView(view: ViewMode): void {
+    if (view === 'grid' && this.openedFromGrid) {
+      this.backToGrid();
+      return;
+    }
+    this.openedFromGrid = false;
     this.view = view;
   }
 
-  /** Como en Instagram: tocar una miniatura abre el feed en esa publicación. */
+  /**
+   * Como en Instagram: tocar una miniatura abre el feed en esa publicación.
+   * Se agrega una entrada al historial para que el botón atrás del celular también vuelva.
+   */
   openInFeed(post: GalleryPost): void {
+    this.gridScrollY = window.scrollY;
+    this.openedFromGrid = true;
     this.view = 'feed';
+    history.pushState({ galeriaFeed: true }, '');
     setTimeout(() => document.getElementById(`post-${post._id}`)?.scrollIntoView({ block: 'start' }));
+  }
+
+  backToGrid(): void {
+    // el popstate se encarga de volver; si no hay entrada propia en el historial, se vuelve directo
+    if (history.state?.galeriaFeed) history.back();
+    else this.restoreGrid();
+  }
+
+  @HostListener('window:popstate')
+  onPopState(): void {
+    if (this.openedFromGrid) this.restoreGrid();
+  }
+
+  private restoreGrid(): void {
+    this.openedFromGrid = false;
+    this.view = 'grid';
+    setTimeout(() => window.scrollTo({ top: this.gridScrollY }));
   }
 
   onSlideScroll(post: GalleryPost, track: HTMLElement): void {
