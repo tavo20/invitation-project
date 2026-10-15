@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -54,6 +54,7 @@ export class GaleriaAdminComponent implements OnInit, OnDestroy {
     private router: Router,
     private galeria: GaleriaService,
     private confirmation: ConfirmationService,
+    private zone: NgZone,
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -74,7 +75,9 @@ export class GaleriaAdminComponent implements OnInit, OnDestroy {
     }
 
     this.guestUrl = galleryGuestUrl(this.invitationId);
-    void galleryQrDataUrl(this.guestUrl).then((qr) => (this.qr = qr)).catch(() => undefined);
+    void galleryQrDataUrl(this.guestUrl)
+      .then((qr) => this.zone.run(() => { this.qr = qr; }))
+      .catch(() => this.zone.run(() => this.showToast('No se pudo generar el QR')));
     void this.loadTitle();
 
     try {

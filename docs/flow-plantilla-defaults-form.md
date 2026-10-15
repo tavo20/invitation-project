@@ -2,6 +2,11 @@
 
 Rellenar cada campo: si quieres conservar el texto de ejemplo, deja el campo vacío.
 
+Instrucciones:
+- Devuélveme este documento con los campos que quieras cambiar completados.
+- Si un campo pide varios datos, sepáralos por comas o por líneas, como se indica en ese campo.
+- Si un campo pide true o false, escribe una de esas dos palabras.
+
 --- 
 
 Nombres (lado A)
@@ -40,10 +45,6 @@ Fecha completa (para countdown / meta)
 Ejemplo: November 26, 2030 20:00:00
 Tu texto:
 
-Imagen música (URL)
-Ejemplo: https://.../flow_02.jpg
-Tu texto:
-
 Título canción
 Ejemplo: Perfect
 Tu texto:
@@ -52,8 +53,12 @@ Artista
 Ejemplo: Ed Sheeran
 Tu texto:
 
-Audio (URL .mp3)
+Audio de youtube
 Ejemplo: youtube.com
+Tu texto:
+
+¿Mostrar padres? (true/false)
+Ejemplo: true
 Tu texto:
 
 Título sección padres
@@ -90,10 +95,6 @@ Tu texto:
 
 Texto countdown
 Ejemplo: Acompáñanos a contar los días para celebrar este momento tan especial.
-Tu texto:
-
-Imagen secundaria / portada (URL)
-Ejemplo: https://.../flow_01.jpg
 Tu texto:
 
 Título evento (Ceremonia)
@@ -156,28 +157,8 @@ Colores sugeridos (hex) — separar por comas
 Ejemplo: #2c4a2e,#8e9d70,#d4c4a8,#f3efe8
 Tu texto:
 
-¿Mostrar paleta de colores? (true/false)
-Ejemplo: true
-Tu texto:
-
 Nota dress code
 Ejemplo: Por favor, evita vestir de color verde claro, está reservado para la novia.
-Tu texto:
-
-¿Mostrar botón "Ver dress code"? (true/false)
-Ejemplo: false
-Tu texto:
-
-Texto botón dress code
-Ejemplo: Ver dress code
-Tu texto:
-
-URL botón dress code
-Ejemplo: #
-Tu texto:
-
-Imagen cita/quote (URL)
-Ejemplo: https://.../flow_01.jpg
 Tu texto:
 
 Cita / quote
@@ -208,46 +189,9 @@ Texto botón confirmación
 Ejemplo: Confirmar aquí
 Tu texto:
 
-Enlace confirmación
-Ejemplo: #
-Tu texto:
 
 Título "Lluvia de sobres"
 Ejemplo: Lluvia de sobres
-Tu texto:
-
-¿Mostrar cuenta bancaria? (true/false)
-Ejemplo: false
-Tu texto:
-
-Título cuenta bancaria
-Ejemplo: Cuenta Bancaria
-Tu texto:
-
-Banco
-Ejemplo: Bancolombia
-Tu texto:
-
-Tipo de cuenta
-Ejemplo: Ahorros
-Tu texto:
-
-Número de cuenta
-Ejemplo:
-Tu texto:
-
-Titular de la cuenta
-Ejemplo:
-Tu texto:
-
-Id / C.C. del titular
-Ejemplo:
-Tu texto:
-
-Imágenes galería (URLs, una por línea)
-Ejemplo:
-https://.../flow_02.jpg
-https://.../flow_01.jpg
 Tu texto:
 
 Texto cierre destacado (HTML permitido)
@@ -258,42 +202,31 @@ Nombres cierre
 Ejemplo: Mariana & Javier
 Tu texto:
 
-¿Mostrar galería? (true/false)
-Ejemplo: false
-Tu texto:
-
-¿Mostrar padres? (true/false)
-Ejemplo: true
-Tu texto:
-
-Instagram cliente
-Ejemplo:
-Tu texto:
-
 Paleta (forest | terracotta | sage)
 Ejemplo: forest
 Tu texto:
 
-¿Es producción? (true/false)
+Fotos
+Cuéntale a tu fotógrafo cuál es la primera foto, cuál es la segunda, cuál es la tercera y cuáles van en el carrusel.
+
+¿Mostrar galería? (true/false)
 Ejemplo: false
 Tu texto:
 
-¿Mostrar intro? (true/false)
-Ejemplo: false
-Tu texto:
+Foto 1
+Cuentale a tu fotografo que foto quieres
 
-Texto intro
-Ejemplo: Toca para entrar
-Tu texto:
+Foto 2
+Cuentale a tu fotografo que foto quieres
 
-¿Auto-play música? (true/false)
-Ejemplo: false
-Tu texto:
+Foto 3
+Cuentale a tu fotografo que foto quieres
+
+Carrusel
+Cuentale a tu fotografo que fotos quieres
+
 
 --- 
 
-Instrucciones:
-- Devuélveme este documento con los campos que quieras cambiar completados.
-- Para arrays: separar por comas o líneas según se indicó.
-- Para booleanos: escribir `true` o `false`.
+
 
