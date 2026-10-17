@@ -165,10 +165,10 @@ export class GaleriaAdminComponent implements OnInit, OnDestroy {
     this.showToast(next ? 'Las nuevas fotos esperarán tu aprobación' : 'Las nuevas fotos se publican al instante');
   }
 
-  /** Acepta el código suelto o el link completo (…/fiesta/boda-ana). */
+  /** Acepta el código suelto o el link completo (…/fiesta/boda-ana o el del panel del DJ, …/dj/boda-ana). */
   private partyCodeFrom(input: string): string {
     const text = input.trim();
-    const match = text.match(/\/fiesta\/([^/?#\s]+)/);
+    const match = text.match(/\/(?:fiesta|dj)\/([^/?#\s]+)/);
     // el backend guarda el código en minúsculas
     return decodeURIComponent(match ? match[1] : text).toLowerCase();
   }
