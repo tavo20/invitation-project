@@ -84,7 +84,7 @@
     </div>
 </section>
 
-<section class="neblina-parents" #parentsSection>
+<section class="neblina-parents" #parentsSection *ngIf="data.showParents">
     <p class="neblina-parents__title">{{ data.parentsTitle }}</p>
     <div class="neblina-parents__line"></div>
 
@@ -230,7 +230,7 @@
     </div>
 </section>
 
-    <div class="neblina-palette" aria-label="Cambiar paleta de colores">
+    <div class="neblina-palette" *ngIf="!isProduction" aria-label="Cambiar paleta de colores">
         <button
             type="button"
             class="neblina-palette__swatch"

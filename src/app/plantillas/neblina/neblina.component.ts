@@ -69,6 +69,8 @@ interface NeblinaInvitationData {
   palette: NeblinaPaletteName;
   finalMessage: string;
   giftTitle: string;
+  showParents: boolean;
+  isProduction: boolean;
 }
 
 @Component({
@@ -97,6 +99,7 @@ export class NeblinaComponent implements OnInit, OnChanges, AfterViewInit, OnDes
   seconds = 0;
   currentStorySlide = 0;
   selectedPalette: NeblinaPaletteName = 'mist';
+  isProduction = false;
   private countdownInterval?: ReturnType<typeof setInterval>;
   private carouselInterval?: ReturnType<typeof setInterval>;
   private observer?: IntersectionObserver;
@@ -236,6 +239,8 @@ export class NeblinaComponent implements OnInit, OnChanges, AfterViewInit, OnDes
     palette: 'mist',
     finalMessage: 'Gracias por acompañarnos a decir que sí. Los esperamos con el corazón abierto para celebrar este día juntos.',
     giftTitle: 'Lluvia de sobres',
+    showParents: true,
+    isProduction: false,
   };
 
   get data(): NeblinaInvitationData {
@@ -405,5 +410,6 @@ export class NeblinaComponent implements OnInit, OnChanges, AfterViewInit, OnDes
     if (incoming && this.palettes[incoming]) {
       this.selectedPalette = incoming;
     }
+    this.isProduction = this.invitationData?.isProduction ?? false;
   }
 }
