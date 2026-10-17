@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 import { SongSearchService } from '../../services/song-search.service';
 import { RequestService } from '../../services/request.service';
 import { GuestSessionService } from '../../services/guest-session.service';
@@ -16,13 +18,14 @@ import {
   formatDuration,
   sectionAcceptsRequests,
 } from '../../models/music.models';
+import { albumPath, guestFromAlbum, rememberAlbum, rememberedAlbum } from '../../../shared/services/event-apps';
 
 type ViewTab = 'pending' | 'played' | 'rejected' | 'mine';
 
 @Component({
   selector: 'app-guest-view',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './guest-view.component.html',
   styleUrl: './guest-view.component.scss',
 })
@@ -36,6 +39,9 @@ export class GuestViewComponent implements OnInit, OnDestroy {
   entryName = '';
   entryEmail = '';
   entryError = '';
+
+  /** Álbum de fotos del que llegó el invitado: habilita el botón para volver. */
+  albumId = '';
 
   searchQuery = '';
   searchResults: SongInfo[] = [];
@@ -79,6 +85,17 @@ export class GuestViewComponent implements OnInit, OnDestroy {
       this.session = null;
     }
 
+    const fromAlbum = this.route.snapshot.queryParamMap.get('album');
+    if (fromAlbum) rememberAlbum(this.partyCode, fromAlbum);
+    this.albumId = fromAlbum || rememberedAlbum(this.partyCode);
+
+    // si ya dio su nombre en el álbum, se le propone el mismo
+    if (!this.session) {
+      const known = guestFromAlbum();
+      this.entryName = known?.name ?? '';
+      this.entryEmail = known?.email ?? '';
+    }
+
     this.loadParty();
   }
 
@@ -96,8 +113,19 @@ export class GuestViewComponent implements OnInit, OnDestroy {
         this.loadSections();
         if (this.session) this.startPolling();
       },
-      error: () => {
-        // Modo demo: permite probar sin backend de fiestas
+      error: (err) => {
+        // la fiesta no existe (o el DJ la borró): no se finge una fiesta vacía
+        if (err instanceof HttpErrorResponse && err.status === 404) {
+          this.error = 'Esta fiesta ya no está disponible.';
+          this.loading = false;
+          return;
+        }
+        if (environment.production) {
+          this.error = 'No pudimos cargar la fiesta. Intenta de nuevo en un momento.';
+          this.loading = false;
+          return;
+        }
+        // Modo demo (solo en desarrollo): permite probar sin backend de fiestas
         this.party = {
           _id: 'demo',
           name: this.partyCode,
@@ -130,6 +158,10 @@ export class GuestViewComponent implements OnInit, OnDestroy {
     this.session = this.guestSessionService.createSession(name, email, this.partyCode);
     this.loadSections();
     this.startPolling();
+  }
+
+  get albumLink(): string[] | null {
+    return this.albumId ? albumPath(this.albumId) : null;
   }
 
   get selectedSection(): PartySection | null {

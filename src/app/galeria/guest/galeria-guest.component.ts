@@ -1,13 +1,14 @@
 import { Component, ElementRef, HostListener, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Gallery, GalleryGuest, GalleryPost, PreparedMedia } from '../models/galeria.models';
 import { GaleriaService } from '../services/galeria.service';
 import { GaleriaSessionService } from '../services/galeria-session.service';
 import { MediaProcessingService } from '../services/media-processing.service';
 import { ConfirmationService } from '../../shared/services/confirmation.service';
+import { guestFromParty, partyUrlFromAlbum } from '../../shared/services/event-apps';
 
 type ViewMode = 'grid' | 'feed';
 type Scope = 'all' | 'mine';
@@ -19,7 +20,7 @@ const DOUBLE_TAP_MS = 300;
 @Component({
   selector: 'app-galeria-guest',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './galeria-guest.component.html',
   styleUrl: './galeria-guest.component.scss',
 })
@@ -97,8 +98,10 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
     if (this.route.snapshot.queryParamMap.get('mock')) this.galeria.useMock(this.invitationId);
 
     this.guest = this.session.getGuest();
-    this.nameInput = this.guest.name;
-    this.emailInput = this.guest.email;
+    // si ya dio su nombre en la música, se le propone el mismo
+    const known = this.guest.name ? null : guestFromParty();
+    this.nameInput = this.guest.name || known?.name || '';
+    this.emailInput = this.guest.email || known?.email || '';
     void this.loadTitle();
 
     try {
@@ -125,6 +128,12 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
 
   get isOpen(): boolean {
     return this.gallery?.status === 'open';
+  }
+
+  /** Link a la música de la fiesta, si el anfitrión la enlazó al álbum. */
+  get partyLink(): { path: string[]; query: Record<string, string> } | null {
+    const code = this.gallery?.partyCode?.trim();
+    return code ? partyUrlFromAlbum(code, this.invitationId) : null;
   }
 
   get maxFiles(): number {

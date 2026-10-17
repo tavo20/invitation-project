@@ -18,8 +18,19 @@
 
   <ng-container *ngIf="!loading && gallery">
 
+    <!-- ===== Ir a la música ===== -->
+    <a
+      class="app-switch"
+      *ngIf="partyLink as link"
+      [routerLink]="link.path"
+      [queryParams]="link.query"
+      aria-label="Ir a la música de la fiesta: pide tu canción">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="17" cy="16" r="3" /></svg>
+      <span>Pide tu canción</span>
+    </a>
+
     <!-- ===== Encabezado ===== -->
-    <header class="gal__header">
+    <header class="gal__header" [class.has-switch]="partyLink">
       <p class="gal__kicker">Álbum del evento</p>
       <h1 class="gal__title">{{ title || 'Nuestros momentos' }}</h1>
       <p class="gal__subtitle" *ngIf="isOpen">Comparte tus fotos y videos de la celebración</p>

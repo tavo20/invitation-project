@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap');
+
 // ===== Variables =====
 $bg: #0d0d0d;
 $surface: #1a1a1a;
@@ -114,10 +116,48 @@ $radius-sm: 8px;
   }
 }
 
+// ===== Volver al álbum =====
+// Lleva el look de la app destino (crema + serif) para que se note el cambio de app.
+.app-switch {
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top));
+  right: 12px;
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px 8px 11px;
+  border-radius: 999px;
+  background: #faf7f4;
+  color: #2b2420;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.7);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 100ms;
+
+  &:active { transform: scale(0.95); }
+
+  svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: #b6837c;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
 // ===== Header =====
 .header {
   padding: 20px 16px 12px;
   text-align: center;
+
+  // deja sitio al botón del álbum
+  &.has-switch { padding-top: 60px; }
 
   &__title {
     font-size: 1.3rem;
@@ -617,6 +657,8 @@ $radius-sm: 8px;
 
 .guest__error {
   display: flex;
+  flex-direction: column;
+  gap: 18px;
   align-items: center;
   justify-content: center;
   min-height: 100dvh;
@@ -624,4 +666,15 @@ $radius-sm: 8px;
   background: $bg;
   padding: 24px;
   text-align: center;
+}
+
+.guest__back {
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: #faf7f4;
+  color: #2b2420;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
 }

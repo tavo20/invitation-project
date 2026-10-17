@@ -59,10 +59,46 @@
   to { transform: rotate(360deg); }
 }
 
+/* ---------- Ir a la música ----------
+   Lleva el look de la app destino (oscuro + verde) para que se note el cambio de app. */
+.app-switch {
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top));
+  right: 12px;
+  z-index: 25;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px 8px 11px;
+  border-radius: 999px;
+  background: #0d0d0d;
+  color: #f0f0f0;
+  font: 600 13px var(--font-ui);
+  text-decoration: none;
+  box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.55);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s;
+
+  &:active { transform: scale(0.95); }
+
+  svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: #1db954;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+}
+
 /* ---------- Encabezado ---------- */
 .gal__header {
   padding: 34px 16px 14px;
   text-align: center;
+
+  /* deja sitio al botón de la música */
+  &.has-switch { padding-top: 62px; }
 }
 
 .gal__kicker {
