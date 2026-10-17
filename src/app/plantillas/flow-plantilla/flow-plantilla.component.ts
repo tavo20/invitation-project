@@ -42,6 +42,7 @@ export interface FlowPlantillaData {
   groomParents?: string[];
   padrinosLabel?: string;
   padrinos?: string[];
+  showPadrinos?: boolean;
   countdownTitle?: string;
   countdownText?: string;
   image2?: string;
@@ -206,6 +207,7 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     groomParents: ['Marta Ríos', 'Jorge Ríos'],
     padrinosLabel: 'Padrinos',
     padrinos: ['Ana Salazar', 'Pedro Castillo'],
+    showPadrinos: true,
     countdownTitle: 'Faltan pocos días',
     countdownText: 'Acompáñanos a contar los días para celebrar este momento tan especial.',
     image2: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg',
@@ -294,6 +296,7 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
       closingNames: incoming.closingNames || `${merged.names1} & ${merged.names2}`,
       showGallery: incoming.showGallery ?? this.defaultData.showGallery,
       showParents: incoming.showParents ?? this.defaultData.showParents,
+      showPadrinos: incoming.showPadrinos ?? this.defaultData.showPadrinos,
     };
   }
 

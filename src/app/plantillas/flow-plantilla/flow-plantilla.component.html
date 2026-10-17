@@ -213,7 +213,7 @@
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
     </div>
-    <div class="flow-parents__grid">
+    <div class="flow-parents__grid" [class.flow-parents__grid--no-padrinos]="!data.showPadrinos">
       <div class="flow-parents__heading">
         <p class="flow-section-title">{{ data.parentsTitle }}</p>
         <div class="flow-divider flow-divider--small">
@@ -237,8 +237,8 @@
         <p class="flow-parent-card__label">{{ data.groomLabel }}</p>
         <p class="flow-parent-card__name" *ngFor="let name of data.groomParents">{{ name }}</p>
       </div>
-      <span class="flow-parents__separator" aria-hidden="true"></span>
-      <div class="flow-parent-card flow-parent-card--padrinos">
+      <span class="flow-parents__separator" *ngIf="data.showPadrinos" aria-hidden="true"></span>
+      <div class="flow-parent-card flow-parent-card--padrinos" *ngIf="data.showPadrinos">
         <p class="flow-parent-card__label">{{ data.padrinosLabel }}</p>
         <p class="flow-parent-card__name" *ngFor="let name of data.padrinos">{{ name }}</p>
       </div>
