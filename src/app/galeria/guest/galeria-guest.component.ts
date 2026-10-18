@@ -8,7 +8,8 @@ import { GaleriaService } from '../services/galeria.service';
 import { GaleriaSessionService } from '../services/galeria-session.service';
 import { MediaProcessingService } from '../services/media-processing.service';
 import { ConfirmationService } from '../../shared/services/confirmation.service';
-import { applyAppChrome, guestFromParty, partyUrlFromAlbum } from '../../shared/services/event-apps';
+import { applyAppChrome, guestFromParty, partyPath } from '../../shared/services/event-apps';
+import { PartyService } from '../../music/services/party.service';
 
 type ViewMode = 'grid' | 'feed';
 type Scope = 'all' | 'mine';
@@ -64,6 +65,9 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
 
   toast = '';
 
+  /** Código de la fiesta de esta invitación, si tiene música. */
+  partyCode = '';
+
   @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
 
   private observer?: IntersectionObserver;
@@ -79,6 +83,7 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
     private session: GaleriaSessionService,
     private media: MediaProcessingService,
     private confirmation: ConfirmationService,
+    private parties: PartyService,
   ) {}
 
   /** El sentinel aparece cuando hay más páginas: al verse, carga la siguiente. */
@@ -105,6 +110,7 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
     this.nameInput = this.guest.name || known?.name || '';
     this.emailInput = this.guest.email || known?.email || '';
     void this.loadTitle();
+    this.loadParty();
 
     try {
       this.gallery = await this.galeria.getGallery(this.invitationId);
@@ -133,10 +139,9 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
     return this.gallery?.status === 'open';
   }
 
-  /** Link a la música de la fiesta, si el anfitrión la enlazó al álbum. */
-  get partyLink(): { path: string[]; query: Record<string, string> } | null {
-    const code = this.gallery?.partyCode?.trim();
-    return code ? partyUrlFromAlbum(code, this.invitationId) : null;
+  /** Link a la música de la fiesta, si la invitación tiene una. */
+  get partyLink(): string[] | null {
+    return this.partyCode ? partyPath(this.partyCode) : null;
   }
 
   get maxFiles(): number {
@@ -157,6 +162,15 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
   }
 
   // ---------- Carga ----------
+
+  /** La música se enlaza sola: es la fiesta creada con el id de esta invitación. */
+  private loadParty(): void {
+    if (this.galeria.isMock) return;
+    this.parties.getByInvitation(this.invitationId).subscribe({
+      next: (party) => (this.partyCode = party.code),
+      error: () => (this.partyCode = ''),
+    });
+  }
 
   /** Nombres de la invitación para el encabezado (si no se encuentran, queda el título genérico). */
   private async loadTitle(): Promise<void> {

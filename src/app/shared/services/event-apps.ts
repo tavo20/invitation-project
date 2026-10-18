@@ -1,10 +1,9 @@
 /**
  * Puente entre las dos apps del invitado: el álbum (/invitation/galeria/:id)
- * y la música (/fiesta/:code). Cada una guarda su propia sesión; aquí solo
- * se recuerda cómo volver de una a la otra y se reaprovecha el nombre.
+ * y la música (/fiesta/:code). Quedan enlazadas porque la fiesta guarda el
+ * id de la invitación. Cada una tiene su propia sesión; aquí se reaprovecha el nombre.
  */
 
-const ALBUM_KEY = (partyCode: string) => `fiesta_album_${partyCode}`;
 const GALLERY_GUEST_KEY = 'galeria_guest';
 const PARTY_GUEST_KEY = 'party_guest';
 
@@ -13,30 +12,12 @@ export interface KnownGuest {
   email: string;
 }
 
-/** Link de la música que sabe a qué álbum regresar. */
-export function partyUrlFromAlbum(partyCode: string, invitationId: string): { path: string[]; query: Record<string, string> } {
-  return { path: ['/fiesta', partyCode], query: { album: invitationId } };
-}
-
 export function albumPath(invitationId: string): string[] {
   return ['/invitation/galeria', invitationId];
 }
 
-/** La música recuerda el álbum de la fiesta para que el botón siga ahí al recargar. */
-export function rememberAlbum(partyCode: string, invitationId: string): void {
-  try {
-    localStorage.setItem(ALBUM_KEY(partyCode), invitationId);
-  } catch {
-    // sin almacenamiento: el botón vive mientras esté el ?album= en la URL
-  }
-}
-
-export function rememberedAlbum(partyCode: string): string {
-  try {
-    return localStorage.getItem(ALBUM_KEY(partyCode)) ?? '';
-  } catch {
-    return '';
-  }
+export function partyPath(partyCode: string): string[] {
+  return ['/fiesta', partyCode];
 }
 
 /** Nombre y correo que el invitado ya dio en el álbum, para no pedirlos dos veces. */

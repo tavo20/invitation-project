@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { DjAccessService } from './dj-access.service';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {
@@ -13,7 +14,7 @@ import {
 export class RequestService {
   private readonly API = `${environment.apiUrl}api/request`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private djAccess: DjAccessService) {}
 
   create(payload: CreateRequestPayload): Observable<SongRequest> {
     return this.http
@@ -37,8 +38,7 @@ export class RequestService {
   }
 
   updateStatus(requestId: string, status: RequestStatus): Observable<SongRequest> {
-    const token = localStorage.getItem('dj_token');
-    const headers = new HttpHeaders(token ? { Authorization: `Bearer ${token}` } : {});
+    const headers = this.djAccess.headers();
 
     return this.http
       .put<ApiResponse<SongRequest>>(

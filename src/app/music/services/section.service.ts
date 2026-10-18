@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DjAccessService } from './dj-access.service';
 import { Observable, map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {
@@ -15,7 +16,7 @@ import {
 export class SectionService {
   private readonly API = `${environment.apiUrl}api/section`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private djAccess: DjAccessService) {}
 
   getByParty(partyId: string): Observable<PartySection[]> {
     return this.http
@@ -64,7 +65,6 @@ export class SectionService {
   }
 
   private authHeaders(): HttpHeaders {
-    const token = localStorage.getItem('dj_token');
-    return new HttpHeaders(token ? { Authorization: `Bearer ${token}` } : {});
+    return this.djAccess.headers();
   }
 }

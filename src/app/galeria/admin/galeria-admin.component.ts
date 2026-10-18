@@ -1,7 +1,6 @@
 import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GalleryAdmin, GalleryPost, PostStatus } from '../models/galeria.models';
 import { GaleriaService } from '../services/galeria.service';
@@ -20,7 +19,7 @@ const TOKEN_KEY = (id: string) => `galeria_host_${id}`;
 @Component({
   selector: 'app-galeria-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule],
   templateUrl: './galeria-admin.component.html',
   styleUrl: './galeria-admin.component.scss',
 })
@@ -36,11 +35,6 @@ export class GaleriaAdminComponent implements OnInit, OnDestroy {
 
   admin: GalleryAdmin | null = null;
   savingConfig = false;
-
-  /** Código (o link) de la fiesta de música que se enlaza al álbum. */
-  partyInput = '';
-  savingParty = false;
-  partyError = '';
 
   filter: Filter = 'all';
   posts: GalleryPost[] = [];
@@ -88,7 +82,6 @@ export class GaleriaAdminComponent implements OnInit, OnDestroy {
 
     try {
       this.admin = await this.galeria.getAdmin(this.invitationId, this.token);
-      this.partyInput = this.admin.gallery.partyCode ?? '';
       await this.loadPosts(true);
     } catch (error) {
       this.handleAccessError(error);
@@ -163,51 +156,6 @@ export class GaleriaAdminComponent implements OnInit, OnDestroy {
     const next = !this.admin?.gallery.requireApproval;
     await this.saveConfig({ requireApproval: next });
     this.showToast(next ? 'Las nuevas fotos esperarán tu aprobación' : 'Las nuevas fotos se publican al instante');
-  }
-
-  /** Acepta el código suelto o el link completo (…/fiesta/boda-ana o el del panel del DJ, …/dj/boda-ana). */
-  private partyCodeFrom(input: string): string {
-    const text = input.trim();
-    const match = text.match(/\/(?:fiesta|dj)\/([^/?#\s]+)/);
-    // el backend guarda el código en minúsculas
-    return decodeURIComponent(match ? match[1] : text).toLowerCase();
-  }
-
-  get partyLinked(): boolean {
-    return !!this.admin?.gallery.partyCode;
-  }
-
-  get partyChanged(): boolean {
-    return this.partyCodeFrom(this.partyInput) !== (this.admin?.gallery.partyCode ?? '');
-  }
-
-  async saveParty(): Promise<void> {
-    if (!this.admin || this.savingParty) return;
-    const code = this.partyCodeFrom(this.partyInput);
-    this.partyError = '';
-    this.savingParty = true;
-    try {
-      const gallery = await this.galeria.updateConfig(this.invitationId, this.token, { partyCode: code || null });
-      const saved = gallery.partyCode || null;
-      // un backend sin soporte para partyCode responde 200 pero no lo guarda
-      if (code && saved !== code) {
-        this.partyError = 'No se pudo guardar el enlace, intenta más tarde';
-        return;
-      }
-      this.admin = { ...this.admin, gallery: { ...this.admin.gallery, partyCode: saved } };
-      this.partyInput = saved ?? '';
-      this.showToast(saved ? 'Listo: tus invitados verán el botón de la música' : 'Se quitó el enlace con la música');
-    } catch (error) {
-      // 404: el back no encontró una fiesta con ese código (trae su propio mensaje)
-      this.partyError = this.galeria.errorMessage(error, 'No se pudo guardar el enlace');
-    } finally {
-      this.savingParty = false;
-    }
-  }
-
-  async unlinkParty(): Promise<void> {
-    this.partyInput = '';
-    await this.saveParty();
   }
 
   private async saveConfig(patch: { status?: 'open' | 'closed'; requireApproval?: boolean }): Promise<void> {

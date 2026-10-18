@@ -65,29 +65,6 @@
       </button>
     </section>
 
-    <!-- Música -->
-    <section class="card party">
-      <h2 class="card__title">Música de la fiesta</h2>
-      <p class="card__hint">
-        {{ partyLinked ? 'Tus invitados ven un botón para pedir canciones desde el álbum.' : 'Pega el código o el link de la fiesta que creó el DJ y tus invitados podrán pedir canciones desde el álbum.' }}
-      </p>
-      <form class="party__form" (ngSubmit)="saveParty()">
-        <input
-          class="party__input"
-          name="partyCode"
-          [(ngModel)]="partyInput"
-          (ngModelChange)="partyError = ''"
-          placeholder="ej. boda-ana o invitapp.art/fiesta/boda-ana"
-          autocapitalize="off"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Código o link de la fiesta" />
-        <button type="submit" class="btn" [disabled]="savingParty || !partyChanged">{{ savingParty ? 'Guardando…' : 'Guardar' }}</button>
-      </form>
-      <p class="party__error" *ngIf="partyError">{{ partyError }}</p>
-      <button type="button" class="party__unlink" *ngIf="partyLinked && !partyChanged" (click)="unlinkParty()" [disabled]="savingParty">Quitar enlace</button>
-    </section>
-
     <!-- Compartir -->
     <section class="card share">
       <h2 class="card__title">Link para tus invitados</h2>

@@ -19,7 +19,7 @@ export class GaleriaMockBackend {
   private posts: (GalleryPost & { session_id: string; liked_by: string[] })[] = [];
   private files = new Map<string, string>();   // key → object URL
   private seq = 0;
-  private config = { status: 'open' as Gallery['status'], requireApproval: false, maxUploadsPerGuest: 30, partyCode: null as string | null };
+  private config = { status: 'open' as Gallery['status'], requireApproval: false, maxUploadsPerGuest: 30 };
 
   constructor(private invitationId: string) {
     this.seed();

@@ -76,7 +76,6 @@ module.exports = { r2, BUCKET: process.env.R2_BUCKET, PUBLIC_URL: process.env.R2
   status:             { type: String, enum: ['open', 'closed'], default: 'open' },
   requireApproval:    { type: Boolean, default: false },  // true → los posts nuevos quedan 'pending'
   maxUploadsPerGuest: { type: Number, default: 30 },      // máx. archivos por session_id (0 = ilimitado)
-  partyCode:          { type: String, default: null },    // código de la fiesta de música (/fiesta/:code) enlazada al álbum
   hostTokenHash:      { type: String, required: true },   // bcrypt del hostToken, nunca el token en claro
 }
 // timestamps: true
@@ -141,7 +140,6 @@ Configuración pública de la galería. **No devolver nunca `hostTokenHash`.**
   id_invitacion: 'abc123',
   status: 'open',
   requireApproval: false,
-  partyCode: 'boda-ana',   // o null: el front muestra el botón "Pide tu canción" solo si viene
   limits: { maxImageMB: 15, maxVideoMB: 100, maxVideoSeconds: 60, maxFilesPerPost: 10, maxUploadsPerGuest: 30 }
 }}
 // 404 si la invitación no tiene galería
@@ -295,7 +293,7 @@ Por si el link del anfitrión se filtra. Genera un token nuevo, invalida el ante
 
 ```js
 { success: true, data: {
-  gallery: { id_invitacion, status, requireApproval, maxUploadsPerGuest, partyCode, createdAt },
+  gallery: { id_invitacion, status, requireApproval, maxUploadsPerGuest, createdAt },
   stats: { posts: 84, images: 210, videos: 17, pending: 3, hidden: 2, guests: 41, totalBytes: 3221225472 }
 }}
 ```
@@ -306,7 +304,7 @@ Por si el link del anfitrión se filtra. Genera un token nuevo, invalida el ante
 
 ```js
 // Body (todos opcionales)
-{ status: 'open' | 'closed', requireApproval: true, maxUploadsPerGuest: 50, partyCode: 'boda-ana' | null }
+{ status: 'open' | 'closed', requireApproval: true, maxUploadsPerGuest: 50 }
 // 200
 { success: true, data: <gallery pública> }
 ```

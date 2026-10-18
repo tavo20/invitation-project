@@ -74,7 +74,8 @@ export interface Party {
   _id: string;
   name: string;
   code: string;             // Código corto para el link (ej: "boda-ana")
-  dj_id: string;            // Referencia al DJ que la creó
+  dj_id?: string;           // DJ con cuenta que la creó (las de una invitación no tienen)
+  id_invitacion?: string;   // Fiesta de una invitación: se enlaza sola con su álbum
   status: PartyStatus;
   config: PartyConfig;
   createdAt: string;

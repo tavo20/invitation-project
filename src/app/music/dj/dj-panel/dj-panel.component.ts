@@ -2,9 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 import { PartyService } from '../../services/party.service';
 import { RequestService } from '../../services/request.service';
 import { SectionService } from '../../services/section.service';
+import { DjAccessService } from '../../services/dj-access.service';
 import {
   Party,
   PartySection,
@@ -33,6 +35,8 @@ export class DjPanelComponent implements OnInit, OnDestroy {
   filter: DjFilter = 'all';
   updatingId = '';
   copied = false;
+  /** Entró con el link de la fiesta (sin cuenta): no hay "mis fiestas" a dónde volver. */
+  linkMode = false;
 
   showSectionForm = false;
   editingSectionId = '';
@@ -53,25 +57,45 @@ export class DjPanelComponent implements OnInit, OnDestroy {
     private partyService: PartyService,
     private requestService: RequestService,
     private sectionService: SectionService,
+    private djAccess: DjAccessService,
   ) {}
 
   ngOnInit(): void {
-    if (!this.partyService.isLoggedIn()) {
+    const code = this.route.snapshot.paramMap.get('code') ?? '';
+    const fromUrl = this.route.snapshot.queryParamMap.get('token');
+    const linkToken = this.djAccess.useLink(code, fromUrl);
+    // el token no se queda a la vista en la URL (capturas, historial compartido)
+    if (fromUrl) {
+      void this.router.navigate([], { queryParams: { token: null }, queryParamsHandling: 'merge', replaceUrl: true });
+    }
+
+    const hasAccount = this.djAccess.hasAccount();
+    if (!hasAccount && !linkToken) {
       this.router.navigate(['/dj']);
       return;
     }
+    this.linkMode = !hasAccount;
 
-    const code = this.route.snapshot.paramMap.get('code') ?? '';
-    this.partyService.getByCode(code).subscribe({
+    this.partyService.verifyAccess(code).subscribe({
       next: (party) => {
         this.party = party;
         this.loading = false;
         this.loadSections();
         this.startPolling();
       },
-      error: () => {
-        this.error = 'No se encontró esta fiesta.';
+      error: (err) => {
         this.loading = false;
+        const status = err instanceof HttpErrorResponse ? err.status : 0;
+        if (status === 404) {
+          this.error = 'No se encontró esta fiesta.';
+        } else if (status === 401 && linkToken) {
+          this.djAccess.forgetLink(code);
+          this.error = 'Este link ya no es válido. Pide uno nuevo a quien organiza el evento.';
+        } else if (status === 401 || status === 403) {
+          this.error = 'No tienes permiso para manejar esta fiesta.';
+        } else {
+          this.error = 'No pudimos cargar la fiesta. Intenta de nuevo.';
+        }
       },
     });
   }

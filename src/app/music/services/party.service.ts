@@ -14,13 +14,15 @@ import {
   PartyStatus,
 } from '../models/music.models';
 
+import { DjAccessService } from './dj-access.service';
+
 const TOKEN_KEY = 'dj_token';
 
 @Injectable({ providedIn: 'root' })
 export class PartyService {
   private readonly API = `${environment.apiUrl}api`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private djAccess: DjAccessService) {}
 
   // ==========================
   // Auth
@@ -99,7 +101,21 @@ export class PartyService {
       .pipe(map((res) => res.data));
   }
 
-  updateStatus(partyId: string, status: PartyStatus): Observable<Party> {
+  /** Fiesta de una invitación (la que se enlaza con su álbum). 404 si no tiene. */
+  getByInvitation(invitationId: string): Observable<Party> {
+    return this.http
+      .get<ApiResponse<Party>>(`${this.API}/party/by-invitation/${invitationId}`)
+      .pipe(map((res) => res.data));
+  }
+
+  /** Confirma que la sesión del DJ o el link sirven para esta fiesta. */
+  verifyAccess(code: string): Observable<Party> {
+    return this.http
+      .get<ApiResponse<Party>>(`${this.API}/party/by-code/${code}/access`, { headers: this.authHeaders() })
+      .pipe(map((res) => res.data));
+  }
+
+    updateStatus(partyId: string, status: PartyStatus): Observable<Party> {
     return this.http
       .put<ApiResponse<Party>>(
         `${this.API}/party/${partyId}/status`,
@@ -130,11 +146,6 @@ export class PartyService {
   }
 
   private authHeaders(): HttpHeaders {
-    const token = this.getToken();
-    debugger
-    if (token) {
-      return new HttpHeaders({ 'Authorization': `Bearer ${token}` });
-    }
-    return new HttpHeaders();
+    return this.djAccess.headers();
   }
 }

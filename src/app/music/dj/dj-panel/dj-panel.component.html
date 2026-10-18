@@ -2,7 +2,7 @@
 
   <!-- Header -->
   <header class="panel__header">
-    <button class="btn-back" (click)="goBack()">← Volver</button>
+    <button class="btn-back" *ngIf="!linkMode" (click)="goBack()">← Volver</button>
     <div class="panel__title-wrap">
       <h1 class="panel__title">{{ party?.name }}</h1>
       <span class="panel__status" [ngClass]="'st--' + party?.status">{{ party?.status }}</span>

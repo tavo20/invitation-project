@@ -154,3 +154,18 @@ src/
 │   └── song.controller.js
 └── index.js
 ```
+
+---
+
+## Fiestas de una invitación (link del DJ, sin cuenta)
+
+La fiesta de un evento la crea el desarrollador con el **id de la invitación**. Así queda enlazada sola con su álbum (`/invitation/galeria/:id`), y el DJ la modera con un link, sin registrarse.
+
+- `POST /api/party/for-invitation` (`x-admin-key`)
+  Body `{ id_invitacion, name, config? }` → `201 { data: { party, djToken } }`. El `djToken` sale **solo esta vez**. Responde `409` si la invitación ya tiene fiesta.
+- Link del DJ: `/dj/<party.code>?token=<djToken>`. El front guarda el token y lo quita de la URL.
+- `GET /api/party/by-invitation/:id` (público): la usa el álbum para mostrar el botón de la música.
+- `GET /api/party/by-code/:code/access` (JWT o `x-party-token`): la usa el panel al abrir.
+- `POST /api/party/by-invitation/:id/regenerate-dj-token` (`x-admin-key`): si el link se filtra.
+- Las rutas del DJ (estado y config de la fiesta, secciones, estado de las solicitudes) aceptan el JWT del DJ con cuenta **o** `x-party-token`. El token solo sirve para su fiesta.
+- Los códigos llevan una parte aleatoria (`boda-ana-k7f3x2`), también en las fiestas que crea un DJ con cuenta.

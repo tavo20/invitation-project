@@ -18,7 +18,8 @@ import {
   formatDuration,
   sectionAcceptsRequests,
 } from '../../models/music.models';
-import { albumPath, applyAppChrome, guestFromAlbum, rememberAlbum, rememberedAlbum } from '../../../shared/services/event-apps';
+import { albumPath, applyAppChrome, guestFromAlbum } from '../../../shared/services/event-apps';
+import { GaleriaService } from '../../../galeria/services/galeria.service';
 
 type ViewTab = 'pending' | 'played' | 'rejected' | 'mine';
 
@@ -40,7 +41,7 @@ export class GuestViewComponent implements OnInit, OnDestroy {
   entryEmail = '';
   entryError = '';
 
-  /** Álbum de fotos del que llegó el invitado: habilita el botón para volver. */
+  /** Álbum de la invitación de esta fiesta (si tiene): habilita el botón para ir a las fotos. */
   albumId = '';
 
   searchQuery = '';
@@ -71,6 +72,7 @@ export class GuestViewComponent implements OnInit, OnDestroy {
     private requestService: RequestService,
     private guestSessionService: GuestSessionService,
     private sectionService: SectionService,
+    private galeria: GaleriaService,
   ) {}
 
   ngOnInit(): void {
@@ -86,10 +88,6 @@ export class GuestViewComponent implements OnInit, OnDestroy {
     if (this.session && this.session.party_code !== this.partyCode) {
       this.session = null;
     }
-
-    const fromAlbum = this.route.snapshot.queryParamMap.get('album');
-    if (fromAlbum) rememberAlbum(this.partyCode, fromAlbum);
-    this.albumId = fromAlbum || rememberedAlbum(this.partyCode);
 
     // si ya dio su nombre en el álbum, se le propone el mismo
     if (!this.session) {
@@ -113,6 +111,7 @@ export class GuestViewComponent implements OnInit, OnDestroy {
       next: (party) => {
         this.party = party;
         this.loading = false;
+        void this.loadAlbum(party);
         this.loadSections();
         if (this.session) this.startPolling();
       },
@@ -161,6 +160,17 @@ export class GuestViewComponent implements OnInit, OnDestroy {
     this.session = this.guestSessionService.createSession(name, email, this.partyCode);
     this.loadSections();
     this.startPolling();
+  }
+
+  /** El botón del álbum solo aparece si la invitación de la fiesta tiene galería. */
+  private async loadAlbum(party: Party): Promise<void> {
+    if (!party.id_invitacion) return;
+    try {
+      await this.galeria.getGallery(party.id_invitacion);
+      this.albumId = party.id_invitacion;
+    } catch {
+      this.albumId = '';
+    }
   }
 
   get albumLink(): string[] | null {

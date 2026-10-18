@@ -21,8 +21,6 @@ export interface Gallery {
   status: GalleryStatus;
   requireApproval: boolean;
   maxUploadsPerGuest: number;
-  /** Código de la fiesta de música (/fiesta/:code) enlazada al álbum. */
-  partyCode?: string | null;
   limits: GalleryLimits;
   createdAt?: string;
 }
@@ -129,6 +127,4 @@ export interface GalleryConfigPatch {
   status?: GalleryStatus;
   requireApproval?: boolean;
   maxUploadsPerGuest?: number;
-  /** null o '' quita el enlace con la fiesta. */
-  partyCode?: string | null;
 }
