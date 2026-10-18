@@ -1,5 +1,9 @@
 <div class="guest" *ngIf="!loading && !error">
 
+  <div class="ambient" aria-hidden="true">
+    <img *ngFor="let track of ambientTracks; trackBy: trackAmbient" [src]="track.song.albumImage" alt="" />
+  </div>
+
   <!-- ===== Volver al álbum de fotos ===== -->
   <a class="app-switch" *ngIf="albumLink as link" [routerLink]="link" aria-label="Volver al álbum de fotos">
     <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="3" /><circle cx="12" cy="13" r="3.5" /><path d="M8.5 6l1.5-2.5h4L15.5 6" /></svg>
@@ -9,7 +13,10 @@
   <!-- ===== Pantalla de entrada ===== -->
   <div class="guest__entry" *ngIf="!session">
     <div class="entry-card">
-      <div class="entry-card__icon">🎵</div>
+      <p class="brand brand--large">
+        <span class="brand__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="2.5" /><path d="M12 6a6 6 0 0 0-6 6" /></svg></span>
+        <span class="brand__name">La Pista</span>
+      </p>
       <h1 class="entry-card__title">{{ party?.name }}</h1>
       <p class="entry-card__subtitle">Sugiere canciones para la fiesta</p>
 
@@ -39,6 +46,10 @@
 
     <!-- Header -->
     <header class="header" [class.has-switch]="albumLink">
+      <p class="brand">
+        <span class="brand__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="2.5" /><path d="M12 6a6 6 0 0 0-6 6" /></svg></span>
+        <span class="brand__name">La Pista</span>
+      </p>
       <h1 class="header__title">{{ party?.name }}</h1>
       <p class="header__user">Hola, {{ session.name }} 👋</p>
     </header>

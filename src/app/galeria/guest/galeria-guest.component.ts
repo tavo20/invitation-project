@@ -8,7 +8,7 @@ import { GaleriaService } from '../services/galeria.service';
 import { GaleriaSessionService } from '../services/galeria-session.service';
 import { MediaProcessingService } from '../services/media-processing.service';
 import { ConfirmationService } from '../../shared/services/confirmation.service';
-import { guestFromParty, partyUrlFromAlbum } from '../../shared/services/event-apps';
+import { applyAppChrome, guestFromParty, partyUrlFromAlbum } from '../../shared/services/event-apps';
 
 type ViewMode = 'grid' | 'feed';
 type Scope = 'all' | 'mine';
@@ -70,6 +70,7 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
   private pollTimer?: ReturnType<typeof setInterval>;
   private toastTimer?: ReturnType<typeof setTimeout>;
   private lastTap: { id: string; at: number } | null = null;
+  private restoreChrome?: () => void;
 
   constructor(
     private route: ActivatedRoute,
@@ -95,6 +96,7 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.invitationId = this.route.snapshot.paramMap.get('id') ?? '';
+    this.restoreChrome = applyAppChrome('#faf7f4');
     if (this.route.snapshot.queryParamMap.get('mock')) this.galeria.useMock(this.invitationId);
 
     this.guest = this.session.getGuest();
@@ -119,6 +121,7 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.restoreChrome?.();
     this.observer?.disconnect();
     clearInterval(this.pollTimer);
     clearTimeout(this.toastTimer);

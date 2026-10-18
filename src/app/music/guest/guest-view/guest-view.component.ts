@@ -18,7 +18,7 @@ import {
   formatDuration,
   sectionAcceptsRequests,
 } from '../../models/music.models';
-import { albumPath, guestFromAlbum, rememberAlbum, rememberedAlbum } from '../../../shared/services/event-apps';
+import { albumPath, applyAppChrome, guestFromAlbum, rememberAlbum, rememberedAlbum } from '../../../shared/services/event-apps';
 
 type ViewTab = 'pending' | 'played' | 'rejected' | 'mine';
 
@@ -58,6 +58,7 @@ export class GuestViewComponent implements OnInit, OnDestroy {
   togglingLikeId = '';
 
   private pollInterval: any = null;
+  private restoreChrome?: () => void;
   private readonly POLL_MS = 5000;
 
   formatDuration = formatDuration;
@@ -74,6 +75,7 @@ export class GuestViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.partyCode = this.route.snapshot.paramMap.get('code') ?? '';
+    this.restoreChrome = applyAppChrome('#0d0d0d');
     if (!this.partyCode) {
       this.error = 'No se encontró el código de la fiesta.';
       this.loading = false;
@@ -100,6 +102,7 @@ export class GuestViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.restoreChrome?.();
     this.stopPolling();
     if (this.searchTimeout) clearTimeout(this.searchTimeout);
   }
@@ -301,7 +304,16 @@ export class GuestViewComponent implements OnInit, OnDestroy {
 
   nowPlayingRequest: SongRequest | null = null;
 
-  get nowPlaying(): SongRequest | null {
+  /** La carátula de lo que suena, desenfocada, tiñe el fondo (una sola, se reemplaza al cambiar). */
+  get ambientTracks(): SongRequest[] {
+    return this.nowPlaying?.song.albumImage ? [this.nowPlaying] : [];
+  }
+
+  trackAmbient(_index: number, request: SongRequest): string {
+    return request._id;
+  }
+
+    get nowPlaying(): SongRequest | null {
     return this.nowPlayingRequest;
   }
 

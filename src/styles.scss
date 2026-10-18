@@ -13,3 +13,41 @@ body {
     /* width: 100vw; */ /* Often not needed if html/body are 100% */
     /* height: 100vh; */ /* Often not needed if html/body are 100% */
 }
+/* ===== Cambio entre el álbum y la música =====
+   La app nueva entra como cuando se abre una app; al volver, la música baja y el álbum reaparece.
+   Solo aplica a ese cambio (ver app-switch-transition.ts). */
+html[data-app-switch]::view-transition-old(root),
+html[data-app-switch]::view-transition-new(root) {
+  animation-duration: 420ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation-fill-mode: both;
+}
+
+html[data-app-switch='music']::view-transition-old(root) { animation-name: app-recede; }
+html[data-app-switch='music']::view-transition-new(root) { animation-name: app-rise; }
+
+html[data-app-switch='album']::view-transition-old(root) { animation-name: app-sink; z-index: 1; }
+html[data-app-switch='album']::view-transition-new(root) { animation-name: app-return; }
+
+@keyframes app-rise {
+  from { transform: translateY(12%); opacity: 0; }
+}
+
+@keyframes app-recede {
+  to { transform: scale(0.94); opacity: 0.3; }
+}
+
+@keyframes app-sink {
+  to { transform: translateY(12%); opacity: 0; }
+}
+
+@keyframes app-return {
+  from { transform: scale(0.94); opacity: 0.3; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html[data-app-switch]::view-transition-old(root),
+  html[data-app-switch]::view-transition-new(root) {
+    animation: none;
+  }
+}
