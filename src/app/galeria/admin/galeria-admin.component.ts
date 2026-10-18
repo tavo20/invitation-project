@@ -188,7 +188,12 @@ export class GaleriaAdminComponent implements OnInit, OnDestroy {
     this.savingParty = true;
     try {
       const gallery = await this.galeria.updateConfig(this.invitationId, this.token, { partyCode: code || null });
-      const saved = gallery.partyCode ?? (code || null);
+      const saved = gallery.partyCode || null;
+      // un backend sin soporte para partyCode responde 200 pero no lo guarda
+      if (code && saved !== code) {
+        this.partyError = 'No se pudo guardar el enlace, intenta más tarde';
+        return;
+      }
       this.admin = { ...this.admin, gallery: { ...this.admin.gallery, partyCode: saved } };
       this.partyInput = saved ?? '';
       this.showToast(saved ? 'Listo: tus invitados verán el botón de la música' : 'Se quitó el enlace con la música');
