@@ -1,0 +1,249 @@
+<template>
+<style>
+@font-face{font-family:"Cormorant Garamond";font-weight:400 700;font-style:normal;font-display:block;src:url("assets/fonts/CormorantGaramond-Regular.woff2") format("woff2");}
+@font-face{font-family:"Cormorant Garamond";font-weight:400 700;font-style:italic;font-display:block;src:url("assets/fonts/CormorantGaramond-Italic.woff2") format("woff2");}
+
+#root {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1080px;
+  height: 1920px;
+  overflow: hidden;
+  container-type: size;
+}
+
+/* full-bleed cream ground */
+#r05-bg {
+  position: absolute;
+  inset: 0;
+  background: #faf7f4;
+}
+#r05-ring {
+  position: absolute;
+  left: 140px;
+  top: 420px;
+  width: 800px;
+  height: 800px;
+  border: 1px solid #d9cbc2;
+  border-radius: 50%;
+  opacity: 0.35;
+}
+#r05-ring::before {
+  content: "";
+  position: absolute;
+  inset: 12%;
+  border: 1px dashed #d9cbc2;
+  border-radius: 50%;
+}
+
+/* headline — sits above the phone (phone top ~167px at scale 0.80) */
+#r05-head {
+  position: absolute;
+  left: 0;
+  top: 46px;
+  width: 1080px;
+  text-align: center;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: 88px;
+  line-height: 1;
+  color: #2b2420;
+  white-space: nowrap;
+}
+.r05-word {
+  display: inline-block;
+  margin: 0 10px;
+}
+.r05-word.r05-em {
+  font-style: italic;
+  color: #2b2420;
+}
+
+/* shared phone — base state 573x1208, centre (540,820) */
+#r05-phone {
+  position: absolute;
+  left: 253.5px;
+  top: 216px;
+  width: 573px;
+  height: 1208px;
+  border-radius: 66px;
+  background: #111;
+  box-shadow: 0 40px 80px -30px rgba(43, 36, 32, 0.45);
+  transform-origin: 50% 50%;
+}
+#r05-phone::after {
+  content: "";
+  position: absolute;
+  inset: 13px;
+  border-radius: 53px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+}
+#r05-screen {
+  position: absolute;
+  left: 14px;
+  top: 14px;
+  width: 545px;
+  height: 1180px;
+  border-radius: 52px;
+  overflow: hidden;
+  background: #faf7f4;
+}
+#r05-layers {
+  position: absolute;
+  inset: 0;
+}
+.r05-shot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 545px;
+  height: 1180px;
+  object-fit: cover;
+  object-position: top center;
+  transform-origin: 50% 50%;
+}
+
+/* overlays in phone-local coordinates (screen px = 14 + shot px * 0.46603) */
+.r05-tap {
+  position: absolute;
+  left: 254.6px;   /* 286.6 - 32 */
+  top: 649.4px;    /* 681.4 - 32 */
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transform-origin: 50% 50%;
+}
+.r05-tapring {
+  position: absolute;
+  left: 254.6px;
+  top: 649.4px;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-sizing: border-box;
+  transform-origin: 50% 50%;
+}
+#r05-heart {
+  position: absolute;
+  left: 176.6px;   /* 286.6 - 110 */
+  top: 581.4px;    /* 681.4 - 100 */
+  width: 220px;
+  height: 200px;
+  transform-origin: 50% 55%;
+}
+#r05-heart svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#r05-likering {
+  position: absolute;
+  left: 25.3px;    /* 53.3 - 28 */
+  top: 893.3px;    /* 921.3 - 28 */
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid #b6837c;
+  box-sizing: border-box;
+  transform-origin: 50% 50%;
+}
+</style>
+
+<div data-hf-id="hf-7uw4" id="root" data-composition-id="05-recorren" data-width="1080" data-height="1920" data-duration="4.401">
+  <div data-hf-id="hf-i8zu" id="r05-bg" class="clip" data-start="0" data-duration="4.401" data-track-index="0">
+    <div data-hf-id="hf-na83" id="r05-ring"></div>
+  </div>
+
+  <div data-hf-id="hf-wixz" id="r05-head">
+    <span data-hf-id="hf-vhfg" class="r05-word" id="r05-w1">Todos</span><span data-hf-id="hf-9n5p" class="r05-word" id="r05-w2">lo</span><span data-hf-id="hf-u05u" class="r05-word r05-em" id="r05-w3">ven</span>
+  </div>
+
+  <div data-hf-id="hf-sfzj" id="r05-phone">
+    <div data-hf-id="hf-qsip" id="r05-screen">
+      <div data-hf-id="hf-gqda" id="r05-layers" data-layout-allow-overflow="">
+        <img data-hf-id="hf-r5cb" class="r05-shot" id="r05-s-grid" src="assets/a04-published-grid.png" alt="">
+        <img data-hf-id="hf-jma3" class="r05-shot" id="r05-s-video" src="assets/a08-feed-video.png" alt="">
+        <img data-hf-id="hf-x0ze" class="r05-shot" id="r05-s-feed" src="assets/a06-feed.png" alt="">
+        <img data-hf-id="hf-ds0e" class="r05-shot" id="r05-s-like" src="assets/a07-feed-like.png" alt="">
+      </div>
+    </div>
+    <div data-hf-id="hf-vuyq" class="r05-tapring" id="r05-ring1"></div>
+    <div data-hf-id="hf-th8l" class="r05-tap" id="r05-tap1"></div>
+    <div data-hf-id="hf-rwup" class="r05-tapring" id="r05-ring2"></div>
+    <div data-hf-id="hf-zmye" class="r05-tap" id="r05-tap2"></div>
+    <div data-hf-id="hf-qk3j" id="r05-heart">
+      <svg data-hf-id="hf-t1ry" viewBox="0 0 24 22" aria-hidden="true">
+        <path data-hf-id="hf-urap" fill="#ffffff" d="M12 21.2 10.5 19.8C5.1 14.9 1.6 11.7 1.6 7.8 1.6 4.6 4.1 2.1 7.3 2.1c1.8 0 3.5.8 4.7 2.2 1.2-1.4 2.9-2.2 4.7-2.2 3.2 0 5.7 2.5 5.7 5.7 0 3.9-3.5 7.1-8.9 12L12 21.2z" />
+      </svg>
+    </div>
+    <div data-hf-id="hf-430q" id="r05-likering"></div>
+  </div>
+
+  <!-- Guest's first-dance clip, playing over the video area of a08-feed-video.
+       Geometry = a08 video band (y 873–1656 of 2532) mapped onto the phone screen at scale 0.80 (1.081x base). -->
+  <!-- approved frame video hoisted by assemble-index -->
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      const tl = gsap.timeline({ paused: true });
+      const P = 1.081081; // storyboard "scale 0.80" relative to the 0.74 base
+
+      // ---- base states (handoff_in: x 50%, scale 0.80, opacity 1) ----
+      tl.set("#r05-phone", { scale: P, opacity: 1 }, 0);
+      tl.set("#r05-s-grid", { scale: 1, opacity: 1 }, 0);
+      tl.set(["#r05-s-video", "#r05-s-feed"], { scale: 0.78, opacity: 0, zIndex: 2 }, 0);
+      tl.set("#r05-s-feed", { zIndex: 3 }, 0);
+      tl.set("#r05-s-like", { scale: 1, opacity: 0, zIndex: 4 }, 0);
+      tl.set([".r05-tap", ".r05-tapring"], { scale: 0.6, opacity: 0 }, 0);
+      tl.set("#r05-heart", { scale: 0, opacity: 0 }, 0);
+      tl.set("#r05-likering", { scale: 0.6, opacity: 0 }, 0);
+
+      // ---- Scene 1 (0.0–1.5): scale-swap grid -> one-by-one view; headline per-word ----
+      tl.to("#r05-s-grid", { scale: 0.78, opacity: 0, duration: 0.3, ease: "power2.in" }, 0.05);
+      tl.to("#r05-s-video", { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 0.23);
+      // (clip video-064 plays over the video band 0.5–1.5s, hoisted to host)
+
+      ["#r05-w1", "#r05-w2", "#r05-w3"].forEach(function (id, i) {
+        tl.fromTo(id, { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.55, ease: "power3.out" }, 0.15 + i * 0.12);
+      });
+
+      // ---- Scene 2 (1.5–2.8): "y dan me gusta" -> a06 photo, double tap ----
+      tl.to("#r05-s-video", { scale: 0.78, opacity: 0, duration: 0.3, ease: "power2.in" }, 1.5);
+      tl.to("#r05-s-feed", { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 1.68);
+
+      function tap(dot, ring, at) {
+        // finger lands
+        tl.fromTo(dot, { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.08, ease: "power2.out" }, at);
+        // press (linear compression) then release spring
+        tl.to(dot, { scale: 0.85, duration: 0.07, ease: "power1.in" }, at + 0.08);
+        tl.to(dot, { scale: 1, opacity: 0, duration: 0.18, ease: "power2.out" }, at + 0.15);
+        // release ring expands + fades
+        tl.fromTo(ring, { scale: 1, opacity: 0.9 }, { scale: 2.6, opacity: 0, duration: 0.42, ease: "power2.out" }, at + 0.15);
+      }
+      tap("#r05-tap1", "#r05-ring1", 2.25);
+      tap("#r05-tap2", "#r05-ring2", 2.5);
+
+      // ---- Scene 3 (2.8–3.9): white heart bursts, shrinks; screen lands on a07 ----
+      tl.fromTo("#r05-heart", { scale: 0, opacity: 0 }, { scale: 1, opacity: 0.95, duration: 0.28, ease: "power3.out" }, 2.8);
+      tl.to("#r05-heart", { scale: 0.35, opacity: 0, duration: 0.4, ease: "power2.in" }, 3.12);
+      // swap to the liked state (same layout -> gentle scale-swap)
+      tl.fromTo("#r05-s-like", { scale: 0.96, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.2)" }, 3.05);
+      tl.to("#r05-s-feed", { scale: 0.96, opacity: 0, duration: 0.3, ease: "power2.in" }, 3.0);
+      // accent pulse around the red heart / "1 me gusta"
+      tl.fromTo("#r05-likering", { scale: 0.6, opacity: 0.9 }, { scale: 1.9, opacity: 0, duration: 0.6, ease: "power2.out" }, 3.2);
+
+      // handoff_out: scale 0.80 -> 0.74 (base), settles into the still read
+      tl.to("#r05-phone", { scale: 1, duration: 0.9, ease: "power2.inOut" }, 2.95);
+
+      tl.set({}, {}, 3.901);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["05-recorren"] = tl;
+    })();
+  </script>
+</div>
+</template>

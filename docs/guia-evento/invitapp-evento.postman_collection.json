@@ -1,0 +1,478 @@
+{
+  "info": {
+    "name": "InvitApp · Configurar un evento",
+    "description": "Paso a paso para dejar lista una invitación vendida: invitación, álbum de fotos y La Pista (música). Ejecuta las carpetas en orden. Los tokens y códigos se guardan solos en las variables de la colección.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "0 · Cliente (solo si es nuevo)",
+      "item": [
+        {
+          "name": "Crear cliente",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/cliente/create",
+            "description": "Solo si el cliente no existe todavía. Guarda su _id en la variable clienteId.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"{{clienteNombre}}\",\n  \"marca\": \"\",\n  \"slug\": \"{{slug}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('Cliente creado', () => pm.expect(res.success).to.be.true);",
+                  "if (res.data && res.data._id) {",
+                  "  pm.collectionVariables.set('clienteId', res.data._id);",
+                  "  console.log('clienteId guardado:', res.data._id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "1 · Invitación",
+      "item": [
+        {
+          "name": "Crear invitación",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/api/invitation-template/create",
+            "description": "Crea la invitación con la plantilla Flow (su nombre en el código es `xyz`). Si invitationId está vacío se genera solo.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id_invitation\": \"{{invitationId}}\",\n  \"slug\": \"{{slug}}\",\n  \"template\": \"{{template}}\",\n  \"active\": true,\n  \"tag\": \"vendida\",\n  \"price\": 0,\n  \"cliente\": \"{{clienteId}}\",\n  \"invitation_per_user\": false,\n  \"data\": {\n    \"isProduction\": true,\n    \"palette\": \"forest\",\n    \"showIntroScreen\": false,\n    \"showEnvelopeIntro\": true,\n    \"introText\": \"Toca para entrar\",\n    \"autoPlayMusic\": true,\n    \"names1\": \"Ana\",\n    \"names2\": \"Pedro\",\n    \"invitationText1\": \"ES UN HONOR INVITARTE A LA CELEBRACIÓN\",\n    \"invitationText2\": \"DE NUESTRA BODA\",\n    \"dayOfWeek\": \"SÁBADO\",\n    \"month\": \"FEB\",\n    \"dayNumber\": \"13\",\n    \"year\": \"2027\",\n    \"hourLabel\": \"16:00 HRS.\",\n    \"weddingDate\": \"February 13, 2027 16:00:00\",\n    \"musicImage\": \"https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg\",\n    \"songTitle\": \"Perfect\",\n    \"songArtist\": \"Ed Sheeran\",\n    \"audioSrc\": \"https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Ed%20Sheeran%20-%20Perfect.mp3\",\n    \"showParents\": true,\n    \"parentsTitle\": \"Con la bendición de nuestros padres\",\n    \"brideLabel\": \"Novia\",\n    \"brideParents\": [\n      \"Laura Gómez\",\n      \"Carlos Gómez\"\n    ],\n    \"groomLabel\": \"Novio\",\n    \"groomParents\": [\n      \"Marta Ríos\",\n      \"Jorge Ríos\"\n    ],\n    \"showPadrinos\": true,\n    \"padrinosLabel\": \"Padrinos\",\n    \"padrinos\": [\n      \"Sofía Salazar\",\n      \"Andrés Castillo\"\n    ],\n    \"countdownTitle\": \"Faltan pocos días\",\n    \"countdownText\": \"Acompáñanos a contar los días para celebrar este momento tan especial.\",\n    \"image2\": \"https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg\",\n    \"eventTitle\": \"Ceremonia\",\n    \"eventVenue\": \"Parroquia San José\",\n    \"eventAddress\": \"Chía, Cundinamarca\",\n    \"eventHour\": \"4:00 PM\",\n    \"eventMapLink\": \"https://maps.app.goo.gl/BkTY9MEaYLakEoKG7\",\n    \"eventButtonText\": \"Ver ubicación\",\n    \"showReception\": true,\n    \"receptionTitle\": \"Recepción\",\n    \"receptionVenue\": \"Hacienda Los Faroles\",\n    \"receptionAddress\": \"Chía, Cundinamarca\",\n    \"receptionHour\": \"7:00 PM\",\n    \"receptionMapLink\": \"https://maps.app.goo.gl/BkTY9MEaYLakEoKG7\",\n    \"dressTitle\": \"Dress Code\",\n    \"dressType\": \"Formal\",\n    \"showDressColors\": true,\n    \"dressColors\": [\n      \"#2c4a2e\",\n      \"#8e9d70\",\n      \"#d4c4a8\",\n      \"#f3efe8\"\n    ],\n    \"dressNote\": \"Por favor, evita vestir de blanco, está reservado para la novia.\",\n    \"showDressCodeButton\": false,\n    \"quoteImage\": \"https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg\",\n    \"quote\": \"Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos compartir contigo el comienzo del capítulo más hermoso.\",\n    \"itineraryTitle\": \"Itinerario\",\n    \"itinerary\": [\n      {\n        \"time\": \"4:00 PM\",\n        \"label\": \"Ceremonia\"\n      },\n      {\n        \"time\": \"6:00 PM\",\n        \"label\": \"Cóctel de bienvenida\"\n      },\n      {\n        \"time\": \"7:00 PM\",\n        \"label\": \"Recepción\"\n      },\n      {\n        \"time\": \"9:00 PM\",\n        \"label\": \"Fiesta\"\n      }\n    ],\n    \"confirmTitle\": \"Confirma tu asistencia\",\n    \"confirmText\": \"Tu respuesta nos ayudará a organizar este día con mucho cariño.\",\n    \"confirmButtonText\": \"Confirmar aquí\",\n    \"confirmLink\": \"{{siteUrl}}/invitation/confirmation/{{invitationId}}\",\n    \"sobresTitle\": \"Lluvia de sobres\",\n    \"showBankAccount\": false,\n    \"showGallery\": true,\n    \"galleryImages\": [\n      \"https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg\",\n      \"https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg\"\n    ],\n    \"closingHighlight\": \"Tenemos la luna, la música y cada detalle preparado… <br> Solo falta lo más importante: tú.\",\n    \"closingNames\": \"Ana & Pedro\",\n    \"instragramCliente\": \"\",\n    \"linkInvitation\": \"{{siteUrl}}/{{slug}}\",\n    \"linkListInvitation\": \"{{siteUrl}}/invitation/confirmations/list/{{invitationId}}\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// Si no hay invitationId, se genera uno: <slug>-<8 caracteres aleatorios>",
+                  "if (!pm.collectionVariables.get('invitationId')) {",
+                  "  const abc = 'abcdefghijkmnpqrstuvwxyz23456789';",
+                  "  let rnd = '';",
+                  "  for (let i = 0; i < 8; i++) rnd += abc[Math.floor(Math.random() * abc.length)];",
+                  "  pm.collectionVariables.set('invitationId', `${pm.collectionVariables.get('slug')}-${rnd}`);",
+                  "}",
+                  "console.log('invitationId:', pm.collectionVariables.get('invitationId'));"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('Invitación creada (201)', () => pm.response.to.have.status(201));",
+                  "console.log('Abre la invitación:', `${pm.collectionVariables.get('siteUrl')}/${pm.collectionVariables.get('slug')}`);"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ver invitación por slug",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/invitation-template/by-slug/{{slug}}",
+            "description": "Comprueba que la invitación quedó guardada."
+          }
+        }
+      ]
+    },
+    {
+      "name": "2 · Álbum de fotos",
+      "item": [
+        {
+          "name": "Crear álbum",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-admin-key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/galeria/create",
+            "description": "Crea el álbum de la invitación. Devuelve el hostToken UNA sola vez: el script lo guarda en la variable hostToken.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id_invitacion\": \"{{invitationId}}\",\n  \"requireApproval\": false,\n  \"maxUploadsPerGuest\": 30\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('Álbum creado (201)', () => pm.response.to.have.status(201));",
+                  "if (res.data && res.data.hostToken) {",
+                  "  pm.collectionVariables.set('hostToken', res.data.hostToken);",
+                  "  const v = (k) => pm.collectionVariables.get(k);",
+                  "  console.log('Panel del anfitrión:', `${v('siteUrl')}/invitation/galeria/${v('invitationId')}/admin?token=${res.data.hostToken}`);",
+                  "  console.log('Álbum para invitados:', `${v('siteUrl')}/invitation/galeria/${v('invitationId')}`);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ver álbum (público)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/galeria/by-invitation/{{invitationId}}",
+            "description": "Lo que ve el invitado: estado y límites."
+          }
+        },
+        {
+          "name": "Panel del anfitrión (resumen)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-host-token",
+                "value": "{{hostToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/galeria/{{invitationId}}/admin",
+            "description": "Cifras del álbum. Comprueba que el hostToken sirve."
+          }
+        },
+        {
+          "name": "Cambiar ajustes del álbum",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-host-token",
+                "value": "{{hostToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/galeria/{{invitationId}}/config",
+            "description": "status: open | closed (cerrar = ya no se suben fotos). requireApproval: true = el anfitrión aprueba cada foto.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"open\",\n  \"requireApproval\": false\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "Regenerar link del anfitrión",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-host-token",
+                "value": "{{hostToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/galeria/{{invitationId}}/regenerate-token",
+            "description": "Si el link del anfitrión se filtró: invalida el anterior y guarda el nuevo en hostToken."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.data && res.data.hostToken) {",
+                  "  pm.collectionVariables.set('hostToken', res.data.hostToken);",
+                  "  console.log('Nuevo hostToken guardado');",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3 · Música (La Pista)",
+      "item": [
+        {
+          "name": "Crear fiesta de la invitación",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "x-admin-key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/party/for-invitation",
+            "description": "Crea la fiesta enlazada a la invitación (el álbum muestra el botón solo). Devuelve el djToken UNA sola vez: el script guarda partyCode, partyId y djToken.",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"id_invitacion\": \"{{invitationId}}\",\n  \"name\": \"{{eventName}}\",\n  \"config\": {\n    \"maxRequestsPerUser\": 5,\n    \"cooldownMinutes\": 2,\n    \"allowDuplicates\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "pm.test('Fiesta creada (201)', () => pm.response.to.have.status(201));",
+                  "if (res.data && res.data.party) {",
+                  "  pm.collectionVariables.set('partyCode', res.data.party.code);",
+                  "  pm.collectionVariables.set('partyId', res.data.party._id);",
+                  "  pm.collectionVariables.set('djToken', res.data.djToken);",
+                  "  const site = pm.collectionVariables.get('siteUrl');",
+                  "  console.log('Panel del DJ:', `${site}/dj/${res.data.party.code}?token=${res.data.djToken}`);",
+                  "  console.log('La Pista (invitados):', `${site}/fiesta/${res.data.party.code}`);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Ver fiesta de la invitación",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/party/by-invitation/{{invitationId}}",
+            "description": "Lo que usa el álbum para mostrar \"Pide tu canción\"."
+          }
+        },
+        {
+          "name": "Probar el link del DJ",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-party-token",
+                "value": "{{djToken}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/party/by-code/{{partyCode}}/access",
+            "description": "200 = el link del DJ sirve. 401 = token inválido."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('El link del DJ sirve', () => pm.response.to.have.status(200));"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Regenerar link del DJ",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-admin-key",
+                "value": "{{adminKey}}"
+              }
+            ],
+            "url": "{{baseUrl}}/api/party/by-invitation/{{invitationId}}/regenerate-dj-token",
+            "description": "Si el link del DJ se filtró o hay que cambiar de DJ: invalida el anterior y guarda el nuevo en djToken."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.data && res.data.djToken) {",
+                  "  pm.collectionVariables.set('djToken', res.data.djToken);",
+                  "  console.log('Nuevo link del DJ:', `${pm.collectionVariables.get('siteUrl')}/dj/${res.data.code}?token=${res.data.djToken}`);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4 · Links para entregar",
+      "item": [
+        {
+          "name": "Generar todos los links",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/party/by-invitation/{{invitationId}}",
+            "description": "No cambia nada: arma todos los links del evento. Míralos en la pestaña Visualize de la respuesta o en la consola de Postman."
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const v = (k) => pm.collectionVariables.get(k);",
+                  "const site = v('siteUrl');",
+                  "const links = {",
+                  "  'Invitación (invitados)': `${site}/${v('slug')}`,",
+                  "  'Lista de confirmaciones (anfitrión)': `${site}/invitation/confirmations/list/${v('invitationId')}`,",
+                  "  'Álbum (invitados / QR)': `${site}/invitation/galeria/${v('invitationId')}`,",
+                  "  'Panel del álbum (anfitrión)': v('hostToken') ? `${site}/invitation/galeria/${v('invitationId')}/admin?token=${v('hostToken')}` : '(crea el álbum primero)',",
+                  "  'La Pista (invitados)': v('partyCode') ? `${site}/fiesta/${v('partyCode')}` : '(crea la fiesta primero)',",
+                  "  'Panel del DJ': v('partyCode') && v('djToken') ? `${site}/dj/${v('partyCode')}?token=${v('djToken')}` : '(crea la fiesta primero)',",
+                  "};",
+                  "Object.entries(links).forEach(([k, url]) => console.log(`${k}:\\n${url}`));",
+                  "pm.collectionVariables.set('linkAlbumAdmin', links['Panel del álbum (anfitrión)']);",
+                  "pm.collectionVariables.set('linkDj', links['Panel del DJ']);",
+                  "pm.visualizer.set(`<style>body{font-family:sans-serif;padding:12px}td{padding:6px 10px;border-bottom:1px solid #eee;vertical-align:top}a{word-break:break-all}</style><table>{{#each links}}<tr><td><b>{{@key}}</b></td><td><a href=\"{{this}}\" target=\"_blank\">{{this}}</a></td></tr>{{/each}}</table>`, { links });"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://casa-de-moda.herokuapp.com",
+      "type": "string"
+    },
+    {
+      "key": "siteUrl",
+      "value": "https://www.invitapp.art",
+      "type": "string"
+    },
+    {
+      "key": "adminKey",
+      "value": "PEGA_AQUI_TU_GALLERY_ADMIN_KEY",
+      "type": "string"
+    },
+    {
+      "key": "slug",
+      "value": "prueba-ana-pedro",
+      "type": "string"
+    },
+    {
+      "key": "eventName",
+      "value": "Boda Ana & Pedro",
+      "type": "string"
+    },
+    {
+      "key": "template",
+      "value": "xyz",
+      "type": "string"
+    },
+    {
+      "key": "clienteNombre",
+      "value": "Ana y Pedro",
+      "type": "string"
+    },
+    {
+      "key": "clienteId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "invitationId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "hostToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "partyCode",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "partyId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "djToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "linkAlbumAdmin",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "linkDj",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

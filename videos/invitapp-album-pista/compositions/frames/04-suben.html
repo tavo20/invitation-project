@@ -1,0 +1,188 @@
+<template>
+  <div data-hf-id="hf-dmez" id="root" data-composition-id="04-suben" data-width="1080" data-height="1920" data-start="0" data-duration="4.819">
+    <style>
+      @font-face{font-family:"Inter";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Inter-400.woff2") format("woff2");}
+      @font-face{font-family:"Inter";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Inter-500.woff2") format("woff2");}
+      @font-face{font-family:"Cormorant Garamond";font-weight:400 700;font-style:normal;font-display:block;src:url("assets/fonts/CormorantGaramond-Regular.woff2") format("woff2");}
+      @font-face{font-family:"Cormorant Garamond";font-weight:400 700;font-style:italic;font-display:block;src:url("assets/fonts/CormorantGaramond-Italic.woff2") format("woff2");}
+
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+
+      .\30 4-suben-bg { position: absolute; inset: 0; background: #faf7f4; overflow: hidden; container-type: size; }
+      .\30 4-suben-ring { position: absolute; left: 560px; top: 60px; width: 760px; height: 760px; border: 1px solid #d9cbc2; border-radius: 50%; opacity: 0.4; }
+      .\30 4-suben-ring::before { content: ""; position: absolute; inset: 12%; border: 1px dashed #d9cbc2; border-radius: 50%; }
+
+      .\30 4-suben-headline { position: absolute; left: 0; right: 0; top: 46px; text-align: center; font-family: "Cormorant Garamond", serif; font-weight: 400; font-size: 104px; line-height: 1.04; color: #2b2420; white-space: nowrap; }
+      .\30 4-suben-word { display: inline-block; margin: 0 12px; }
+      .\30 4-suben-word.is-em { font-style: italic; }
+
+      .\30 4-suben-phone { position: absolute; left: 253.5px; top: 216px; width: 573px; height: 1208px; border-radius: 66px; background: #111; box-shadow: 0 40px 80px -30px rgba(43,36,32,0.45); transform-origin: 50% 50%; }
+      .\30 4-suben-screen { position: absolute; left: 14px; top: 14px; width: 545px; height: 1180px; border-radius: 52px; overflow: hidden; background: #faf7f4; box-shadow: 0 0 0 1px rgba(255,255,255,0.08); }
+      .\30 4-suben-layer { position: absolute; left: 0; top: 0; width: 545px; height: 1180px; transform-origin: 50% 50%; }
+      .\30 4-suben-shot { position: absolute; left: 0; top: 0; width: 545px; height: 1180px; object-fit: cover; object-position: top center; display: block; }
+      .\30 4-suben-mask { position: absolute; background: #ffffff; }
+      .\30 4-suben-crop { position: absolute; overflow: hidden; transform-origin: 50% 50%; }
+      .\30 4-suben-crop img { position: absolute; display: block; max-width: none; }
+      .\30 4-suben-cell-ring { position: absolute; left: 0; top: 407px; width: 180px; height: 180px; box-sizing: border-box; border: 4px solid #b6837c; transform-origin: 50% 50%; }
+
+      .\30 4-suben-tap { position: absolute; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; background: rgba(43,36,32,0.18); }
+      .\30 4-suben-tap-ring { position: absolute; width: 64px; height: 64px; margin: -32px 0 0 -32px; border-radius: 50%; border: 2px solid rgba(43,36,32,0.35); box-sizing: border-box; }
+
+      .\30 4-suben-chip { position: absolute; width: 214.2px; height: 142.8px; overflow: hidden; border-radius: 0 0 20px 20px; transform-origin: 0 0; box-shadow: 0 0 0 1px #d9cbc2; background: #f3e7e3; }
+      .\30 4-suben-chip img { position: absolute; width: 994.5px; max-width: none; display: block; }
+
+      .\30 4-suben-vchip { position: absolute; left: 770px; top: 600px; width: 250px; height: 444px; overflow: hidden; background: #2b2420; transform-origin: 50% 50%; }
+      .\30 4-suben-vchip img { position: absolute; left: -637.7px; top: -2583.6px; width: 2086px; max-width: none; display: block; }
+      .\30 4-suben-vframe { position: absolute; left: 758px; top: 588px; width: 274px; height: 468px; box-sizing: border-box; border: 1px solid #d9cbc2; transform-origin: 50% 50%; }
+      .\30 4-suben-vlabel { position: absolute; left: 758px; top: 1074px; width: 274px; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: "Inter", sans-serif; font-weight: 500; font-size: 18px; letter-spacing: 4px; text-transform: uppercase; color: #b6837c; }
+      .\30 4-suben-vlabel svg { width: 14px; height: 16px; display: block; }
+
+      .\30 4-suben-who { position: absolute; left: 20px; top: 672px; width: 190px; text-align: right; }
+      .\30 4-suben-who-name { font-family: "Cormorant Garamond", serif; font-style: italic; font-size: 54px; line-height: 1; color: #2b2420; }
+      .\30 4-suben-who-tag { margin-top: 10px; font-family: "Inter", sans-serif; font-weight: 500; font-size: 15px; letter-spacing: 3px; text-transform: uppercase; color: #b6837c; }
+      .\30 4-suben-who-line { position: absolute; left: 214px; top: 720px; width: 30px; height: 1px; background: #d9cbc2; transform-origin: 0 50%; }
+    </style>
+
+    <!-- Full-bleed cream ground (clip, lowest track) -->
+    <div data-hf-id="hf-ex6c" class="clip 04-suben-bg" id="04-suben-bg" data-start="0" data-duration="4.819" data-track-index="0">
+      <div data-hf-id="hf-48ff" class="04-suben-ring"></div>
+    </div>
+
+    <!-- Headline (Scene 2) -->
+    <div data-hf-id="hf-xprh" class="04-suben-headline">
+      <span data-hf-id="hf-fg8g" class="04-suben-word" id="04-suben-w1">Fotos</span><span data-hf-id="hf-31ht" class="04-suben-word" id="04-suben-w2">y</span><span data-hf-id="hf-h0vi" class="04-suben-word is-em" id="04-suben-w3">videos</span>
+    </div>
+
+    <!-- Video chip: stand-in still, hairline frame, label. The live clip is hoisted to the host at the same rect. -->
+    <div data-hf-id="hf-fg0a" class="04-suben-vframe" id="04-suben-vframe"></div>
+    <div data-hf-id="hf-o0lu" class="04-suben-vchip" id="04-suben-vchip"><img data-hf-id="hf-oqny" src="assets/a03-composer.png" alt=""></div>
+    <div data-hf-id="hf-gtf0" class="04-suben-vlabel" id="04-suben-vlabel">
+      <svg data-hf-id="hf-uut5" viewBox="0 0 14 16"><path data-hf-id="hf-782n" d="M0 0 L14 8 L0 16 Z" fill="#b6837c" /></svg><span data-hf-id="hf-cf6o">Video</span>
+    </div>
+    <!-- approved frame video hoisted by assemble-index -->
+
+    <!-- Phone (shared device spec) -->
+    <div data-hf-id="hf-7r3e" class="04-suben-phone" id="04-suben-phone">
+      <div data-hf-id="hf-x94p" class="04-suben-screen">
+        <!-- a01: album grid -->
+        <div data-hf-id="hf-2lof" class="04-suben-layer" id="04-suben-s1">
+          <img data-hf-id="hf-39lm" class="04-suben-shot" src="assets/a01-album-grid.png" alt="">
+          <div data-hf-id="hf-x7te" class="04-suben-crop" id="04-suben-plus" style="left:229.2px;top:1062.1px;width:85.7px;height:85.7px;border-radius:50%;">
+            <img data-hf-id="hf-e8s0" src="assets/a01-album-grid.png" alt="" style="width:545px;left:-229.2px;top:-1062.1px;">
+          </div>
+          <div data-hf-id="hf-k0qo" class="04-suben-tap-ring" id="04-suben-tap1r" style="left:272px;top:1105px;"></div>
+          <div data-hf-id="hf-abol" class="04-suben-tap" id="04-suben-tap1" style="left:272px;top:1105px;"></div>
+        </div>
+        <!-- a03: Nueva publicación -->
+        <div data-hf-id="hf-qalz" class="04-suben-layer" id="04-suben-s2" data-layout-allow-overflow="">
+          <img data-hf-id="hf-0d2g" class="04-suben-shot" src="assets/a03-composer.png" alt="">
+          <div data-hf-id="hf-nbwe" class="04-suben-mask" id="04-suben-m1" style="left:21.4px;top:674px;width:119.4px;height:118px;"></div>
+          <div data-hf-id="hf-txte" class="04-suben-mask" id="04-suben-m2" style="left:149.9px;top:674px;width:118.4px;height:118px;"></div>
+          <div data-hf-id="hf-do3c" class="04-suben-mask" id="04-suben-m3" style="left:277.1px;top:674px;width:119.4px;height:118px;"></div>
+          <div data-hf-id="hf-cnn3" class="04-suben-crop" id="04-suben-pub" style="left:435.5px;top:596.2px;width:90.8px;height:37.3px;">
+            <img data-hf-id="hf-1duq" src="assets/a03-composer.png" alt="" style="width:545px;left:-435.5px;top:-596.2px;">
+          </div>
+          <div data-hf-id="hf-gf44" class="04-suben-tap-ring" id="04-suben-tap2r" style="left:481px;top:615px;"></div>
+          <div data-hf-id="hf-km2d" class="04-suben-tap" id="04-suben-tap2" style="left:481px;top:615px;"></div>
+        </div>
+        <!-- a04: published grid -->
+        <div data-hf-id="hf-mchy" class="04-suben-layer" id="04-suben-s3" data-layout-allow-overflow="">
+          <img data-hf-id="hf-bc74" class="04-suben-shot" src="assets/a04-published-grid.png" alt="">
+          <div data-hf-id="hf-t0j9" class="04-suben-cell-ring" id="04-suben-cellring"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating photo chips (dance photo, toast) cropped from the real composer capture -->
+    <div data-hf-id="hf-k9u2" class="04-suben-chip" id="04-suben-chip1" style="left:836px;top:372px;">
+      <img data-hf-id="hf-flrf" src="assets/a03-composer.png" alt="" style="left:-40.8px;top:-1300.5px;">
+    </div>
+    <div data-hf-id="hf-bfbv" class="04-suben-chip" id="04-suben-chip3" style="left:846px;top:1128px;">
+      <img data-hf-id="hf-oumm" src="assets/a03-composer.png" alt="" style="left:-507.45px;top:-1300.5px;">
+    </div>
+
+    <!-- Laura's post callout (Scene 3) -->
+    <div data-hf-id="hf-19f2" class="04-suben-who" id="04-suben-who">
+      <div data-hf-id="hf-w8a4" class="04-suben-who-name">Laura</div>
+      <div data-hf-id="hf-wjhf" class="04-suben-who-tag">Ahora</div>
+    </div>
+    <div data-hf-id="hf-65zl" class="04-suben-who-line" id="04-suben-wholine"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        var $ = function (id) { return document.getElementById("04-suben-" + id); };
+        var tl = gsap.timeline({ paused: true });
+
+        // Base states (handoff_in: phone x 50%, scale 0.74 = base, opacity 1, album grid)
+        tl.set($("phone"), { x: 0, scale: 1, opacity: 1 }, 0);
+        tl.set($("s1"), { opacity: 1, scale: 1, zIndex: 1 }, 0);
+        tl.set($("s2"), { opacity: 0, scale: 0.92, zIndex: 2 }, 0);
+        tl.set($("s3"), { opacity: 0, scale: 0.92, zIndex: 3 }, 0);
+        tl.set([$("tap1"), $("tap1r"), $("tap2"), $("tap2r"), $("cellring")], { opacity: 0 }, 0);
+        tl.set([$("chip1"), $("chip3"), $("vchip"), $("vframe"), $("vlabel"), $("who"), $("wholine")], { opacity: 0 }, 0);
+
+        // ---- Scene 1 (0.0–1.6): tap "+" -> scale-swap to composer; chips travel to the sheet
+        tl.fromTo($("tap1"), { opacity: 0, scale: 1.2 }, { opacity: 1, scale: 1, duration: 0.12, ease: "power2.out" }, 0.12);
+        tl.to($("tap1"), { scale: 0.85, duration: 0.12, ease: "none" }, 0.24);
+        tl.fromTo($("plus"), { scale: 1 }, { scale: 0.9, duration: 0.12, ease: "power1.in" }, 0.24);
+        tl.to($("plus"), { scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 0.36);
+        tl.fromTo($("tap1r"), { opacity: 0.6, scale: 1 }, { opacity: 0, scale: 2.4, duration: 0.45, ease: "power2.out" }, 0.36);
+        tl.to($("tap1"), { opacity: 0, duration: 0.18, ease: "power1.out" }, 0.42);
+
+        tl.to($("s1"), { scale: 0.92, opacity: 0, duration: 0.3, ease: "power2.in" }, 0.5);
+        tl.fromTo($("s2"), { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 0.68);
+
+        // Asymmetric 60/40: phone eases to x 40% to make room for the chips
+        tl.fromTo($("phone"), { x: 0 }, { x: -108, duration: 0.65, ease: "power2.inOut" }, 0.55);
+
+        // Chips arrive on the right
+        tl.fromTo($("chip1"), { x: 260, opacity: 0, rotation: 4 }, { x: 0, opacity: 1, rotation: 0, duration: 0.5, ease: "power3.out" }, 0.45);
+        tl.fromTo($("chip3"), { x: 260, opacity: 0, rotation: -4 }, { x: 0, opacity: 1, rotation: 0, duration: 0.5, ease: "power3.out" }, 0.6);
+        // ...and travel into their slots on the sheet (phone settled at x -108 by 1.2s)
+        tl.to($("chip1"), { x: 181.9 - 836, y: 942.7 - 372, scale: 0.548, duration: 0.45, ease: "power2.inOut" }, 1.0);
+        tl.to($("chip3"), { x: 437.6 - 846, y: 942.7 - 1128, scale: 0.548, duration: 0.45, ease: "power2.inOut" }, 1.1);
+        tl.to($("m1"), { opacity: 0, duration: 0.12, ease: "none" }, 1.42);
+        tl.to($("chip1"), { opacity: 0, duration: 0.15, ease: "none" }, 1.47);
+        tl.to($("m3"), { opacity: 0, duration: 0.12, ease: "none" }, 1.52);
+        tl.to($("chip3"), { opacity: 0, duration: 0.15, ease: "none" }, 1.57);
+
+        // Video chip parks beside the phone
+        tl.fromTo($("vchip"), { x: 300, scale: 0.7, opacity: 0 }, { x: 0, scale: 1, opacity: 1, duration: 0.55, ease: "power3.out" }, 0.95);
+        tl.to($("m2"), { opacity: 0, duration: 0.15, ease: "none" }, 1.35);
+        tl.fromTo($("vframe"), { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.45, ease: "power3.out" }, 1.25);
+        tl.fromTo($("vlabel"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, 1.35);
+
+        // ---- Scene 2 (1.6–3.2): headline per word; live clip takes over the chip; tap Publicar
+        tl.to($("vchip"), { opacity: 0, duration: 0.12, ease: "none" }, 1.6);
+        tl.fromTo($("w1"), { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", immediateRender: true }, 1.6);
+        tl.fromTo($("w2"), { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", immediateRender: true }, 1.72);
+        tl.fromTo($("w3"), { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out", immediateRender: true }, 1.84);
+
+        tl.fromTo($("tap2"), { opacity: 0, scale: 1.2 }, { opacity: 1, scale: 1, duration: 0.12, ease: "power2.out" }, 2.7);
+        tl.to($("tap2"), { scale: 0.85, duration: 0.12, ease: "none" }, 2.82);
+        tl.fromTo($("pub"), { scale: 1 }, { scale: 0.88, duration: 0.12, ease: "power1.in" }, 2.82);
+        tl.to($("pub"), { scale: 1, duration: 0.35, ease: "back.out(1.8)" }, 2.94);
+        tl.fromTo($("tap2r"), { opacity: 0.6, scale: 1 }, { opacity: 0, scale: 2.4, duration: 0.45, ease: "power2.out" }, 2.94);
+        tl.to($("tap2"), { opacity: 0, duration: 0.18, ease: "power1.out" }, 3.0);
+
+        // ---- Scene 3 (3.2–4.319): scale-swap to published grid; zoom to the top row and hold
+        tl.to($("s2"), { scale: 0.92, opacity: 0, duration: 0.28, ease: "power2.in" }, 3.12);
+        tl.fromTo($("s3"), { scale: 0.92, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.5, ease: "back.out(1.4)" }, 3.28);
+        tl.to([$("vframe"), $("vlabel")], { opacity: 0, duration: 0.2, ease: "power1.in" }, 3.15);
+
+        // handoff_out: phone x 50%, scale 0.74 -> 0.80 (1.081x base), opacity 1
+        tl.to($("phone"), { x: 0, scale: 1.081, duration: 0.85, ease: "power2.inOut" }, 3.3);
+
+        tl.fromTo($("cellring"), { opacity: 0, scale: 1.1 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" }, 3.75);
+        tl.fromTo($("wholine"), { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.35, ease: "power2.out" }, 3.85);
+        tl.fromTo($("who"), { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.4, ease: "power3.out" }, 3.9);
+
+        tl.to({}, { duration: 0.001 }, 4.318);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["04-suben"] = tl;
+      })();
+    </script>
+  </div>
+</template>

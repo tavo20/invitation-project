@@ -1,0 +1,278 @@
+<template id="03-qr-template">
+  <div data-hf-id="hf-v889" id="root" data-composition-id="03-qr" data-start="0" data-duration="4.494" data-width="1080" data-height="1920">
+    <style>
+      @font-face{font-family:"Great Vibes";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/GreatVibes-Regular.woff2") format("woff2");}
+      @font-face{font-family:"Inter";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Inter-500.woff2") format("woff2");}
+      @font-face{font-family:"Cormorant Garamond";font-weight:400 700;font-style:normal;font-display:block;src:url("assets/fonts/CormorantGaramond-Regular.woff2") format("woff2");}
+      @font-face{font-family:"Cormorant Garamond";font-weight:400 700;font-style:italic;font-display:block;src:url("assets/fonts/CormorantGaramond-Italic.woff2") format("woff2");}
+
+      #root {
+        position: absolute;
+        inset: 0;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        --qr-bg: #faf7f4;
+        --qr-bg2: #f3e7e3;
+        --qr-ink: #2b2420;
+        --qr-gray: #6f625b;
+        --qr-accent: #b6837c;
+        --qr-line: #d9cbc2;
+      }
+      #qr03-bg {
+        position: absolute;
+        inset: 0;
+        background: var(--qr-bg);
+      }
+      #qr03-ring {
+        position: absolute;
+        left: 690px;
+        top: -170px;
+        width: 560px;
+        height: 560px;
+        border: 1px solid var(--qr-line);
+        border-radius: 50%;
+        opacity: 0.45;
+      }
+      #qr03-ring::before {
+        content: "";
+        position: absolute;
+        inset: 12%;
+        border: 1px dashed var(--qr-line);
+        border-radius: 50%;
+      }
+
+      /* ---- shared phone (base state: center 540,820; outer 573x1208) ---- */
+      #qr03-phone {
+        --dof: 0px;
+        position: absolute;
+        left: 253.5px;
+        top: 216px;
+        width: 573px;
+        height: 1208px;
+        border-radius: 66px;
+        background: #111;
+        box-shadow: 0 40px 80px -30px rgba(43, 36, 32, 0.45);
+        filter: blur(var(--dof));
+        will-change: filter;
+        z-index: 1;
+      }
+      .qr03-frame-edge {
+        position: absolute;
+        inset: 13px;
+        border-radius: 53px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .qr03-screen {
+        position: absolute;
+        left: 14px;
+        top: 14px;
+        width: 545px;
+        height: 1180px;
+        border-radius: 52px;
+        overflow: hidden;
+        background: var(--qr-bg);
+      }
+      .qr03-shot {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 545px;
+        height: 1180px;
+        object-fit: cover;
+        object-position: top center;
+      }
+
+      /* ---- table card (foreground) ---- */
+      #qr03-card {
+        position: absolute;
+        left: 64px;
+        top: 790px;
+        width: 540px;
+        height: 730px;
+        background: var(--qr-bg);
+        border: 1px solid var(--qr-line);
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 40px;
+      }
+      #qr03-card-inner {
+        position: absolute;
+        inset: 14px;
+        border: 1px solid var(--qr-line);
+        pointer-events: none;
+      }
+      .qr03-names {
+        font-family: "Great Vibes", cursive;
+        font-size: 66px;
+        line-height: 1;
+        color: var(--qr-ink);
+        height: 76px;
+      }
+      .qr03-qrbox {
+        position: relative;
+        margin-top: 26px;
+        width: 400px;
+        height: 400px;
+      }
+      .qr03-qrclip {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .qr03-qrimg {
+        position: absolute;
+        inset: 0;
+        width: 400px;
+        height: 400px;
+      }
+      #qr03-wash {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 400px;
+        height: 400px;
+        background: rgba(182, 131, 124, 0.16);
+        transform-origin: 50% 0%;
+      }
+      #qr03-scan {
+        position: absolute;
+        left: -10px;
+        top: -40px;
+        width: 420px;
+        height: 42px;
+        background: linear-gradient(to bottom, rgba(182, 131, 124, 0) 0%, rgba(182, 131, 124, 0.35) 92%, #b6837c 95%, #b6837c 100%);
+      }
+      .qr03-corner {
+        position: absolute;
+        width: 46px;
+        height: 46px;
+        border-color: var(--qr-accent);
+        border-style: solid;
+        border-width: 0;
+      }
+      .qr03-c-tl { left: -18px; top: -18px; border-top-width: 2px; border-left-width: 2px; }
+      .qr03-c-tr { right: -18px; top: -18px; border-top-width: 2px; border-right-width: 2px; }
+      .qr03-c-bl { left: -18px; bottom: -18px; border-bottom-width: 2px; border-left-width: 2px; }
+      .qr03-c-br { right: -18px; bottom: -18px; border-bottom-width: 2px; border-right-width: 2px; }
+      .qr03-rule {
+        margin-top: 40px;
+        width: 160px;
+        height: 1px;
+        background: var(--qr-line);
+      }
+      .qr03-cta {
+        margin-top: 26px;
+        font-family: "Cormorant Garamond", serif;
+        font-style: italic;
+        font-weight: 400;
+        font-size: 50px;
+        line-height: 1.1;
+        color: var(--qr-ink);
+      }
+
+      /* ---- headline ---- */
+      #qr03-headline {
+        position: absolute;
+        left: 60px;
+        top: 70px;
+        width: 960px;
+        text-align: center;
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 400;
+        font-size: 96px;
+        line-height: 1.04;
+        color: var(--qr-ink);
+        z-index: 3;
+      }
+      #qr03-headline em {
+        font-style: italic;
+        color: var(--qr-ink);
+      }
+    </style>
+
+    <div data-hf-id="hf-q46p" id="qr03-bg" class="clip" data-start="0" data-duration="4.494" data-track-index="0"></div>
+    <div data-hf-id="hf-b6sh" id="qr03-ring" class="clip" data-start="0" data-duration="4.494" data-track-index="1"></div>
+
+    <div data-hf-id="hf-x8qy" id="qr03-phone" class="clip" data-start="0" data-duration="4.494" data-track-index="2">
+      <div data-hf-id="hf-bigc" class="qr03-frame-edge"></div>
+      <div data-hf-id="hf-npnr" class="qr03-screen">
+        <div data-hf-id="hf-c8v4" id="qr03-scroll" data-layout-allow-overflow="">
+          <img data-hf-id="hf-t7jt" id="qr03-shot-a" class="qr03-shot" src="assets/a01-album-grid.png" alt="">
+          <img data-hf-id="hf-pf0h" id="qr03-shot-b" class="qr03-shot" src="assets/a02-album-grid-scroll.png" alt="">
+        </div>
+      </div>
+    </div>
+
+    <div data-hf-id="hf-nlw7" id="qr03-card" class="clip" data-start="0" data-duration="4.494" data-track-index="3">
+      <div data-hf-id="hf-t9jx" id="qr03-card-inner"></div>
+      <div data-hf-id="hf-5s35" class="qr03-names">Ana &amp; Pedro</div>
+      <div data-hf-id="hf-r9dt" class="qr03-qrbox">
+        <div data-hf-id="hf-uq3l" class="qr03-qrclip" data-layout-allow-overflow="">
+          <img data-hf-id="hf-itmn" class="qr03-qrimg" src="assets/qr-mesa.png" alt="">
+          <div data-hf-id="hf-vn3l" id="qr03-wash"></div>
+          <div data-hf-id="hf-jxdz" id="qr03-scan"></div>
+        </div>
+        <div data-hf-id="hf-fr6v" class="qr03-corner qr03-c-tl"></div>
+        <div data-hf-id="hf-7yk9" class="qr03-corner qr03-c-tr"></div>
+        <div data-hf-id="hf-9dw1" class="qr03-corner qr03-c-bl"></div>
+        <div data-hf-id="hf-w3pr" class="qr03-corner qr03-c-br"></div>
+      </div>
+      <div data-hf-id="hf-2nf1" class="qr03-rule"></div>
+      <div data-hf-id="hf-5em9" class="qr03-cta">Escanea y comparte</div>
+    </div>
+
+    <div data-hf-id="hf-ob0l" id="qr03-headline" class="clip" data-start="0" data-duration="4.494" data-track-index="4">Entran con un <em data-hf-id="hf-t8ww">QR</em></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        var DURATION = 3.994;
+        var MAX_BLUR = 12;      // phone defocus (px)
+        var DIM_LEVEL = 0.55;   // phone dim while card is focal
+        var tl = gsap.timeline({ paused: true });
+
+        // ---- base states (handoff_in: phone sharp, opacity 1, a01 visible) ----
+        tl.set("#qr03-phone", { "--dof": "0px", opacity: 1 }, 0);
+        tl.set("#qr03-shot-a", { y: 0, opacity: 1 }, 0);
+        tl.set("#qr03-shot-b", { y: 300, opacity: 0 }, 0);
+        tl.set("#qr03-wash", { scaleY: 0 }, 0);
+        tl.set("#qr03-scan", { y: 0, opacity: 0 }, 0);
+        tl.set(".qr03-corner", { opacity: 0, scale: 1.25 }, 0);
+        tl.set("#qr03-headline", { opacity: 0, y: 30, scale: 0.86 }, 0);
+
+        // ---- Scene 1 (0.0–1.6): card enters foreground, phone racks out of focus ----
+        tl.to("#qr03-phone", { "--dof": MAX_BLUR + "px", opacity: DIM_LEVEL, duration: 0.6, ease: "power2.inOut" }, 0.05);
+        tl.fromTo("#qr03-card",
+          { x: -90, y: 280, rotation: -10, opacity: 0 },
+          { x: 0, y: 0, rotation: -3, opacity: 1, duration: 0.7, ease: "power3.out" }, 0.08);
+
+        // scan line + progress wipe across the QR
+        tl.to("#qr03-scan", { opacity: 1, duration: 0.12, ease: "none" }, 0.7);
+        tl.to("#qr03-scan", { y: 400, duration: 0.7, ease: "none" }, 0.7);
+        tl.to("#qr03-wash", { scaleY: 1, duration: 0.7, ease: "none" }, 0.7);
+        tl.to("#qr03-scan", { opacity: 0, duration: 0.15, ease: "power1.out" }, 1.38);
+        tl.to(".qr03-corner", { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 1.32);
+
+        // ---- Scene 2 (1.6–3.0): "y entran al álbum" — card slides away, phone refocuses ----
+        tl.to("#qr03-card", { x: -760, y: 140, rotation: -14, opacity: 0, duration: 0.55, ease: "power2.in" }, 1.6);
+        tl.to("#qr03-phone", { "--dof": "0px", opacity: 1, duration: 0.6, ease: "power2.inOut" }, 1.6);
+        tl.to("#qr03-headline", { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "back.out(1.7)" }, 1.85);
+
+        // ---- Scene 3 (3.0–4.0): grid scrolls inside the screen to a02, then settles ----
+        tl.to("#qr03-shot-a", { y: -300, duration: 0.75, ease: "power2.inOut" }, 3.0);
+        tl.to("#qr03-shot-a", { opacity: 0, duration: 0.45, ease: "power1.inOut" }, 3.15);
+        tl.to("#qr03-shot-b", { y: 0, duration: 0.75, ease: "power2.inOut" }, 3.0);
+        tl.to("#qr03-shot-b", { opacity: 1, duration: 0.45, ease: "power1.inOut" }, 3.1);
+
+        // pad timeline to the frame duration
+        tl.set({}, {}, DURATION);
+
+        window.__timelines = window.__timelines || {};
+        window.__timelines["03-qr"] = tl;
+      })();
+    </script>
+  </div>
+</template>

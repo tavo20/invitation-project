@@ -1,10 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@700&display=swap');
+
 $bg: #0d0d0d;
 $surface: #1a1a1a;
 $surface-2: #242424;
 $text: #f0f0f0;
 $text-muted: #888;
-$accent: #1db954;
-$accent-hover: #1ed760;
+$accent: #c77dff; // Violeta neón: el color de La Pista
+$accent-hover: #d69bff;
+$accent-2: #ff4fd8;
+$font-display: 'Unbounded', 'Inter', sans-serif;
 $warn: #f0ad4e;
 $danger: #e74c3c;
 $radius: 12px;
@@ -47,6 +51,37 @@ $radius-sm: 8px;
   &:hover { color: $text; }
 }
 
+// Marca de la app (igual que en la vista del invitado)
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 0;
+
+  &__icon {
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, $accent 0%, $accent-2 100%);
+
+    svg { width: 15px; height: 15px; fill: none; stroke: $bg; stroke-width: 2; }
+  }
+
+  &__name {
+    font-family: $font-display;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, $accent, $accent-2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
 // Header
 .panel {
   &__header {
@@ -62,8 +97,10 @@ $radius-sm: 8px;
   }
 
   &__title {
-    font-size: 1.3rem;
+    font-family: $font-display;
+    font-size: 1.2rem;
     font-weight: 700;
+    line-height: 1.2;
     margin: 0;
   }
 
@@ -130,7 +167,7 @@ $radius-sm: 8px;
 .now-playing {
   margin: 0 16px 16px;
   padding: 14px;
-  background: linear-gradient(135deg, #1a3a2a 0%, $surface 100%);
+  background: linear-gradient(135deg, #2a1640 0%, $surface 100%);
   border-radius: $radius;
   border: 1px solid rgba($accent, 0.2);
 

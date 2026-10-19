@@ -1,0 +1,58 @@
+{
+  "provider": "elevenlabs",
+  "speed": 1,
+  "lines": [
+    {
+      "id": "01",
+      "text": "En tu boda, todos quieren dos cosas: ver las fotos… y escuchar su canción."
+    },
+    {
+      "id": "02",
+      "text": "Con InvitApp, tu evento trae dos apps: el Álbum… y La Pista."
+    },
+    {
+      "id": "03",
+      "text": "Tus invitados escanean el QR de su mesa… y entran al álbum."
+    },
+    {
+      "id": "04",
+      "text": "Suben sus fotos y videos en segundos… y aparecen al instante."
+    },
+    {
+      "id": "05",
+      "text": "Todos recorren el álbum… y dan me gusta con dos toques."
+    },
+    {
+      "id": "06",
+      "text": "Y tú, desde tu panel, lo ves todo: apruebas, ocultas… y descargas el álbum completo."
+    },
+    {
+      "id": "07",
+      "text": "¿Y la música? Un toque…"
+    },
+    {
+      "id": "08",
+      "text": "y en La Pista, tus invitados piden la canción que quieren que suene."
+    },
+    {
+      "id": "09",
+      "text": "Votan entre ellos… y las favoritas suben."
+    },
+    {
+      "id": "10",
+      "text": "Tu DJ entra con su propio link y lo modera todo: acepta, rechaza… y la pone."
+    },
+    {
+      "id": "11",
+      "text": "Y cada invitado ve cuando su canción está en cola… y cuando suena."
+    },
+    {
+      "id": "12",
+      "text": "InvitApp. Tus recuerdos y tu música, en manos de todos. Escríbenos."
+    }
+  ],
+  "bgm": {
+    "mode": "none"
+  },
+  "voice": "nPczCjzI2devNBz1zQrb"
+}

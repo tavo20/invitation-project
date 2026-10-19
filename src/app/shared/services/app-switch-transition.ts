@@ -22,6 +22,8 @@ export function appSwitchTransition({ transition, from, to }: ViewTransitionInfo
   const fromApp = appOf(from);
   const toApp = appOf(to);
   if (!fromApp || !toApp || fromApp === toApp) {
+    // saltar la transición rechaza `ready` con AbortError: se descarta para no ensuciar la consola
+    transition.ready.catch(() => {});
     transition.skipTransition();
     return;
   }

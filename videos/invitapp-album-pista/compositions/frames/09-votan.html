@@ -1,0 +1,198 @@
+<template id="09-votan-template">
+<div data-hf-id="hf-b1y2" id="root" data-composition-id="09-votan" data-width="1080" data-height="1920" data-start="0" data-duration="3.286">
+  <style>
+    @font-face{font-family:"Inter";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Inter-400.woff2") format("woff2");}
+    @font-face{font-family:"Inter";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Inter-500.woff2") format("woff2");}
+    @font-face{font-family:"Unbounded";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Unbounded-600.woff2") format("woff2");}
+    @font-face{font-family:"Unbounded";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Unbounded-700.woff2") format("woff2");}
+
+    #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+
+    [data-composition-id="09-votan"] .\30 9-votan-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 45% at 12% 8%, rgba(199,125,255,0.18), rgba(199,125,255,0) 70%),
+        radial-gradient(ellipse 60% 40% at 92% 10%, rgba(255,79,216,0.10), rgba(255,79,216,0) 70%),
+        #0d0d0d;
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-stage { position: absolute; inset: 0; }
+
+    /* Shared phone: base center (540,820), outer 573x1208 */
+    [data-composition-id="09-votan"] .\30 9-votan-phone {
+      position: absolute; left: 253.5px; top: 216px; width: 573px; height: 1208px;
+      border-radius: 66px; background: #111; box-sizing: border-box;
+      box-shadow: 0 40px 90px -30px rgba(0,0,0,0.8), 0 0 60px -20px rgba(199,125,255,0.25);
+      transform-origin: 50% 50%;
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-screen {
+      position: absolute; left: 14px; top: 14px; width: 545px; height: 1180px;
+      border-radius: 52px; overflow: hidden; background: #0d0d0d;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.08);
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-shot {
+      position: absolute; left: 0; top: 0; width: 545px; height: 1180px;
+      object-fit: cover; object-position: top center; display: block;
+    }
+    /* overlays in screen coordinates; heart of "Ay, DiOs Mío!" at (479,602) */
+    [data-composition-id="09-votan"] .\30 9-votan-tap {
+      position: absolute; left: 457px; top: 580px; width: 44px; height: 44px;
+      border-radius: 50%; background: rgba(199,125,255,0.45);
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-ring {
+      position: absolute; left: 457px; top: 580px; width: 44px; height: 44px;
+      border-radius: 50%; border: 2px solid rgba(199,125,255,0.9); box-sizing: border-box;
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-pop {
+      position: absolute; left: 463px; top: 587px; width: 32px; height: 30px;
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-plus {
+      position: absolute; left: 500px; top: 600px;
+      font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 18px; color: #ff4fd8;
+    }
+
+    /* floating small hearts (canvas coords, right of the tapped heart) */
+    [data-composition-id="09-votan"] .\30 9-votan-fh { position: absolute; width: 44px; height: 40px; }
+
+    /* podium cards */
+    [data-composition-id="09-votan"] .\30 9-votan-card {
+      position: absolute; width: 440px; height: 132px; box-sizing: border-box;
+      display: flex; align-items: center; gap: 18px; padding: 0 22px 0 20px;
+      background: rgba(26,26,26,0.94); border: 1px solid rgba(199,125,255,0.28); border-radius: 28px;
+      box-shadow: 0 30px 70px -24px rgba(0,0,0,0.85);
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-card.\30 9-votan-first {
+      border-color: rgba(255,79,216,0.7);
+      box-shadow: 0 30px 70px -24px rgba(0,0,0,0.85), 0 0 50px -10px rgba(255,79,216,0.45);
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-num {
+      width: 44px; flex: none; text-align: center;
+      font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 46px; line-height: 1; color: #9a9a9a;
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-first .\30 9-votan-num {
+      background: linear-gradient(160deg, #c77dff, #ff4fd8);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-cover {
+      width: 84px; height: 84px; flex: none; border-radius: 14px; object-fit: cover; display: block;
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-meta { flex: 1; min-width: 0; }
+    [data-composition-id="09-votan"] .\30 9-votan-title {
+      font-family: "Unbounded", sans-serif; font-weight: 600; font-size: 21px; line-height: 1.15;
+      color: #f0f0f0; white-space: nowrap;
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-artist {
+      margin-top: 6px; font-family: "Inter", sans-serif; font-weight: 500; font-size: 18px; color: #9a9a9a; white-space: nowrap;
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-likes {
+      flex: none; width: 46px; display: flex; flex-direction: column; align-items: center; gap: 4px;
+      font-family: "Unbounded", sans-serif; font-weight: 700; font-size: 20px; color: #f0f0f0;
+    }
+    [data-composition-id="09-votan"] .\30 9-votan-first .\30 9-votan-likes { color: #ff4fd8; }
+    [data-composition-id="09-votan"] .\30 9-votan-likes svg { width: 34px; height: 31px; display: block; }
+  </style>
+
+  <div data-hf-id="hf-w5j3" class="clip 09-votan-bg" data-start="0" data-duration="3.286" data-track-index="0"></div>
+
+  <div data-hf-id="hf-wo63" class="clip 09-votan-stage" data-start="0" data-duration="3.286" data-track-index="1">
+    <div data-hf-id="hf-gwg3" class="09-votan-phone">
+      <div data-hf-id="hf-6ikt" class="09-votan-screen">
+        <img data-hf-id="hf-b0fh" class="09-votan-shot 09-votan-s3" src="assets/m03-requested.png" alt="">
+        <img data-hf-id="hf-e0l8" class="09-votan-shot 09-votan-s4" src="assets/m04-liked.png" alt="">
+        <img data-hf-id="hf-1h3s" class="09-votan-shot 09-votan-s5" src="assets/m05-now-playing.png" alt="">
+        <svg data-hf-id="hf-ouiw" class="09-votan-pop" viewBox="0 0 24 22"><path data-hf-id="hf-ncsb" d="M12 21.5 10.3 20C4.2 14.5 0.5 11.1 0.5 6.9 0.5 3.5 3.1 1 6.4 1c1.9 0 3.7.9 5.6 2.9C13.9 1.9 15.7 1 17.6 1 20.9 1 23.5 3.5 23.5 6.9c0 4.2-3.7 7.6-9.8 13.1z" fill="#e8453c" /></svg>
+        <div data-hf-id="hf-m5l5" class="09-votan-plus">+1</div>
+        <div data-hf-id="hf-4ktz" class="09-votan-ring"></div>
+        <div data-hf-id="hf-ttqc" class="09-votan-tap"></div>
+      </div>
+    </div>
+
+    <svg data-hf-id="hf-ajc4" class="09-votan-fh 09-votan-fh1" style="left:610px;top:760px" viewBox="0 0 24 22"><path data-hf-id="hf-ha5l" d="M12 21.5 10.3 20C4.2 14.5 0.5 11.1 0.5 6.9 0.5 3.5 3.1 1 6.4 1c1.9 0 3.7.9 5.6 2.9C13.9 1.9 15.7 1 17.6 1 20.9 1 23.5 3.5 23.5 6.9c0 4.2-3.7 7.6-9.8 13.1z" fill="#ff4fd8" /></svg>
+    <svg data-hf-id="hf-3n8g" class="09-votan-fh 09-votan-fh2" style="left:660px;top:790px;width:32px;height:29px" viewBox="0 0 24 22"><path data-hf-id="hf-ttmj" d="M12 21.5 10.3 20C4.2 14.5 0.5 11.1 0.5 6.9 0.5 3.5 3.1 1 6.4 1c1.9 0 3.7.9 5.6 2.9C13.9 1.9 15.7 1 17.6 1 20.9 1 23.5 3.5 23.5 6.9c0 4.2-3.7 7.6-9.8 13.1z" fill="#e8453c" /></svg>
+    <svg data-hf-id="hf-x58a" class="09-votan-fh 09-votan-fh3" style="left:625px;top:820px;width:26px;height:24px" viewBox="0 0 24 22"><path data-hf-id="hf-kse8" d="M12 21.5 10.3 20C4.2 14.5 0.5 11.1 0.5 6.9 0.5 3.5 3.1 1 6.4 1c1.9 0 3.7.9 5.6 2.9C13.9 1.9 15.7 1 17.6 1 20.9 1 23.5 3.5 23.5 6.9c0 4.2-3.7 7.6-9.8 13.1z" fill="#c77dff" /></svg>
+
+    <div data-hf-id="hf-blx8" class="09-votan-card 09-votan-first 09-votan-c1" style="left:560px;top:560px">
+      <div data-hf-id="hf-4i1i" class="09-votan-num">1</div>
+      <img data-hf-id="hf-0ujd" class="09-votan-cover" src="assets/cover-tusa.jpg" alt="">
+      <div data-hf-id="hf-06hm" class="09-votan-meta"><div data-hf-id="hf-a1a8" class="09-votan-title">Ay, DiOs Mío!</div><div data-hf-id="hf-385w" class="09-votan-artist">KAROL G</div></div>
+      <div data-hf-id="hf-jc9t" class="09-votan-likes"><svg data-hf-id="hf-pw2f" viewBox="0 0 24 22"><path data-hf-id="hf-tfbi" d="M12 21.5 10.3 20C4.2 14.5 0.5 11.1 0.5 6.9 0.5 3.5 3.1 1 6.4 1c1.9 0 3.7.9 5.6 2.9C13.9 1.9 15.7 1 17.6 1 20.9 1 23.5 3.5 23.5 6.9c0 4.2-3.7 7.6-9.8 13.1z" fill="#e8453c" /></svg>8</div>
+    </div>
+    <div data-hf-id="hf-88qq" class="09-votan-card 09-votan-c2" style="left:585px;top:712px">
+      <div data-hf-id="hf-4wcj" class="09-votan-num">2</div>
+      <img data-hf-id="hf-wdbs" class="09-votan-cover" src="assets/cover-la-gota-fria.jpg" alt="">
+      <div data-hf-id="hf-u5mm" class="09-votan-meta"><div data-hf-id="hf-solf" class="09-votan-title">La Gota Fría</div><div data-hf-id="hf-wqed" class="09-votan-artist">Carlos Vives</div></div>
+      <div data-hf-id="hf-lbsy" class="09-votan-likes"><svg data-hf-id="hf-zhqv" viewBox="0 0 24 22"><path data-hf-id="hf-4u0i" d="M12 21.5 10.3 20C4.2 14.5 0.5 11.1 0.5 6.9 0.5 3.5 3.1 1 6.4 1c1.9 0 3.7.9 5.6 2.9C13.9 1.9 15.7 1 17.6 1 20.9 1 23.5 3.5 23.5 6.9c0 4.2-3.7 7.6-9.8 13.1z" fill="none" stroke="#f0f0f0" stroke-width="2" /></svg>5</div>
+    </div>
+    <div data-hf-id="hf-p4ao" class="09-votan-card 09-votan-c3" style="left:610px;top:864px">
+      <div data-hf-id="hf-5ank" class="09-votan-num">3</div>
+      <img data-hf-id="hf-il4t" class="09-votan-cover" src="assets/cover-cali-pachanguero.jpg" alt="">
+      <div data-hf-id="hf-ujxn" class="09-votan-meta"><div data-hf-id="hf-aplv" class="09-votan-title">Cali Pachanguero</div><div data-hf-id="hf-te4s" class="09-votan-artist">Grupo Niche</div></div>
+      <div data-hf-id="hf-npn4" class="09-votan-likes"><svg data-hf-id="hf-z3fu" viewBox="0 0 24 22"><path data-hf-id="hf-5oza" d="M12 21.5 10.3 20C4.2 14.5 0.5 11.1 0.5 6.9 0.5 3.5 3.1 1 6.4 1c1.9 0 3.7.9 5.6 2.9C13.9 1.9 15.7 1 17.6 1 20.9 1 23.5 3.5 23.5 6.9c0 4.2-3.7 7.6-9.8 13.1z" fill="none" stroke="#f0f0f0" stroke-width="2" /></svg>3</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var root = document.querySelector('[data-composition-id="09-votan"]');
+      function el(n) { return root.getElementsByClassName('09-votan-' + n)[0]; }
+      var phone = el('phone'), s3 = el('s3'), s4 = el('s4'), s5 = el('s5');
+      var tap = el('tap'), ring = el('ring'), pop = el('pop'), plus = el('plus');
+      var fh = [el('fh1'), el('fh2'), el('fh3')];
+      var cards = [el('c1'), el('c2'), el('c3')];
+
+      var tl = gsap.timeline({ paused: true });
+
+      // handoff_in state: phone at base (x 50%, scale 0.74) showing m03
+      tl.set(phone, { x: 0, y: 0, scale: 1, opacity: 1 }, 0);
+      tl.set(s3, { opacity: 1 }, 0);
+      tl.set([s4, s5], { opacity: 0 }, 0);
+      tl.set([tap, ring, pop, plus], { opacity: 0 }, 0);
+      tl.set(fh, { opacity: 0 }, 0);
+      tl.set(cards, { opacity: 0 }, 0);
+
+      // Scene 1 — zoom-to-target on the "Ay, DiOs Mío!" row
+      tl.fromTo(phone, { x: 0, y: 0, scale: 1 }, { x: -290, y: -60, scale: 1.5, duration: 0.6, ease: 'power3.inOut' }, 0.05);
+
+      // finger tap on the heart (button press)
+      tl.fromTo(tap, { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.12, ease: 'power2.out' }, 0.56);
+      tl.to(tap, { scale: 0.85, duration: 0.08, ease: 'power2.in' }, 0.68);
+      tl.to(tap, { scale: 1, opacity: 0, duration: 0.22, ease: 'power2.out' }, 0.76);
+      tl.fromTo(ring, { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.6, duration: 0.42, ease: 'power2.out' }, 0.76);
+
+      // heart fills red + counter 7 -> 8 (screen swap m03 -> m04)
+      tl.fromTo(s4, { opacity: 0 }, { opacity: 1, duration: 0.1, ease: 'none' }, 0.76);
+      tl.fromTo(pop, { opacity: 1, scale: 0.2 }, { opacity: 1, scale: 1.4, duration: 0.14, ease: 'back.out(3)' }, 0.76);
+      tl.to(pop, { scale: 1, duration: 0.14, ease: 'power2.out' }, 0.9);
+      tl.to(pop, { opacity: 0, duration: 0.2, ease: 'none' }, 1.1);
+      tl.fromTo(plus, { opacity: 0, y: 10, scale: 0.6 }, { opacity: 1, y: -14, scale: 1.15, duration: 0.22, ease: 'back.out(2.5)' }, 0.8);
+      tl.to(plus, { y: -34, opacity: 0, duration: 0.4, ease: 'power1.in' }, 1.05);
+
+      // three small hearts float up on the right
+      var fhPath = [{ x: 40, y: -230, r: 12 }, { x: 110, y: -190, r: -10 }, { x: 70, y: -150, r: 18 }];
+      fh.forEach(function (h, i) {
+        var t = 0.84 + i * 0.09;
+        tl.fromTo(h, { opacity: 0, x: 0, y: 0, scale: 0.4, rotation: 0 },
+          { opacity: 1, scale: 1, duration: 0.18, ease: 'back.out(2)' }, t);
+        tl.to(h, { x: fhPath[i].x, y: fhPath[i].y, rotation: fhPath[i].r, duration: 0.62, ease: 'power1.out' }, t);
+        tl.to(h, { opacity: 0, duration: 0.24, ease: 'power1.in' }, t + 0.42);
+      });
+
+      // Scene 2 — phone back to base, now showing m05
+      tl.to(phone, { x: 0, y: 0, scale: 1, duration: 0.42, ease: 'power3.inOut' }, 1.6);
+      tl.fromTo(s5, { opacity: 0 }, { opacity: 1, duration: 0.22, ease: 'none' }, 1.68);
+
+      // podium cards cascade into their slots (grid-card-assemble)
+      cards.forEach(function (c, i) {
+        tl.fromTo(c, { opacity: 0, x: 60, y: 40, scale: 0.94 },
+          { opacity: 1, x: 0, y: 0, scale: i === 0 ? 1.04 : 1, duration: 0.34, ease: 'power3.out' }, 1.86 + i * 0.09);
+      });
+      // quiet held read: faint drift so the hold stays alive
+      tl.to(cards, { y: -8, duration: 0.5, ease: 'sine.inOut' }, 2.28);
+      tl.to({}, { duration: 0.001 }, 2.785);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["09-votan"] = tl;
+    })();
+  </script>
+</div>
+</template>

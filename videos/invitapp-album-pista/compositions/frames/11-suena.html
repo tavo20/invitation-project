@@ -1,0 +1,195 @@
+<template id="11-suena-template">
+<div data-hf-id="hf-f7bg" id="root" data-composition-id="11-suena" data-width="1080" data-height="1920" data-start="0" data-duration="5.098">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face{font-family:"Inter";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Inter-400.woff2") format("woff2");}
+@font-face{font-family:"Inter";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Inter-500.woff2") format("woff2");}
+@font-face{font-family:"Unbounded";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Unbounded-600.woff2") format("woff2");}
+@font-face{font-family:"Unbounded";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Unbounded-700.woff2") format("woff2");}
+#root{position:relative;width:1080px;height:1920px;overflow:hidden;container-type:size;}
+#root .s11-bg{position:absolute;inset:0;width:1080px;height:1920px;background:#0d0d0d;overflow:hidden;}
+#root .s11-bg-glow{position:absolute;inset:0;
+  background:radial-gradient(900px 760px at 12% 8%,rgba(199,125,255,0.18),rgba(199,125,255,0) 70%),
+             radial-gradient(800px 700px at 92% 6%,rgba(255,79,216,0.10),rgba(255,79,216,0) 70%);}
+/* cover tint — blurred real cover + violet wash, behind the phone */
+#root .s11-tint{position:absolute;left:90px;top:330px;width:900px;height:980px;opacity:0;transform-origin:50% 50%;}
+#root .s11-tint img{position:absolute;left:150px;top:190px;width:600px;height:600px;filter:blur(90px);opacity:0.75;}
+#root .s11-tint-wash{position:absolute;inset:0;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(199,125,255,0.55),rgba(255,79,216,0.18) 55%,rgba(13,13,13,0) 100%);}
+
+#root .s11-eyebrow{position:absolute;left:0;width:1080px;top:66px;text-align:center;font-family:"Unbounded";font-weight:700;
+  font-size:18px;letter-spacing:5px;text-transform:uppercase;color:#c77dff;}
+#root .s11-head{position:absolute;left:40px;width:1000px;top:104px;display:flex;justify-content:center;gap:0 18px;
+  font-family:"Unbounded";font-weight:700;font-size:58px;line-height:1.1;color:#f0f0f0;white-space:nowrap;}
+#root .s11-head span{display:inline-block;}
+#root .s11-head .s11-hot{color:#ff4fd8;}
+
+/* shared phone — base state: center 540,820 */
+#root .s11-phone{position:absolute;left:253.5px;top:216px;width:573px;height:1208px;box-sizing:border-box;padding:14px;
+  border-radius:66px;background:#111;
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08),0 40px 90px -30px rgba(0,0,0,0.8),0 0 60px -20px rgba(199,125,255,0.25);}
+#root .s11-screen{position:relative;width:545px;height:1180px;border-radius:52px;overflow:hidden;background:#0d0d0d;}
+#root .s11-state{position:absolute;left:0;top:0;width:545px;height:1180px;transform-origin:50% 50%;}
+#root .s11-state > img{position:absolute;left:0;top:0;width:545px;height:1180px;object-fit:cover;object-position:top center;}
+#root .s11-patch{position:absolute;background:#1a1a1a;}
+#root .s11-crop{position:absolute;overflow:hidden;border-radius:16px;transform-origin:50% 50%;}
+#root .s11-crop img{position:absolute;width:545px;height:1180px;object-fit:cover;object-position:top center;}
+#root .s11-pill-glow{position:absolute;left:80px;top:672px;width:180px;height:88px;border-radius:50%;opacity:0;
+  background:radial-gradient(closest-side,rgba(199,125,255,0.85),rgba(199,125,255,0) 100%);}
+#root .s11-eq-patch{position:absolute;left:476px;top:383px;width:34px;height:40px;border-radius:8px;background:rgb(28,25,31);}
+
+/* status chip under the phone */
+#root .s11-chipwrap{position:absolute;left:290px;top:1452px;width:500px;height:84px;}
+#root .s11-chip{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:18px;
+  border-radius:42px;font-family:"Unbounded";font-weight:700;font-size:30px;letter-spacing:2px;transform-origin:50% 50%;}
+#root .s11-chip-a{background:rgba(199,125,255,0.14);border:1px solid rgba(199,125,255,0.45);color:#c77dff;z-index:1;}
+#root .s11-chip-b{background:linear-gradient(90deg,#c77dff,#ff4fd8);color:#0d0d0d;z-index:2;opacity:0;}
+#root .s11-chip-a .s11-word{display:inline-block;}
+#root .s11-sub{position:absolute;left:0;width:1080px;top:1548px;text-align:center;font-family:"Inter";font-weight:500;
+  font-size:26px;letter-spacing:1px;color:#9a9a9a;}
+#root .s11-sub b{color:#f0f0f0;font-weight:500;}
+</style>
+
+<!-- full-bleed ground -->
+<div data-hf-id="hf-b1dc" id="s11-bg" class="clip s11-bg" data-start="0" data-duration="5.098" data-track-index="0">
+  <div data-hf-id="hf-sqzv" class="s11-bg-glow"></div>
+  <div data-hf-id="hf-x6ci" class="s11-tint" id="s11-tint">
+    <img data-hf-id="hf-x3wa" src="assets/cover-quedate.jpg" alt="">
+    <div data-hf-id="hf-35pf" class="s11-tint-wash"></div>
+  </div>
+</div>
+
+<div data-hf-id="hf-hy8w" id="s11-stage" class="clip" data-start="0" data-duration="5.098" data-track-index="1" style="position:absolute;inset:0;">
+  <div data-hf-id="hf-88b1" class="s11-eyebrow" id="s11-eyebrow">Mis pedidos</div>
+  <div data-hf-id="hf-cn6i" class="s11-head" id="s11-head">
+    <span data-hf-id="hf-zwkb" class="s11-hw">Tu</span><span data-hf-id="hf-1pl1" class="s11-hw">canción,</span><span data-hf-id="hf-sjar" class="s11-hw">en</span><span data-hf-id="hf-h3gt" class="s11-hw s11-hot">vivo</span>
+  </div>
+
+  <div data-hf-id="hf-b1tm" class="s11-phone" id="s11-phone">
+    <div data-hf-id="hf-xxci" class="s11-screen">
+      <!-- state A: en cola -->
+      <div data-hf-id="hf-i1sl" class="s11-state" id="s11-sa">
+        <img data-hf-id="hf-c51i" src="assets/m06-mine-queued.png" alt="">
+        <div data-hf-id="hf-hcis" class="s11-pill-glow" id="s11-pill-glow"></div>
+        <div data-hf-id="hf-2ysr" class="s11-patch" style="left:120px;top:700px;width:97px;height:31px;"></div>
+        <div data-hf-id="hf-ib1b" class="s11-crop" id="s11-crop-a" style="left:120px;top:700px;width:97px;height:31px;">
+          <img data-hf-id="hf-d0jw" src="assets/m06-mine-queued.png" alt="" style="left:-120px;top:-700px;">
+        </div>
+      </div>
+      <!-- state B: sonando -->
+      <div data-hf-id="hf-g14e" class="s11-state" id="s11-sb" style="opacity:0;">
+        <img data-hf-id="hf-8fmx" src="assets/m08-mine-playing.png" alt="">
+        <div data-hf-id="hf-f85i" class="s11-patch" style="left:120px;top:700px;width:121px;height:38px;"></div>
+        <div data-hf-id="hf-k55x" class="s11-crop" id="s11-crop-b" style="left:120px;top:700px;width:121px;height:38px;">
+          <img data-hf-id="hf-2a67" src="assets/m08-mine-playing.png" alt="" style="left:-120px;top:-700px;">
+        </div>
+      </div>
+      <!-- state C: sonando ahora (invitado) -->
+      <div data-hf-id="hf-1d35" class="s11-state" id="s11-sc" style="opacity:0;">
+        <img data-hf-id="hf-5caz" src="assets/m07-guest-playing.png" alt="">
+        <div data-hf-id="hf-f6eq" class="s11-eq-patch" id="s11-eq-patch"></div>
+        <svg data-hf-id="hf-2zvh" id="s11-eq" width="545" height="1180" viewBox="0 0 545 1180" style="position:absolute;left:0;top:0;opacity:0;">
+          <rect data-hf-id="hf-1n6c" id="s11-eq1" x="481.8" y="405" width="4.6" height="12" rx="2.3" fill="#c77dff" />
+          <rect data-hf-id="hf-0s8e" id="s11-eq2" x="490.4" y="391" width="4.6" height="26" rx="2.3" fill="#c77dff" />
+          <rect data-hf-id="hf-jqt5" id="s11-eq3" x="499.0" y="401" width="4.6" height="16" rx="2.3" fill="#c77dff" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-wge4" class="s11-chipwrap">
+    <div data-hf-id="hf-h4yi" class="s11-chip s11-chip-a" id="s11-chip-a"><span data-hf-id="hf-sau7" class="s11-word" id="s11-kw">¡En cola!</span></div>
+    <div data-hf-id="hf-n39m" class="s11-chip s11-chip-b" id="s11-chip-b">
+      <svg data-hf-id="hf-2b42" width="34" height="34" viewBox="0 0 34 34">
+        <rect data-hf-id="hf-ie9t" id="s11-cb1" x="3" y="12" width="6" height="22" rx="3" fill="#0d0d0d" />
+        <rect data-hf-id="hf-v71m" id="s11-cb2" x="14" y="4" width="6" height="30" rx="3" fill="#0d0d0d" />
+        <rect data-hf-id="hf-w126" id="s11-cb3" x="25" y="16" width="6" height="18" rx="3" fill="#0d0d0d" />
+      </svg>
+      <span data-hf-id="hf-elzp">Sonando</span>
+    </div>
+  </div>
+  <div data-hf-id="hf-92fg" class="s11-sub" id="s11-sub"><b data-hf-id="hf-2ble">quédate</b> · Beéle</div>
+</div>
+
+<script>
+(function(){
+  window.__timelines = window.__timelines || {};
+  const tl = gsap.timeline({ paused: true });
+  const D = 4.598;
+  const root = document.querySelector('[data-composition-id="11-suena"]');
+  const q = (s) => root.querySelector(s);
+
+  // ── Scene 1 (0–1.8): Laura's phone enters from the left and settles (static-tour establish)
+  tl.fromTo("#s11-phone", { x: -520, rotation: -4 }, { x: 0, rotation: 0, duration: 0.75, ease: "power3.out" }, 0);
+  tl.fromTo("#s11-eyebrow", { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.45, ease: "power2.out" }, 0.25);
+  // per-word staggered headline reveal
+  tl.fromTo("#s11-head .s11-hw", { opacity: 0, y: 42, filter: "blur(8px)" },
+    { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out", stagger: 0.12 }, 0.4);
+  tl.fromTo("#s11-chip-a", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, 0.75);
+
+  // keyword glow on "¡En cola!" — one linear driver, attack/sustain/release envelope
+  const KW = { start: 1.05, end: 1.75 }, ATTACK = 0.18, RELEASE = 0.35, REST = 0.15;
+  function env(t){
+    if (t < KW.start) return 0;
+    if (t < KW.end) return Math.min((t - KW.start) / ATTACK, 1);
+    if (t < KW.end + RELEASE) return 1 - ((t - KW.end) / RELEASE) * (1 - REST);
+    return REST;
+  }
+  const kw = q("#s11-kw"), pillGlow = q("#s11-pill-glow"), cropA = q("#s11-crop-a");
+  const drv = { t: 0 };
+  tl.to(drv, { t: 1.9, duration: 1.9, ease: "none", onUpdate: () => {
+    const e = env(drv.t);
+    kw.style.textShadow = `0 0 ${36 * e}px rgba(199,125,255,${0.9 * e})`;
+    kw.style.transform = `scale(${1 + 0.16 * e})`;
+    pillGlow.style.opacity = String(0.9 * e);
+    cropA.style.transform = `scale(${1 + 0.14 * e})`;
+  }}, 0);
+
+  // ── Scene 2 (1.8–3.0): "y cuando suena" — ¡En cola! → Sonando (scale-swap)
+  const T2 = 1.9;
+  tl.to("#s11-crop-a", { scale: 0.7, opacity: 0, duration: 0.3, ease: "power2.in" }, T2);
+  tl.to("#s11-sb", { opacity: 1, duration: 0.25, ease: "power1.out" }, T2 + 0.1);
+  tl.fromTo("#s11-crop-b", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.8)" }, T2 + 0.15);
+  tl.to("#s11-chip-a", { scale: 0.7, opacity: 0, duration: 0.3, ease: "power2.in" }, T2);
+  tl.fromTo("#s11-chip-b", { scale: 0.7, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.8)" }, T2 + 0.15);
+
+  // live equalizer bars in the chip (bounded phase tween)
+  const cb = [q("#s11-cb1"), q("#s11-cb2"), q("#s11-cb3")];
+  const ch = { p: 0 };
+  tl.to(ch, { p: Math.PI * 2 * 4.5, duration: D - (T2 + 0.3), ease: "none", onUpdate: () => {
+    cb.forEach((r, i) => {
+      const h = 14 + 16 * (0.5 + 0.5 * Math.sin(ch.p * (1 + i * 0.37) + i * 1.9));
+      r.setAttribute("y", String(34 - h)); r.setAttribute("height", String(h));
+    });
+  }}, T2 + 0.3);
+
+  // ── Scene 3 (3.0–4.598): screen → SONANDO AHORA · quédate (scale-swap) + cover tint bloom + live eq
+  const T3 = 3.0;
+  tl.to("#s11-sb", { scale: 0.94, opacity: 0, duration: 0.3, ease: "power2.in" }, T3);
+  tl.fromTo("#s11-sc", { scale: 0.94, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.4)" }, T3 + 0.18);
+  tl.fromTo("#s11-tint", { opacity: 0, scale: 0.85 }, { opacity: 0.32, scale: 1, duration: 1.0, ease: "power2.out" }, T3 + 0.1);
+  const tint = q("#s11-tint"), br = { p: 0 };
+  tl.to(br, { p: Math.PI * 0.9, duration: D - (T3 + 1.1), ease: "none", onUpdate: () => {
+    const s = Math.sin(br.p);
+    tint.style.opacity = String(0.32 + 0.04 * s);
+    tint.style.transform = `scale(${1 + 0.02 * s})`;
+  }}, T3 + 1.1);
+  tl.fromTo("#s11-sub", { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, T3 + 0.55);
+
+  // in-screen live equalizer next to SONANDO AHORA title
+  tl.fromTo("#s11-eq", { opacity: 0 }, { opacity: 1, duration: 0.2, ease: "none" }, T3 + 0.18);
+  const eb = [q("#s11-eq1"), q("#s11-eq2"), q("#s11-eq3")];
+  const eq = { p: 0 };
+  tl.to(eq, { p: Math.PI * 2 * 3.2, duration: D - (T3 + 0.18), ease: "none", onUpdate: () => {
+    eb.forEach((r, i) => {
+      const h = 9 + 18 * (0.5 + 0.5 * Math.sin(eq.p * (1 + i * 0.41) + i * 2.1));
+      r.setAttribute("y", String(417 - h)); r.setAttribute("height", String(h));
+    });
+  }}, T3 + 0.18);
+
+  tl.set({}, {}, D);
+  window.__timelines["11-suena"] = tl;
+})();
+</script>
+</div>
+</template>

@@ -1,0 +1,266 @@
+<template>
+  <style>
+    @font-face{font-family:"Inter";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Inter-400.woff2") format("woff2");}
+    @font-face{font-family:"Inter";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Inter-500.woff2") format("woff2");}
+    @font-face{font-family:"Cormorant Garamond";font-weight:400 700;font-style:normal;font-display:block;src:url("assets/fonts/CormorantGaramond-Regular.woff2") format("woff2");}
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+    }
+    .p06-bg {
+      position: absolute;
+      inset: 0;
+      background: #faf7f4;
+    }
+    .p06-ring {
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid #d9cbc2;
+      opacity: 0.4;
+    }
+    .p06-ring::before {
+      content: "";
+      position: absolute;
+      inset: 13%;
+      border-radius: 50%;
+      border: 1px dashed #d9cbc2;
+    }
+    .p06-ring-a { width: 980px; height: 980px; left: 420px; top: 120px; }
+    .p06-ring-b { width: 520px; height: 520px; left: -220px; top: 1080px; opacity: 0.3; }
+
+    /* Shared phone (base state: center 540,820 → outer 573x1208 at left 253.5 / top 216) */
+    #p06-phone {
+      position: absolute;
+      left: 253.5px;
+      top: 216px;
+      width: 573px;
+      height: 1208px;
+      border-radius: 66px;
+      background: #111;
+      box-shadow: 0 40px 80px -30px rgba(43,36,32,0.45);
+    }
+    #p06-phone::after {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      border-radius: 53px;
+      border: 1px solid rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    .p06-screen {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      width: 545px;
+      height: 1180px;
+      border-radius: 52px;
+      overflow: hidden;
+      background: #faf7f4;
+    }
+    #p06-cam {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 545px;
+      height: 1180px;
+    }
+    .p06-shot {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 545px;
+      height: 1180px;
+      object-fit: cover;
+      object-position: top center;
+    }
+    #p06-zipglow {
+      position: absolute;
+      left: 20px;
+      top: 554px;
+      width: 505px;
+      height: 71px;
+      border-radius: 36px;
+      border: 2px solid rgba(214,160,152,0.95);
+      box-shadow: 0 0 28px 6px rgba(182,131,124,0.55), 0 0 60px 14px rgba(232,180,172,0.35);
+    }
+    #p06-tap {
+      position: absolute;
+      left: 72.5px;
+      top: 966px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(43,36,32,0.18);
+    }
+    #p06-tapring {
+      position: absolute;
+      left: 72.5px;
+      top: 966px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 2px solid rgba(43,36,32,0.35);
+    }
+
+    /* Stats column (stats-cluster: hairline top + Cormorant figure + taupe label) */
+    .p06-stat {
+      position: absolute;
+      left: 660px;
+      width: 360px;
+      height: 200px;
+      border-top: 1px solid #d9cbc2;
+      padding-top: 18px;
+      box-sizing: border-box;
+    }
+    .p06-num {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 400;
+      font-size: 128px;
+      line-height: 1;
+      color: #2b2420;
+      transform-origin: 0 100%;
+      display: inline-block;
+    }
+    .p06-lab {
+      margin-top: 10px;
+      font-family: "Inter", sans-serif;
+      font-weight: 500;
+      font-size: 24px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #b6837c;
+    }
+    #p06-s1 { top: 330px; }
+    #p06-s2 { top: 560px; }
+    #p06-s3 { top: 790px; }
+
+    /* Action chips */
+    .p06-chip {
+      position: absolute;
+      left: 660px;
+      width: 300px;
+      height: 84px;
+      border: 1px solid #d9cbc2;
+      background: rgba(255,255,255,0.45);
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      font-family: "Inter", sans-serif;
+      font-weight: 500;
+      font-size: 30px;
+      color: #2b2420;
+    }
+    .p06-chip .p06-mark { color: #b6837c; font-size: 30px; }
+    #p06-c1 { top: 1050px; }
+    #p06-c2 { top: 1156px; }
+  </style>
+
+  <div data-hf-id="hf-q7ol" id="root" data-composition-id="06-panel-novios" data-width="1080" data-height="1920" data-duration="6.13">
+    <div data-hf-id="hf-jn24" class="clip p06-bg" data-start="0" data-duration="6.13" data-track-index="0">
+      <div data-hf-id="hf-9b9g" class="p06-ring p06-ring-a"></div>
+      <div data-hf-id="hf-k6r3" class="p06-ring p06-ring-b"></div>
+    </div>
+
+    <div data-hf-id="hf-0yr5" class="clip" id="p06-stage" data-start="0" data-duration="6.13" data-track-index="1" style="position:absolute;inset:0;">
+      <div data-hf-id="hf-h51i" id="p06-phone">
+        <div data-hf-id="hf-jifn" class="p06-screen">
+          <div data-hf-id="hf-8377" id="p06-cam">
+            <img data-hf-id="hf-jqeu" class="p06-shot" id="p06-b01" src="assets/b01-admin-top.png" alt="">
+            <img data-hf-id="hf-dho2" class="p06-shot" id="p06-b03" src="assets/b03-admin-pending.png" alt="">
+            <img data-hf-id="hf-4z3o" class="p06-shot" id="p06-b04" src="assets/b04-admin-approved.png" alt="">
+            <div data-hf-id="hf-2mtk" id="p06-zipglow"></div>
+          </div>
+          <div data-hf-id="hf-a273" id="p06-tapring"></div>
+          <div data-hf-id="hf-5d4h" id="p06-tap"></div>
+        </div>
+      </div>
+
+      <div data-hf-id="hf-f1x0" class="p06-stat" id="p06-s1"><span data-hf-id="hf-tgy4" class="p06-num" id="p06-n1">0</span><div data-hf-id="hf-4q7b" class="p06-lab">fotos</div></div>
+      <div data-hf-id="hf-npsv" class="p06-stat" id="p06-s2"><span data-hf-id="hf-zs1p" class="p06-num" id="p06-n2">0</span><div data-hf-id="hf-3aek" class="p06-lab">videos</div></div>
+      <div data-hf-id="hf-jrou" class="p06-stat" id="p06-s3"><span data-hf-id="hf-3cl6" class="p06-num" id="p06-n3">0</span><div data-hf-id="hf-k5sx" class="p06-lab">invitados</div></div>
+
+      <div data-hf-id="hf-fccs" class="p06-chip" id="p06-c1"><span data-hf-id="hf-ibfq" class="p06-mark">✓</span><span data-hf-id="hf-dbl0">Aprobar</span></div>
+      <div data-hf-id="hf-q7uf" class="p06-chip" id="p06-c2"><span data-hf-id="hf-pglt">Ocultar</span></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      window.__timelines = window.__timelines || {};
+      var tl = gsap.timeline({ paused: true });
+      var q = function (s) { return document.querySelector(s); };
+
+      // Initial states (set at t=0 so seeking is deterministic)
+      tl.set("#p06-phone", { x: 0, y: 0, scale: 1, transformOrigin: "50% 50%" }, 0);
+      tl.set("#p06-cam", { x: 0, y: 0, scale: 1, transformOrigin: "0 0" }, 0);
+      tl.set(["#p06-b03", "#p06-b04"], { opacity: 0 }, 0);
+      tl.set(["#p06-zipglow", "#p06-tap", "#p06-tapring"], { opacity: 0 }, 0);
+      tl.set([".p06-stat", ".p06-chip"], { x: 0, y: 0, scale: 1, transformOrigin: "0 0" }, 0);
+
+      // ---------- Scene 1 (0.0–1.8): phone slides left (60/40), stats count up ----------
+      tl.to("#p06-phone", { x: -200, scale: 0.9, duration: 0.8, ease: "power3.inOut" }, 0);
+
+      var stats = [
+        { box: "#p06-s1", num: "#p06-n1", end: 235, at: 0.45 },
+        { box: "#p06-s2", num: "#p06-n2", end: 19, at: 0.7 },
+        { box: "#p06-s3", num: "#p06-n3", end: 64, at: 0.95 }
+      ];
+      stats.forEach(function (s) {
+        var el = q(s.num);
+        var lab = q(s.box + " .p06-lab");
+        var counter = { v: 0 };
+        tl.fromTo(s.box, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, s.at);
+        // value-scaled counter: number and its scale land on the same ease
+        tl.fromTo(counter, { v: 0 }, {
+          v: s.end, duration: 0.85, ease: "power2.out",
+          onUpdate: function () { el.textContent = String(Math.round(counter.v)); }
+        }, s.at);
+        tl.fromTo(el, { scale: 0.55 }, { scale: 1, duration: 0.85, ease: "power2.out" }, s.at);
+        tl.fromTo(lab, { opacity: 0, x: -14 }, { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }, s.at + 0.3);
+      });
+
+      // ---------- Scene 2 (1.8–3.8): moderation — swap to pending, zoom, tap Aprobar ----------
+      // scale-swap into b03
+      tl.fromTo("#p06-b03", { opacity: 0, scale: 1.04, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.3, ease: "power2.out" }, 1.8);
+      // zoom-to-target onto the "Por aprobar" cards
+      tl.to("#p06-cam", { x: -27.5, y: -589, scale: 1.5, duration: 0.6, ease: "power3.inOut" }, 1.95);
+      // "✓ Aprobar" chip on "apruebas"
+      tl.fromTo("#p06-c1", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 2.25);
+      // finger tap on Aprobar (button press)
+      tl.fromTo("#p06-tap", { opacity: 0, scale: 1.2, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.18, ease: "power2.out" }, 2.45);
+      tl.to("#p06-tap", { scale: 0.85, duration: 0.12, ease: "power2.in" }, 2.63);
+      tl.fromTo("#p06-tapring", { opacity: 0.9, scale: 1, transformOrigin: "50% 50%" }, { opacity: 0, scale: 2.2, duration: 0.5, ease: "power2.out" }, 2.72);
+      tl.to("#p06-tap", { scale: 1, opacity: 0, duration: 0.25, ease: "power2.out" }, 2.75);
+      // card approved → b04
+      tl.fromTo("#p06-b04", { opacity: 0, scale: 1.03, transformOrigin: "50% 80%" }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 2.8);
+      // "Ocultar" chip on "ocultas"
+      tl.fromTo("#p06-c2", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.45, ease: "back.out(2)" }, 3.0);
+
+      // ---------- Scene 3 (3.8–6.13): ZIP glow, phone back to center, all settles ----------
+      tl.to("#p06-cam", { x: 0, y: 0, scale: 1, duration: 0.7, ease: "power3.inOut" }, 3.8);
+      tl.to("#p06-phone", { x: 0, scale: 1, duration: 0.8, ease: "power3.inOut" }, 3.85);
+      // stats reflow into a compact row above the phone (y ~85)
+      var rowX = [220, 540, 860], tops = [330, 560, 790], k = 0.55;
+      ["#p06-s1", "#p06-s2", "#p06-s3"].forEach(function (id, i) {
+        tl.to(id, { x: (rowX[i] - 99) - 660, y: 40 - tops[i], scale: k, duration: 0.8, ease: "power3.inOut" }, 3.85);
+      });
+      // chips settle in a row under the phone (above caption band)
+      tl.to("#p06-c1", { x: 225 - 660, y: 1452 - 1050, scale: 0.9, duration: 0.8, ease: "power3.inOut" }, 3.85);
+      tl.to("#p06-c2", { x: 585 - 660, y: 1452 - 1156, scale: 0.9, duration: 0.8, ease: "power3.inOut" }, 3.85);
+      // keyword glow on "Descargar todo el álbum (ZIP)"
+      tl.fromTo("#p06-zipglow", { opacity: 0, scale: 0.98, transformOrigin: "50% 50%" }, { opacity: 1, scale: 1, duration: 0.6, ease: "sine.out" }, 4.35);
+      // held read until the end
+      tl.to({}, { duration: 0.01 }, 6.12);
+
+      window.__timelines["06-panel-novios"] = tl;
+    })();
+  </script>
+</template>

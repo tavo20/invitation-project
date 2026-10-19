@@ -1,0 +1,26 @@
+# Fotos de stock (CC0 / dominio público, vía Openverse)
+
+- foto-101.jpg — Free bride her friends wedding — None — cc0 — https://www.rawpixel.com/image/5927328/photo-image-public-domain-wedding-people
+- foto-197.jpg — People Man — Mitchell Orr — cc0 — https://stocksnap.io/photo/people-man-PEY4YEIT4Z
+- foto-017.jpg — Wedding Party — Jason Briscoe — cc0 — https://stocksnap.io/photo/wedding-party-X3UU2014U4
+- foto-007.jpg — Wedding Groomsmen — Kats Weil — cc0 — https://stocksnap.io/photo/wedding-groomsmen-PCRS8AQQTF
+- foto-277.jpg — Free champagne sparkling wine image — None — cc0 — https://www.rawpixel.com/image/5925376/photo-image-new-year-public-domain-hand
+- foto-050.jpg — Bride Bridal — Chalo — cc0 — https://stocksnap.io/photo/bride-bridal-K0UO3I9GO3
+- foto-080.jpg — People Couple — Sweet Ice Cream Photography — cc0 — https://stocksnap.io/photo/people-couple-QLWIIBIEWM
+- foto-084.jpg — People Man — Glen McCallum — cc0 — https://stocksnap.io/photo/people-man-RWMC95HRC0
+- foto-019.jpg — Bride Wedding — Candace McDaniel — cc0 — https://stocksnap.io/photo/bride-wedding-MLZEIPZX1P
+- foto-004.jpg — Wedding Bride — Freestocks.org — cc0 — https://stocksnap.io/photo/wedding-bride-GI154PSYGF
+- foto-008.jpg — Marriage Wedding — Eric Alves — cc0 — https://stocksnap.io/photo/marriage-wedding-JB4CPU0LCU
+- foto-064.jpg — bride groom slow dance, holding — None — cc0 — https://www.rawpixel.com/image/3283200/free-photo-image-wedding-couple-bride
+- foto-021.jpg — Wedding reception tables wooden benches — None — cc0 — https://www.rawpixel.com/image/3283656/free-photo-image-wedding-ballroom-room
+- foto-022.jpg — Decorated wedding reception table — None — cc0 — https://www.rawpixel.com/image/5925661/photo-image-flowers-public-domain-celebration
+- foto-132.jpg — Cake Food — Ana Paula Lima — cc0 — https://stocksnap.io/photo/cake-food-GNWZ7VU0EC
+- foto-276.jpg — Free champagne sparkling wine image — None — cc0 — https://www.rawpixel.com/image/5927536/photo-image-new-year-public-domain-hand
+- foto-290.jpg — Pouring toast champagne wedding celebration — None — cc0 — https://www.rawpixel.com/image/5974759/photo-image-public-domain-glass-cocktail
+- foto-291.jpg — Bridesmaid Child — Jeremy Wong — cc0 — https://stocksnap.io/photo/bridesmaid-child-PHZBKMRXWE
+- foto-292.jpg — Bridesmaids People — Candace McDaniel — cc0 — https://stocksnap.io/photo/bridesmaids-people-XJ20FGNAAQ
+- foto-295.jpg — Free bridesmaid public domain CC0 — None — cc0 — https://www.rawpixel.com/image/5924033/free-bridesmaid-public-domain-cc0
+- foto-298.jpg — Bride bridesmaids — None — cc0 — https://www.rawpixel.com/image/6036225/photo-image-public-domain-hand-wedding
+- foto-130.jpg — Night Sparklers — Andreas%20R%F8nningen — cc0 — https://stocksnap.io/photo/night-sparklers-JYTTZMY9SC
+- foto-029.jpg — married couple shows their wedding — None — cc0 — https://www.rawpixel.com/image/3283342/free-photo-image-wedding-women-dress-apparel
+- foto-047.jpg — Bride Bridesmaid — Tom Pumford — cc0 — https://stocksnap.io/photo/bride-bridesmaid-NRLASOVURK

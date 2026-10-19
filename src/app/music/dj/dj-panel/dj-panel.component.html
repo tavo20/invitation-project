@@ -3,9 +3,13 @@
   <!-- Header -->
   <header class="panel__header">
     <button class="btn-back" *ngIf="!linkMode" (click)="goBack()">← Volver</button>
+    <p class="brand">
+      <span class="brand__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="2.5" /><path d="M12 6a6 6 0 0 0-6 6" /></svg></span>
+      <span class="brand__name">La Pista · DJ</span>
+    </p>
     <div class="panel__title-wrap">
       <h1 class="panel__title">{{ party?.name }}</h1>
-      <span class="panel__status" [ngClass]="'st--' + party?.status">{{ party?.status }}</span>
+      <span class="panel__status" [ngClass]="'st--' + party?.status">{{ partyStatusLabel }}</span>
     </div>
     <div class="panel__header-actions">
       <button class="btn btn--small btn--outline" (click)="copyLink()">

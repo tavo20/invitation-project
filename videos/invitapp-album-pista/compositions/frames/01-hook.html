@@ -1,0 +1,231 @@
+<template id="01-hook-template">
+<div data-hf-id="hf-h44s" id="root" data-composition-id="01-hook" data-start="0" data-duration="5.423" data-width="1080" data-height="1920">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+  @font-face{font-family:"Cormorant Garamond";font-weight:400 700;font-style:normal;font-display:block;src:url("assets/fonts/CormorantGaramond-Regular.woff2") format("woff2");}
+  @font-face{font-family:"Cormorant Garamond";font-weight:400 700;font-style:italic;font-display:block;src:url("assets/fonts/CormorantGaramond-Italic.woff2") format("woff2");}
+
+  #root {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1080px;
+    height: 1920px;
+    overflow: hidden;
+  }
+
+  /* full-bleed cream ground on its own clip layer */
+  #root [id="01-hook-bg"] {
+    position: absolute;
+    inset: 0;
+    background: #faf7f4;
+  }
+
+  #root [id="01-hook-stage"] {
+    position: absolute;
+    inset: 0;
+    transform-origin: 540px 760px;
+  }
+
+  /* geo-ring: solid outer + dashed inner, very faint */
+  #root [id="01-hook-ring"] {
+    position: absolute;
+    left: 100px;
+    top: 320px;
+    width: 880px;
+    height: 880px;
+    border: 1px solid #d9cbc2;
+    border-radius: 50%;
+  }
+  #root [id="01-hook-ring-inner"] {
+    position: absolute;
+    left: 188px;
+    top: 408px;
+    width: 704px;
+    height: 704px;
+    border: 1px dashed #d9cbc2;
+    border-radius: 50%;
+  }
+
+  #root .f01-hook-line {
+    position: absolute;
+    left: 76px;
+    right: 76px;
+    text-align: center;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 400;
+    color: #2b2420;
+    white-space: nowrap;
+  }
+  #root .f01-hook-w {
+    display: inline-block;
+    will-change: transform, opacity, filter;
+  }
+
+  #root [id="01-hook-eyebrow"] {
+    top: 318px;
+    font-size: 58px;
+    line-height: 1;
+    font-style: italic;
+    color: #6f625b;
+  }
+  #root [id="01-hook-lead"] {
+    top: 398px;
+    font-size: 84px;
+    line-height: 1.1;
+  }
+  #root [id="01-hook-rule"] {
+    position: absolute;
+    left: 490px;
+    top: 540px;
+    width: 100px;
+    height: 1px;
+    background: #d9cbc2;
+    transform-origin: 50% 50%;
+  }
+
+  /* photo frame drawn around "las fotos…" */
+  #root [id="01-hook-frame"] {
+    position: absolute;
+    left: 90px;
+    top: 600px;
+    width: 900px;
+    height: 330px;
+    overflow: visible;
+  }
+  #root [id="01-hook-frame"] rect {
+    fill: none;
+    stroke-linecap: square;
+  }
+  #root [id="01-hook-photos"] {
+    top: 668px;
+    font-size: 176px;
+    line-height: 1;
+  }
+
+  #root [id="01-hook-song"] {
+    top: 1010px;
+    font-size: 138px;
+    line-height: 1;
+    font-style: italic;
+  }
+
+  /* violet music note that slips in beside "canción." */
+  #root [id="01-hook-note"] {
+    position: absolute;
+    left: 878px;
+    top: 900px;
+    width: 120px;
+    height: 132px;
+    transform-origin: 30% 85%;
+  }
+</style>
+
+<div data-hf-id="hf-n7lv" id="01-hook-bg" class="clip" data-start="0" data-duration="5.423" data-track-index="0"></div>
+
+<div data-hf-id="hf-eljn" id="01-hook-stage" class="clip" data-start="0" data-duration="5.423" data-track-index="1">
+  <div data-hf-id="hf-wt53" id="01-hook-ring"></div>
+  <div data-hf-id="hf-npgo" id="01-hook-ring-inner"></div>
+
+  <!-- Scene 1 -->
+  <div data-hf-id="hf-cadv" id="01-hook-eyebrow" class="f01-hook-line">
+    <span data-hf-id="hf-zav4" class="f01-hook-w f01-hook-s1e">En</span> <span data-hf-id="hf-ijf0" class="f01-hook-w f01-hook-s1e">tu</span> <span data-hf-id="hf-xd4f" class="f01-hook-w f01-hook-s1e">boda</span>
+  </div>
+  <div data-hf-id="hf-2cyg" id="01-hook-lead" class="f01-hook-line">
+    <span data-hf-id="hf-tk3r" class="f01-hook-w f01-hook-s1">todos</span> <span data-hf-id="hf-57v7" class="f01-hook-w f01-hook-s1">quieren</span> <span data-hf-id="hf-a24w" class="f01-hook-w f01-hook-s1">dos</span> <span data-hf-id="hf-k0zt" class="f01-hook-w f01-hook-s1">cosas</span>
+  </div>
+  <div data-hf-id="hf-epjb" id="01-hook-rule"></div>
+
+  <!-- Scene 2 -->
+  <svg data-hf-id="hf-qhzp" id="01-hook-frame" viewBox="0 0 900 330" xmlns="http://www.w3.org/2000/svg">
+    <rect data-hf-id="hf-0a5o" id="01-hook-frame-back" x="34" y="18" width="832" height="294" stroke="#d9cbc2" stroke-width="1.5" pathLength="1" transform="rotate(-2.2 450 165)" />
+    <rect data-hf-id="hf-vwfn" id="01-hook-frame-front" x="34" y="18" width="832" height="294" stroke="#b6837c" stroke-width="1.5" pathLength="1" />
+  </svg>
+  <div data-hf-id="hf-lxux" id="01-hook-photos" class="f01-hook-line">
+    <span data-hf-id="hf-zjjj" class="f01-hook-w f01-hook-s2">las</span> <span data-hf-id="hf-b5qu" class="f01-hook-w f01-hook-s2">fotos…</span>
+  </div>
+
+  <!-- Scene 3 -->
+  <div data-hf-id="hf-ymrt" id="01-hook-song" class="f01-hook-line">
+    <span data-hf-id="hf-j1h9" class="f01-hook-w f01-hook-s3">…y</span> <span data-hf-id="hf-gez4" class="f01-hook-w f01-hook-s3">su</span> <span data-hf-id="hf-gm17" class="f01-hook-w f01-hook-s3">canción.</span>
+  </div>
+  <svg data-hf-id="hf-9t9i" id="01-hook-note" viewBox="0 0 120 132" xmlns="http://www.w3.org/2000/svg">
+    <g data-hf-id="hf-4745" fill="#c77dff">
+      <!-- beam -->
+      <path data-hf-id="hf-ytv8" d="M40 14 L108 2 L108 18 L40 30 Z" />
+      <!-- stems -->
+      <rect data-hf-id="hf-3d57" x="37" y="20" width="5" height="82" />
+      <rect data-hf-id="hf-76tu" x="104" y="8" width="5" height="82" />
+      <!-- heads -->
+      <ellipse data-hf-id="hf-g6ux" cx="25" cy="104" rx="18" ry="13" transform="rotate(-22 25 104)" />
+      <ellipse data-hf-id="hf-i3eb" cx="92" cy="92" rx="18" ry="13" transform="rotate(-22 92 92)" />
+    </g>
+  </svg>
+</div>
+
+<script>
+  (function () {
+    var ID = "01-hook";
+    var DUR = 4.923;
+    var $ = function (n) { return '#root [id="' + ID + "-" + n + '"]'; };
+    var all = function (c) { return gsap.utils.toArray("#root .f01-hook-" + c); };
+
+    window.__timelines = window.__timelines || {};
+    var tl = gsap.timeline({ paused: true });
+
+    // Ground: subtle camera push underneath the whole shot
+    tl.fromTo($("stage"), { scale: 1 }, { scale: 1.035, duration: DUR, ease: "none" }, 0);
+
+    // geo-ring: faint, slow presence
+    tl.fromTo($("ring"), { opacity: 0, scale: 0.94 }, { opacity: 0.4, scale: 1, duration: 1.4, ease: "power2.out" }, 0);
+    tl.fromTo($("ring-inner"), { opacity: 0, scale: 0.9, rotation: -8 }, { opacity: 0.3, scale: 1, rotation: 0, duration: 1.6, ease: "power2.out" }, 0.1);
+    tl.fromTo($("ring-inner"), { rotation: 0 }, { rotation: 10, duration: DUR - 1.7, ease: "none" }, 1.7);
+
+    // Scene 1 (0.0–1.4s): "En tu boda" then per-word "todos quieren dos cosas"
+    all("s1e").forEach(function (el, i) {
+      tl.fromTo(el, { opacity: 0, y: 18, filter: "blur(6px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.45, ease: "power3.out" }, 0.08 + i * 0.09);
+    });
+    all("s1").forEach(function (el, i) {
+      tl.fromTo(el, { opacity: 0, y: 28, filter: "blur(10px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 0.48 + i * 0.13);
+    });
+    tl.fromTo($("rule"), { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 1.05);
+
+    // Scene 2 (1.4–2.6s): "las fotos…" + photo frame self-draw
+    all("s2").forEach(function (el, i) {
+      tl.fromTo(el, { opacity: 0, y: 40, scale: 0.96, filter: "blur(12px)" },
+        { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.6, ease: "power3.out" }, 1.42 + i * 0.16);
+    });
+    tl.fromTo($("frame-front"), { strokeDasharray: 1, strokeDashoffset: 1 },
+      { strokeDashoffset: 0, duration: 0.85, ease: "power2.inOut" }, 1.55);
+    tl.fromTo($("frame-back"), { strokeDasharray: 1, strokeDashoffset: 1, opacity: 0 },
+      { strokeDashoffset: 0, opacity: 1, duration: 0.85, ease: "power2.inOut" }, 1.75);
+
+    // Scene 3 (2.6–4.0s): "…y su canción." italic + violet note pop (no bounce) + tiny jitter
+    all("s3").forEach(function (el, i) {
+      tl.fromTo(el, { opacity: 0, y: 32, filter: "blur(10px)" },
+        { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.55, ease: "power3.out" }, 2.62 + i * 0.17);
+    });
+    tl.fromTo($("note"), { scale: 0, opacity: 0, y: 24, rotation: -14 },
+      { scale: 1, opacity: 1, y: 0, rotation: 0, duration: 0.6, ease: "power3.out" }, 3.12);
+
+    // subtle deterministic float/jitter — finite tweens, no repeat
+    var t = 3.75, step = 0.29, k = 0;
+    while (t + step <= DUR) {
+      tl.to($("note"), {
+        y: Math.sin(k * 1.7) * 4,
+        x: Math.cos(k * 1.3) * 2,
+        rotation: Math.sin(k * 1.1) * 2.5,
+        duration: step,
+        ease: "sine.inOut"
+      }, t);
+      t += step;
+      k += 1;
+    }
+
+    window.__timelines[ID] = tl;
+  })();
+</script>
+</div>
+</template>

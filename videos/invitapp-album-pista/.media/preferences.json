@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "preferences": {
+    "destination": {
+      "value": "instagram-reels",
+      "confirmed_in": [
+        "invitapp-album-pista"
+      ],
+      "updated_at": "2026-10-18T16:42:53.421Z"
+    },
+    "aspect": {
+      "value": "1080x1920",
+      "confirmed_in": [
+        "invitapp-album-pista"
+      ],
+      "updated_at": "2026-10-18T16:42:53.469Z"
+    },
+    "language": {
+      "value": "es",
+      "confirmed_in": [
+        "invitapp-album-pista"
+      ],
+      "updated_at": "2026-10-18T16:42:53.506Z"
+    },
+    "flow": {
+      "value": "automation",
+      "confirmed_in": [
+        "invitapp-album-pista"
+      ],
+      "updated_at": "2026-10-18T16:42:53.542Z"
+    },
+    "storyboard": {
+      "value": "yes",
+      "confirmed_in": [
+        "invitapp-album-pista"
+      ],
+      "updated_at": "2026-10-18T16:42:53.579Z"
+    },
+    "voice": {
+      "value": "elevenlabs-brian",
+      "confirmed_in": [
+        "invitapp-album-pista"
+      ],
+      "updated_at": "2026-10-18T16:42:53.621Z"
+    },
+    "style_preset.product-launch-video": {
+      "value": "cartesian",
+      "confirmed_in": [
+        "invitapp-album-pista"
+      ],
+      "updated_at": "2026-10-18T20:02:32.258Z"
+    }
+  },
+  "sightings": {}
+}

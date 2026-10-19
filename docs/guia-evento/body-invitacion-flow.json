@@ -1,0 +1,113 @@
+{
+  "id_invitation": "{{invitationId}}",
+  "slug": "{{slug}}",
+  "template": "{{template}}",
+  "active": true,
+  "tag": "vendida",
+  "price": 0,
+  "cliente": "{{clienteId}}",
+  "invitation_per_user": false,
+  "data": {
+    "isProduction": true,
+    "palette": "forest",
+    "showIntroScreen": false,
+    "showEnvelopeIntro": true,
+    "introText": "Toca para entrar",
+    "autoPlayMusic": true,
+    "names1": "Ana",
+    "names2": "Pedro",
+    "invitationText1": "ES UN HONOR INVITARTE A LA CELEBRACIÓN",
+    "invitationText2": "DE NUESTRA BODA",
+    "dayOfWeek": "SÁBADO",
+    "month": "FEB",
+    "dayNumber": "13",
+    "year": "2027",
+    "hourLabel": "16:00 HRS.",
+    "weddingDate": "February 13, 2027 16:00:00",
+    "musicImage": "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg",
+    "songTitle": "Perfect",
+    "songArtist": "Ed Sheeran",
+    "audioSrc": "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Ed%20Sheeran%20-%20Perfect.mp3",
+    "showParents": true,
+    "parentsTitle": "Con la bendición de nuestros padres",
+    "brideLabel": "Novia",
+    "brideParents": [
+      "Laura Gómez",
+      "Carlos Gómez"
+    ],
+    "groomLabel": "Novio",
+    "groomParents": [
+      "Marta Ríos",
+      "Jorge Ríos"
+    ],
+    "showPadrinos": true,
+    "padrinosLabel": "Padrinos",
+    "padrinos": [
+      "Sofía Salazar",
+      "Andrés Castillo"
+    ],
+    "countdownTitle": "Faltan pocos días",
+    "countdownText": "Acompáñanos a contar los días para celebrar este momento tan especial.",
+    "image2": "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg",
+    "eventTitle": "Ceremonia",
+    "eventVenue": "Parroquia San José",
+    "eventAddress": "Chía, Cundinamarca",
+    "eventHour": "4:00 PM",
+    "eventMapLink": "https://maps.app.goo.gl/BkTY9MEaYLakEoKG7",
+    "eventButtonText": "Ver ubicación",
+    "showReception": true,
+    "receptionTitle": "Recepción",
+    "receptionVenue": "Hacienda Los Faroles",
+    "receptionAddress": "Chía, Cundinamarca",
+    "receptionHour": "7:00 PM",
+    "receptionMapLink": "https://maps.app.goo.gl/BkTY9MEaYLakEoKG7",
+    "dressTitle": "Dress Code",
+    "dressType": "Formal",
+    "showDressColors": true,
+    "dressColors": [
+      "#2c4a2e",
+      "#8e9d70",
+      "#d4c4a8",
+      "#f3efe8"
+    ],
+    "dressNote": "Por favor, evita vestir de blanco, está reservado para la novia.",
+    "showDressCodeButton": false,
+    "quoteImage": "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg",
+    "quote": "Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos compartir contigo el comienzo del capítulo más hermoso.",
+    "itineraryTitle": "Itinerario",
+    "itinerary": [
+      {
+        "time": "4:00 PM",
+        "label": "Ceremonia"
+      },
+      {
+        "time": "6:00 PM",
+        "label": "Cóctel de bienvenida"
+      },
+      {
+        "time": "7:00 PM",
+        "label": "Recepción"
+      },
+      {
+        "time": "9:00 PM",
+        "label": "Fiesta"
+      }
+    ],
+    "confirmTitle": "Confirma tu asistencia",
+    "confirmText": "Tu respuesta nos ayudará a organizar este día con mucho cariño.",
+    "confirmButtonText": "Confirmar aquí",
+    "confirmLink": "{{siteUrl}}/invitation/confirmation/{{invitationId}}",
+    "sobresTitle": "Lluvia de sobres",
+    "showBankAccount": false,
+    "showGallery": true,
+    "galleryImages": [
+      "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg",
+      "https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg"
+    ],
+    "closingHighlight": "Tenemos la luna, la música y cada detalle preparado… <br> Solo falta lo más importante: tú.",
+    "closingNames": "Ana & Pedro",
+    "instragramCliente": "",
+    "linkInvitation": "{{siteUrl}}/{{slug}}",
+    "linkListInvitation": "{{siteUrl}}/invitation/confirmations/list/{{invitationId}}"
+  }
+}

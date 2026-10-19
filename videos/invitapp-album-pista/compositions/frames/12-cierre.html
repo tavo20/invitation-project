@@ -1,0 +1,287 @@
+<template>
+  <style>
+    @font-face{font-family:"Great Vibes";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/GreatVibes-Regular.woff2") format("woff2");}
+    @font-face{font-family:"Inter";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Inter-400.woff2") format("woff2");}
+    @font-face{font-family:"Inter";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Inter-500.woff2") format("woff2");}
+    @font-face{font-family:"Inter";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Inter-600.woff2") format("woff2");}
+    @font-face{font-family:"Cormorant Garamond";font-weight:400 700;font-style:normal;font-display:block;src:url("assets/fonts/CormorantGaramond-Regular.woff2") format("woff2");}
+    @font-face{font-family:"Cormorant Garamond";font-weight:400 700;font-style:italic;font-display:block;src:url("assets/fonts/CormorantGaramond-Italic.woff2") format("woff2");}
+
+    #root {
+      position: absolute;
+      inset: 0;
+      width: 1080px;
+      height: 1920px;
+      overflow: hidden;
+      container-type: size;
+    }
+
+    /* ---- background: night ground + cream half that morphs in from the left ---- */
+    [id="12-cierre-bg"] {
+      position: absolute;
+      inset: 0;
+      background: #0d0d0d;
+      overflow: hidden;
+    }
+    [id="12-cierre-glow"] {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 620px 520px at 900px 380px, rgba(199,125,255,0.16), rgba(199,125,255,0) 70%),
+        radial-gradient(ellipse 520px 460px at 1020px 1200px, rgba(255,79,216,0.09), rgba(255,79,216,0) 70%);
+    }
+    [id="12-cierre-cream"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 540px;
+      height: 1920px;
+      background: #faf7f4;
+      transform-origin: 0 50%;
+    }
+    [id="12-cierre-ring"] {
+      position: absolute;
+      left: 40px;
+      top: -210px;
+      width: 1000px;
+      height: 1000px;
+      border-radius: 50%;
+      border: 1px solid #d9cbc2;
+      opacity: 0.3;
+    }
+    [id="12-cierre-ring"]::before {
+      content: "";
+      position: absolute;
+      inset: 12%;
+      border-radius: 50%;
+      border: 1px dashed #d9cbc2;
+    }
+    [id="12-cierre-seam"] {
+      position: absolute;
+      left: 540px;
+      top: 0;
+      width: 1px;
+      height: 1920px;
+      margin-left: -0.5px;
+      background: linear-gradient(180deg, rgba(182,131,124,0) 0%, rgba(182,131,124,0.85) 18%, rgba(199,125,255,0.85) 82%, rgba(199,125,255,0) 100%);
+      transform-origin: 50% 0;
+    }
+
+    /* ---- phones (shared device spec: screen 545x1180, frame 14px, exterior 573x1208) ---- */
+    [id="12-cierre-stage"] {
+      position: absolute;
+      inset: 0;
+      perspective: 1900px;
+    }
+    [class~="12-cierre-phone"] {
+      position: absolute;
+      left: 253.5px;   /* center x 540 */
+      top: 216px;      /* center y 820 */
+      width: 573px;
+      height: 1208px;
+      box-sizing: border-box;
+      padding: 14px;
+      border-radius: 66px;
+      background: #111;
+      transform-origin: 50% 50%;
+      transform-style: preserve-3d;
+    }
+    [class~="12-cierre-phone"]::after {
+      content: "";
+      position: absolute;
+      inset: 13px;
+      border-radius: 53px;
+      border: 1px solid rgba(255,255,255,0.08);
+      pointer-events: none;
+    }
+    [id="12-cierre-phone-album"] {
+      box-shadow: 0 40px 80px -30px rgba(43,36,32,0.45);
+    }
+    [id="12-cierre-phone-pista"] {
+      box-shadow: 0 40px 90px -30px rgba(0,0,0,0.8), 0 0 60px -20px rgba(199,125,255,0.25);
+    }
+    [class~="12-cierre-screen"] {
+      width: 545px;
+      height: 1180px;
+      border-radius: 52px;
+      overflow: hidden;
+      background: #1a1a1a;
+    }
+    [class~="12-cierre-screen"] img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    /* ---- brand lockup ---- */
+    [id="12-cierre-brand"] {
+      position: absolute;
+      left: 0;
+      top: 70px;
+      width: 1080px;
+      height: 300px;
+      overflow: visible;
+    }
+    [id="12-cierre-word"] {
+      font-family: "Great Vibes", cursive;
+      font-size: 210px;
+    }
+
+    [class~="12-cierre-tagline"] {
+      position: absolute;
+      left: 0;
+      top: 372px;
+      width: 1080px;
+      text-align: center;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 400;
+      font-size: 62px;
+      line-height: 1.12;
+    }
+    [class~="12-cierre-tagline"] span {
+      display: inline-block;
+      margin: 0 7px;
+    }
+    [class~="12-cierre-ink"] { color: #2b2420; clip-path: inset(0 540px 0 0); }
+    [class~="12-cierre-light"] { color: #f0f0f0; clip-path: inset(0 0 0 540px); }
+
+    /* ---- CTA ---- */
+    [id="12-cierre-pill"] {
+      position: absolute;
+      left: 540px;
+      top: 1424px;
+      width: 360px;
+      height: 84px;
+      margin-left: -180px;
+      border-radius: 42px;
+      background: linear-gradient(90deg, #b6837c 0%, #c77dff 100%);
+      color: #ffffff;
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      font-size: 34px;
+      letter-spacing: 0.5px;
+      line-height: 84px;
+      text-align: center;
+      box-shadow: 0 18px 40px -18px rgba(0,0,0,0.55);
+    }
+    [class~="12-cierre-url"] {
+      position: absolute;
+      left: 0;
+      top: 1528px;
+      width: 1080px;
+      text-align: center;
+      font-family: "Inter", sans-serif;
+      font-weight: 500;
+      font-size: 30px;
+      letter-spacing: 3px;
+      line-height: 1;
+    }
+    [class~="12-cierre-url"][class~="12-cierre-ink"] { color: #6f625b; }
+    [class~="12-cierre-url"][class~="12-cierre-light"] { color: #9a9a9a; }
+  </style>
+
+  <div data-hf-id="hf-ubeh" id="root" data-composition-id="12-cierre" data-width="1080" data-height="1920">
+
+    <!-- full-bleed ground (lowest track) -->
+    <div data-hf-id="hf-ydst" id="12-cierre-bg" class="clip" data-start="0" data-duration="4.458" data-track-index="0">
+      <div data-hf-id="hf-zyob" id="12-cierre-glow"></div>
+      <div data-hf-id="hf-p7z6" id="12-cierre-cream"></div>
+      <div data-hf-id="hf-qthi" id="12-cierre-ring"></div>
+      <div data-hf-id="hf-6woy" id="12-cierre-seam"></div>
+    </div>
+
+    <!-- phones -->
+    <div data-hf-id="hf-jc9d" id="12-cierre-stage" class="clip" data-start="0" data-duration="4.458" data-track-index="1">
+      <div data-hf-id="hf-ngqe" id="12-cierre-phone-album" class="12-cierre-phone">
+        <div data-hf-id="hf-qqzp" class="12-cierre-screen"><img data-hf-id="hf-jegm" src="assets/a04-published-grid.png" alt=""></div>
+      </div>
+      <div data-hf-id="hf-h96m" id="12-cierre-phone-pista" class="12-cierre-phone">
+        <div data-hf-id="hf-7ou1" class="12-cierre-screen"><img data-hf-id="hf-5caz" src="assets/m07-guest-playing.png" alt=""></div>
+      </div>
+    </div>
+
+    <!-- brand lockup + CTA -->
+    <div data-hf-id="hf-bdn9" id="12-cierre-lockup" class="clip" data-start="0" data-duration="4.458" data-track-index="2" style="position:absolute;inset:0;">
+      <svg data-hf-id="hf-ojj4" id="12-cierre-brand" viewBox="0 70 1080 300" xmlns="http://www.w3.org/2000/svg">
+        <defs data-hf-id="hf-mh0t">
+          <lineargradient data-hf-id="hf-gim4" id="12-cierre-split" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1080" y2="0">
+            <stop data-hf-id="hf-wd05" offset="0.5" stop-color="#2b2420" />
+            <stop data-hf-id="hf-ct1b" offset="0.5" stop-color="#f0f0f0" />
+          </lineargradient>
+        </defs>
+        <text data-hf-id="hf-9ltm" id="12-cierre-word" x="540" y="290" text-anchor="middle" fill="url(#12-cierre-split)" fill-opacity="0" stroke="url(#12-cierre-split)" stroke-width="2.2" stroke-dasharray="1600" stroke-dashoffset="1600">InvitApp</text>
+      </svg>
+
+      <div data-hf-id="hf-8sdq" class="12-cierre-tagline 12-cierre-ink">
+        <span data-hf-id="hf-c1sp" class="12-cierre-tw">Tus</span><span data-hf-id="hf-lbet" class="12-cierre-tw">recuerdos</span><span data-hf-id="hf-aqse" class="12-cierre-tw">y</span><span data-hf-id="hf-jv3k" class="12-cierre-tw">tu</span><span data-hf-id="hf-yido" class="12-cierre-tw">música,</span><br data-hf-id="hf-x5px"><span data-hf-id="hf-4kjo" class="12-cierre-tw">en</span><span data-hf-id="hf-ajhb" class="12-cierre-tw">manos</span><span data-hf-id="hf-yl00" class="12-cierre-tw">de</span><span data-hf-id="hf-rqh6" class="12-cierre-tw">todos.</span>
+      </div>
+      <div data-hf-id="hf-lkua" class="12-cierre-tagline 12-cierre-light">
+        <span data-hf-id="hf-gctp" class="12-cierre-tw">Tus</span><span data-hf-id="hf-mel5" class="12-cierre-tw">recuerdos</span><span data-hf-id="hf-cjya" class="12-cierre-tw">y</span><span data-hf-id="hf-4fm0" class="12-cierre-tw">tu</span><span data-hf-id="hf-hyg4" class="12-cierre-tw">música,</span><br data-hf-id="hf-rsrt"><span data-hf-id="hf-3xh8" class="12-cierre-tw">en</span><span data-hf-id="hf-ttwf" class="12-cierre-tw">manos</span><span data-hf-id="hf-13fs" class="12-cierre-tw">de</span><span data-hf-id="hf-pdhq" class="12-cierre-tw">todos.</span>
+      </div>
+
+      <div data-hf-id="hf-yp4a" id="12-cierre-pill">Escríbenos</div>
+      <div data-hf-id="hf-om8u" class="12-cierre-url 12-cierre-ink">www.invitapp.art</div>
+      <div data-hf-id="hf-mj8i" class="12-cierre-url 12-cierre-light">www.invitapp.art</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+  <script>
+    (function () {
+      var q = function (s) { return '[id="12-cierre-' + s + '"]'; };
+      var tl = gsap.timeline({ paused: true });
+
+      // Final geometry (relative to the shared base: center 540,820, scale 1 = storyboard "0.74")
+      var S = 0.7;           // phones at 0.70x base -> 401 x 846, both fully inside 1080
+      var DY = 155;          // phone centers at y 975
+      var LX = -250;         // album center x 290
+      var RX = 250;          // pista center x 790
+      var TILT = 8;
+
+      // ---- Scene 1 (0.0-1.8): background morphs to split, phones split-tilt into place ----
+      tl.fromTo(q("cream"), { scaleX: 0 }, { scaleX: 1, duration: 1.05, ease: "power3.inOut" }, 0.1);
+      tl.fromTo(q("ring"), { opacity: 0, scale: 0.92 }, { opacity: 0.3, scale: 1, duration: 1.2, ease: "power2.out" }, 0.5);
+      tl.fromTo(q("seam"), { scaleY: 0, opacity: 0 }, { scaleY: 1, opacity: 1, duration: 0.8, ease: "power2.inOut" }, 0.75);
+
+      // La Pista phone (handoff: x 50%, base scale) slides right and shrinks
+      tl.fromTo(q("phone-pista"),
+        { x: 0, y: 0, scale: 1, rotateY: 0 },
+        { x: RX, y: DY, scale: S, rotateY: -TILT, duration: 1.1, ease: "power3.inOut" }, 0.05);
+      // Album phone enters from the left with an overshoot tilt that settles
+      tl.fromTo(q("phone-album"),
+        { x: -980, y: DY, scale: S, rotateY: TILT + 14, opacity: 1 },
+        { x: LX, y: DY, scale: S, rotateY: TILT, duration: 1.1, ease: "power3.out" }, 0.3);
+
+      // counter-phase idle drift through the rest of the shot (single tweens, no repeat)
+      tl.to(q("phone-album"), { y: DY - 10, duration: 3.0, ease: "sine.inOut" }, 1.4);
+      tl.to(q("phone-pista"), { y: DY + 10, duration: 3.0, ease: "sine.inOut" }, 1.2);
+
+      // ---- Scene 2 (1.8-3.6): "InvitApp" self-draws, tagline word stagger ----
+      tl.fromTo(q("word"), { attr: { "stroke-dashoffset": 1600 } },
+        { attr: { "stroke-dashoffset": 0 }, duration: 1.0, ease: "power1.inOut" }, 1.75);
+      tl.fromTo(q("word"), { attr: { "fill-opacity": 0 } },
+        { attr: { "fill-opacity": 1 }, duration: 0.6, ease: "power2.out" }, 2.35);
+      tl.fromTo(q("brand"), { y: 14 }, { y: 0, duration: 1.2, ease: "power2.out" }, 1.75);
+
+      // the same word index in both colour layers animates together
+      var inkWords = document.querySelectorAll('[class~="12-cierre-ink"] [class~="12-cierre-tw"]');
+      var lightWords = document.querySelectorAll('[class~="12-cierre-light"] [class~="12-cierre-tw"]');
+      for (var i = 0; i < inkWords.length; i++) {
+        tl.fromTo([inkWords[i], lightWords[i]],
+          { opacity: 0, y: 26 },
+          { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, 2.45 + i * 0.08);
+      }
+
+      // ---- Scene 3 (3.6-end): CTA pill pops (no bounce), URL settles, held read ----
+      tl.fromTo(q("pill"), { opacity: 0, scale: 0.82, y: 16 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.42, ease: "power3.out" }, 3.55);
+      tl.fromTo('[class~="12-cierre-url"]', { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.4, ease: "power2.out" }, 3.78);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["12-cierre"] = tl;
+    })();
+  </script>
+</template>

@@ -1,0 +1,165 @@
+<template id="10-dj-template">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face{font-family:"Inter";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Inter-500.woff2") format("woff2");}
+@font-face{font-family:"Unbounded";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Unbounded-600.woff2") format("woff2");}
+@font-face{font-family:"Unbounded";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Unbounded-700.woff2") format("woff2");}
+
+#root{position:relative;width:1080px;height:1920px;overflow:hidden;
+  --pista-bg:#0d0d0d;--pista-surface:#1a1a1a;--pista-text:#f0f0f0;--pista-muted:#9a9a9a;--pista-violet:#c77dff;--pista-magenta:#ff4fd8;}
+#root .clip{position:absolute;inset:0;}
+#\31 0-dj-bg{background:
+  radial-gradient(ellipse 70% 45% at 12% 8%, rgba(199,125,255,0.18), rgba(199,125,255,0) 70%),
+  radial-gradient(ellipse 60% 40% at 92% 6%, rgba(255,79,216,0.10), rgba(255,79,216,0) 70%),
+  #0d0d0d;}
+
+/* camera world (one virtual camera: x / y / scale on this wrapper) */
+.dj10-world{position:absolute;left:0;top:0;width:1080px;height:1920px;}
+.dj10-phone{position:absolute;left:253.5px;top:216px;width:573px;height:1208px;border-radius:66px;background:#111;
+  box-shadow:0 40px 90px -30px rgba(0,0,0,0.8),0 0 60px -20px rgba(199,125,255,0.25);}
+.dj10-phone::after{content:"";position:absolute;inset:13px;border-radius:53px;border:1px solid rgba(255,255,255,0.08);pointer-events:none;}
+.dj10-screen{position:absolute;left:14px;top:14px;width:545px;height:1180px;border-radius:52px;overflow:hidden;background:#0d0d0d;}
+.dj10-strip{position:absolute;left:0;top:0;width:545px;height:2517px;}
+.dj10-shot{position:absolute;left:0;width:545px;height:1180px;object-fit:cover;object-position:top center;display:block;}
+.dj10-shot-d03{clip-path:inset(268px 0 0 0);}
+.dj10-d04{position:absolute;left:0;top:0;width:545px;height:1180px;object-fit:cover;object-position:top center;opacity:0;}
+
+.dj10-ring{position:absolute;border-radius:12px;opacity:0;}
+.dj10-card-ring{left:22px;top:2199px;width:501px;height:191px;border:2px solid rgba(199,125,255,0.75);border-radius:16px;box-shadow:0 0 24px rgba(199,125,255,0.35);}
+.dj10-encola-ring{left:42px;top:1730px;width:147px;height:58px;border:2px solid rgba(240,240,240,0.9);}
+.dj10-rech-ring{left:278px;top:2313px;width:225px;height:57px;border:2px solid rgba(255,79,216,0.9);box-shadow:0 0 18px rgba(255,79,216,0.45);}
+.dj10-poner-ring{left:42px;top:2313px;width:225px;height:57px;border:2px solid #f0f0f0;box-shadow:0 0 26px rgba(199,125,255,0.85);}
+
+.dj10-tap{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;opacity:0;}
+.dj10-tap-dot{position:absolute;inset:0;border-radius:50%;background:rgba(199,125,255,0.45);}
+.dj10-tap-ring{position:absolute;inset:0;border-radius:50%;border:2px solid rgba(199,125,255,0.9);opacity:0;}
+.dj10-tap1{left:115px;top:1759px;}
+.dj10-tap2{left:154px;top:2342px;}
+
+.dj10-np-ring{left:22px;top:568px;width:501px;height:147px;border:2px solid rgba(199,125,255,0.9);border-radius:16px;box-shadow:0 0 30px rgba(199,125,255,0.45);}
+.dj10-st-ring{top:231px;height:122px;border:2px solid rgba(199,125,255,0.85);border-radius:12px;}
+.dj10-st-pend{left:139px;width:139px;}
+.dj10-st-son{left:405px;width:118px;}
+
+.dj10-scrim{background:linear-gradient(180deg,rgba(13,13,13,1) 0px,rgba(13,13,13,0.97) 250px,rgba(13,13,13,0) 400px);opacity:0;}
+
+.dj10-head{position:absolute;left:40px;right:40px;top:92px;text-align:center;white-space:nowrap;
+  font-family:"Unbounded";font-weight:700;font-size:46px;line-height:1.1;color:#f0f0f0;}
+.dj10-head em{font-style:normal;color:#c77dff;}
+
+.dj10-pill{position:absolute;left:165px;top:1466px;width:750px;height:84px;border-radius:42px;
+  background:#1a1a1a;border:1px solid rgba(199,125,255,0.55);box-shadow:0 0 40px -10px rgba(199,125,255,0.45);}
+.dj10-pill-icon{position:absolute;left:28px;top:20px;width:44px;height:44px;}
+.dj10-pill-text{position:absolute;left:88px;top:0;height:84px;line-height:84px;white-space:nowrap;
+  font-family:"Unbounded";font-weight:600;font-size:23px;color:#f0f0f0;letter-spacing:0.2px;}
+.dj10-caret{display:inline-block;width:3px;height:30px;margin-left:3px;vertical-align:-6px;background:#c77dff;}
+</style>
+
+<div data-hf-id="hf-ivaz" id="root" data-composition-id="10-dj" data-start="0" data-duration="5.469" data-width="1080" data-height="1920">
+  <div data-hf-id="hf-lcum" id="10-dj-bg" class="clip" data-start="0" data-duration="5.469" data-track-index="0"></div>
+
+  <div data-hf-id="hf-xh9z" id="10-dj-stage" class="clip" data-start="0" data-duration="5.469" data-track-index="1" data-layout-allow-overflow="">
+    <div data-hf-id="hf-8eyy" class="dj10-world" id="10-dj-world" data-layout-allow-overflow="">
+      <div data-hf-id="hf-pzf9" class="dj10-phone" id="10-dj-phone">
+        <div data-hf-id="hf-w9s2" class="dj10-screen">
+          <div data-hf-id="hf-76fm" class="dj10-strip" id="10-dj-strip" data-layout-allow-overflow="">
+            <img data-hf-id="hf-jcqz" class="dj10-shot" style="top:0px" src="assets/d01-dj-top.png" alt="">
+            <img data-hf-id="hf-cery" class="dj10-shot" style="top:726.6px" src="assets/d02-dj-list.png" alt="">
+            <img data-hf-id="hf-ohpy" class="dj10-shot dj10-shot-d03" style="top:1337.1px" src="assets/d03-dj-queued.png" alt="">
+            <div data-hf-id="hf-tfgf" class="dj10-ring dj10-card-ring" id="10-dj-card-ring"></div>
+            <div data-hf-id="hf-ua73" class="dj10-ring dj10-encola-ring" id="10-dj-encola-ring"></div>
+            <div data-hf-id="hf-z2wv" class="dj10-ring dj10-rech-ring" id="10-dj-rech-ring"></div>
+            <div data-hf-id="hf-rvof" class="dj10-ring dj10-poner-ring" id="10-dj-poner-ring"></div>
+            <div data-hf-id="hf-d2de" class="dj10-tap dj10-tap1" id="10-dj-tap1"><div data-hf-id="hf-wdkj" class="dj10-tap-dot"></div><div data-hf-id="hf-5vqo" class="dj10-tap-ring"></div></div>
+            <div data-hf-id="hf-d0fi" class="dj10-tap dj10-tap2" id="10-dj-tap2"><div data-hf-id="hf-vk7n" class="dj10-tap-dot"></div><div data-hf-id="hf-3zk8" class="dj10-tap-ring"></div></div>
+          </div>
+          <img data-hf-id="hf-ch9b" class="dj10-d04" id="10-dj-d04" src="assets/d04-dj-playing.png" alt="">
+          <div data-hf-id="hf-99b3" class="dj10-ring dj10-np-ring" id="10-dj-np-ring"></div>
+          <div data-hf-id="hf-496t" class="dj10-ring dj10-st-ring dj10-st-pend" id="10-dj-st-pend"></div>
+          <div data-hf-id="hf-4v7t" class="dj10-ring dj10-st-ring dj10-st-son" id="10-dj-st-son"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div data-hf-id="hf-pcyd" id="10-dj-scrim" class="clip dj10-scrim" data-start="0" data-duration="5.469" data-track-index="2"></div>
+
+  <div data-hf-id="hf-xzqy" id="10-dj-ui" class="clip" data-start="0" data-duration="5.469" data-track-index="3">
+    <div data-hf-id="hf-1kc3" class="dj10-head" id="10-dj-head">Tu DJ, con su propio <em data-hf-id="hf-83rf">link</em></div>
+    <div data-hf-id="hf-zoav" class="dj10-pill" id="10-dj-pill">
+      <svg data-hf-id="hf-ceze" class="dj10-pill-icon" viewBox="0 0 24 24" fill="none" stroke="#c77dff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path data-hf-id="hf-e7b2" d="M10 13a5 5 0 0 0 7.07 0l3-3a5 5 0 0 0-7.07-7.07l-1.5 1.5" />
+        <path data-hf-id="hf-bx19" d="M14 11a5 5 0 0 0-7.07 0l-3 3a5 5 0 0 0 7.07 7.07l1.5-1.5" />
+      </svg>
+      <div data-hf-id="hf-pxxp" class="dj10-pill-text"><span data-hf-id="hf-h3sz" id="10-dj-typed"></span><span data-hf-id="hf-8r5o" class="dj10-caret" id="10-dj-caret"></span></div>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    var root = document.querySelector('[data-composition-id="10-dj"]');
+    var $ = function(id){ return root.querySelector('[id="' + id + '"]'); };
+    var world = $("10-dj-world"), phone = $("10-dj-phone"), strip = $("10-dj-strip");
+    var typed = $("10-dj-typed"), caret = $("10-dj-caret");
+    var FULL = "invitapp.art/dj/boda-ana-pedro…";
+    typed.textContent = "";
+
+    var tl = gsap.timeline({ paused: true });
+    gsap.set(world, { x: 0, y: 0, scale: 1, transformOrigin: "0 0" });
+
+    // ---- Scene 1 (0.0–1.5): DJ phone slides in from the right with a tilt; headline + link pill types on
+    tl.fromTo(phone, { x: 760, rotationY: -24, transformPerspective: 1600, opacity: 0 },
+      { x: 0, rotationY: 0, transformPerspective: 1600, opacity: 1, duration: 0.85, ease: "power3.out" }, 0.0);
+    tl.fromTo($("10-dj-head"), { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 0.15);
+    tl.fromTo($("10-dj-pill"), { y: 24, scale: 0.92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 0.5);
+    var tp = { n: 0 };
+    tl.fromTo(tp, { n: 0 }, { n: FULL.length, duration: 0.75, ease: "none",
+      onUpdate: function(){ typed.textContent = FULL.slice(0, Math.round(tp.n)); } }, 0.7);
+    // caret blink after typing (explicit sets, no repeat)
+    [1.6, 1.9, 2.2, 2.5].forEach(function(t){
+      tl.set(caret, { opacity: 0 }, t);
+      tl.set(caret, { opacity: 1 }, t + 0.15);
+    });
+
+    // ---- Scene 2 (1.5–3.3): camera travels down the list and pushes onto "quédate · pedida por Laura"
+    tl.fromTo(strip, { y: 0 }, { y: -1337.1, duration: 0.95, ease: "power2.inOut" }, 1.5);
+    tl.fromTo(world, { x: 0, y: 0, scale: 1 }, { x: -243, y: -576.5, scale: 1.45, duration: 0.75, ease: "power4.out" }, 1.95);
+    tl.fromTo($("10-dj-scrim"), { opacity: 0 }, { opacity: 1, duration: 0.35, ease: "power1.out" }, 1.45);
+    tl.fromTo($("10-dj-card-ring"), { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, 2.35);
+
+    function tap(id, t){
+      var el = $(id), dot = el.children[0], ring = el.children[1];
+      tl.fromTo(el, { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.1, ease: "power2.out" }, t);
+      tl.fromTo(dot, { scale: 1 }, { scale: 0.85, duration: 0.12, ease: "power2.out" }, t + 0.1);
+      tl.to(dot, { scale: 1, duration: 0.14, ease: "power2.out" }, t + 0.22);
+      tl.fromTo(ring, { scale: 1, opacity: 0.9 }, { scale: 2.3, opacity: 0, duration: 0.45, ease: "power2.out" }, t + 0.12);
+      tl.to(el, { opacity: 0, duration: 0.2, ease: "power1.in" }, t + 0.42);
+    }
+    // tap "En cola"
+    tap("10-dj-tap1", 2.55);
+    tl.fromTo($("10-dj-encola-ring"), { opacity: 0, scale: 1.12 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power3.out" }, 2.62);
+    tl.to($("10-dj-encola-ring"), { opacity: 0.35, duration: 0.3, ease: "power1.out" }, 2.95);
+    // "Rechazar" and "Poner ahora" light up as they are named
+    tl.fromTo($("10-dj-rech-ring"), { opacity: 0, scale: 1.12 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 2.85);
+    tl.fromTo($("10-dj-poner-ring"), { opacity: 0, scale: 1.12 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 3.05);
+
+    // ---- Scene 3 (3.3–4.97): press "Poner ahora" → screen swaps to SONANDO AHORA · quédate → pull back to base
+    tap("10-dj-tap2", 3.35);
+    tl.to($("10-dj-poner-ring"), { scale: 0.94, duration: 0.1, ease: "power2.in" }, 3.42);
+    tl.to($("10-dj-poner-ring"), { scale: 1, duration: 0.2, ease: "back.out(3)" }, 3.52);
+    tl.fromTo($("10-dj-d04"), { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: 0.4, ease: "power2.out" }, 3.62);
+    tl.to(world, { x: 0, y: 0, scale: 1, duration: 0.85, ease: "power3.inOut" }, 3.62);
+    tl.to($("10-dj-scrim"), { opacity: 0, duration: 0.4, ease: "power1.out" }, 3.75);
+    // the figures update
+    tl.fromTo($("10-dj-np-ring"), { opacity: 0, scale: 1.04 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, 4.3);
+    tl.fromTo($("10-dj-st-pend"), { opacity: 0, scale: 1.15 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 4.5);
+    tl.fromTo($("10-dj-st-son"), { opacity: 0, scale: 1.15 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 4.6);
+    // hold still to the end of the frame
+    tl.to({}, { duration: 0.069 }, 4.9);
+
+    window.__timelines = window.__timelines || {};
+    window.__timelines["10-dj"] = tl;
+  })();
+  </script>
+</div>
+</template>

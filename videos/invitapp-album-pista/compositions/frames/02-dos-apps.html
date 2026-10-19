@@ -1,0 +1,149 @@
+<template id="02-dos-apps-template">
+<div data-hf-id="hf-nlb7" id="root" data-composition-id="02-dos-apps" data-width="1080" data-height="1920" data-start="0" data-duration="5.283">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face{font-family:"Great Vibes";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/GreatVibes-Regular.woff2") format("woff2");}
+@font-face{font-family:"Inter";font-weight:500;font-style:normal;font-display:block;src:url("assets/fonts/Inter-500.woff2") format("woff2");}
+@font-face{font-family:"Inter";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Inter-600.woff2") format("woff2");}
+@font-face{font-family:"Unbounded";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Unbounded-700.woff2") format("woff2");}
+@font-face{font-family:"Cormorant Garamond";font-weight:400 700;font-style:normal;font-display:block;src:url("assets/fonts/CormorantGaramond-Regular.woff2") format("woff2");}
+
+#root{position:absolute;inset:0;width:1080px;height:1920px;overflow:hidden;container-type:size;}
+
+.\30 2-dos-apps-bg{position:absolute;inset:0;background:#faf7f4;}
+#\30 2-dos-apps-glow-a,#\30 2-dos-apps-glow-b{position:absolute;width:900px;height:900px;border-radius:50%;top:370px;pointer-events:none;}
+#\30 2-dos-apps-glow-a{left:-126px;background:radial-gradient(circle at 50% 50%,rgba(182,131,124,0.22) 0%,rgba(182,131,124,0.08) 38%,rgba(182,131,124,0) 68%);}
+#\30 2-dos-apps-glow-b{left:306px;background:radial-gradient(circle at 50% 50%,rgba(199,125,255,0.20) 0%,rgba(255,79,216,0.07) 40%,rgba(199,125,255,0) 68%);}
+#\30 2-dos-apps-dusk{position:absolute;left:540px;top:0;width:540px;height:1920px;background:linear-gradient(90deg,rgba(13,13,13,0) 0%,rgba(13,13,13,0.07) 35%,rgba(13,13,13,0.13) 100%);pointer-events:none;}
+#\30 2-dos-apps-ring{position:absolute;left:190px;top:470px;width:700px;height:700px;border-radius:50%;border:1px solid #d9cbc2;opacity:0.35;}
+#\30 2-dos-apps-ring::before{content:"";position:absolute;inset:12%;border-radius:50%;border:1px dashed #d9cbc2;}
+
+/* title */
+#\30 2-dos-apps-title{position:absolute;left:0;top:58px;width:1080px;text-align:center;font-family:"Great Vibes",cursive;font-size:150px;line-height:1;color:#2b2420;white-space:nowrap;}
+.\30 2-dos-apps-ch{display:inline-block;}
+
+/* phones — shared device spec: base center (540,820), outer 573x1208 */
+#\30 2-dos-apps-stage{position:absolute;inset:0;perspective:2000px;perspective-origin:50% 43%;transform-style:preserve-3d;}
+.\30 2-dos-apps-pos{position:absolute;left:253.5px;top:216px;width:573px;height:1208px;transform-origin:50% 50%;transform-style:preserve-3d;will-change:transform;}
+.\30 2-dos-apps-float{position:absolute;inset:0;transform-style:preserve-3d;}
+.\30 2-dos-apps-phone{position:absolute;inset:0;box-sizing:border-box;padding:14px;border-radius:66px;background:#111;}
+.\30 2-dos-apps-phone::after{content:"";position:absolute;inset:13px;border-radius:53px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08);pointer-events:none;}
+#\30 2-dos-apps-phone-l .\30 2-dos-apps-phone{box-shadow:16px 40px 80px -30px rgba(43,36,32,0.45);}
+#\30 2-dos-apps-phone-r .\30 2-dos-apps-phone{box-shadow:-16px 40px 90px -30px rgba(0,0,0,0.8),0 0 60px -20px rgba(199,125,255,0.25);}
+.\30 2-dos-apps-screen{position:relative;width:545px;height:1180px;border-radius:52px;overflow:hidden;background:#0d0d0d;}
+.\30 2-dos-apps-screen img{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;}
+
+/* labels (on the parent, never inside the tilted phones) */
+.\30 2-dos-apps-anchor{position:absolute;top:1368px;width:0;height:92px;display:flex;justify-content:center;align-items:center;}
+#\30 2-dos-apps-anchor-l{left:324px;}
+#\30 2-dos-apps-anchor-r{left:756px;}
+#\30 2-dos-apps-anchor-plus{left:540px;}
+.\30 2-dos-apps-pill{flex:none;display:flex;align-items:center;gap:16px;height:84px;padding:0 30px 0 16px;border-radius:42px;white-space:nowrap;transform-origin:50% 50%;will-change:transform;}
+#\30 2-dos-apps-pill-l{background:rgba(255,255,255,0.72);border:1px solid #d9cbc2;box-shadow:0 18px 36px -24px rgba(43,36,32,0.35);}
+#\30 2-dos-apps-pill-r{background:#0d0d0d;border:1px solid rgba(199,125,255,0.45);box-shadow:0 18px 40px -22px rgba(0,0,0,0.6),0 0 36px -14px rgba(199,125,255,0.45);}
+.\30 2-dos-apps-icon{width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;}
+#\30 2-dos-apps-pill-l .\30 2-dos-apps-icon{background:#b6837c;}
+#\30 2-dos-apps-pill-r .\30 2-dos-apps-icon{background:linear-gradient(135deg,#c77dff 0%,#ff4fd8 100%);}
+.\30 2-dos-apps-icon svg{width:30px;height:30px;}
+#\30 2-dos-apps-txt-l{font-family:"Inter",sans-serif;font-weight:600;font-size:32px;letter-spacing:6px;color:#2b2420;}
+#\30 2-dos-apps-txt-r{font-family:"Unbounded",sans-serif;font-weight:700;font-size:30px;letter-spacing:4px;background:linear-gradient(90deg,#c77dff 0%,#ff4fd8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;}
+#\30 2-dos-apps-plus{flex:none;font-family:"Cormorant Garamond",serif;font-weight:400;font-size:72px;line-height:1;color:#b6837c;transform-origin:50% 50%;}
+</style>
+
+<div data-hf-id="hf-ed2s" class="clip 02-dos-apps-bg" data-start="0" data-duration="5.283" data-track-index="0"></div>
+
+<div data-hf-id="hf-d7yx" id="02-dos-apps-glow-a"></div>
+<div data-hf-id="hf-h62y" id="02-dos-apps-glow-b"></div>
+<div data-hf-id="hf-esen" id="02-dos-apps-dusk"></div>
+<div data-hf-id="hf-2f0y" id="02-dos-apps-ring"></div>
+
+<div data-hf-id="hf-mkvy" id="02-dos-apps-title"><span data-hf-id="hf-ttc4" class="02-dos-apps-ch">I</span><span data-hf-id="hf-6xg1" class="02-dos-apps-ch">n</span><span data-hf-id="hf-3qzt" class="02-dos-apps-ch">v</span><span data-hf-id="hf-6j50" class="02-dos-apps-ch">i</span><span data-hf-id="hf-4jlv" class="02-dos-apps-ch">t</span><span data-hf-id="hf-wzsc" class="02-dos-apps-ch">A</span><span data-hf-id="hf-2ydr" class="02-dos-apps-ch">p</span><span data-hf-id="hf-ulkf" class="02-dos-apps-ch">p</span></div>
+
+<div data-hf-id="hf-hyg6" id="02-dos-apps-stage">
+  <div data-hf-id="hf-wm23" class="02-dos-apps-pos" id="02-dos-apps-phone-r">
+    <div data-hf-id="hf-mz7x" class="02-dos-apps-float" id="02-dos-apps-float-r">
+      <div data-hf-id="hf-d1sj" class="02-dos-apps-phone"><div data-hf-id="hf-5me5" class="02-dos-apps-screen"><img data-hf-id="hf-fjjz" src="assets/m07-guest-playing.png" alt="La Pista"></div></div>
+    </div>
+  </div>
+  <div data-hf-id="hf-igmt" class="02-dos-apps-pos" id="02-dos-apps-phone-l">
+    <div data-hf-id="hf-i9g3" class="02-dos-apps-float" id="02-dos-apps-float-l">
+      <div data-hf-id="hf-57zn" class="02-dos-apps-phone"><div data-hf-id="hf-ryk1" class="02-dos-apps-screen"><img data-hf-id="hf-doa3" src="assets/a01-album-grid.png" alt="Álbum"></div></div>
+    </div>
+  </div>
+</div>
+
+<div data-hf-id="hf-oikt" class="02-dos-apps-anchor" id="02-dos-apps-anchor-l">
+  <div data-hf-id="hf-13hd" class="02-dos-apps-pill" id="02-dos-apps-pill-l">
+    <div data-hf-id="hf-h7g6" class="02-dos-apps-icon"><svg data-hf-id="hf-el4y" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path data-hf-id="hf-x84u" d="M4 8.5h3l1.6-2.2h6.8L17 8.5h3v10H4z" /><circle data-hf-id="hf-um87" cx="12" cy="13.3" r="3.4" /></svg></div>
+    <span data-hf-id="hf-ucl5" id="02-dos-apps-txt-l">ÁLBUM</span>
+  </div>
+</div>
+<div data-hf-id="hf-vcfn" class="02-dos-apps-anchor" id="02-dos-apps-anchor-plus"><span data-hf-id="hf-ynlg" id="02-dos-apps-plus">+</span></div>
+<div data-hf-id="hf-hl77" class="02-dos-apps-anchor" id="02-dos-apps-anchor-r">
+  <div data-hf-id="hf-jvb3" class="02-dos-apps-pill" id="02-dos-apps-pill-r">
+    <div data-hf-id="hf-xt22" class="02-dos-apps-icon"><svg data-hf-id="hf-pq0n" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path data-hf-id="hf-bx0y" d="M9 17.5V5.5l10-2v12" /><circle data-hf-id="hf-4iha" cx="6.5" cy="17.5" r="2.5" fill="#ffffff" /><circle data-hf-id="hf-ivj5" cx="16.5" cy="15.5" r="2.5" fill="#ffffff" /></svg></div>
+    <span data-hf-id="hf-82eo" id="02-dos-apps-txt-r">LA PISTA</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var ID = "02-dos-apps";
+  var q = function(s){ return document.getElementById(ID + "-" + s); };
+  var tl = gsap.timeline({ paused: true });
+
+  // base-relative scales (shared device): 0.62 / 0.74
+  var S = 0.62 / 0.74;
+  var XL = 0.30 * 1080 - 540;   // -216
+  var XR = 0.70 * 1080 - 540;   // +216
+  var TILT = 18, OVER = 10, SLIDE = 420;
+
+  // ── Scene 1 (0.0–1.4): cream ground, "InvitApp" settles down from above, letter stagger
+  tl.fromTo(q("ring"), { opacity: 0, scale: 0.94 }, { opacity: 0.35, scale: 1, duration: 1.4, ease: "power2.out" }, 0);
+  tl.fromTo(q("glow-a"), { opacity: 0 }, { opacity: 1, duration: 1.2, ease: "sine.out" }, 0.2);
+  tl.fromTo(q("glow-b"), { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+  tl.fromTo(q("dusk"), { opacity: 0 }, { opacity: 0, duration: 0.01 }, 0);
+  tl.fromTo(q("title"), { y: -46 }, { y: 0, duration: 0.9, ease: "power3.out" }, 0.05);
+  var chars = document.querySelectorAll("#" + CSS.escape(ID + "-title") + " ." + CSS.escape(ID + "-ch"));
+  for (var i = 0; i < chars.length; i++) {
+    tl.fromTo(chars[i], { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 0.08 + i * 0.055);
+  }
+
+  // ── Scene 2 (1.4–2.8): "el Álbum…" — left phone opens in from the left wing
+  tl.fromTo(q("phone-l"),
+    { x: XL - SLIDE, rotationY: TILT + OVER, scale: S * 0.88, opacity: 0 },
+    { x: XL, rotationY: TILT, scale: S, opacity: 1, duration: 0.95, ease: "power3.out" }, 1.4);
+  tl.fromTo(q("pill-l"), { scale: 0, opacity: 0, y: 16 },
+    { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.6)" }, 1.95);
+
+  // ── Scene 3 (2.8–4.0): "…y La Pista" — right phone from the right wing, its half dims
+  tl.fromTo(q("phone-r"),
+    { x: XR + SLIDE, rotationY: -TILT - OVER, scale: S * 0.88, opacity: 0 },
+    { x: XR, rotationY: -TILT, scale: S, opacity: 1, duration: 0.95, ease: "power3.out" }, 2.8);
+  tl.to(q("dusk"), { opacity: 1, duration: 0.8, ease: "sine.inOut" }, 2.85);
+  tl.to(q("glow-b"), { opacity: 1, duration: 0.9, ease: "sine.out" }, 2.9);
+  tl.fromTo(q("pill-r"), { scale: 0, opacity: 0, y: 16 },
+    { scale: 1, opacity: 1, y: 0, duration: 0.55, ease: "back.out(1.6)" }, 3.3);
+  tl.fromTo(q("plus"), { scale: 0, opacity: 0 },
+    { scale: 1, opacity: 1, duration: 0.45, ease: "power3.out" }, 3.5);
+
+  // counter-phase idle (explicit tweens, no yoyo/repeat) — both return to 0
+  tl.fromTo(q("float-l"), { y: 0 }, { y: -7, duration: 0.85, ease: "sine.inOut" }, 2.35);
+  tl.to(q("float-l"), { y: 0, duration: 0.85, ease: "sine.inOut" }, 3.2);
+  tl.fromTo(q("float-r"), { y: 0 }, { y: 7, duration: 0.5, ease: "sine.inOut" }, 3.75);
+  tl.to(q("float-r"), { y: 0, duration: 0.5, ease: "sine.inOut" }, 4.25);
+
+  // ── handoff_out (4.0–4.783): Álbum phone glides to center (x 50%, scale 0.74, rotY 0);
+  //    La Pista phone leaves right with a fade; side chrome clears for frame 3.
+  tl.to(q("phone-l"), { x: 0, scale: 1, rotationY: 0, duration: 0.783, ease: "power2.inOut" }, 4.0);
+  tl.to(q("phone-r"), { x: XR + 260, opacity: 0, duration: 0.7, ease: "power2.in" }, 4.0);
+  tl.to([q("pill-l"), q("pill-r"), q("plus")], { opacity: 0, duration: 0.35, ease: "power1.in" }, 4.0);
+  tl.to([q("dusk"), q("glow-b")], { opacity: 0, duration: 0.7, ease: "sine.inOut" }, 4.0);
+  tl.to(q("glow-a"), { x: 216, duration: 0.783, ease: "power2.inOut" }, 4.0);
+
+  window.__timelines = window.__timelines || {};
+  window.__timelines["02-dos-apps"] = tl;
+})();
+</script>
+</div>
+</template>

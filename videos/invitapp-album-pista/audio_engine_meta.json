@@ -1,0 +1,941 @@
+{
+  "tts_provider": "elevenlabs",
+  "voice_id": "nPczCjzI2devNBz1zQrb",
+  "bgm": null,
+  "bgm_pending": false,
+  "bgm_provider": null,
+  "bgm_pid": null,
+  "bgm_log": null,
+  "bgm_mode": null,
+  "bgm_target_duration_s": null,
+  "bgm_seed_duration_s": null,
+  "bgm_loop_count": null,
+  "voices": [
+    {
+      "id": "01",
+      "path": "assets/voice/01.wav",
+      "duration_s": 4.923,
+      "words": [
+        {
+          "id": "w0",
+          "text": "En",
+          "start": 0.0,
+          "end": 0.139
+        },
+        {
+          "id": "w1",
+          "text": "tu",
+          "start": 0.197,
+          "end": 0.29
+        },
+        {
+          "id": "w2",
+          "text": "boda,",
+          "start": 0.337,
+          "end": 0.639
+        },
+        {
+          "id": "w3",
+          "text": "todos",
+          "start": 0.685,
+          "end": 0.987
+        },
+        {
+          "id": "w4",
+          "text": "quieren",
+          "start": 1.045,
+          "end": 1.289
+        },
+        {
+          "id": "w5",
+          "text": "dos",
+          "start": 1.358,
+          "end": 1.521
+        },
+        {
+          "id": "w6",
+          "text": "cosas:",
+          "start": 1.602,
+          "end": 2.125
+        },
+        {
+          "id": "w7",
+          "text": "ver",
+          "start": 2.45,
+          "end": 2.612
+        },
+        {
+          "id": "w8",
+          "text": "las",
+          "start": 2.67,
+          "end": 2.786
+        },
+        {
+          "id": "w9",
+          "text": "fotos…",
+          "start": 2.856,
+          "end": 3.402
+        },
+        {
+          "id": "w10",
+          "text": "y",
+          "start": 3.611,
+          "end": 3.669
+        },
+        {
+          "id": "w11",
+          "text": "escuchar",
+          "start": 3.715,
+          "end": 4.075
+        },
+        {
+          "id": "w12",
+          "text": "su",
+          "start": 4.11,
+          "end": 4.18
+        },
+        {
+          "id": "w13",
+          "text": "canción.",
+          "start": 4.226,
+          "end": 4.923
+        }
+      ]
+    },
+    {
+      "id": "02",
+      "path": "assets/voice/02.wav",
+      "duration_s": 4.783,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Con",
+          "start": 0.0,
+          "end": 0.209
+        },
+        {
+          "id": "w1",
+          "text": "InvitApp,",
+          "start": 0.279,
+          "end": 0.778
+        },
+        {
+          "id": "w2",
+          "text": "tu",
+          "start": 0.801,
+          "end": 0.882
+        },
+        {
+          "id": "w3",
+          "text": "evento",
+          "start": 0.917,
+          "end": 1.219
+        },
+        {
+          "id": "w4",
+          "text": "trae",
+          "start": 1.265,
+          "end": 1.567
+        },
+        {
+          "id": "w5",
+          "text": "dos",
+          "start": 1.614,
+          "end": 1.811
+        },
+        {
+          "id": "w6",
+          "text": "apps:",
+          "start": 1.927,
+          "end": 2.392
+        },
+        {
+          "id": "w7",
+          "text": "el",
+          "start": 2.833,
+          "end": 2.972
+        },
+        {
+          "id": "w8",
+          "text": "Álbum…",
+          "start": 3.065,
+          "end": 3.541
+        },
+        {
+          "id": "w9",
+          "text": "y",
+          "start": 3.82,
+          "end": 3.889
+        },
+        {
+          "id": "w10",
+          "text": "La",
+          "start": 3.971,
+          "end": 4.04
+        },
+        {
+          "id": "w11",
+          "text": "Pista.",
+          "start": 4.098,
+          "end": 4.783
+        }
+      ]
+    },
+    {
+      "id": "03",
+      "path": "assets/voice/03.wav",
+      "duration_s": 3.994,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Tus",
+          "start": 0.0,
+          "end": 0.197
+        },
+        {
+          "id": "w1",
+          "text": "invitados",
+          "start": 0.244,
+          "end": 0.662
+        },
+        {
+          "id": "w2",
+          "text": "escanean",
+          "start": 0.72,
+          "end": 1.161
+        },
+        {
+          "id": "w3",
+          "text": "el",
+          "start": 1.219,
+          "end": 1.289
+        },
+        {
+          "id": "w4",
+          "text": "QR",
+          "start": 1.37,
+          "end": 1.649
+        },
+        {
+          "id": "w5",
+          "text": "de",
+          "start": 1.765,
+          "end": 1.811
+        },
+        {
+          "id": "w6",
+          "text": "su",
+          "start": 1.846,
+          "end": 1.939
+        },
+        {
+          "id": "w7",
+          "text": "mesa…",
+          "start": 1.997,
+          "end": 2.415
+        },
+        {
+          "id": "w8",
+          "text": "y",
+          "start": 2.694,
+          "end": 2.775
+        },
+        {
+          "id": "w9",
+          "text": "entran",
+          "start": 2.856,
+          "end": 3.135
+        },
+        {
+          "id": "w10",
+          "text": "al",
+          "start": 3.204,
+          "end": 3.262
+        },
+        {
+          "id": "w11",
+          "text": "álbum.",
+          "start": 3.332,
+          "end": 3.994
+        }
+      ]
+    },
+    {
+      "id": "04",
+      "path": "assets/voice/04.wav",
+      "duration_s": 4.319,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Suben",
+          "start": 0.0,
+          "end": 0.337
+        },
+        {
+          "id": "w1",
+          "text": "sus",
+          "start": 0.383,
+          "end": 0.534
+        },
+        {
+          "id": "w2",
+          "text": "fotos",
+          "start": 0.592,
+          "end": 1.01
+        },
+        {
+          "id": "w3",
+          "text": "y",
+          "start": 1.091,
+          "end": 1.161
+        },
+        {
+          "id": "w4",
+          "text": "videos",
+          "start": 1.219,
+          "end": 1.602
+        },
+        {
+          "id": "w5",
+          "text": "en",
+          "start": 1.66,
+          "end": 1.718
+        },
+        {
+          "id": "w6",
+          "text": "segundos…",
+          "start": 1.765,
+          "end": 2.392
+        },
+        {
+          "id": "w7",
+          "text": "y",
+          "start": 2.833,
+          "end": 2.879
+        },
+        {
+          "id": "w8",
+          "text": "aparecen",
+          "start": 2.937,
+          "end": 3.355
+        },
+        {
+          "id": "w9",
+          "text": "al",
+          "start": 3.413,
+          "end": 3.471
+        },
+        {
+          "id": "w10",
+          "text": "instante.",
+          "start": 3.518,
+          "end": 4.319
+        }
+      ]
+    },
+    {
+      "id": "05",
+      "path": "assets/voice/05.wav",
+      "duration_s": 3.901,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Todos",
+          "start": 0.0,
+          "end": 0.406
+        },
+        {
+          "id": "w1",
+          "text": "recorren",
+          "start": 0.522,
+          "end": 0.94
+        },
+        {
+          "id": "w2",
+          "text": "el",
+          "start": 1.01,
+          "end": 1.08
+        },
+        {
+          "id": "w3",
+          "text": "álbum…",
+          "start": 1.161,
+          "end": 1.556
+        },
+        {
+          "id": "w4",
+          "text": "y",
+          "start": 1.881,
+          "end": 1.962
+        },
+        {
+          "id": "w5",
+          "text": "dan",
+          "start": 2.032,
+          "end": 2.183
+        },
+        {
+          "id": "w6",
+          "text": "me",
+          "start": 2.252,
+          "end": 2.345
+        },
+        {
+          "id": "w7",
+          "text": "gusta",
+          "start": 2.392,
+          "end": 2.74
+        },
+        {
+          "id": "w8",
+          "text": "con",
+          "start": 2.798,
+          "end": 2.949
+        },
+        {
+          "id": "w9",
+          "text": "dos",
+          "start": 2.995,
+          "end": 3.135
+        },
+        {
+          "id": "w10",
+          "text": "toques.",
+          "start": 3.204,
+          "end": 3.901
+        }
+      ]
+    },
+    {
+      "id": "06",
+      "path": "assets/voice/06.wav",
+      "duration_s": 6.13,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Y",
+          "start": 0.0,
+          "end": 0.116
+        },
+        {
+          "id": "w1",
+          "text": "tú,",
+          "start": 0.209,
+          "end": 0.43
+        },
+        {
+          "id": "w2",
+          "text": "desde",
+          "start": 0.453,
+          "end": 0.662
+        },
+        {
+          "id": "w3",
+          "text": "tu",
+          "start": 0.708,
+          "end": 0.801
+        },
+        {
+          "id": "w4",
+          "text": "panel,",
+          "start": 0.859,
+          "end": 1.312
+        },
+        {
+          "id": "w5",
+          "text": "lo",
+          "start": 1.428,
+          "end": 1.567
+        },
+        {
+          "id": "w6",
+          "text": "ves",
+          "start": 1.614,
+          "end": 1.753
+        },
+        {
+          "id": "w7",
+          "text": "todo:",
+          "start": 1.834,
+          "end": 2.264
+        },
+        {
+          "id": "w8",
+          "text": "apruebas,",
+          "start": 2.38,
+          "end": 2.961
+        },
+        {
+          "id": "w9",
+          "text": "ocultas…",
+          "start": 3.007,
+          "end": 3.82
+        },
+        {
+          "id": "w10",
+          "text": "y",
+          "start": 4.145,
+          "end": 4.238
+        },
+        {
+          "id": "w11",
+          "text": "descargas",
+          "start": 4.319,
+          "end": 4.853
+        },
+        {
+          "id": "w12",
+          "text": "el",
+          "start": 4.911,
+          "end": 4.981
+        },
+        {
+          "id": "w13",
+          "text": "álbum",
+          "start": 5.039,
+          "end": 5.259
+        },
+        {
+          "id": "w14",
+          "text": "completo.",
+          "start": 5.317,
+          "end": 6.13
+        }
+      ]
+    },
+    {
+      "id": "07",
+      "path": "assets/voice/07.wav",
+      "duration_s": 1.904,
+      "words": [
+        {
+          "id": "w0",
+          "text": "¿Y",
+          "start": 0.0,
+          "end": 0.139
+        },
+        {
+          "id": "w1",
+          "text": "la",
+          "start": 0.221,
+          "end": 0.29
+        },
+        {
+          "id": "w2",
+          "text": "música?",
+          "start": 0.337,
+          "end": 0.836
+        },
+        {
+          "id": "w3",
+          "text": "Un",
+          "start": 0.987,
+          "end": 1.115
+        },
+        {
+          "id": "w4",
+          "text": "toque…",
+          "start": 1.196,
+          "end": 1.904
+        }
+      ]
+    },
+    {
+      "id": "08",
+      "path": "assets/voice/08.wav",
+      "duration_s": 3.855,
+      "words": [
+        {
+          "id": "w0",
+          "text": "y",
+          "start": 0.0,
+          "end": 0.104
+        },
+        {
+          "id": "w1",
+          "text": "en",
+          "start": 0.151,
+          "end": 0.197
+        },
+        {
+          "id": "w2",
+          "text": "La",
+          "start": 0.255,
+          "end": 0.325
+        },
+        {
+          "id": "w3",
+          "text": "Pista,",
+          "start": 0.395,
+          "end": 0.697
+        },
+        {
+          "id": "w4",
+          "text": "tus",
+          "start": 0.731,
+          "end": 0.848
+        },
+        {
+          "id": "w5",
+          "text": "invitados",
+          "start": 0.906,
+          "end": 1.544
+        },
+        {
+          "id": "w6",
+          "text": "piden",
+          "start": 1.753,
+          "end": 2.032
+        },
+        {
+          "id": "w7",
+          "text": "la",
+          "start": 2.067,
+          "end": 2.136
+        },
+        {
+          "id": "w8",
+          "text": "canción",
+          "start": 2.171,
+          "end": 2.601
+        },
+        {
+          "id": "w9",
+          "text": "que",
+          "start": 2.659,
+          "end": 2.74
+        },
+        {
+          "id": "w10",
+          "text": "quieren",
+          "start": 2.798,
+          "end": 3.03
+        },
+        {
+          "id": "w11",
+          "text": "que",
+          "start": 3.077,
+          "end": 3.158
+        },
+        {
+          "id": "w12",
+          "text": "suene.",
+          "start": 3.204,
+          "end": 3.855
+        }
+      ]
+    },
+    {
+      "id": "09",
+      "path": "assets/voice/09.wav",
+      "duration_s": 2.786,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Votan",
+          "start": 0.0,
+          "end": 0.348
+        },
+        {
+          "id": "w1",
+          "text": "entre",
+          "start": 0.406,
+          "end": 0.65
+        },
+        {
+          "id": "w2",
+          "text": "ellos…",
+          "start": 0.673,
+          "end": 1.126
+        },
+        {
+          "id": "w3",
+          "text": "y",
+          "start": 1.3,
+          "end": 1.37
+        },
+        {
+          "id": "w4",
+          "text": "las",
+          "start": 1.428,
+          "end": 1.544
+        },
+        {
+          "id": "w5",
+          "text": "favoritas",
+          "start": 1.602,
+          "end": 2.067
+        },
+        {
+          "id": "w6",
+          "text": "suben.",
+          "start": 2.101,
+          "end": 2.786
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "path": "assets/voice/10.wav",
+      "duration_s": 4.969,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Tu",
+          "start": 0.0,
+          "end": 0.163
+        },
+        {
+          "id": "w1",
+          "text": "DJ",
+          "start": 0.209,
+          "end": 0.522
+        },
+        {
+          "id": "w2",
+          "text": "entra",
+          "start": 0.639,
+          "end": 0.813
+        },
+        {
+          "id": "w3",
+          "text": "con",
+          "start": 0.859,
+          "end": 0.952
+        },
+        {
+          "id": "w4",
+          "text": "su",
+          "start": 0.987,
+          "end": 1.057
+        },
+        {
+          "id": "w5",
+          "text": "propio",
+          "start": 1.103,
+          "end": 1.347
+        },
+        {
+          "id": "w6",
+          "text": "link",
+          "start": 1.393,
+          "end": 1.567
+        },
+        {
+          "id": "w7",
+          "text": "y",
+          "start": 1.591,
+          "end": 1.614
+        },
+        {
+          "id": "w8",
+          "text": "lo",
+          "start": 1.66,
+          "end": 1.718
+        },
+        {
+          "id": "w9",
+          "text": "modera",
+          "start": 1.765,
+          "end": 2.032
+        },
+        {
+          "id": "w10",
+          "text": "todo:",
+          "start": 2.09,
+          "end": 2.461
+        },
+        {
+          "id": "w11",
+          "text": "acepta,",
+          "start": 2.786,
+          "end": 3.402
+        },
+        {
+          "id": "w12",
+          "text": "rechaza…",
+          "start": 3.46,
+          "end": 4.04
+        },
+        {
+          "id": "w13",
+          "text": "y",
+          "start": 4.087,
+          "end": 4.133
+        },
+        {
+          "id": "w14",
+          "text": "la",
+          "start": 4.203,
+          "end": 4.272
+        },
+        {
+          "id": "w15",
+          "text": "pone.",
+          "start": 4.319,
+          "end": 4.969
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "path": "assets/voice/11.wav",
+      "duration_s": 4.598,
+      "words": [
+        {
+          "id": "w0",
+          "text": "Y",
+          "start": 0.0,
+          "end": 0.093
+        },
+        {
+          "id": "w1",
+          "text": "cada",
+          "start": 0.186,
+          "end": 0.383
+        },
+        {
+          "id": "w2",
+          "text": "invitado",
+          "start": 0.406,
+          "end": 0.917
+        },
+        {
+          "id": "w3",
+          "text": "ve",
+          "start": 0.975,
+          "end": 1.08
+        },
+        {
+          "id": "w4",
+          "text": "cuando",
+          "start": 1.103,
+          "end": 1.347
+        },
+        {
+          "id": "w5",
+          "text": "su",
+          "start": 1.405,
+          "end": 1.544
+        },
+        {
+          "id": "w6",
+          "text": "canción",
+          "start": 1.614,
+          "end": 2.125
+        },
+        {
+          "id": "w7",
+          "text": "está",
+          "start": 2.171,
+          "end": 2.345
+        },
+        {
+          "id": "w8",
+          "text": "en",
+          "start": 2.368,
+          "end": 2.426
+        },
+        {
+          "id": "w9",
+          "text": "cola…",
+          "start": 2.496,
+          "end": 2.961
+        },
+        {
+          "id": "w10",
+          "text": "y",
+          "start": 3.402,
+          "end": 3.471
+        },
+        {
+          "id": "w11",
+          "text": "cuando",
+          "start": 3.553,
+          "end": 3.831
+        },
+        {
+          "id": "w12",
+          "text": "suena.",
+          "start": 3.889,
+          "end": 4.598
+        }
+      ]
+    },
+    {
+      "id": "12",
+      "path": "assets/voice/12.wav",
+      "duration_s": 4.458,
+      "words": [
+        {
+          "id": "w0",
+          "text": "InvitApp.",
+          "start": 0.0,
+          "end": 0.697
+        },
+        {
+          "id": "w1",
+          "text": "Tus",
+          "start": 1.08,
+          "end": 1.242
+        },
+        {
+          "id": "w2",
+          "text": "recuerdos",
+          "start": 1.3,
+          "end": 1.695
+        },
+        {
+          "id": "w3",
+          "text": "y",
+          "start": 1.741,
+          "end": 1.765
+        },
+        {
+          "id": "w4",
+          "text": "tu",
+          "start": 1.823,
+          "end": 1.892
+        },
+        {
+          "id": "w5",
+          "text": "música,",
+          "start": 1.95,
+          "end": 2.473
+        },
+        {
+          "id": "w6",
+          "text": "en",
+          "start": 2.508,
+          "end": 2.647
+        },
+        {
+          "id": "w7",
+          "text": "manos",
+          "start": 2.717,
+          "end": 2.937
+        },
+        {
+          "id": "w8",
+          "text": "de",
+          "start": 2.961,
+          "end": 3.007
+        },
+        {
+          "id": "w9",
+          "text": "todos.",
+          "start": 3.053,
+          "end": 3.46
+        },
+        {
+          "id": "w10",
+          "text": "Escríbenos.",
+          "start": 3.495,
+          "end": 4.458
+        }
+      ]
+    }
+  ],
+  "sfx": [],
+  "total_duration_s": 50.62
+}

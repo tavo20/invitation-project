@@ -1,0 +1,100 @@
+<template>
+  <div data-hf-id="hf-njuk" id="root" data-composition-id="07-cambio" data-start="0" data-duration="2.404" data-width="1080" data-height="1920">
+    <style>
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; }
+      #root .clip { position: absolute; }
+      #c07-bg-cream { left: 0; top: 0; width: 1080px; height: 1920px; background: #faf7f4; }
+      #c07-ring { position: absolute; left: 540px; top: 820px; width: 980px; height: 980px; margin: -490px 0 0 -490px; border: 1px solid #d9cbc2; border-radius: 50%; opacity: 0.35; }
+      #c07-night { left: 0; top: 0; width: 1080px; height: 2400px;
+        background: linear-gradient(to bottom, rgba(13,13,13,0) 0px, rgba(13,13,13,0.85) 300px, #0d0d0d 480px, #0d0d0d 100%); }
+      #c07-glow { left: 0; top: 0; width: 1080px; height: 1920px;
+        background:
+          radial-gradient(ellipse 760px 620px at 18% 6%, rgba(199,125,255,0.18), rgba(199,125,255,0) 70%),
+          radial-gradient(ellipse 640px 560px at 86% 4%, rgba(255,79,216,0.10), rgba(255,79,216,0) 70%); }
+      #c07-phone { left: 253.5px; top: 216px; width: 573px; height: 1208px; }
+      .c07-shadow { position: absolute; inset: 0; border-radius: 66px; }
+      #c07-shadow-cream { box-shadow: 0 40px 80px -30px rgba(43,36,32,0.45); }
+      #c07-shadow-night { box-shadow: 0 40px 90px -30px rgba(0,0,0,0.8), 0 0 60px -20px rgba(199,125,255,0.25); opacity: 0; }
+      #c07-frame { position: absolute; inset: 0; background: #111; border-radius: 66px; }
+      #c07-screen { position: absolute; left: 14px; top: 14px; width: 545px; height: 1180px; border-radius: 52px; overflow: hidden; background: #faf7f4;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
+      .c07-shot { position: absolute; left: 0; top: 0; width: 545px; height: 1180px; object-fit: cover; object-position: top center; display: block; }
+      #c07-pill-patch { position: absolute; left: 318px; top: 11px; width: 216px; height: 58px; background: #faf7f4; border-radius: 29px; }
+      #c07-pill { position: absolute; left: 324px; top: 17px; width: 204px; height: 46px; border-radius: 23px; overflow: hidden;
+        background-image: url("assets/c01-album-pill.png"); background-size: 545px 1180px; background-position: -324px -17px;
+        box-shadow: 0 6px 14px -6px rgba(43,36,32,0.35); }
+      #c07-tap { position: absolute; left: 409px; top: 23px; width: 34px; height: 34px; border-radius: 50%; background: rgba(199,125,255,0.45); }
+      #c07-tap-ring { position: absolute; left: 409px; top: 23px; width: 34px; height: 34px; border-radius: 50%; border: 2px solid #c77dff; box-sizing: border-box; }
+      #c07-sheet { position: absolute; left: 0; top: 0; width: 545px; height: 1180px; }
+      #c07-streak { position: absolute; left: 0; top: -90px; width: 545px; height: 90px;
+        background: linear-gradient(to bottom, rgba(199,125,255,0), rgba(199,125,255,0.35) 70%, rgba(13,13,13,0.9)); }
+      #c07-edge { position: absolute; inset: 0; border-radius: 52px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); pointer-events: none; }
+    </style>
+
+    <div data-hf-id="hf-ndfx" id="c07-bg-cream" class="clip" data-start="0" data-duration="2.404" data-track-index="0">
+      <div data-hf-id="hf-b1ka" id="c07-ring"></div>
+    </div>
+    <div data-hf-id="hf-yq1q" id="c07-night" class="clip" data-start="0" data-duration="2.404" data-track-index="1"></div>
+    <div data-hf-id="hf-1bxg" id="c07-glow" class="clip" data-start="0" data-duration="2.404" data-track-index="2"></div>
+
+    <div data-hf-id="hf-x57e" id="c07-phone" class="clip" data-start="0" data-duration="2.404" data-track-index="3">
+      <div data-hf-id="hf-h0k3" id="c07-shadow-cream" class="c07-shadow"></div>
+      <div data-hf-id="hf-hfan" id="c07-shadow-night" class="c07-shadow"></div>
+      <div data-hf-id="hf-8o6z" id="c07-frame"></div>
+      <div data-hf-id="hf-09e8" id="c07-screen">
+        <img data-hf-id="hf-9tvh" class="c07-shot" src="assets/c01-album-pill.png" alt="">
+        <div data-hf-id="hf-cl50" id="c07-pill-patch"></div>
+        <div data-hf-id="hf-vsct" id="c07-pill"></div>
+        <div data-hf-id="hf-m9ar" id="c07-tap"></div>
+        <div data-hf-id="hf-hvz6" id="c07-tap-ring"></div>
+        <div data-hf-id="hf-tyrp" id="c07-sheet">
+          <div data-hf-id="hf-judu" id="c07-streak"></div>
+          <img data-hf-id="hf-gujg" class="c07-shot" src="assets/c02-pista-entrada.png" alt="">
+        </div>
+        <div data-hf-id="hf-3crn" id="c07-edge"></div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script>
+      (function () {
+        window.__timelines = window.__timelines || {};
+        var tl = gsap.timeline({ paused: true });
+        var root = document.querySelector('[data-composition-id="07-cambio"]');
+        var q = function (s) { return root.querySelector(s); };
+
+        // Base-state handoff: phone centred at (540,820), scale 1 = storyboard "scale 0.74".
+        // Pill centre sits at canvas (694,270) -> offset from phone centre (+154,-550).
+        // Zoom S=1.9, translate so the pill lands at (540,560).
+        var S = 1.9, TX = -294, TY = 785;
+
+        // Scene 1 (0.00-0.55): zoom-to-target on the "Pide tu cancion" pill
+        tl.fromTo(q('#c07-phone'), { x: 0, y: 0, scale: 1, transformOrigin: '50% 50%' },
+          { x: TX, y: TY, scale: S, duration: 0.55, ease: 'power3.inOut' }, 0);
+        tl.fromTo(q('#c07-ring'), { scale: 1 }, { scale: 1.12, duration: 0.55, ease: 'power2.inOut' }, 0);
+
+        // Scene 2 (0.55-0.95): button press with violet touch
+        tl.fromTo(q('#c07-tap'), { scale: 0.5, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.08, ease: 'power2.out' }, 0.56);
+        tl.to(q('#c07-tap'), { scale: 0.85, duration: 0.12, ease: 'power2.inOut' }, 0.64);
+        tl.fromTo(q('#c07-pill'), { scale: 1 }, { scale: 0.92, duration: 0.1, ease: 'power2.in' }, 0.6);
+        tl.to(q('#c07-pill'), { scale: 1, duration: 0.2, ease: 'back.out(2)' }, 0.72);
+        tl.fromTo(q('#c07-tap-ring'), { scale: 1, opacity: 0 }, { scale: 1, opacity: 0.9, duration: 0.02 }, 0.7);
+        tl.to(q('#c07-tap-ring'), { scale: 2.8, opacity: 0, duration: 0.3, ease: 'power2.out' }, 0.72);
+        tl.to(q('#c07-tap'), { opacity: 0, duration: 0.12, ease: 'power1.out' }, 0.9);
+
+        // Scene 3 (0.95-1.904): the night rises from below
+        tl.fromTo(q('#c07-sheet'), { yPercent: 108 }, { yPercent: 0, duration: 0.5, ease: 'expo.out' }, 0.95);
+        tl.fromTo(q('#c07-streak'), { opacity: 0 }, { opacity: 1, duration: 0.08, ease: 'none' }, 0.95);
+        tl.to(q('#c07-streak'), { opacity: 0, duration: 0.3, ease: 'power1.out' }, 1.15);
+        tl.to(q('#c07-phone'), { x: 0, y: 0, scale: 1, duration: 0.6, ease: 'power3.inOut' }, 0.95);
+        tl.fromTo(q('#c07-night'), { y: 1920 }, { y: -480, duration: 0.6, ease: 'power3.out' }, 0.97);
+        tl.fromTo(q('#c07-shadow-night'), { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'power1.inOut' }, 1.1);
+        tl.to(q('#c07-shadow-cream'), { opacity: 0, duration: 0.4, ease: 'power1.inOut' }, 1.1);
+        tl.fromTo(q('#c07-glow'), { opacity: 0, scale: 0.85, transformOrigin: '50% 0%' },
+          { opacity: 1, scale: 1, duration: 0.7, ease: 'power2.out' }, 1.2);
+
+        window.__timelines["07-cambio"] = tl;
+      })();
+    </script>
+  </div>
+</template>

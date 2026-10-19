@@ -1,0 +1,135 @@
+<template id="08-piden-template">
+<div data-hf-id="hf-xqqv" id="root" data-composition-id="08-piden" data-width="1080" data-height="1920" data-duration="4.355">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face{font-family:"Inter";font-weight:400;font-style:normal;font-display:block;src:url("assets/fonts/Inter-400.woff2") format("woff2");}
+@font-face{font-family:"Inter";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Inter-700.woff2") format("woff2");}
+@font-face{font-family:"Unbounded";font-weight:600;font-style:normal;font-display:block;src:url("assets/fonts/Unbounded-600.woff2") format("woff2");}
+@font-face{font-family:"Unbounded";font-weight:700;font-style:normal;font-display:block;src:url("assets/fonts/Unbounded-700.woff2") format("woff2");}
+
+#root{position:relative;width:1080px;height:1920px;overflow:hidden;}
+#root [id="08-piden-bg"]{position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 70% 45% at 12% 8%, rgba(199,125,255,0.18), rgba(199,125,255,0) 70%),
+    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(255,79,216,0.10), rgba(255,79,216,0) 70%),
+    #0d0d0d;}
+
+/* headline (y 70–200) */
+#root [id="08-piden-head"]{position:absolute;left:0;right:0;top:72px;text-align:center;}
+#root [id="08-piden-label"]{display:inline-block;font-family:"Unbounded";font-weight:700;font-size:24px;letter-spacing:6px;text-transform:uppercase;color:#c77dff;}
+#root [id="08-piden-title"]{margin-top:14px;font-family:"Unbounded";font-weight:700;font-size:64px;line-height:1.1;color:#f0f0f0;}
+#root .p08-word{display:inline-block;margin:0 10px;}
+#root .p08-word.p08-accent{background:linear-gradient(90deg,#c77dff,#ff4fd8);-webkit-background-clip:text;background-clip:text;color:transparent;}
+
+/* shared phone: base state centre (540,820), outer 573x1208 */
+#root [id="08-piden-phone"]{position:absolute;left:253.5px;top:216px;width:573px;height:1208px;border-radius:66px;background:#111;
+  box-shadow:0 40px 90px -30px rgba(0,0,0,0.8),0 0 60px -20px rgba(199,125,255,0.25),inset 0 0 0 1px rgba(255,255,255,0.08);transform-origin:50% 50%;}
+#root [id="08-piden-screen"]{position:absolute;left:14px;top:14px;width:545px;height:1180px;border-radius:52px;overflow:hidden;background:#0d0d0d;}
+#root .p08-shot{position:absolute;inset:0;width:545px;height:1180px;object-fit:cover;object-position:top center;transform-origin:50% 50%;}
+#root [id="08-piden-rowglow"]{position:absolute;left:22px;top:920px;width:501px;height:108px;border-radius:16px;border:2px solid #c77dff;
+  box-shadow:0 0 36px 4px rgba(199,125,255,0.55),inset 0 0 24px rgba(199,125,255,0.25);opacity:0;}
+
+/* floating song card (foreground, right side) */
+#root [id="08-piden-card"]{position:absolute;left:470px;top:930px;width:560px;height:224px;border-radius:30px;background:#1a1a1a;
+  border:1px solid rgba(199,125,255,0.4);box-shadow:0 40px 90px -30px rgba(0,0,0,0.9),0 0 70px -18px rgba(199,125,255,0.45);transform-origin:50% 50%;}
+#root [id="08-piden-cover"]{position:absolute;left:28px;top:28px;width:168px;height:168px;border-radius:14px;object-fit:cover;background:#fff;}
+#root [id="08-piden-song"]{position:absolute;left:222px;top:30px;font-family:"Unbounded";font-weight:700;font-size:40px;line-height:1.1;color:#f0f0f0;white-space:nowrap;}
+#root [id="08-piden-artist"]{position:absolute;left:222px;top:84px;font-family:"Inter";font-weight:400;font-size:28px;color:#9a9a9a;white-space:nowrap;}
+#root [id="08-piden-pill"]{position:absolute;left:222px;top:136px;width:184px;height:60px;border-radius:30px;background:#c77dff;color:#0d0d0d;
+  font-family:"Inter";font-weight:700;font-size:28px;line-height:60px;text-align:center;transform-origin:50% 50%;}
+
+/* finger tap */
+#root .p08-tap{position:absolute;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:rgba(199,125,255,0.45);opacity:0;}
+#root .p08-ring{position:absolute;width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;border:3px solid rgba(199,125,255,0.9);opacity:0;}
+</style>
+
+<div data-hf-id="hf-17fi" id="08-piden-bg" class="clip" data-start="0" data-duration="4.355" data-track-index="0"></div>
+
+<div data-hf-id="hf-yaxm" id="08-piden-head" class="clip" data-start="0" data-duration="4.355" data-track-index="1">
+  <div data-hf-id="hf-0dw1" id="08-piden-label">La Pista</div>
+  <div data-hf-id="hf-3adx" id="08-piden-title"><span data-hf-id="hf-pafc" class="p08-word">Pide</span><span data-hf-id="hf-n2hn" class="p08-word">tu</span><span data-hf-id="hf-2lgq" class="p08-word p08-accent">canción</span></div>
+</div>
+
+<div data-hf-id="hf-pj4v" id="08-piden-phone" class="clip" data-start="0" data-duration="4.355" data-track-index="2">
+  <div data-hf-id="hf-unn5" id="08-piden-screen">
+    <img data-hf-id="hf-7d5l" id="08-piden-s0" class="p08-shot" src="assets/c02-pista-entrada.png" alt="">
+    <img data-hf-id="hf-qs9d" id="08-piden-s1" class="p08-shot" src="assets/m01-pista-home.png" alt="">
+    <img data-hf-id="hf-p8vg" id="08-piden-s2" class="p08-shot" src="assets/m02-search.png" alt="">
+    <img data-hf-id="hf-skdc" id="08-piden-s3" class="p08-shot" src="assets/m03-requested.png" alt="">
+    <div data-hf-id="hf-iczw" id="08-piden-rowglow"></div>
+  </div>
+</div>
+
+<div data-hf-id="hf-zmi0" id="08-piden-card" class="clip" data-start="0" data-duration="4.355" data-track-index="3">
+  <img data-hf-id="hf-a15h" id="08-piden-cover" src="assets/cover-quedate.jpg" alt="">
+  <div data-hf-id="hf-9jln" id="08-piden-song">quédate</div>
+  <div data-hf-id="hf-td2z" id="08-piden-artist">Beéle</div>
+  <div data-hf-id="hf-7vtz" id="08-piden-pill">+ Pedir</div>
+</div>
+
+<div data-hf-id="hf-ku6u" id="08-piden-taps" class="clip" data-start="0" data-duration="4.355" data-track-index="4" style="position:absolute;inset:0;">
+  <div data-hf-id="hf-v2q8" id="08-piden-ring1" class="p08-ring" style="left:540px;top:1066px;"></div>
+  <div data-hf-id="hf-cl9s" id="08-piden-tap1" class="p08-tap" style="left:540px;top:1066px;"></div>
+  <div data-hf-id="hf-xp00" id="08-piden-ring2" class="p08-ring" style="left:784px;top:1096px;"></div>
+  <div data-hf-id="hf-bhf4" id="08-piden-tap2" class="p08-tap" style="left:784px;top:1096px;"></div>
+</div>
+
+<script>
+(function(){
+  var $ = function(n){ return document.getElementById("08-piden-" + n); };
+  var tl = gsap.timeline({ paused: true });
+
+  var s0 = $("s0"), s1 = $("s1"), s2 = $("s2"), s3 = $("s3");
+  var words = document.querySelectorAll('[id="08-piden-title"] .p08-word');
+
+  // initial states (seek-safe via fromTo/set at 0)
+  tl.set(s0, { opacity: 1, scale: 1, zIndex: 1 }, 0);
+  tl.set([s1, s2, s3], { opacity: 0, scale: 0.92 }, 0);
+  tl.set(s1, { zIndex: 2 }, 0); tl.set(s2, { zIndex: 3 }, 0); tl.set(s3, { zIndex: 4 }, 0);
+  tl.set($("rowglow"), { zIndex: 5, opacity: 0 }, 0);
+  tl.set($("card"), { opacity: 0, scale: 0.3, x: -410, y: -206 }, 0);
+
+  // ---------- Scene 1 (0–1.4): tap "Entrar" → m01; label + per-word headline ----------
+  tl.fromTo($("tap1"), { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.12, ease: "power2.out" }, 0.1);
+  tl.to($("tap1"), { scale: 0.85, duration: 0.1, ease: "power1.in" }, 0.24);
+  tl.to($("tap1"), { scale: 1, opacity: 0, duration: 0.25, ease: "power2.out" }, 0.34);
+  tl.fromTo($("ring1"), { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.6, duration: 0.4, ease: "power2.out" }, 0.34);
+  // scale-swap c02 → m01
+  tl.to(s0, { scale: 0.92, opacity: 0, duration: 0.2, ease: "power2.in" }, 0.36);
+  tl.to(s1, { scale: 1, opacity: 1, duration: 0.42, ease: "back.out(1.4)" }, 0.5);
+  // headline
+  tl.fromTo($("label"), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.3);
+  words.forEach(function(w, i){
+    tl.fromTo(w, { opacity: 0, y: 44, filter: "blur(8px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power3.out" }, 0.5 + i * 0.12);
+  });
+
+  // ---------- Scene 2 (1.4–3.2): m02 search; song card pops out of the list ----------
+  tl.to(s1, { scale: 0.92, opacity: 0, duration: 0.18, ease: "power2.in" }, 1.4);
+  tl.to(s2, { scale: 1, opacity: 1, duration: 0.42, ease: "back.out(1.4)" }, 1.52);
+  tl.to($("card"), { opacity: 1, scale: 1, x: 0, y: 0, duration: 0.6, ease: "power3.out" }, 1.98);
+  tl.to($("card"), { y: -12, duration: 0.6, ease: "sine.inOut" }, 2.58);
+
+  // ---------- Scene 3 (3.2–3.855): tap "+ Pedir" → card flies back → m03 + glow ----------
+  tl.fromTo($("tap2"), { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.1, ease: "power2.out" }, 3.08);
+  tl.to($("tap2"), { scale: 0.85, duration: 0.08, ease: "power1.in" }, 3.18);
+  tl.to($("tap2"), { scale: 1, opacity: 0, duration: 0.2, ease: "power2.out" }, 3.26);
+  tl.fromTo($("ring2"), { opacity: 0.9, scale: 1 }, { opacity: 0, scale: 2.4, duration: 0.34, ease: "power2.out" }, 3.26);
+  tl.to($("pill"), { scale: 0.92, duration: 0.08, ease: "power1.in" }, 3.18);
+  tl.to($("pill"), { scale: 1, duration: 0.2, ease: "back.out(2)" }, 3.26);
+  // card flies back into the list (toward the new "pedida por Laura" row)
+  tl.to($("card"), { x: -362, y: 162, scale: 0.36, opacity: 0, duration: 0.28, ease: "power2.in" }, 3.32);
+  // scale-swap m02 → m03
+  tl.to(s2, { scale: 0.94, opacity: 0, duration: 0.16, ease: "power2.in" }, 3.38);
+  tl.to(s3, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.2)" }, 3.48);
+  // keyword glow on the requested row
+  tl.fromTo($("rowglow"), { opacity: 0, scale: 0.97 }, { opacity: 1, scale: 1, duration: 0.12, ease: "power2.out" }, 3.6);
+  tl.to($("rowglow"), { opacity: 0.6, duration: 0.13, ease: "none" }, 3.72);
+
+  tl.set({}, {}, 3.855);
+  window.__timelines = window.__timelines || {};
+  window.__timelines["08-piden"] = tl;
+})();
+</script>
+</div>
+</template>

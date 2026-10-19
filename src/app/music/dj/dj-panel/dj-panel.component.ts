@@ -227,6 +227,11 @@ export class DjPanelComponent implements OnInit, OnDestroy {
     });
   }
 
+  get partyStatusLabel(): string {
+    const labels: Record<string, string> = { active: 'Activa', paused: 'Pausada', finished: 'Finalizada' };
+    return labels[this.party?.status ?? ''] ?? '';
+  }
+
   get guestLink(): string {
     return `${window.location.origin}/fiesta/${this.party?.code}`;
   }
