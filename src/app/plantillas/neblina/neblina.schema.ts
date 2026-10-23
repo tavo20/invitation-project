@@ -6,7 +6,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     {
       title: 'Portada',
       fields: [
-        { key: 'heroImage', type: 'image', label: 'Foto principal', hint: 'Mejor una foto vertical de los dos.', aspect: '3/4' },
+        { key: 'heroImage', type: 'image', label: 'Foto principal', hint: 'Usa una foto vertical, con ustedes en el centro: ocupa toda la pantalla y los bordes pueden recortarse. JPG o PNG, mínimo 1080 px de ancho para que se vea nítida.', aspect: '9/16' },
         { key: 'names1', type: 'text', label: 'Nombre 1', max: 24 },
         { key: 'names2', type: 'text', label: 'Nombre 2', max: 24 },
         { key: 'inicial_1', type: 'text', label: 'Inicial 1', max: 2 },
@@ -53,7 +53,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
         { key: 'storyTitle', type: 'text', label: 'Título', max: 40 },
         { key: 'storyText1', type: 'textarea', label: 'Primer párrafo', max: 500 },
         { key: 'storyText2', type: 'textarea', label: 'Segundo párrafo', max: 500 },
-        { key: 'storyImages', type: 'images', label: 'Fotos del carrusel', maxItems: 6 },
+        { key: 'storyImages', type: 'images', label: 'Fotos del carrusel', hint: 'Fotos verticales: se recortan a formato 3:4. JPG o PNG, mínimo 1080 px de ancho.', maxItems: 6 },
       ],
     },
     {

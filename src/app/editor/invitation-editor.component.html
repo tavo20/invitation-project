@@ -194,7 +194,7 @@
                   (click)="addListItem($any(field))">+ {{ $any(field).addLabel }}</button>
               </ng-container>
 
-              <span class="field__hint" *ngIf="field.hint && field.type !== 'images'">{{ field.hint }}</span>
+              <span class="field__hint" *ngIf="field.hint">{{ field.hint }}</span>
             </div>
             </ng-container>
             <p class="sec__off" *ngIf="isSectionOff(section)">Esta sección no se muestra en tu invitación.</p>
