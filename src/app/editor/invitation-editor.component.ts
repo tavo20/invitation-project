@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import {
+  AudioField,
   EditableTemplate,
   EditorField,
   EditorInvitation,
@@ -232,6 +233,35 @@ export class InvitationEditorComponent implements OnInit, OnDestroy {
     }
   }
 
+  async onAudioPicked(field: AudioField, event: Event): Promise<void> {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    input.value = '';
+    if (!file) return;
+
+    this.uploading = { ...this.uploading, [field.key]: true };
+    try {
+      const url = await this.editor.uploadAudio(this.invitationId, this.token, file);
+      this.model = { ...this.model, [field.nameKey]: file.name.replace(/\.[^.]+$/, '') };
+      this.setValue(field.key, url);
+    } catch (error) {
+      this.showToast(this.editor.errorMessage(error, 'No se pudo subir la canción'));
+    } finally {
+      const { [field.key]: _, ...rest } = this.uploading;
+      this.uploading = rest;
+    }
+  }
+
+  /** Vuelve a la canción que trae la plantilla. */
+  resetAudio(field: AudioField): void {
+    this.model = { ...this.model, [field.nameKey]: this.template!.defaults[field.nameKey] };
+    this.setValue(field.key, this.template!.defaults[field.key]);
+  }
+
+  isDefault(key: string): boolean {
+    return this.model[key] === this.template?.defaults[key];
+  }
+
   isUploading(key: string, index?: number): boolean {
     return !!this.uploading[index === undefined ? key : `${key}.${index}`];
   }
@@ -329,8 +359,11 @@ export class InvitationEditorComponent implements OnInit, OnDestroy {
     const model: Model = { ...invitation.data };
     for (const section of this.template!.schema.sections) {
       for (const field of section.fields) {
-        if (model[field.key] === undefined && this.template!.defaults[field.key] !== undefined) {
-          model[field.key] = structuredClone(this.template!.defaults[field.key]);
+        const keys = field.type === 'audio' ? [field.key, field.nameKey] : [field.key];
+        for (const key of keys) {
+          if (model[key] === undefined && this.template!.defaults[key] !== undefined) {
+            model[key] = structuredClone(this.template!.defaults[key]);
+          }
         }
       }
     }

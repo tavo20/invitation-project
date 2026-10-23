@@ -39,6 +39,13 @@ export interface ImageField extends BaseField {
   aspect?: string;
 }
 
+/** Canción de la invitación: MP3 o M4A, se sube tal cual. */
+export interface AudioField extends BaseField {
+  type: 'audio';
+  /** Key donde se guarda el nombre del archivo, para mostrarlo en el editor. */
+  nameKey: string;
+}
+
 export interface ImagesField extends BaseField {
   type: 'images';
   maxItems: number;
@@ -63,6 +70,7 @@ export type EditorField =
   | ToggleField
   | SelectField
   | ImageField
+  | AudioField
   | ImagesField
   | ColorsField
   | ListField;

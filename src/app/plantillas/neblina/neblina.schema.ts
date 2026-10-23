@@ -17,6 +17,19 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
       ],
     },
     {
+      title: 'Música',
+      fields: [
+        { key: 'showMusic', type: 'toggle', label: 'Música en la invitación', controlsSection: true },
+        {
+          key: 'audioSrc',
+          type: 'audio',
+          nameKey: 'audioName',
+          label: 'Canción',
+          hint: 'MP3 o M4A, máximo 10 MB y 6 minutos. Suena cuando el invitado toca el botón de música.',
+        },
+      ],
+    },
+    {
       title: 'Frase',
       fields: [
         { key: 'showQuote', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },

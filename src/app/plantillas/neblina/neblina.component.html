@@ -28,7 +28,7 @@
         </svg>
     </div>
 
-    <button class="neblina-hero__music" (click)="togglePlayPause()" aria-label="Reproducir música">
+    <button class="neblina-hero__music" *ngIf="data.showMusic && data.audioSrc" (click)="togglePlayPause()" aria-label="Reproducir música">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
             stroke-linejoin="round">
             <path d="M9 18V5l12-2v13" />
@@ -38,7 +38,7 @@
     </button>
 </section>
 
-<audio #audioPlayer src="assets/songs/thinking_out.mp3"></audio>
+<audio #audioPlayer *ngIf="data.showMusic && data.audioSrc" [src]="data.audioSrc" (play)="isPlaying = true" (pause)="isPlaying = false"></audio>
 
 <section class="neblina-quote" #quoteSection *ngIf="data.showQuote">
     <img class="neblina-quote__flower neblina-quote__flower--top" src="assets/neblina/flor_3.png" alt="" aria-hidden="true">

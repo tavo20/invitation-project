@@ -69,6 +69,9 @@ export interface NeblinaInvitationData {
   palette: NeblinaPaletteName;
   finalMessage: string;
   giftTitle: string;
+  audioSrc: string;
+  audioName: string;
+  showMusic: boolean;
   showQuote: boolean;
   showSaveDate: boolean;
   showParents: boolean;
@@ -135,6 +138,9 @@ export const NEBLINA_DEFAULT_DATA: NeblinaInvitationData = {
   palette: 'mist',
   finalMessage: 'Gracias por acompañarnos a decir que sí. Los esperamos con el corazón abierto para celebrar este día juntos.',
   giftTitle: 'Lluvia de sobres',
+  audioSrc: 'assets/songs/thinking_out.mp3',
+  audioName: 'Thinking Out Loud',
+  showMusic: true,
   showQuote: true,
   showSaveDate: true,
   showParents: true,
@@ -335,12 +341,16 @@ export class NeblinaComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   togglePlayPause(): void {
-    if (this.isPlaying) {
-      this.audioPlayerRef.nativeElement.pause();
-    } else {
-      this.audioPlayerRef.nativeElement.play();
+    const audio = this.audioPlayerRef?.nativeElement;
+    if (!audio) {
+      return;
     }
-    this.isPlaying = !this.isPlaying;
+    // isPlaying se actualiza con los eventos play/pause del <audio> (también si cambia la canción)
+    if (audio.paused) {
+      void audio.play();
+    } else {
+      audio.pause();
+    }
   }
 
   ngOnDestroy(): void {

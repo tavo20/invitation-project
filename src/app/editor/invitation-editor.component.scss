@@ -432,6 +432,38 @@ input[type='file'] {
   cursor: pointer;
 }
 
+/* Canción */
+.song {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.song__name {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.song__player {
+  width: 100%;
+  height: 40px;
+}
+
+.song__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+
+  .btn--small { align-self: center; }
+}
+
 /* Colores */
 .colors {
   display: flex;

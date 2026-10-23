@@ -137,6 +137,25 @@
                 </label>
               </ng-container>
 
+              <!-- Canción -->
+              <ng-container *ngSwitchCase="'audio'">
+                <span class="field__label">{{ field.label }}</span>
+                <div class="song">
+                  <p class="song__name">♪ {{ text($any(field).nameKey) || 'Canción' }}</p>
+                  <audio *ngIf="text(field.key)" class="song__player" controls preload="none" [src]="text(field.key)"></audio>
+                </div>
+                <div class="song__actions">
+                  <label class="btn btn--ghost btn--file">
+                    {{ isUploading(field.key) ? 'Subiendo…' : 'Subir otra canción' }}
+                    <input type="file" accept=".mp3,.m4a,.aac,audio/mpeg,audio/mp4,audio/aac" [disabled]="isUploading(field.key)"
+                      (change)="onAudioPicked($any(field), $event)" />
+                  </label>
+                  <button type="button" class="btn btn--ghost btn--small" *ngIf="!isDefault(field.key)" (click)="resetAudio($any(field))">
+                    Usar la canción original
+                  </button>
+                </div>
+              </ng-container>
+
               <!-- Varias fotos -->
               <ng-container *ngSwitchCase="'images'">
                 <span class="field__label">{{ field.label }}</span>
