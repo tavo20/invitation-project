@@ -1,0 +1,212 @@
+<div class="ed">
+
+  <div class="ed__state" *ngIf="loading">
+    <span class="spinner" aria-hidden="true"></span>
+    <p>Cargando tu invitación…</p>
+  </div>
+
+  <div class="ed__state" *ngIf="!loading && blocked">
+    <ng-container [ngSwitch]="blocked">
+      <ng-container *ngSwitchCase="'missing'">
+        <p class="ed__state-title">Necesitas tu enlace de edición</p>
+        <p>Abre el enlace privado que te enviamos por WhatsApp.</p>
+      </ng-container>
+      <ng-container *ngSwitchCase="'invalid'">
+        <p class="ed__state-title">Este enlace ya no es válido</p>
+        <p>Escríbenos y te enviamos uno nuevo.</p>
+      </ng-container>
+      <ng-container *ngSwitchCase="'unsupported'">
+        <p class="ed__state-title">Esta invitación aún no se puede editar aquí</p>
+        <p>Escríbenos y hacemos los cambios por ti.</p>
+      </ng-container>
+    </ng-container>
+  </div>
+
+  <div class="ed__state" *ngIf="!loading && !blocked && loadError">
+    <p class="ed__state-title">No pudimos abrir el editor</p>
+    <p>{{ loadError }}</p>
+  </div>
+
+  <ng-container *ngIf="!loading && !blocked && !loadError && template">
+
+    <header class="bar">
+      <div class="bar__info">
+        <p class="bar__kicker">Editar invitación</p>
+        <h1 class="bar__title">{{ text('names1') }} <span *ngIf="text('names2')">&amp; {{ text('names2') }}</span></h1>
+        <p class="bar__status" [ngSwitch]="saveState">
+          <ng-container *ngSwitchCase="'pending'">Cambios sin guardar…</ng-container>
+          <ng-container *ngSwitchCase="'saving'">Guardando…</ng-container>
+          <ng-container *ngSwitchCase="'error'"><span class="bar__status--error">No se pudo guardar</span></ng-container>
+          <ng-container *ngSwitchDefault>
+            <ng-container *ngIf="hasDraft">Borrador guardado · tus invitados aún no lo ven</ng-container>
+            <ng-container *ngIf="!hasDraft">Todo publicado</ng-container>
+          </ng-container>
+        </p>
+        <p class="bar__mock" *ngIf="isMock">Modo de prueba: nada se guarda</p>
+      </div>
+      <div class="bar__actions">
+        <a class="btn btn--ghost" *ngIf="invitationUrl && !isMock" [href]="invitationUrl" target="_blank" rel="noopener">Ver invitación</a>
+        <button type="button" class="btn btn--ghost" *ngIf="hasDraft" (click)="discard()">Descartar</button>
+        <button
+          type="button"
+          class="btn btn--primary"
+          [disabled]="publishing || (!hasDraft && saveState !== 'pending' && saveState !== 'saving' && saveState !== 'error')"
+          (click)="publish()"
+        >
+          {{ publishing ? 'Publicando…' : 'Publicar cambios' }}
+        </button>
+      </div>
+    </header>
+
+    <nav class="tabs" aria-label="Vista">
+      <button type="button" class="tabs__btn" [class.is-active]="mobileView === 'form'" (click)="mobileView = 'form'">Editar</button>
+      <button type="button" class="tabs__btn" [class.is-active]="mobileView === 'preview'" (click)="mobileView = 'preview'">Vista previa</button>
+    </nav>
+
+    <div class="layout">
+
+      <form class="form" [class.is-hidden-mobile]="mobileView !== 'form'" (submit)="$event.preventDefault()">
+        <section class="sec" *ngFor="let section of template.schema.sections; let s = index" [class.is-open]="openSection === s">
+          <button type="button" class="sec__head" (click)="openSection = openSection === s ? -1 : s" [attr.aria-expanded]="openSection === s">
+            <span>{{ section.title }}</span>
+            <span class="sec__chevron" aria-hidden="true">⌄</span>
+          </button>
+
+          <div class="sec__body" *ngIf="openSection === s">
+            <div class="field" *ngFor="let field of section.fields; trackBy: trackByKey" [ngSwitch]="field.type">
+
+              <!-- Texto -->
+              <ng-container *ngSwitchCase="'text'">
+                <label class="field__label" [attr.for]="field.key">{{ field.label }}</label>
+                <input class="input" type="text" [id]="field.key" [value]="text(field.key)"
+                  [attr.maxlength]="$any(field).max" [attr.placeholder]="$any(field).placeholder"
+                  (input)="onText(field.key, $event)" />
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'url'">
+                <label class="field__label" [attr.for]="field.key">{{ field.label }}</label>
+                <input class="input" type="url" inputmode="url" [id]="field.key" [value]="text(field.key)"
+                  [attr.placeholder]="$any(field).placeholder" (input)="onText(field.key, $event)" />
+              </ng-container>
+
+              <ng-container *ngSwitchCase="'textarea'">
+                <label class="field__label" [attr.for]="field.key">{{ field.label }}</label>
+                <textarea class="input input--area" [id]="field.key" rows="4" [value]="text(field.key)"
+                  [attr.maxlength]="$any(field).max" (input)="onText(field.key, $event)"></textarea>
+                <span class="field__count" *ngIf="$any(field).max">{{ text(field.key).length }}/{{ $any(field).max }}</span>
+              </ng-container>
+
+              <!-- Fecha y hora -->
+              <ng-container *ngSwitchCase="'datetime'">
+                <label class="field__label" [attr.for]="field.key">{{ field.label }}</label>
+                <input class="input" type="datetime-local" [id]="field.key" [value]="dateTimeInput(field.key)"
+                  (change)="onDateTime(field.key, $event)" />
+              </ng-container>
+
+              <!-- Sí / no -->
+              <ng-container *ngSwitchCase="'toggle'">
+                <label class="toggle">
+                  <input type="checkbox" [checked]="!!value(field.key)" (change)="onToggle(field.key, $event)" />
+                  <span class="toggle__track" aria-hidden="true"></span>
+                  <span>{{ field.label }}</span>
+                </label>
+              </ng-container>
+
+              <!-- Opciones -->
+              <ng-container *ngSwitchCase="'select'">
+                <span class="field__label">{{ field.label }}</span>
+                <div class="chips" role="radiogroup" [attr.aria-label]="field.label">
+                  <button type="button" class="chip" *ngFor="let option of $any(field).options"
+                    role="radio" [attr.aria-checked]="value(field.key) === option.value"
+                    [class.is-active]="value(field.key) === option.value"
+                    (click)="setValue(field.key, option.value)">{{ option.label }}</button>
+                </div>
+              </ng-container>
+
+              <!-- Una foto -->
+              <ng-container *ngSwitchCase="'image'">
+                <span class="field__label">{{ field.label }}</span>
+                <div class="photo" [style.aspect-ratio]="$any(field).aspect || '4/3'">
+                  <img *ngIf="text(field.key)" [src]="text(field.key)" alt="" />
+                  <span class="photo__busy" *ngIf="isUploading(field.key)"><span class="spinner"></span></span>
+                </div>
+                <label class="btn btn--ghost btn--file">
+                  {{ isUploading(field.key) ? 'Subiendo…' : 'Cambiar foto' }}
+                  <input type="file" accept="image/*" [disabled]="isUploading(field.key)" (change)="onImagePicked(field.key, $event)" />
+                </label>
+              </ng-container>
+
+              <!-- Varias fotos -->
+              <ng-container *ngSwitchCase="'images'">
+                <span class="field__label">{{ field.label }}</span>
+                <div class="thumbs">
+                  <div class="thumb" *ngFor="let url of array(field.key); let i = index; trackBy: trackByIndex">
+                    <img [src]="url" alt="" />
+                    <span class="photo__busy" *ngIf="isUploading(field.key, i)"><span class="spinner"></span></span>
+                    <div class="thumb__tools">
+                      <button type="button" aria-label="Mover a la izquierda" [disabled]="i === 0" (click)="moveItem(field.key, i, -1)">‹</button>
+                      <label aria-label="Cambiar foto">↻<input type="file" accept="image/*" (change)="onImagePicked(field.key, $event, i)" /></label>
+                      <button type="button" aria-label="Quitar foto" (click)="removeItem(field.key, i)">×</button>
+                      <button type="button" aria-label="Mover a la derecha" [disabled]="i === array(field.key).length - 1" (click)="moveItem(field.key, i, 1)">›</button>
+                    </div>
+                  </div>
+                  <label class="thumb thumb--add" *ngIf="array(field.key).length < $any(field).maxItems">
+                    <span *ngIf="!isUploading(field.key, array(field.key).length)">+ Foto</span>
+                    <span class="spinner" *ngIf="isUploading(field.key, array(field.key).length)"></span>
+                    <input type="file" accept="image/*" [disabled]="isUploading(field.key, array(field.key).length)"
+                      (change)="onImagePicked(field.key, $event, array(field.key).length)" />
+                  </label>
+                </div>
+                <span class="field__hint">Máximo {{ $any(field).maxItems }} fotos.</span>
+              </ng-container>
+
+              <!-- Colores -->
+              <ng-container *ngSwitchCase="'colors'">
+                <span class="field__label">{{ field.label }}</span>
+                <div class="colors">
+                  <div class="color" *ngFor="let color of array(field.key); let i = index; trackBy: trackByIndex">
+                    <input type="color" [value]="color" [attr.aria-label]="'Color ' + (i + 1)" (change)="onColor(field.key, i, $event)" />
+                    <button type="button" aria-label="Quitar color" (click)="removeItem(field.key, i)">×</button>
+                  </div>
+                  <button type="button" class="color color--add" *ngIf="array(field.key).length < $any(field).maxItems"
+                    aria-label="Agregar color" (click)="addColor(field.key)">+</button>
+                </div>
+              </ng-container>
+
+              <!-- Lista (itinerario) -->
+              <ng-container *ngSwitchCase="'list'">
+                <span class="field__label">{{ field.label }}</span>
+                <div class="rows">
+                  <div class="row" *ngFor="let item of array($any(field).key); let i = index; trackBy: trackByIndex">
+                    <input *ngFor="let sub of $any(field).itemFields" class="input" type="text"
+                      [class.input--short]="sub.key === 'time'"
+                      [value]="$any(item)[sub.key] || ''" [attr.placeholder]="sub.label" [attr.aria-label]="sub.label"
+                      [attr.maxlength]="sub.max" (input)="onListText($any(field), i, sub.key, $event)" />
+                    <div class="row__tools">
+                      <button type="button" aria-label="Subir" [disabled]="i === 0" (click)="moveItem(field.key, i, -1)">↑</button>
+                      <button type="button" aria-label="Bajar" [disabled]="i === array(field.key).length - 1" (click)="moveItem(field.key, i, 1)">↓</button>
+                      <button type="button" aria-label="Quitar" (click)="removeItem(field.key, i)">×</button>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn--ghost btn--small" *ngIf="array(field.key).length < $any(field).maxItems"
+                  (click)="addListItem($any(field))">+ {{ $any(field).addLabel }}</button>
+              </ng-container>
+
+              <span class="field__hint" *ngIf="field.hint && field.type !== 'images'">{{ field.hint }}</span>
+            </div>
+          </div>
+        </section>
+      </form>
+
+      <aside class="preview" [class.is-hidden-mobile]="mobileView !== 'preview'" aria-label="Vista previa">
+        <div class="phone">
+          <iframe #previewFrame class="phone__screen" src="/invitation/vista-previa" title="Vista previa de la invitación"></iframe>
+        </div>
+      </aside>
+
+    </div>
+  </ng-container>
+
+  <div class="toast" *ngIf="toast" role="status">{{ toast }}</div>
+</div>

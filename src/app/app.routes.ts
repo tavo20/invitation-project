@@ -49,6 +49,19 @@ export const routes: Routes = [
             import('./ticket/ticket.component')
                 .then(m => m.TicketComponent)
     },
+    // ===== Editor de la invitación para el cliente (link con token) =====
+    {
+        path: 'invitation/editar/:id',
+        loadComponent: () =>
+            import('./editor/invitation-editor.component')
+                .then(m => m.InvitationEditorComponent)
+    },
+    {
+        path: 'invitation/vista-previa',
+        loadComponent: () =>
+            import('./editor/preview-frame.component')
+                .then(m => m.PreviewFrameComponent)
+    },
     // ===== Galería de fotos y videos del evento =====
     {
         path: 'invitation/galeria/:id/admin',
