@@ -185,7 +185,7 @@ input[type='file'] {
   gap: 32px;
   max-width: 1180px;
   margin: 0 auto;
-  padding: 24px 24px 80px;
+  padding: 24px 24px 32px;
 }
 
 /* ---------- Formulario ---------- */
@@ -563,7 +563,8 @@ input[type='file'] {
 .phone__screen {
   display: block;
   width: 100%;
-  height: min(780px, calc(100dvh - 160px));
+  // cabe completo bajo la barra fija aun al final del formulario (el sticky no pasa del borde de la grilla)
+  height: min(780px, calc(100dvh - 190px));
   border: 0;
   border-radius: 30px;
   background: #fff;

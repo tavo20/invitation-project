@@ -4,6 +4,7 @@ import { EDITABLE_TEMPLATES } from './template-schemas';
 
 export const PREVIEW_MESSAGE = 'invitation-editor-preview';
 export const PREVIEW_READY = 'invitation-editor-preview-ready';
+export const PREVIEW_SCROLL = 'invitation-editor-preview-scroll';
 
 /**
  * Vista previa del editor: /invitation/vista-previa, cargada dentro de un iframe.
@@ -31,8 +32,15 @@ export class PreviewFrameComponent implements OnInit {
 
   @HostListener('window:message', ['$event'])
   onMessage(event: MessageEvent): void {
-    if (event.origin !== window.location.origin || event.data?.type !== PREVIEW_MESSAGE) return;
-    this.component = EDITABLE_TEMPLATES[event.data.template]?.component ?? null;
-    this.data = event.data.data ?? {};
+    if (event.origin !== window.location.origin) return;
+    if (event.data?.type === PREVIEW_MESSAGE) {
+      this.component = EDITABLE_TEMPLATES[event.data.template]?.component ?? null;
+      this.data = event.data.data ?? {};
+    } else if (event.data?.type === PREVIEW_SCROLL && typeof event.data.selector === 'string') {
+      // después del render, por si la sección acaba de aparecer (toggle encendido)
+      setTimeout(() => {
+        document.querySelector(event.data.selector)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
+    }
   }
 }

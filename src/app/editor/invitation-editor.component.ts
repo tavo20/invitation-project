@@ -12,7 +12,7 @@ import {
 } from './editor.models';
 import { EDITABLE_TEMPLATES } from './template-schemas';
 import { InvitationEditorService } from './invitation-editor.service';
-import { PREVIEW_MESSAGE, PREVIEW_READY } from './preview-frame.component';
+import { PREVIEW_MESSAGE, PREVIEW_READY, PREVIEW_SCROLL } from './preview-frame.component';
 
 type Model = Record<string, unknown>;
 type SaveState = 'idle' | 'pending' | 'saving' | 'saved' | 'error';
@@ -156,7 +156,9 @@ export class InvitationEditorComponent implements OnInit, OnDestroy {
   }
 
   onToggle(key: string, event: Event): void {
-    this.setValue(key, (event.target as HTMLInputElement).checked);
+    const checked = (event.target as HTMLInputElement).checked;
+    this.setValue(key, checked);
+    if (checked) this.scrollPreview();
   }
 
   /** "June 12, 2027 16:30:00" o "2027-06-12T16:30:00" → valor de <input type="datetime-local">. */
@@ -295,6 +297,27 @@ export class InvitationEditorComponent implements OnInit, OnDestroy {
     } catch (error) {
       this.showToast(this.editor.errorMessage(error, 'No se pudieron descartar los cambios'));
     }
+  }
+
+  toggleSection(index: number): void {
+    this.openSection = this.openSection === index ? -1 : index;
+    this.scrollPreview();
+  }
+
+  showMobileView(view: 'form' | 'preview'): void {
+    this.mobileView = view;
+    // el iframe estaba oculto: al mostrarlo, llevarlo a la sección que se está editando
+    if (view === 'preview') this.scrollPreview();
+  }
+
+  /** Lleva la vista previa a la parte de la invitación de la sección abierta. */
+  private scrollPreview(): void {
+    const selector = this.template?.schema.sections[this.openSection]?.preview;
+    if (!selector) return;
+    this.previewFrame?.nativeElement.contentWindow?.postMessage(
+      { type: PREVIEW_SCROLL, selector },
+      window.location.origin,
+    );
   }
 
   /** Un campo se esconde si antes de él hay un toggle de sección apagado. */

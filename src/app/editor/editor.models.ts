@@ -77,6 +77,8 @@ export type EditorField =
 
 export interface EditorSection {
   title: string;
+  /** Selector CSS de esa parte en la plantilla; la vista previa baja hasta ahí al abrir la sección. */
+  preview?: string;
   fields: EditorField[];
 }
 

@@ -59,15 +59,15 @@
     </header>
 
     <nav class="tabs" aria-label="Vista">
-      <button type="button" class="tabs__btn" [class.is-active]="mobileView === 'form'" (click)="mobileView = 'form'">Editar</button>
-      <button type="button" class="tabs__btn" [class.is-active]="mobileView === 'preview'" (click)="mobileView = 'preview'">Vista previa</button>
+      <button type="button" class="tabs__btn" [class.is-active]="mobileView === 'form'" (click)="showMobileView('form')">Editar</button>
+      <button type="button" class="tabs__btn" [class.is-active]="mobileView === 'preview'" (click)="showMobileView('preview')">Vista previa</button>
     </nav>
 
     <div class="layout">
 
       <form class="form" [class.is-hidden-mobile]="mobileView !== 'form'" (submit)="$event.preventDefault()">
         <section class="sec" *ngFor="let section of template.schema.sections; let s = index" [class.is-open]="openSection === s">
-          <button type="button" class="sec__head" (click)="openSection = openSection === s ? -1 : s" [attr.aria-expanded]="openSection === s">
+          <button type="button" class="sec__head" (click)="toggleSection(s)" [attr.aria-expanded]="openSection === s">
             <span>{{ section.title }}</span>
             <span class="sec__chevron" aria-hidden="true">⌄</span>
           </button>

@@ -5,6 +5,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
   sections: [
     {
       title: 'Portada',
+      preview: '.neblina-hero',
       fields: [
         { key: 'heroImage', type: 'image', label: 'Foto principal', hint: 'Usa una foto vertical, con ustedes en el centro: ocupa toda la pantalla y los bordes pueden recortarse. JPG o PNG, mínimo 1080 px de ancho para que se vea nítida.', aspect: '9/16' },
         { key: 'names1', type: 'text', label: 'Nombre 1', max: 24 },
@@ -18,6 +19,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     },
     {
       title: 'Música',
+      preview: '.neblina-hero',
       fields: [
         { key: 'showMusic', type: 'toggle', label: 'Música en la invitación', controlsSection: true },
         {
@@ -31,6 +33,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     },
     {
       title: 'Frase',
+      preview: '.neblina-quote',
       fields: [
         { key: 'showQuote', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'quote', type: 'textarea', label: 'Frase', max: 260 },
@@ -38,6 +41,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     },
     {
       title: 'Cuenta regresiva',
+      preview: '.neblina-save-date',
       fields: [
         { key: 'showSaveDate', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'saveDateText', type: 'text', label: 'Texto de "Save the date"', hint: 'Ej. 12 DE JUN DEL 2027', max: 30 },
@@ -45,6 +49,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     },
     {
       title: 'Padres y padrinos',
+      preview: '.neblina-parents',
       fields: [
         { key: 'showParents', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'parentsTitle', type: 'text', label: 'Título', max: 60 },
@@ -61,6 +66,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     },
     {
       title: 'Nuestra historia',
+      preview: '.neblina-story',
       fields: [
         { key: 'showStory', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'storyTitle', type: 'text', label: 'Título', max: 40 },
@@ -71,6 +77,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     },
     {
       title: 'Itinerario',
+      preview: '.neblina-timeline',
       fields: [
         { key: 'showTimeline', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'itineraryTitle', type: 'text', label: 'Título', max: 30 },
@@ -89,6 +96,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     },
     {
       title: 'Ceremonia',
+      preview: '.neblina-ceremony',
       fields: [
         { key: 'showCeremony', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'ceremonyTitle', type: 'text', label: 'Título', max: 30 },
@@ -101,6 +109,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     },
     {
       title: 'Código de vestimenta',
+      preview: '.neblina-dresscode',
       fields: [
         { key: 'showDressCode', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'dressTitle', type: 'text', label: 'Título', max: 30 },
@@ -127,6 +136,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     },
     {
       title: 'Cierre',
+      preview: '.neblina-final',
       fields: [
         { key: 'showFinal', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'finalMessage', type: 'textarea', label: 'Mensaje final', max: 300 },
