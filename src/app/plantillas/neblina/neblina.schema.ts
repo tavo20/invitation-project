@@ -17,16 +17,23 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
       ],
     },
     {
-      title: 'Frase y fecha',
+      title: 'Frase',
       fields: [
+        { key: 'showQuote', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'quote', type: 'textarea', label: 'Frase', max: 260 },
+      ],
+    },
+    {
+      title: 'Cuenta regresiva',
+      fields: [
+        { key: 'showSaveDate', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'saveDateText', type: 'text', label: 'Texto de "Save the date"', hint: 'Ej. 12 DE JUN DEL 2027', max: 30 },
       ],
     },
     {
       title: 'Padres y padrinos',
       fields: [
-        { key: 'showParents', type: 'toggle', label: 'Mostrar esta sección' },
+        { key: 'showParents', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'parentsTitle', type: 'text', label: 'Título', max: 60 },
         { key: 'brideLabel', type: 'text', label: 'Título de los padres de ella', max: 20 },
         { key: 'brideParent1', type: 'text', label: 'Padre o madre de ella', max: 40 },
@@ -42,6 +49,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     {
       title: 'Nuestra historia',
       fields: [
+        { key: 'showStory', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'storyTitle', type: 'text', label: 'Título', max: 40 },
         { key: 'storyText1', type: 'textarea', label: 'Primer párrafo', max: 500 },
         { key: 'storyText2', type: 'textarea', label: 'Segundo párrafo', max: 500 },
@@ -51,6 +59,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     {
       title: 'Itinerario',
       fields: [
+        { key: 'showTimeline', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'itineraryTitle', type: 'text', label: 'Título', max: 30 },
         {
           key: 'itinerary',
@@ -68,6 +77,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     {
       title: 'Ceremonia',
       fields: [
+        { key: 'showCeremony', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'ceremonyTitle', type: 'text', label: 'Título', max: 30 },
         { key: 'ceremonyTime', type: 'text', label: 'Hora', max: 12 },
         { key: 'ceremonyPlace', type: 'text', label: 'Lugar', max: 60 },
@@ -79,6 +89,7 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     {
       title: 'Código de vestimenta',
       fields: [
+        { key: 'showDressCode', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'dressTitle', type: 'text', label: 'Título', max: 30 },
         { key: 'dressType', type: 'text', label: 'Tipo de vestimenta', max: 40 },
         { key: 'dressNote', type: 'textarea', label: 'Nota', max: 200 },
@@ -104,8 +115,10 @@ export const NEBLINA_SCHEMA: TemplateSchema = {
     {
       title: 'Cierre',
       fields: [
-        { key: 'giftTitle', type: 'text', label: 'Título de regalos', max: 40 },
+        { key: 'showFinal', type: 'toggle', label: 'Mostrar esta sección', controlsSection: true },
         { key: 'finalMessage', type: 'textarea', label: 'Mensaje final', max: 300 },
+        { key: 'showGift', type: 'toggle', label: 'Mostrar regalos' },
+        { key: 'giftTitle', type: 'text', label: 'Título de regalos', max: 40 },
       ],
     },
   ],

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export type NeblinaPaletteName = 'mist' | 'dusk' | 'rose' | 'forest';
@@ -69,7 +69,15 @@ export interface NeblinaInvitationData {
   palette: NeblinaPaletteName;
   finalMessage: string;
   giftTitle: string;
+  showQuote: boolean;
+  showSaveDate: boolean;
   showParents: boolean;
+  showCeremony: boolean;
+  showStory: boolean;
+  showTimeline: boolean;
+  showDressCode: boolean;
+  showFinal: boolean;
+  showGift: boolean;
   isProduction: boolean;
 }
 
@@ -127,7 +135,15 @@ export const NEBLINA_DEFAULT_DATA: NeblinaInvitationData = {
   palette: 'mist',
   finalMessage: 'Gracias por acompañarnos a decir que sí. Los esperamos con el corazón abierto para celebrar este día juntos.',
   giftTitle: 'Lluvia de sobres',
+  showQuote: true,
+  showSaveDate: true,
   showParents: true,
+  showCeremony: true,
+  showStory: true,
+  showTimeline: true,
+  showDressCode: true,
+  showFinal: true,
+  showGift: true,
   isProduction: false,
 };
 
@@ -138,17 +154,19 @@ export const NEBLINA_DEFAULT_DATA: NeblinaInvitationData = {
   templateUrl: './neblina.component.html',
   styleUrl: './neblina.component.scss'
 })
-export class NeblinaComponent implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+export class NeblinaComponent implements OnInit, OnChanges, OnDestroy {
   @Input() invitationData: Partial<NeblinaInvitationData> | null = null;
   @ViewChild('audioPlayer') audioPlayerRef!: ElementRef<HTMLAudioElement>;
-  @ViewChild('quoteSection') quoteSectionRef!: ElementRef<HTMLElement>;
-  @ViewChild('saveDateSection') saveDateSectionRef!: ElementRef<HTMLElement>;
-  @ViewChild('parentsSection') parentsSectionRef!: ElementRef<HTMLElement>;
-  @ViewChild('storySection') storySectionRef!: ElementRef<HTMLElement>;
-  @ViewChild('timelineSection') timelineSectionRef!: ElementRef<HTMLElement>;
-  @ViewChild('ceremonySection') ceremonySectionRef!: ElementRef<HTMLElement>;
-  @ViewChild('dressSection') dressSectionRef!: ElementRef<HTMLElement>;
-  @ViewChild('finalSection') finalSectionRef!: ElementRef<HTMLElement>;
+  // Cada sección se anima al entrar en pantalla; con setter se observan también
+  // las que aparecen después (al prender su toggle en el editor).
+  @ViewChild('quoteSection') set quoteSection(ref: ElementRef<HTMLElement> | undefined) { this.reveal(ref); }
+  @ViewChild('saveDateSection') set saveDateSection(ref: ElementRef<HTMLElement> | undefined) { this.reveal(ref); }
+  @ViewChild('parentsSection') set parentsSection(ref: ElementRef<HTMLElement> | undefined) { this.reveal(ref); }
+  @ViewChild('storySection') set storySection(ref: ElementRef<HTMLElement> | undefined) { this.reveal(ref); }
+  @ViewChild('timelineSection') set timelineSection(ref: ElementRef<HTMLElement> | undefined) { this.reveal(ref); }
+  @ViewChild('ceremonySection') set ceremonySection(ref: ElementRef<HTMLElement> | undefined) { this.reveal(ref); }
+  @ViewChild('dressSection') set dressSection(ref: ElementRef<HTMLElement> | undefined) { this.reveal(ref); }
+  @ViewChild('finalSection') set finalSection(ref: ElementRef<HTMLElement> | undefined) { this.reveal(ref); }
 
   isPlaying = false;
   days = 0;
@@ -160,7 +178,17 @@ export class NeblinaComponent implements OnInit, OnChanges, AfterViewInit, OnDes
   isProduction = false;
   private countdownInterval?: ReturnType<typeof setInterval>;
   private carouselInterval?: ReturnType<typeof setInterval>;
-  private observer?: IntersectionObserver;
+  private readonly observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          this.observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.35 }
+  );
 
   readonly palettes: Record<NeblinaPaletteName, NeblinaPalette> = {
     mist: {
@@ -322,52 +350,12 @@ export class NeblinaComponent implements OnInit, OnChanges, AfterViewInit, OnDes
     if (this.carouselInterval) {
       clearInterval(this.carouselInterval);
     }
-    this.observer?.disconnect();
+    this.observer.disconnect();
   }
 
-  ngAfterViewInit(): void {
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            this.observer?.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.35 }
-    );
-
-    if (this.quoteSectionRef) {
-      this.observer.observe(this.quoteSectionRef.nativeElement);
-    }
-
-    if (this.saveDateSectionRef) {
-      this.observer.observe(this.saveDateSectionRef.nativeElement);
-    }
-
-    if (this.parentsSectionRef) {
-      this.observer.observe(this.parentsSectionRef.nativeElement);
-    }
-
-    if (this.storySectionRef) {
-      this.observer.observe(this.storySectionRef.nativeElement);
-    }
-
-    if (this.timelineSectionRef) {
-      this.observer.observe(this.timelineSectionRef.nativeElement);
-    }
-
-    if (this.ceremonySectionRef) {
-      this.observer.observe(this.ceremonySectionRef.nativeElement);
-    }
-
-    if (this.dressSectionRef) {
-      this.observer.observe(this.dressSectionRef.nativeElement);
-    }
-
-    if (this.finalSectionRef) {
-      this.observer.observe(this.finalSectionRef.nativeElement);
+  private reveal(ref: ElementRef<HTMLElement> | undefined): void {
+    if (ref) {
+      this.observer.observe(ref.nativeElement);
     }
   }
 

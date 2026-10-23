@@ -6,6 +6,7 @@ import {
   EditableTemplate,
   EditorField,
   EditorInvitation,
+  EditorSection,
   ListField,
 } from './editor.models';
 import { EDITABLE_TEMPLATES } from './template-schemas';
@@ -264,6 +265,17 @@ export class InvitationEditorComponent implements OnInit, OnDestroy {
     } catch (error) {
       this.showToast(this.editor.errorMessage(error, 'No se pudieron descartar los cambios'));
     }
+  }
+
+  /** Un campo se esconde si antes de él hay un toggle de sección apagado. */
+  isFieldVisible(section: EditorSection, index: number): boolean {
+    return !section.fields
+      .slice(0, index)
+      .some((f) => f.type === 'toggle' && f.controlsSection && !this.model[f.key]);
+  }
+
+  isSectionOff(section: EditorSection): boolean {
+    return section.fields.some((f) => f.type === 'toggle' && f.controlsSection && !this.model[f.key]);
   }
 
   trackByIndex(index: number): number {

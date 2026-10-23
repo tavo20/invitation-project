@@ -40,7 +40,7 @@
 
 <audio #audioPlayer src="assets/songs/thinking_out.mp3"></audio>
 
-<section class="neblina-quote" #quoteSection>
+<section class="neblina-quote" #quoteSection *ngIf="data.showQuote">
     <img class="neblina-quote__flower neblina-quote__flower--top" src="assets/neblina/flor_3.png" alt="" aria-hidden="true">
     <img class="neblina-quote__flower neblina-quote__flower--bottom" src="assets/neblina/flor_3.png" alt="" aria-hidden="true">
     <div class="neblina-quote__mark neblina-quote__mark--top">“</div>
@@ -48,7 +48,7 @@
     <div class="neblina-quote__mark neblina-quote__mark--bottom">”</div>
 </section>
 
-<section class="neblina-save-date" #saveDateSection>
+<section class="neblina-save-date" #saveDateSection *ngIf="data.showSaveDate">
     <div class="neblina-save-date__card">
         <div class="neblina-save-date__heart">♥</div>
         <h2 class="neblina-save-date__title">Falta el gran día</h2>
@@ -107,7 +107,7 @@
     </div>
 </section>
 
-<section class="neblina-ceremony" #ceremonySection>
+<section class="neblina-ceremony" #ceremonySection *ngIf="data.showCeremony">
     <div class="neblina-ceremony__card">
         <div class="neblina-ceremony__icon" aria-hidden="true">
             <svg viewBox="0 0 120 120" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="presentation">
@@ -128,7 +128,7 @@
     </div>
 </section>
 
-<section class="neblina-story" #storySection>
+<section class="neblina-story" #storySection *ngIf="data.showStory">
     <div class="neblina-story__panel">
         <h2 class="neblina-story__title">{{ data.storyTitle }}</h2>
         <div class="neblina-story__carousel" *ngIf="data.storyImages.length">
@@ -160,7 +160,7 @@
     </div>
 </section>
 
-<section class="neblina-timeline" #timelineSection>
+<section class="neblina-timeline" #timelineSection *ngIf="data.showTimeline">
     <div class="neblina-timeline__card">
         <svg class="neblina-timeline__flight" viewBox="0 0 120 280" aria-hidden="true">
             <path
@@ -190,7 +190,7 @@
 
 
 
-<section class="neblina-dresscode" #dressSection>
+<section class="neblina-dresscode" #dressSection *ngIf="data.showDressCode">
     <div class="neblina-dresscode__card">
         <p class="neblina-dresscode__title">{{ data.dressTitle }}</p>
         <div class="neblina-dresscode__divider">
@@ -211,12 +211,12 @@
     </div>
 </section>
 
-<section class="neblina-final" #finalSection>
+<section class="neblina-final" #finalSection *ngIf="data.showFinal">
     <img class="neblina-final__flower" src="assets/neblina/flor_5.png" alt="" aria-hidden="true">
     <div class="neblina-final__card">
         <p class="neblina-final__message">{{ data.finalMessage }}</p>
 
-        <div class="neblina-final__gift">
+        <div class="neblina-final__gift" *ngIf="data.showGift">
             <div class="neblina-final__gift-icon" aria-hidden="true">
                 <svg viewBox="0 0 120 90" role="presentation">
                     <path d="M16 28h88v44H16z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"></path>

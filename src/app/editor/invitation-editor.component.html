@@ -73,7 +73,8 @@
           </button>
 
           <div class="sec__body" *ngIf="openSection === s">
-            <div class="field" *ngFor="let field of section.fields; trackBy: trackByKey" [ngSwitch]="field.type">
+            <ng-container *ngFor="let field of section.fields; let f = index; trackBy: trackByKey">
+            <div class="field" *ngIf="isFieldVisible(section, f)" [ngSwitch]="field.type">
 
               <!-- Texto -->
               <ng-container *ngSwitchCase="'text'">
@@ -195,6 +196,8 @@
 
               <span class="field__hint" *ngIf="field.hint && field.type !== 'images'">{{ field.hint }}</span>
             </div>
+            </ng-container>
+            <p class="sec__off" *ngIf="isSectionOff(section)">Esta sección no se muestra en tu invitación.</p>
           </div>
         </section>
       </form>

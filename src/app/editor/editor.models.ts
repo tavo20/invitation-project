@@ -24,6 +24,8 @@ export interface DateTimeField extends BaseField {
 
 export interface ToggleField extends BaseField {
   type: 'toggle';
+  /** Si está apagado, el editor esconde los campos que vienen después en la sección. */
+  controlsSection?: boolean;
 }
 
 export interface SelectField extends BaseField {
