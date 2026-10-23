@@ -15,6 +15,8 @@ export interface TextField extends BaseField {
   type: 'text' | 'textarea' | 'url';
   max?: number;
   placeholder?: string;
+  /** La plantilla muestra el texto como HTML: los saltos de línea se guardan como <br>. */
+  lineBreaks?: boolean;
 }
 
 /** Fecha y hora; se guarda como "2027-06-12T16:30:00" (hora local). */
@@ -56,6 +58,15 @@ export interface ColorsField extends BaseField {
   maxItems: number;
 }
 
+/** Lista de textos sueltos, ej. los nombres de los padres. */
+export interface TextListField extends BaseField {
+  type: 'textList';
+  itemLabel: string;
+  max?: number;
+  maxItems: number;
+  addLabel: string;
+}
+
 /** Lista de objetos con campos de texto, ej. el itinerario. */
 export interface ListField extends BaseField {
   type: 'list';
@@ -73,6 +84,7 @@ export type EditorField =
   | AudioField
   | ImagesField
   | ColorsField
+  | TextListField
   | ListField;
 
 export interface EditorSection {
@@ -92,6 +104,8 @@ export interface EditableTemplate {
   schema: TemplateSchema;
   /** Valores con los que arranca un campo que la invitación todavía no tiene. */
   defaults: Record<string, unknown>;
+  /** Se aplican solo a la vista previa, ej. saltar la pantalla de entrada para poder ver la invitación. */
+  previewOverrides?: Record<string, unknown>;
 }
 
 // ============================================================

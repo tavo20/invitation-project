@@ -80,7 +80,7 @@ export class InvitationEditorComponent implements OnInit, OnDestroy {
     const query = this.route.snapshot.queryParamMap;
 
     if (query.get('mock')) {
-      this.editor.useMock(this.invitationId);
+      this.editor.useMock(this.invitationId, query.get('template') ?? undefined);
       this.token = 'mock';
     } else {
       this.token = this.resolveToken(query.get('token'));
@@ -155,6 +155,17 @@ export class InvitationEditorComponent implements OnInit, OnDestroy {
     this.setValue(key, (event.target as HTMLInputElement | HTMLTextAreaElement).value);
   }
 
+  /** Texto con <br> (lo muestra la plantilla como HTML) → saltos de línea para el textarea. */
+  multilineText(key: string): string {
+    return this.text(key).replace(/<br\s*\/?>/gi, '\n');
+  }
+
+  onMultilineText(key: string, event: Event): void {
+    const value = (event.target as HTMLTextAreaElement).value;
+    // conversión exacta inversa de multilineText, para que el cursor no salte al re-renderizar
+    this.setValue(key, value.replace(/\n/g, '<br>'));
+  }
+
   onToggle(key: string, event: Event): void {
     const checked = (event.target as HTMLInputElement).checked;
     this.setValue(key, checked);
@@ -190,6 +201,14 @@ export class InvitationEditorComponent implements OnInit, OnDestroy {
   addListItem(field: ListField): void {
     const empty = Object.fromEntries(field.itemFields.map((f) => [f.key, '']));
     this.setValue(field.key, [...this.array(field.key), empty]);
+  }
+
+  addText(key: string): void {
+    this.setValue(key, [...this.array(key), '']);
+  }
+
+  onListItemText(key: string, index: number, event: Event): void {
+    this.updateItem(key, index, (event.target as HTMLInputElement).value);
   }
 
   addColor(key: string): void {
@@ -396,8 +415,9 @@ export class InvitationEditorComponent implements OnInit, OnDestroy {
   }
 
   private syncPreview(): void {
+    const data = { ...this.model, ...this.template?.previewOverrides };
     this.previewFrame?.nativeElement.contentWindow?.postMessage(
-      { type: PREVIEW_MESSAGE, template: this.invitation?.template, data: this.model },
+      { type: PREVIEW_MESSAGE, template: this.invitation?.template, data },
       window.location.origin,
     );
   }

@@ -22,18 +22,18 @@ const IMAGE_LIMITS = { maxImageMB: 15, maxVideoMB: 0, maxVideoSeconds: 0, maxFil
 @Injectable({ providedIn: 'root' })
 export class InvitationEditorService {
   private readonly API = `${environment.apiUrl}api/invitation-template`;
-  /** `?mock=1` en desarrollo: una invitación Neblina en memoria, nada se guarda. */
+  /** `?mock=1` en desarrollo (y `&template=xyz` para otra plantilla): una invitación en memoria, nada se guarda. */
   private mock: EditorInvitation | null = null;
 
   constructor(private http: HttpClient, private media: MediaProcessingService) {}
 
-  useMock(invitationId: string): void {
-    if (environment.production) return;
+  useMock(invitationId: string, template = 'neblina'): void {
+    if (environment.production || !EDITABLE_TEMPLATES[template]) return;
     this.mock = {
       id_invitation: invitationId,
-      slug: 'neblina',
-      template: 'neblina',
-      data: { ...EDITABLE_TEMPLATES['neblina'].defaults },
+      slug: template,
+      template,
+      data: { ...EDITABLE_TEMPLATES[template].defaults },
       hasDraft: false,
       published_at: null,
     };

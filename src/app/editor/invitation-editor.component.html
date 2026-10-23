@@ -92,9 +92,11 @@
 
               <ng-container *ngSwitchCase="'textarea'">
                 <label class="field__label" [attr.for]="field.key">{{ field.label }}</label>
-                <textarea class="input input--area" [id]="field.key" rows="4" [value]="text(field.key)"
+                <textarea *ngIf="!$any(field).lineBreaks" class="input input--area" [id]="field.key" rows="4" [value]="text(field.key)"
                   [attr.maxlength]="$any(field).max" (input)="onText(field.key, $event)"></textarea>
-                <span class="field__count" *ngIf="$any(field).max">{{ text(field.key).length }}/{{ $any(field).max }}</span>
+                <textarea *ngIf="$any(field).lineBreaks" class="input input--area" [id]="field.key" rows="4" [value]="multilineText(field.key)"
+                  [attr.maxlength]="$any(field).max" (input)="onMultilineText(field.key, $event)"></textarea>
+                <span class="field__count" *ngIf="$any(field).max && !$any(field).lineBreaks">{{ text(field.key).length }}/{{ $any(field).max }}</span>
               </ng-container>
 
               <!-- Fecha y hora -->
@@ -191,6 +193,25 @@
                   <button type="button" class="color color--add" *ngIf="array(field.key).length < $any(field).maxItems"
                     aria-label="Agregar color" (click)="addColor(field.key)">+</button>
                 </div>
+              </ng-container>
+
+              <!-- Lista de textos (padres, padrinos) -->
+              <ng-container *ngSwitchCase="'textList'">
+                <span class="field__label">{{ field.label }}</span>
+                <div class="rows">
+                  <div class="row" *ngFor="let item of array(field.key); let i = index; trackBy: trackByIndex">
+                    <input class="input" type="text" [value]="item" [attr.placeholder]="$any(field).itemLabel"
+                      [attr.aria-label]="$any(field).itemLabel + ' ' + (i + 1)" [attr.maxlength]="$any(field).max"
+                      (input)="onListItemText(field.key, i, $event)" />
+                    <div class="row__tools">
+                      <button type="button" aria-label="Subir" [disabled]="i === 0" (click)="moveItem(field.key, i, -1)">↑</button>
+                      <button type="button" aria-label="Bajar" [disabled]="i === array(field.key).length - 1" (click)="moveItem(field.key, i, 1)">↓</button>
+                      <button type="button" aria-label="Quitar" (click)="removeItem(field.key, i)">×</button>
+                    </div>
+                  </div>
+                </div>
+                <button type="button" class="btn btn--ghost btn--small" *ngIf="array(field.key).length < $any(field).maxItems"
+                  (click)="addText(field.key)">+ {{ $any(field).addLabel }}</button>
               </ng-container>
 
               <!-- Lista (itinerario) -->

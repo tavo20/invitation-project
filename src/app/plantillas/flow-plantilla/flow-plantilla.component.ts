@@ -87,6 +87,16 @@ export interface FlowPlantillaData {
   showBankButton?: boolean;
   bankButtonText?: string;
   bankButtonUrl?: string;
+  // Toggles por sección (por defecto true)
+  showMusic?: boolean;
+  showCountdown?: boolean;
+  showImage2?: boolean;
+  showEvent?: boolean;
+  showDressCode?: boolean;
+  showQuote?: boolean;
+  showItinerary?: boolean;
+  showRsvp?: boolean;
+  showSobres?: boolean;
   galleryImages?: string[];
   showGallery?: boolean;
   showParents?: boolean;
@@ -100,6 +110,103 @@ export interface FlowPlantillaData {
   introText?: string;
   autoPlayMusic?: boolean;
 }
+
+/** Ejemplo que se ve cuando la invitación no trae un campo (también lo usa el editor del cliente). */
+export const FLOW_DEFAULT_DATA: Required<FlowPlantillaData> = {
+  names1: 'Mariana',
+  names2: 'Javier',
+  invitationText1: 'ES UN HONOR INVITARTE A LA CELEBRACIÓN',
+  invitationText2: 'DE NUESTRA BODA',
+  dayOfWeek: 'SÁBADO',
+  month: 'NOV',
+  dayNumber: '26',
+  year: '2030',
+  hourLabel: '20:00 HRS.',
+  weddingDate: 'November 26, 2030 20:00:00',
+  musicImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg',
+  songTitle: 'Perfect',
+  songArtist: 'Ed Sheeran',
+  audioSrc: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Ed%20Sheeran%20-%20Perfect.mp3',
+  parentsTitle: 'Con la bendición de nuestros padres',
+  brideLabel: 'Novia',
+  brideParents: ['Laura Mendoza', 'Carlos Mendoza'],
+  groomLabel: 'Novio',
+  groomParents: ['Marta Ríos', 'Jorge Ríos'],
+  padrinosLabel: 'Padrinos',
+  padrinos: ['Ana Salazar', 'Pedro Castillo'],
+  showPadrinos: true,
+  countdownTitle: 'Faltan pocos días',
+  countdownText: 'Acompáñanos a contar los días para celebrar este momento tan especial.',
+  image2: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg',
+  eventTitle: 'Ceremonia',
+  eventVenue: 'Parroquia San José',
+  eventAddress: 'Chía, Cundinamarca',
+  eventHour: '3:00 PM',
+  eventMapLink: '#',
+  eventButtonText: 'Ver ubicación',
+  showReception: false,
+  receptionTitle: 'Recepción',
+  receptionVenue: 'Hacienda Los Faroles',
+  receptionAddress: 'Chía, Cundinamarca',
+  receptionHour: '6:00 PM',
+  receptionMapLink: '#',
+  dressTitle: 'Dress Code',
+  dressType: 'Semi Formal',
+  dressColors: ['#2c4a2e', '#8e9d70', '#d4c4a8', '#f3efe8'],
+  showDressColors: true,
+  dressNote: 'Por favor, evita vestir de color verde claro, está reservado para la novia.',
+  showDressCodeButton: false,
+  dressCodeButtonText: 'Ver dress code',
+  dressCodeButtonUrl: '#',
+  quoteImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg',
+  quote: 'Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos compartir contigo el comienzo del capítulo más hermoso.',
+  itineraryTitle: 'Itinerario',
+  itinerary: [
+    { time: '4:00 PM', label: 'Ceremonia' },
+    { time: '5:30 PM', label: 'Cóctel de bienvenida' },
+    { time: '7:00 PM', label: 'Recepción' },
+    { time: '9:00 PM', label: 'Fiesta' }
+  ],
+  confirmTitle: 'Confirma tu asistencia',
+  confirmText: 'Tu respuesta nos ayudará a organizar este día con mucho cariño.',
+  confirmButtonText: 'Confirmar aquí',
+  confirmLink: '#',
+  sobresTitle: 'Lluvia de sobres',
+  showBankAccount: false,
+  bankAccountTitle: 'Cuenta Bancaria',
+  bankName: 'Bancolombia',
+  bankAccountType: 'Ahorros',
+  bankAccountNumber: '',
+  bankAccountHolder: '',
+  bankAccountId: '',
+  showBankButton: false,
+  bankButtonText: 'Ver más',
+  bankButtonUrl: '#',
+  showMusic: true,
+  showCountdown: true,
+  showImage2: true,
+  showEvent: true,
+  showDressCode: true,
+  showQuote: true,
+  showItinerary: true,
+  showRsvp: true,
+  showSobres: true,
+  galleryImages: [
+    'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg',
+    'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg'
+  ],
+  closingHighlight: 'Tenemos la luna, la música y cada detalle preparado… <br> Solo falta lo más importante: tú.',
+  closingNames: 'Mariana & Javier',
+  showGallery: false,
+  showParents: true,
+  instragramCliente: '',
+  palette: 'forest',
+  isProduction: false,
+  showIntroScreen: false,
+  showEnvelopeIntro: false,
+  introText: 'Toca para entrar',
+  autoPlayMusic: false,
+};
 
 @Component({
   selector: 'app-flow-plantilla',
@@ -185,92 +292,7 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     };
   }
 
-  private readonly defaultData: Required<FlowPlantillaData> = {
-    names1: 'Mariana',
-    names2: 'Javier',
-    invitationText1: 'ES UN HONOR INVITARTE A LA CELEBRACIÓN',
-    invitationText2: 'DE NUESTRA BODA',
-    dayOfWeek: 'SÁBADO',
-    month: 'NOV',
-    dayNumber: '26',
-    year: '2030',
-    hourLabel: '20:00 HRS.',
-    weddingDate: 'November 26, 2030 20:00:00',
-    musicImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg',
-    songTitle: 'Perfect',
-    songArtist: 'Ed Sheeran',
-    audioSrc: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Songs/Ed%20Sheeran%20-%20Perfect.mp3',
-    parentsTitle: 'Con la bendición de nuestros padres',
-    brideLabel: 'Novia',
-    brideParents: ['Laura Mendoza', 'Carlos Mendoza'],
-    groomLabel: 'Novio',
-    groomParents: ['Marta Ríos', 'Jorge Ríos'],
-    padrinosLabel: 'Padrinos',
-    padrinos: ['Ana Salazar', 'Pedro Castillo'],
-    showPadrinos: true,
-    countdownTitle: 'Faltan pocos días',
-    countdownText: 'Acompáñanos a contar los días para celebrar este momento tan especial.',
-    image2: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg',
-    eventTitle: 'Ceremonia',
-    eventVenue: 'Parroquia San José',
-    eventAddress: 'Chía, Cundinamarca',
-    eventHour: '3:00 PM',
-    eventMapLink: '#',
-    eventButtonText: 'Ver ubicación',
-    showReception: false,
-    receptionTitle: 'Recepción',
-    receptionVenue: 'Hacienda Los Faroles',
-    receptionAddress: 'Chía, Cundinamarca',
-    receptionHour: '6:00 PM',
-    receptionMapLink: '#',
-    dressTitle: 'Dress Code',
-    dressType: 'Semi Formal',
-    dressColors: ['#2c4a2e', '#8e9d70', '#d4c4a8', '#f3efe8'],
-    showDressColors: true,
-    dressNote: 'Por favor, evita vestir de color verde claro, está reservado para la novia.',
-    showDressCodeButton: false,
-    dressCodeButtonText: 'Ver dress code',
-    dressCodeButtonUrl: '#',
-    quoteImage: 'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg',
-    quote: 'Bajo un mismo cielo escribimos nuestra historia, y esta noche queremos compartir contigo el comienzo del capítulo más hermoso.',
-    itineraryTitle: 'Itinerario',
-    itinerary: [
-      { time: '4:00 PM', label: 'Ceremonia' },
-      { time: '5:30 PM', label: 'Cóctel de bienvenida' },
-      { time: '7:00 PM', label: 'Recepción' },
-      { time: '9:00 PM', label: 'Fiesta' }
-    ],
-    confirmTitle: 'Confirma tu asistencia',
-    confirmText: 'Tu respuesta nos ayudará a organizar este día con mucho cariño.',
-    confirmButtonText: 'Confirmar aquí',
-    confirmLink: '#',
-    sobresTitle: 'Lluvia de sobres',
-    showBankAccount: false,
-    bankAccountTitle: 'Cuenta Bancaria',
-    bankName: 'Bancolombia',
-    bankAccountType: 'Ahorros',
-    bankAccountNumber: '',
-    bankAccountHolder: '',
-    bankAccountId: '',
-    showBankButton: false,
-    bankButtonText: 'Ver más',
-    bankButtonUrl: '#',
-    galleryImages: [
-      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_02.jpg',
-      'https://iapmyqlwifdhvuksabgt.supabase.co/storage/v1/object/public/invitation/Banco_Fotos/flow_01.jpg'
-    ],
-    closingHighlight: 'Tenemos la luna, la música y cada detalle preparado… <br> Solo falta lo más importante: tú.',
-    closingNames: 'Mariana & Javier',
-    showGallery: false,
-    showParents: true,
-    instragramCliente: '',
-    palette: 'forest',
-    isProduction: false,
-    showIntroScreen: false,
-    showEnvelopeIntro: false,
-    introText: 'Toca para entrar',
-    autoPlayMusic: false,
-  };
+  private readonly defaultData = FLOW_DEFAULT_DATA;
 
   // Estado de la pantalla de intro
   introVisible = true;
@@ -423,12 +445,12 @@ export class FlowPlantillaComponent implements OnInit, OnChanges, OnDestroy {
     const audio = this.audioPlayerRef?.nativeElement;
     if (!audio) return;
 
-    if (this.isPlaying) {
-      audio.pause();
-    } else {
+    // isPlaying se actualiza con los eventos play/pause del <audio> (también si cambia la canción)
+    if (audio.paused) {
       void audio.play();
+    } else {
+      audio.pause();
     }
-    this.isPlaying = !this.isPlaying;
   }
 
   enterInvitation(): void {

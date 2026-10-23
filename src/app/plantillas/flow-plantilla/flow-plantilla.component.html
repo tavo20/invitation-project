@@ -123,7 +123,7 @@
     </div>
   </div>
 
-  <section class="card-invitation">
+  <section class="card-invitation" *ngIf="data.showMusic">
     <img class="card-image" [src]="data.musicImage" alt="">
     <svg class="card-curve" viewBox="0 0 80 80" preserveAspectRatio="none" aria-hidden="true">
       <path class="card-curve__fill" d="M0 0 H80 V20 Q60 40 40 20 T0 20 Z"/>
@@ -183,7 +183,9 @@
       [src]="audioSrc"
       (timeupdate)="onTimeUpdate()"
       (loadedmetadata)="onLoadedMetadata()"
-      (ended)="onAudioEnded()">
+      (ended)="onAudioEnded()"
+      (play)="isPlaying = true"
+      (pause)="isPlaying = false">
     </audio>
   </section>
 
@@ -264,7 +266,7 @@
     </div>
   </section>
 
-  <section class="flow-countdown">
+  <section class="flow-countdown" *ngIf="data.showCountdown">
     <div class="section-flecks" aria-hidden="true">
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
@@ -283,12 +285,12 @@
     <app-count-down [targetDate]="data.weddingDate"></app-count-down>
   </section>
 
-  <section class="flow-image_2">
+  <section class="flow-image_2" *ngIf="data.showImage2">
     <img [src]="data.image2" alt="">
   </section>
 
   <!-- Ceremonia -->
-  <section class="flow-event">
+  <section class="flow-event" *ngIf="data.showEvent">
     <div class="section-flecks" aria-hidden="true">
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
@@ -340,7 +342,7 @@
     <a [href]="data.receptionMapLink" class="flow-button" target="_blank">{{ data.eventButtonText }}</a>
   </section>
 
-  <section class="flow-dresscode">
+  <section class="flow-dresscode" *ngIf="data.showDressCode">
     <div class="section-flecks" aria-hidden="true">
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
@@ -364,7 +366,7 @@
     <a *ngIf="data.showDressCodeButton" [href]="data.dressCodeButtonUrl" class="flow-button" target="_blank">{{ data.dressCodeButtonText }}</a>
   </section>
 
-  <section class="flow-quote-card">
+  <section class="flow-quote-card" *ngIf="data.showQuote">
     <div class="flow-quote-card__photo">
       <img [src]="data.quoteImage" alt="">
     </div>
@@ -373,7 +375,7 @@
     </div>
   </section>
 
-  <section class="flow-itinerary">
+  <section class="flow-itinerary" *ngIf="data.showItinerary">
     <div class="section-flecks" aria-hidden="true">
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
@@ -396,7 +398,7 @@
     </ol>
   </section>
 
-  <section class="flow-rsvp">
+  <section class="flow-rsvp" *ngIf="data.showRsvp">
     <div class="section-flecks" aria-hidden="true">
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
@@ -413,7 +415,7 @@
     </div>
   </section>
 
-  <section class="flow-sobres">
+  <section class="flow-sobres" *ngIf="data.showSobres">
     <div class="section-flecks" aria-hidden="true">
       <span class="gold-fleck section-fleck-1"></span>
       <span class="gold-fleck section-fleck-2"></span>
