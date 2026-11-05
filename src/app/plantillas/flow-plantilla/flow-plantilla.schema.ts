@@ -8,9 +8,8 @@ export const FLOW_SCHEMA: TemplateSchema = {
     {
       title: 'Pantalla de entrada',
       fields: [
-        // showEnvelopeIntro (sobre animado) no se ofrece todavía: lo prendemos nosotros desde el admin
-        { key: 'showIntroScreen', type: 'toggle', label: 'Pantalla "Toca para entrar"' },
-        { key: 'introText', type: 'text', label: 'Texto de la pantalla de entrada', max: 30 },
+        // showEnvelopeIntro (sobre animado) y showIntroScreen ("Toca para entrar") no se ofrecen:
+        // los manejamos nosotros desde el admin
         { key: 'autoPlayMusic', type: 'toggle', label: 'La música empieza al entrar', hint: 'La pantalla de entrada no sale en la vista previa: la verás al abrir tu invitación.' },
       ],
     },
