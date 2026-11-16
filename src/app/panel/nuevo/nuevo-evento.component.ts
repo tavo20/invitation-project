@@ -9,6 +9,7 @@ import { PanelLinksComponent } from '../links/panel-links.component';
 import { PanelCatalogo, PanelEventoCreado, PlanEvento, TipoEvento } from '../panel.models';
 import { ensurePanelFonts } from '../panel-fonts';
 import { MarcaLogoComponent } from '../../shared/marca/marca-logo.component';
+import { DemoAvisoComponent } from '../demo/demo-aviso.component';
 
 type Paso = 1 | 2 | 3 | 4;
 
@@ -31,7 +32,7 @@ const cop = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP',
 @Component({
   selector: 'app-panel-nuevo-evento',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, PanelLinksComponent, MarcaLogoComponent],
+  imports: [CommonModule, FormsModule, RouterLink, PanelLinksComponent, MarcaLogoComponent, DemoAvisoComponent],
   templateUrl: './nuevo-evento.component.html',
   styleUrl: './nuevo-evento.component.scss',
 })

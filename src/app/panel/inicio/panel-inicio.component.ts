@@ -7,6 +7,7 @@ import { PanelEventosService } from '../panel-eventos.service';
 import { PanelEventoCard, PanelEventosResponse, TipoEvento } from '../panel.models';
 import { ensurePanelFonts } from '../panel-fonts';
 import { MarcaLogoComponent } from '../../shared/marca/marca-logo.component';
+import { DemoAvisoComponent } from '../demo/demo-aviso.component';
 
 type Filtro = 'proximos' | 'pasados' | 'archivados';
 
@@ -23,7 +24,7 @@ const fechaFmt = new Intl.DateTimeFormat('es-CO', { weekday: 'short', day: 'nume
 @Component({
   selector: 'app-panel-inicio',
   standalone: true,
-  imports: [CommonModule, RouterLink, MarcaLogoComponent],
+  imports: [CommonModule, RouterLink, MarcaLogoComponent, DemoAvisoComponent],
   templateUrl: './panel-inicio.component.html',
   styleUrl: './panel-inicio.component.scss',
 })

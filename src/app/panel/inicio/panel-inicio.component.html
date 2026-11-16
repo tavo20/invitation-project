@@ -3,9 +3,10 @@
     <app-marca-logo class="brand" [marca]="auth.marca()" [alto]="30"></app-marca-logo>
     <div class="who">
       <span class="who-name" *ngIf="!auth.marca().marcaBlanca">{{ auth.cliente()?.marca || auth.cliente()?.nombre }}</span>
-      <button type="button" class="ghost" (click)="salir()">Cerrar sesión</button>
+      <button type="button" class="ghost" *ngIf="!auth.cliente()?.demo" (click)="salir()">Cerrar sesión</button>
     </div>
   </header>
+  <app-demo-aviso></app-demo-aviso>
 
   <section class="pp-title">
     <div>
@@ -112,7 +113,10 @@
 
           <footer class="c-foot">
             <span class="plan" [class.full]="e.cobro.plan !== 'invitacion'">{{ planNombre(e) }}</span>
-            <span class="pay" [attr.data-state]="e.cobro.estado">{{ cobro(e) }} · {{ precio(e) }}</span>
+            <span class="pay" [attr.data-state]="e.cobro.estado">
+              <span class="promo" *ngIf="e.cobro.promocion">{{ e.cobro.promocion }}</span>
+              {{ cobro(e) }} · {{ precio(e) }}
+            </span>
           </footer>
         </a>
       </section>

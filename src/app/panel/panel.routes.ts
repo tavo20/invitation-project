@@ -13,6 +13,11 @@ export const panelRoutes: Routes = [
         loadComponent: () => import('./ingresar/ingresar.component').then(m => m.IngresarComponent),
     },
     {
+        // Demo pública: entra sin contraseña al panel de "Gustavo Wedding Planner"
+        path: 'demo',
+        loadComponent: () => import('./demo/panel-demo.component').then(m => m.PanelDemoComponent),
+    },
+    {
         path: 'eventos/nuevo',
         canActivate: [panelGuard],
         loadComponent: () => import('./nuevo/nuevo-evento.component').then(m => m.NuevoEventoComponent),

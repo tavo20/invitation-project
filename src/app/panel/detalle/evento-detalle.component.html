@@ -3,6 +3,7 @@
     <a class="back" routerLink="/panel">← Mis eventos</a>
     <app-marca-logo class="brand" [marca]="auth.marca()" [alto]="30"></app-marca-logo>
   </header>
+  <app-demo-aviso></app-demo-aviso>
 
   <!-- ===== Cargando / error ===== -->
   <section *ngIf="cargando" aria-busy="true">
@@ -51,6 +52,7 @@
         </ng-container>
         <div class="stat money" [attr.data-state]="ev.cobro.estado">
           <b>{{ precio }}</b><span>{{ planNombre }} · {{ cobro }}</span>
+          <span class="promo" *ngIf="ev.cobro.promocion">{{ ev.cobro.promocion }}</span>
         </div>
       </div>
     </section>

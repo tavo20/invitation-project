@@ -316,3 +316,13 @@ h1, h2, h3, p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+.promo {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: rgba(232, 180, 160, .16);
+  color: var(--rose);
+  font-weight: 600;
+}

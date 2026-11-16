@@ -33,6 +33,7 @@ export class PanelAuthService {
   /** Ruta de ingreso del planner: con su marca si la tiene (/panel/ingresar/hilo-rojo). */
   rutaIngreso(): string[] {
     const slug = this.cliente()?.slug || this.ultimaMarca();
+    if (slug === 'demo') return ['/panel/demo'];
     return slug ? ['/panel/ingresar', slug] : ['/panel/ingresar'];
   }
 
@@ -84,6 +85,16 @@ export class PanelAuthService {
     const session = await this.request(
       this.http.post<PanelApiResponse<PanelSession>>(`${this.API}/auth/login`, { email: email.trim(), password }),
     );
+    this.saveSession(session);
+    return session;
+  }
+
+  /** Entra a la demo pública sin contraseña (/panel/demo). */
+  async entrarDemo(): Promise<PanelSession> {
+    const session = await this.request(
+      this.http.post<PanelApiResponse<PanelSession>>(`${this.API}/auth/demo`, {}),
+    );
+    this.safeRemove(MOCK_KEY);
     this.saveSession(session);
     return session;
   }

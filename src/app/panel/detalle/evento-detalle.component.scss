@@ -275,3 +275,12 @@ input {
   padding: 14px 18px; border-radius: 18px; background: var(--card); border: 1px solid var(--line);
   p { font-size: 13px; color: var(--mute); line-height: 1.45; max-width: 60ch; }
 }
+
+.stat .promo {
+  align-self: flex-start;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: rgba(232, 180, 160, .16);
+  color: var(--rose);
+  font-weight: 600;
+}

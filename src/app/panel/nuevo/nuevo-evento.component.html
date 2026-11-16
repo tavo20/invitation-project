@@ -3,6 +3,7 @@
     <a class="back" routerLink="/panel">← Mis eventos</a>
     <app-marca-logo class="brand" [marca]="auth.marca()" [alto]="30"></app-marca-logo>
   </header>
+  <app-demo-aviso></app-demo-aviso>
 
   <!-- ===== Progreso ===== -->
   <ol class="steps" *ngIf="paso < 4" aria-label="Pasos">

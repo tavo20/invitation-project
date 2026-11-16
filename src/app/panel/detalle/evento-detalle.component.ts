@@ -11,6 +11,7 @@ import { MesasComponent } from '../../confirmation/mesas/mesas.component';
 import { PanelConfirmacion, PanelEventoDetalle, TipoEvento } from '../panel.models';
 import { ensurePanelFonts } from '../panel-fonts';
 import { MarcaLogoComponent } from '../../shared/marca/marca-logo.component';
+import { DemoAvisoComponent } from '../demo/demo-aviso.component';
 
 type Tab = 'confirmaciones' | 'mesas' | 'links';
 
@@ -25,7 +26,7 @@ const fechaLarga = new Intl.DateTimeFormat('es-CO', { weekday: 'long', day: 'num
 @Component({
   selector: 'app-panel-evento-detalle',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink, PanelLinksComponent, ConfirmationsListComponent, MesasComponent, MarcaLogoComponent],
+  imports: [CommonModule, FormsModule, RouterLink, PanelLinksComponent, ConfirmationsListComponent, MesasComponent, MarcaLogoComponent, DemoAvisoComponent],
   templateUrl: './evento-detalle.component.html',
   styleUrl: './evento-detalle.component.scss',
 })

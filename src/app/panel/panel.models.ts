@@ -6,6 +6,8 @@ export interface PanelCliente {
   img?: string;
   slug?: string | null;
   marcaBlanca?: boolean;
+  /** Cliente de la demo pública: sin contraseña y se restaura cada noche. */
+  demo?: boolean;
   mustChangePassword: boolean;
 }
 
@@ -41,7 +43,7 @@ export interface PanelEventoCard {
   modulos: { invitacion: boolean; galeria: boolean; musica: boolean };
   plantilla: string | null;
   estado: 'activo' | 'archivado';
-  cobro: { plan: PlanEvento; precio: number; estado: EstadoCobro; pagadoEn?: string | null };
+  cobro: { plan: PlanEvento; precio: number; estado: EstadoCobro; pagadoEn?: string | null; promocion?: string };
   confirmaciones: ResumenConfirmaciones | null;
   createdAt: string;
 }
