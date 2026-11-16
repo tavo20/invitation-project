@@ -2,8 +2,9 @@
 
     <header class="showcase-hero">
         <p class="pre-title">Invitaciones digitales</p>
-        <h1 class="brand">InvitApp</h1>
-        <p class="partner-label" *ngIf="marca || imgPartner">Partner</p>
+        <h1 class="brand" *ngIf="!marcaBlanca">InvitApp</h1>
+        <h1 class="brand" *ngIf="marcaBlanca && marca && !imgPartner">{{ marca }}</h1>
+        <p class="partner-label" *ngIf="!marcaBlanca && (marca || imgPartner)">Partner</p>
         <p class="partner-brand" *ngIf="showName && marca">{{ marca }}</p>
         <img class="partner-image" *ngIf="imgPartner" [src]="imgPartner" [alt]="marca" [ngStyle]="partnerImageStyle">
         <div class="hero-divider"></div>

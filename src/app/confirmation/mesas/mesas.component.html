@@ -11,13 +11,21 @@
       <p class="list-hint" *ngIf="!loading && !errorMessage">
         Toca un grupo y después la mesa. Pendientes y confirmados se pueden sentar.
       </p>
+      <p class="error" *ngIf="errorExport" role="alert">{{ errorExport }}</p>
       <div class="list-actions" *ngIf="!loading && !errorMessage">
-        <a class="text-link" *ngIf="invitationId" [routerLink]="['/invitation/confirmations/list', invitationId]">
+        <a class="text-link" *ngIf="invitationId && !embebido" [routerLink]="['/invitation/confirmations/list', invitationId]">
           Ver confirmaciones
         </a>
         <button type="button" class="create-btn" (click)="openCreateMesa()">
           Nueva mesa
         </button>
+        <button type="button" class="create-btn export-btn" *ngIf="mesas.length" (click)="exportar('excel')" [disabled]="!!exportando">
+          {{ exportando === 'excel' ? 'Generando…' : 'Descargar Excel' }}
+        </button>
+        <button type="button" class="create-btn export-btn" *ngIf="mesas.length" (click)="exportar('pdf')" [disabled]="!!exportando">
+          {{ exportando === 'pdf' ? 'Generando…' : 'Descargar PDF' }}
+        </button>
+
       </div>
     </header>
 
@@ -61,6 +69,8 @@
                 {{ occupied(mesa) }} / {{ mesa.capacity }}
                 <span *ngIf="isOver(mesa)"> · se pasó el cupo</span>
               </p>
+              <p class="mesa__capitan" *ngIf="mesa.capitan">♛ Capitán: {{ capitanDe(mesa) }}</p>
+              <p class="mesa__capitan mesa__capitan--falta" *ngIf="!mesa.capitan && occupied(mesa) > 0">Sin capitán</p>
             </span>
           </button>
           <div class="mesa__actions">
@@ -111,13 +121,22 @@
               class="guest__main"
               [attr.aria-pressed]="selectedId === item._id"
               (click)="selectGuest(item)">
-              <span class="guest__name">{{ item.names }}</span>
+              <span class="guest__name">{{ item.names }}<span class="guest__capitan" *ngIf="esCapitan(mesa, item)"> · ♛ Capitán</span></span>
               <span class="guest__picked" *ngIf="selectedId === item._id">Seleccionado</span>
               <span class="guest__meta">
                 {{ item.numero_confirmados }} persona{{ item.numero_confirmados === 1 ? '' : 's' }}
                 ·
                 <span [class]="'status status--' + getStatus(item)">{{ statusLabel(getStatus(item)) }}</span>
               </span>
+            </button>
+            <button
+              type="button"
+              class="ghost-btn capitan-btn"
+              *ngIf="getStatus(item) === 'confirmado'"
+              [class.is-capitan]="esCapitan(mesa, item)"
+              [attr.aria-label]="esCapitan(mesa, item) ? 'Editar capitán' : 'Hacer capitán de ' + mesa.name"
+              (click)="abrirCapitan(mesa, item)">
+              ♛ {{ esCapitan(mesa, item) ? 'Capitán' : 'Hacer capitán' }}
             </button>
             <button type="button" class="ghost-btn" (click)="unassign(item)" [disabled]="savingId === item._id">
               Quitar
@@ -203,6 +222,31 @@
           </button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- ===== Capitán de mesa ===== -->
+  <div class="create-modal" *ngIf="capitanModal" (click)="cerrarCapitan()">
+    <div class="create-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="capitan-title" (click)="$event.stopPropagation()">
+      <p class="create-modal__eyebrow">{{ capitanModal.mesa.name }}</p>
+      <h2 class="create-modal__title" id="capitan-title">Capitán de mesa</h2>
+      <p class="capitan-ayuda">Es quien ayuda a ubicar a su mesa y el contacto del planner el día del evento.</p>
+      <div class="create-modal__form">
+        <label class="field">
+          <span class="label-text">Grupo</span>
+          <input type="text" [value]="capitanModal.item.names" disabled>
+        </label>
+        <label class="field">
+          <span class="label-text">Nombre exacto de la persona (opcional)</span>
+          <input type="text" [(ngModel)]="capitanNombre" maxlength="60" placeholder="Ej. Carlos Rodríguez" (keydown.enter)="guardarCapitan()">
+        </label>
+        <p class="error" *ngIf="capitanError" role="alert">{{ capitanError }}</p>
+        <div class="create-modal__actions">
+          <button type="button" class="create-btn" (click)="guardarCapitan()" [disabled]="guardandoCapitan">{{ guardandoCapitan ? 'Guardando…' : 'Guardar' }}</button>
+          <button type="button" class="create-modal__cancel" *ngIf="esCapitan(capitanModal.mesa, capitanModal.item)" (click)="quitarCapitan()" [disabled]="guardandoCapitan">Quitar capitán</button>
+          <button type="button" class="create-modal__cancel" *ngIf="!esCapitan(capitanModal.mesa, capitanModal.item)" (click)="cerrarCapitan()" [disabled]="guardandoCapitan">Cancelar</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

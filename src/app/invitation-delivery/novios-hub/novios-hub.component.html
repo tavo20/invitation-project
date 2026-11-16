@@ -1,0 +1,115 @@
+<main class="nh">
+  <div class="nh-bg" aria-hidden="true"></div>
+
+  <section class="nh-load" *ngIf="cargando" aria-busy="true">
+    <div class="sk a"></div><div class="sk b"></div><div class="sk b"></div>
+  </section>
+
+  <section class="nh-state" *ngIf="!cargando && error">
+    <h1>Ups.</h1>
+    <p>{{ error }}</p>
+    <button type="button" class="btn" (click)="cargar()">Intentar de nuevo</button>
+  </section>
+
+  <ng-container *ngIf="!cargando && ev">
+    <!-- ===== Encabezado ===== -->
+    <header class="nh-head">
+      <div class="org" *ngIf="ev.organizador">
+        <img *ngIf="ev.organizador.img" [src]="ev.organizador.img" [alt]="ev.organizador.nombre">
+        <span>Organizado por <b>{{ ev.organizador.nombre }}</b></span>
+      </div>
+      <p class="eyebrow">Tu evento</p>
+      <h1>{{ ev.nombre }}</h1>
+      <p class="meta" *ngIf="fecha"><span class="cap">{{ fecha }}</span><span *ngIf="ev.lugar"> · {{ ev.lugar }}</span></p>
+      <span class="countdown" *ngIf="faltan">{{ faltan }}</span>
+    </header>
+
+    <!-- ===== Invitación ===== -->
+    <section class="card" *ngIf="ev.modulos.invitacion">
+      <div class="card-h">
+        <span class="ico" aria-hidden="true">✉</span>
+        <div><h2>Tu invitación</h2><p>El link que les mandas a tus invitados.</p></div>
+      </div>
+      <div class="acts">
+        <button type="button" class="btn" (click)="copiar('invitacion')">{{ copiado === 'invitacion' ? 'Link copiado' : 'Copiar link para invitados' }}</button>
+        <a class="ghost" *ngIf="link('invitacion')" [href]="link('invitacion')" target="_blank" rel="noopener">Ver invitación ↗</a>
+        <a class="ghost" *ngIf="link('editarInvitacion')" [href]="link('editarInvitacion')" target="_blank" rel="noopener">Editar invitación ↗</a>
+      </div>
+      <p class="miss" *ngIf="tiene('editarInvitacion') && !link('editarInvitacion')">Para editar la invitación, pídele el link a tu organizador.</p>
+    </section>
+
+    <!-- ===== Confirmaciones ===== -->
+    <section class="card" *ngIf="ev.confirmaciones as c">
+      <div class="card-h">
+        <span class="ico" aria-hidden="true">✓</span>
+        <div><h2>Confirmaciones</h2><p>Quién va, con cuántos acompañantes y quién falta.</p></div>
+      </div>
+      <div class="nums">
+        <div><b>{{ c.confirmados }}</b><span>personas confirmadas</span></div>
+        <div><b>{{ c.pendientes }}</b><span>por confirmar</span></div>
+        <div><b>{{ c.cancelados }}</b><span>no asisten</span></div>
+      </div>
+      <div class="acts">
+        <a class="btn" [routerLink]="['/invitation/confirmations/list', ev.id_invitacion]">Ver y editar la lista</a>
+        <button type="button" class="ghost" (click)="copiar('confirmacion')">{{ copiado === 'confirmacion' ? 'Link copiado' : 'Copiar link para confirmar' }}</button>
+      </div>
+    </section>
+
+    <!-- ===== Mesas ===== -->
+    <section class="card" *ngIf="ev.mesas as m">
+      <div class="card-h">
+        <span class="ico" aria-hidden="true">◯</span>
+        <div><h2>Mesas</h2><p>Asigna a cada invitado su puesto. Lo verá en su ticket.</p></div>
+      </div>
+      <div class="nums">
+        <div><b>{{ m.total }}</b><span>{{ m.total === 1 ? 'mesa' : 'mesas' }} · {{ m.puestos }} puestos</span></div>
+        <div><b>{{ m.sentados }}</b><span>con puesto</span></div>
+        <div [class.warn]="m.sinMesa > 0"><b>{{ m.sinMesa }}</b><span>confirmados sin mesa</span></div>
+      </div>
+      <p class="note" *ngIf="m.total">♛ {{ m.conCapitan || 0 }} de {{ m.total }} mesas con capitán: alguien que ayuda a ubicar a su mesa el día del evento.</p>
+      <div class="acts">
+        <a class="btn" [routerLink]="['/invitation/mesas', ev.id_invitacion]">{{ m.total ? 'Organizar mesas' : 'Crear mesas' }}</a>
+      </div>
+    </section>
+
+    <!-- ===== Fotos ===== -->
+    <section class="card" *ngIf="ev.modulos.galeria">
+      <div class="card-h">
+        <span class="ico" aria-hidden="true">◐</span>
+        <div><h2>Fotos de tus invitados</h2><p>Imprime el QR y ponlo en las mesas: tus invitados suben sus fotos a tu álbum.</p></div>
+      </div>
+      <div class="qr-row">
+        <img class="qr" *ngIf="qr['galeria']" [src]="qr['galeria']" alt="QR para subir fotos">
+        <div class="acts col">
+          <button type="button" class="btn" (click)="descargarQr('galeria', 'fotos')" [disabled]="!qr['galeria']">Descargar QR</button>
+          <button type="button" class="ghost" (click)="copiar('galeria')">{{ copiado === 'galeria' ? 'Link copiado' : 'Copiar link para invitados' }}</button>
+          <a class="ghost" *ngIf="link('galeriaAdmin')" [href]="link('galeriaAdmin')" target="_blank" rel="noopener">Ver y descargar el álbum ↗</a>
+        </div>
+      </div>
+      <p class="miss" *ngIf="tiene('galeriaAdmin') && !link('galeriaAdmin')">Para administrar el álbum, pídele el link a tu organizador.</p>
+    </section>
+
+    <!-- ===== Música ===== -->
+    <section class="card" *ngIf="ev.modulos.musica && link('musica')">
+      <div class="card-h">
+        <span class="ico" aria-hidden="true">♪</span>
+        <div><h2>Música de la fiesta</h2><p>Tus invitados piden canciones con este QR y el DJ las recibe en su pantalla.</p></div>
+      </div>
+      <div class="qr-row">
+        <img class="qr" *ngIf="qr['musica']" [src]="qr['musica']" alt="QR para pedir canciones">
+        <div class="acts col">
+          <button type="button" class="btn" (click)="descargarQr('musica', 'musica')" [disabled]="!qr['musica']">Descargar QR</button>
+          <button type="button" class="ghost" (click)="copiar('musica')">{{ copiado === 'musica' ? 'Link copiado' : 'Copiar link para invitados' }}</button>
+          <button type="button" class="ghost" *ngIf="link('dj')" (click)="copiar('dj')">{{ copiado === 'dj' ? 'Link copiado' : 'Copiar link para el DJ' }}</button>
+        </div>
+      </div>
+      <p class="note" *ngIf="link('dj')">El link del DJ es privado: mándaselo solo a quien pone la música.</p>
+      <p class="miss" *ngIf="tiene('dj') && !link('dj')">Para el link del DJ, pídeselo a tu organizador.</p>
+    </section>
+
+    <footer class="nh-foot">
+      <p>Guarda este link: es tu acceso a todo tu evento. No lo compartas con los invitados.</p>
+      <span class="brand" *ngIf="!ev.organizador?.marcaBlanca">Invit<i>App</i></span>
+    </footer>
+  </ng-container>
+</main>

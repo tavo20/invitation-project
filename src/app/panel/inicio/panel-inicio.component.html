@@ -1,0 +1,123 @@
+<main class="pp">
+  <header class="pp-head">
+    <app-marca-logo class="brand" [marca]="auth.marca()" [alto]="30"></app-marca-logo>
+    <div class="who">
+      <span class="who-name" *ngIf="!auth.marca().marcaBlanca">{{ auth.cliente()?.marca || auth.cliente()?.nombre }}</span>
+      <button type="button" class="ghost" (click)="salir()">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <section class="pp-title">
+    <div>
+      <p class="eyebrow">Panel de eventos</p>
+      <h1>Hola, <i>{{ primerNombre }}.</i></h1>
+    </div>
+    <a class="btn" routerLink="/panel/eventos/nuevo">+ Crear evento</a>
+  </section>
+
+  <!-- ===== Cargando ===== -->
+  <section class="pp-stats" *ngIf="cargando" aria-busy="true">
+    <div class="stat sk" *ngFor="let _ of [1,2,3,4]"></div>
+  </section>
+  <section class="grid" *ngIf="cargando" aria-hidden="true">
+    <div class="card sk tall" *ngFor="let _ of [1,2,3]"></div>
+  </section>
+
+  <!-- ===== Error ===== -->
+  <section class="state" *ngIf="!cargando && error">
+    <h2>No pudimos cargar tus eventos</h2>
+    <p>{{ error }}</p>
+    <button type="button" class="btn" (click)="cargar()">Intentar de nuevo</button>
+  </section>
+
+  <ng-container *ngIf="!cargando && !error && data">
+    <!-- ===== Sin eventos ===== -->
+    <section class="state empty" *ngIf="!data.eventos.length">
+      <div class="env" aria-hidden="true"><span></span></div>
+      <h2>Aún no tienes eventos</h2>
+      <p>Crea tu primer evento: eliges la invitación, compartes los links y sigues las confirmaciones desde aquí.</p>
+      <a class="btn" routerLink="/panel/eventos/nuevo">+ Crear mi primer evento</a>
+    </section>
+
+    <ng-container *ngIf="data.eventos.length">
+      <!-- ===== Resumen ===== -->
+      <section class="pp-stats">
+        <div class="stat">
+          <span class="lbl">Eventos próximos</span>
+          <b>{{ lista('proximos').length }}</b>
+          <span class="sub">{{ proximos30 }} en los próximos 30 días</span>
+        </div>
+        <div class="stat">
+          <span class="lbl">Invitados confirmados</span>
+          <b>{{ confirmadosProximos }}</b>
+          <span class="sub">en tus eventos próximos</span>
+        </div>
+        <div class="stat">
+          <span class="lbl">Eventos creados</span>
+          <b>{{ data.cuenta.eventos }}</b>
+          <span class="sub">en total</span>
+        </div>
+        <div class="stat money" [class.ok]="!data.cuenta.porPagar">
+          <span class="lbl">Por pagar</span>
+          <b>{{ porPagar }}</b>
+          <span class="sub" *ngIf="data.cuenta.porPagar">{{ eventosPorPagar }} {{ eventosPorPagar === 1 ? 'evento' : 'eventos' }}</span>
+          <span class="sub" *ngIf="!data.cuenta.porPagar">Estás al día</span>
+        </div>
+      </section>
+
+      <!-- ===== Filtros ===== -->
+      <nav class="tabs" aria-label="Filtrar eventos">
+        <button type="button" [class.on]="filtro === 'proximos'" [attr.aria-pressed]="filtro === 'proximos'" (click)="filtro = 'proximos'">
+          Próximos <span>{{ lista('proximos').length }}</span>
+        </button>
+        <button type="button" [class.on]="filtro === 'pasados'" [attr.aria-pressed]="filtro === 'pasados'" (click)="filtro = 'pasados'">
+          Pasados <span>{{ lista('pasados').length }}</span>
+        </button>
+        <button type="button" *ngIf="lista('archivados').length" [class.on]="filtro === 'archivados'"
+                [attr.aria-pressed]="filtro === 'archivados'" (click)="filtro = 'archivados'">
+          Archivados <span>{{ lista('archivados').length }}</span>
+        </button>
+      </nav>
+
+      <p class="none" *ngIf="!visibles.length">No hay eventos en esta lista.</p>
+
+      <!-- ===== Tarjetas ===== -->
+      <section class="grid">
+        <a class="card" *ngFor="let e of visibles; trackBy: trackId" [class.past]="filtro !== 'proximos'"
+           [routerLink]="['/panel/eventos', e._id]" [attr.aria-label]="'Abrir ' + e.nombre">
+          <header class="c-top">
+            <span class="kind">{{ tipo(e) }}</span>
+            <span class="when" [attr.data-tone]="cuenta(e).tono">{{ cuenta(e).texto }}</span>
+          </header>
+
+          <h3>{{ e.nombre }}</h3>
+          <p class="meta">
+            <span>{{ fecha(e) }}</span>
+            <span *ngIf="e.lugar">· {{ e.lugar }}</span>
+          </p>
+
+          <div class="rsvp" *ngIf="e.modulos.invitacion && e.confirmaciones as c">
+            <div class="big"><b>{{ c.confirmados }}</b><span>confirmados</span></div>
+            <div class="small">
+              <span><b>{{ c.pendientes }}</b> por confirmar</span>
+              <span><b>{{ c.cancelados }}</b> no asisten</span>
+            </div>
+          </div>
+
+          <ul class="mods" aria-label="Incluye">
+            <li [class.on]="e.modulos.invitacion">Invitación<span *ngIf="plantilla(e)"> · {{ plantilla(e) }}</span></li>
+            <li [class.on]="e.modulos.galeria">Fotos</li>
+            <li [class.on]="e.modulos.musica">Música</li>
+          </ul>
+
+          <footer class="c-foot">
+            <span class="plan" [class.full]="e.cobro.plan !== 'invitacion'">{{ planNombre(e) }}</span>
+            <span class="pay" [attr.data-state]="e.cobro.estado">{{ cobro(e) }} · {{ precio(e) }}</span>
+          </footer>
+        </a>
+      </section>
+    </ng-container>
+  </ng-container>
+
+  <p class="mock" *ngIf="auth.isMock">Modo de prueba: estos eventos son de ejemplo.</p>
+</main>

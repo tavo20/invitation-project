@@ -1,0 +1,179 @@
+<main class="ne">
+  <header class="ne-head">
+    <a class="back" routerLink="/panel">← Mis eventos</a>
+    <app-marca-logo class="brand" [marca]="auth.marca()" [alto]="30"></app-marca-logo>
+  </header>
+
+  <!-- ===== Progreso ===== -->
+  <ol class="steps" *ngIf="paso < 4" aria-label="Pasos">
+    <li *ngFor="let p of pasos; let i = index" [class.on]="paso === i + 1" [class.done]="paso > i + 1">
+      <button type="button" (click)="irA($any(i + 1))" [disabled]="paso <= i + 1" [attr.aria-current]="paso === i + 1 ? 'step' : null">
+        <span class="n">{{ i + 1 }}</span>{{ p }}
+      </button>
+    </li>
+  </ol>
+
+  <section class="ne-card" *ngIf="cargandoCatalogo" aria-busy="true"><div class="sk"></div></section>
+
+  <ng-container *ngIf="!cargandoCatalogo && catalogo">
+    <!-- ===== Paso 1: datos ===== -->
+    <form class="ne-card" *ngIf="paso === 1" (ngSubmit)="siguiente()" novalidate>
+      <h1>Cuéntanos del <i>evento.</i></h1>
+      <p class="lede">Con esto armamos la invitación. Después puedes cambiar todo desde el editor.</p>
+
+      <fieldset>
+        <legend>Tipo de evento</legend>
+        <div class="chips">
+          <button type="button" *ngFor="let t of tipos" [class.on]="tipo === t.key" [attr.aria-pressed]="tipo === t.key" (click)="onTipo(t.key)">
+            {{ t.label }}
+          </button>
+        </div>
+      </fieldset>
+
+      <div class="row" [class.two]="esPareja">
+        <div class="f">
+          <label for="ne-a">{{ etiquetaA }}</label>
+          <input id="ne-a" name="a" [(ngModel)]="nombreA" (ngModelChange)="onNombres()" maxlength="40" autocomplete="off"
+                 [placeholder]="esPareja ? 'Valentina' : 'Sofía'">
+        </div>
+        <div class="f" *ngIf="esPareja">
+          <label for="ne-b">Nombre del otro novio</label>
+          <input id="ne-b" name="b" [(ngModel)]="nombreB" (ngModelChange)="onNombres()" maxlength="40" autocomplete="off" placeholder="Andrés">
+        </div>
+      </div>
+
+      <div class="f">
+        <label for="ne-nombre">Nombre del evento</label>
+        <input id="ne-nombre" name="nombre" [(ngModel)]="nombre" (ngModelChange)="nombreEditado = true" maxlength="80" autocomplete="off"
+               placeholder="Valentina & Andrés">
+        <p class="hint">Así lo verás en tu panel.</p>
+      </div>
+
+      <div class="row two">
+        <div class="f">
+          <label for="ne-fecha">Fecha</label>
+          <input id="ne-fecha" name="fecha" type="date" [(ngModel)]="fecha" [min]="minFecha">
+        </div>
+        <div class="f">
+          <label for="ne-hora">Hora</label>
+          <input id="ne-hora" name="hora" type="time" [(ngModel)]="hora">
+        </div>
+      </div>
+      <p class="hint">Si aún no la tienen, déjala en blanco y la agregas después.</p>
+
+      <div class="f">
+        <label for="ne-lugar">Lugar</label>
+        <input id="ne-lugar" name="lugar" [(ngModel)]="lugar" maxlength="120" autocomplete="off" placeholder="Hacienda La Quinta, Melgar">
+      </div>
+
+      <p class="err" *ngIf="error" role="alert">{{ error }}</p>
+      <div class="nav">
+        <span></span>
+        <button class="btn" type="submit">Siguiente</button>
+      </div>
+    </form>
+
+    <!-- ===== Paso 2: paquete ===== -->
+    <section class="ne-card" *ngIf="paso === 2">
+      <h1>Elige el <i>paquete.</i></h1>
+      <p class="lede">Fotos y música van juntas. Si después quieren más, se agrega desde el evento.</p>
+
+      <div class="plans three" role="radiogroup" aria-label="Paquete">
+        <button type="button" *ngFor="let p of paquetes" class="plan" role="radio" [class.full]="p.key === 'completa'"
+                [attr.aria-checked]="paquete === p.key" [class.on]="paquete === p.key" (click)="paquete = p.key">
+          <span class="ph">
+            <b>{{ p.nombre }}<span class="best" *ngIf="p.key === 'completa'">Más elegida</span></b>
+            <span class="pr">{{ precio(p.key) }}</span>
+            <span class="rs">{{ p.resumen }}</span>
+          </span>
+          <ul><li *ngFor="let i of p.incluye">{{ i }}</li></ul>
+        </button>
+      </div>
+
+      <ng-container *ngIf="esUltimo">
+        <dl class="sum">
+          <div><dt>Evento</dt><dd>{{ nombre }}</dd></div>
+          <div><dt>Fecha</dt><dd class="cap">{{ fechaResumen }}</dd></div>
+          <div *ngIf="lugar"><dt>Lugar</dt><dd>{{ lugar }}</dd></div>
+          <div><dt>Paquete</dt><dd>Fiesta</dd></div>
+          <div class="tot"><dt>Total</dt><dd>{{ precio(paquete) }}</dd></div>
+        </dl>
+        <p class="hint">El valor se suma a tu cuenta del mes. Si después quieren invitación, la agregas desde el evento.</p>
+      </ng-container>
+
+      <p class="err" *ngIf="error" role="alert">{{ error }}</p>
+      <div class="nav">
+        <button class="ghost" type="button" (click)="atras()" [disabled]="creando">Atrás</button>
+        <button class="btn" type="button" *ngIf="!esUltimo" (click)="siguiente()">Siguiente</button>
+        <button class="btn" type="button" *ngIf="esUltimo" (click)="crear()" [disabled]="creando">
+          <span *ngIf="!creando">Crear evento</span>
+          <span *ngIf="creando" class="spin" aria-label="Creando"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== Paso 3: plantilla (solo si el paquete trae invitación) ===== -->
+    <section class="ne-card" *ngIf="paso === 3 && conInvitacion">
+      <h1>Elige la <i>invitación.</i></h1>
+      <p class="lede">Los textos, fotos, colores y canción se cambian después desde el editor.</p>
+
+      <div class="tpls" role="radiogroup" aria-label="Plantilla">
+        <button type="button" *ngFor="let p of catalogo.plantillas" class="tpl" role="radio"
+                [attr.aria-checked]="plantilla === p.key" [class.on]="plantilla === p.key" (click)="plantilla = p.key">
+          <span class="art" [attr.data-tpl]="p.key" aria-hidden="true">
+            <span class="pre">{{ esPareja ? 'Nos casamos' : 'Te invito' }}</span>
+            <span class="nm">{{ nombreA || 'Valentina' }}<ng-container *ngIf="esPareja"> &amp; {{ nombreB || 'Andrés' }}</ng-container></span>
+            <span class="dt">{{ fecha ? (fecha | date:'dd · MM · yyyy') : '03 · 10 · 2026' }}</span>
+          </span>
+          <span class="info">
+            <b>{{ p.nombre }}</b>
+            <span>{{ p.descripcion }}</span>
+          </span>
+          <span class="tick" aria-hidden="true">✓</span>
+        </button>
+      </div>
+
+      <dl class="sum">
+        <div><dt>Evento</dt><dd>{{ nombre }}</dd></div>
+        <div><dt>Fecha</dt><dd class="cap">{{ fechaResumen }}</dd></div>
+        <div *ngIf="lugar"><dt>Lugar</dt><dd>{{ lugar }}</dd></div>
+        <div><dt>Paquete</dt><dd>{{ paquete === 'completa' ? 'Completa' : 'Invitación' }}</dd></div>
+        <div><dt>Invitación</dt><dd>{{ nombrePlantilla }}</dd></div>
+        <div class="tot"><dt>Total</dt><dd>{{ precio(paquete) }}</dd></div>
+      </dl>
+      <p class="hint">El valor se suma a tu cuenta del mes.<ng-container *ngIf="paquete === 'invitacion'"> Si después quieren fotos y música, las activas desde el evento.</ng-container></p>
+
+      <p class="err" *ngIf="error" role="alert">{{ error }}</p>
+      <div class="nav">
+        <button class="ghost" type="button" (click)="atras()" [disabled]="creando">Atrás</button>
+        <button class="btn" type="button" (click)="crear()" [disabled]="creando">
+          <span *ngIf="!creando">Crear evento</span>
+          <span *ngIf="creando" class="spin" aria-label="Creando"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== Listo ===== -->
+    <section class="done" *ngIf="paso === 4 && creado">
+      <div class="done-head">
+        <span class="ok" aria-hidden="true">✓</span>
+        <h1>{{ creado.nombre }} <i>está listo.</i></h1>
+        <p class="lede" *ngIf="creado.modulos.invitacion">Primero personaliza la invitación con el editor. Cuando esté lista, comparte el link con los invitados.</p>
+        <p class="lede" *ngIf="!creado.modulos.invitacion">Comparte el link de fotos y el de música con los invitados, y el del DJ con quien pone la música.</p>
+        <div class="cta">
+          <a class="btn" *ngIf="creado.links.editarInvitacion" [href]="creado.links.editarInvitacion" target="_blank" rel="noopener">Editar la invitación ↗</a>
+          <a class="ghost" [routerLink]="['/panel/eventos', creado._id]">Ver el evento</a>
+        </div>
+      </div>
+      <app-panel-links [links]="creado.links"></app-panel-links>
+    </section>
+  </ng-container>
+
+  <section class="ne-card" *ngIf="!cargandoCatalogo && !catalogo">
+    <h1>No pudimos cargar <i>las plantillas.</i></h1>
+    <p class="err" role="alert">{{ error }}</p>
+    <div class="nav"><a class="ghost" routerLink="/panel">Volver</a></div>
+  </section>
+
+  <p class="mock" *ngIf="auth.isMock">Modo de prueba: no se crea nada de verdad y los links son de ejemplo.</p>
+</main>

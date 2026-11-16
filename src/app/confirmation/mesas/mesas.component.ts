@@ -1,5 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { activarEvento } from '../../shared/evento-access/evento-access';
+import { MarcaService, nombreDeMarca } from '../../shared/marca/marca.service';
+import { Component, HostBinding, Input, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -19,8 +21,15 @@ type GuestStatus = 'confirmado' | 'pendiente' | 'cancelada';
   styleUrl: './mesas.component.scss'
 })
 export class MesasComponent implements OnInit {
+  /** Id del evento cuando se usa dentro de otra pantalla (panel); si no, sale de la URL. */
+  @Input() idEvento?: string;
+  /** Dentro del panel: sin fondo de página completa ni links a la otra pantalla. */
+  @Input() @HostBinding('class.embebido') embebido = false;
+
   invitationId: string | null = null;
   invitationNames = '';
+  /** Fecha del evento tal como la muestra la invitación (para los archivos descargados). */
+  fechaTexto = '';
   typeConfirmation = '';
   mesas: Mesa[] = [];
   confirmations: ConfirmationDocument[] = [];
@@ -50,7 +59,8 @@ export class MesasComponent implements OnInit {
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.invitationId = this.route.snapshot.paramMap.get('id');
+    this.invitationId = this.idEvento || this.route.snapshot.paramMap.get('id');
+    activarEvento(this.invitationId);
     if (!this.invitationId) {
       this.loading = false;
       this.errorMessage = 'No se encontró el id de la invitación.';
@@ -63,9 +73,39 @@ export class MesasComponent implements OnInit {
       this.invitationNames = [context.data.names1, context.data.names2]
         .filter(Boolean)
         .join(' & ');
+      this.fechaTexto = context.data.dateText || context.data.date || context.data.weddingDate || '';
     }
 
     await this.load(true);
+  }
+
+  // ===== Descargas (Excel y PDF) =====
+  private readonly marcas = inject(MarcaService);
+  exportando: '' | 'excel' | 'pdf' = '';
+  errorExport = '';
+
+  async exportar(formato: 'excel' | 'pdf'): Promise<void> {
+    if (this.exportando) return;
+    this.exportando = formato;
+    this.errorExport = '';
+    try {
+      const ex = await import('../../shared/exportar/exportar-evento');
+      const marca = await this.marcas.porEvento(this.invitationId!);
+      // Marca blanca: el archivo lo firma el planner; si no, InvitApp y el nombre del organizador
+      const ev = {
+        nombre: this.invitationNames || 'Evento',
+        fecha: this.fechaTexto,
+        marca: nombreDeMarca(marca),
+        organizador: marca.marcaBlanca ? undefined : marca.nombre || undefined,
+      };
+      if (formato === 'excel') await ex.mesasExcel(ev, this.confirmations as any, this.mesas);
+      else await ex.mesasPdf(ev, this.confirmations as any, this.mesas);
+    } catch (e) {
+      console.error('Error exportando', e);
+      this.errorExport = 'No pudimos generar el archivo. Intenta de nuevo.';
+    } finally {
+      this.exportando = '';
+    }
   }
 
   @HostBinding('class.theme-basic')
@@ -157,6 +197,64 @@ export class MesasComponent implements OnInit {
       this.actionMessage = this.readError(error, 'No cabe en esta mesa.');
     } finally {
       this.savingId = null;
+    }
+  }
+
+  // ===== Capitán de mesa =====
+  capitanModal: { mesa: Mesa; item: ConfirmationDocument } | null = null;
+  capitanNombre = '';
+  guardandoCapitan = false;
+  capitanError = '';
+
+  esCapitan(mesa: Mesa, item: ConfirmationDocument): boolean {
+    return !!mesa.capitan && mesa.capitan === item._id;
+  }
+
+  capitanDe(mesa: Mesa): string {
+    if (!mesa.capitan) return '';
+    const grupo = this.confirmations.find((c) => c._id === mesa.capitan);
+    return mesa.capitanNombre || grupo?.names || '';
+  }
+
+  abrirCapitan(mesa: Mesa, item: ConfirmationDocument): void {
+    this.capitanModal = { mesa, item };
+    this.capitanNombre = this.esCapitan(mesa, item) ? mesa.capitanNombre || '' : '';
+    this.capitanError = '';
+  }
+
+  cerrarCapitan(): void {
+    if (this.guardandoCapitan) return;
+    this.capitanModal = null;
+  }
+
+  async guardarCapitan(): Promise<void> {
+    if (!this.capitanModal || this.guardandoCapitan) return;
+    const { mesa, item } = this.capitanModal;
+    this.guardandoCapitan = true;
+    this.capitanError = '';
+    try {
+      await this.mesaService.update(mesa._id, { capitan: item._id, capitanNombre: this.capitanNombre.trim() });
+      this.capitanModal = null;
+      await this.load();
+    } catch (error) {
+      this.capitanError = this.readError(error, 'No se pudo guardar el capitán.');
+    } finally {
+      this.guardandoCapitan = false;
+    }
+  }
+
+  async quitarCapitan(): Promise<void> {
+    if (!this.capitanModal || this.guardandoCapitan) return;
+    this.guardandoCapitan = true;
+    this.capitanError = '';
+    try {
+      await this.mesaService.update(this.capitanModal.mesa._id, { capitan: null });
+      this.capitanModal = null;
+      await this.load();
+    } catch (error) {
+      this.capitanError = this.readError(error, 'No se pudo quitar el capitán.');
+    } finally {
+      this.guardandoCapitan = false;
     }
   }
 

@@ -1,0 +1,163 @@
+<main class="ed">
+  <header class="ed-head">
+    <a class="back" routerLink="/panel">← Mis eventos</a>
+    <app-marca-logo class="brand" [marca]="auth.marca()" [alto]="30"></app-marca-logo>
+  </header>
+
+  <!-- ===== Cargando / error ===== -->
+  <section *ngIf="cargando" aria-busy="true">
+    <div class="sk hero"></div>
+    <div class="sk body"></div>
+  </section>
+
+  <section class="state" *ngIf="!cargando && error">
+    <h2>No pudimos abrir este evento</h2>
+    <p>{{ error }}</p>
+    <div class="row-btns">
+      <button type="button" class="btn" (click)="cargar()">Intentar de nuevo</button>
+      <a class="ghost" routerLink="/panel">Volver</a>
+    </div>
+  </section>
+
+  <ng-container *ngIf="!cargando && ev">
+    <!-- ===== Encabezado del evento ===== -->
+    <section class="hero">
+      <div class="hero-top">
+        <span class="kind">{{ tipo }}</span>
+        <span class="when" [attr.data-tone]="cuenta.tono">{{ cuenta.texto }}</span>
+        <span class="arch" *ngIf="ev.estado === 'archivado'">Archivado</span>
+      </div>
+      <h1>{{ ev.nombre }}</h1>
+      <p class="meta"><span class="cap">{{ fecha }}</span><span *ngIf="ev.lugar"> · {{ ev.lugar }}</span></p>
+
+      <div class="hero-row">
+        <div class="pills">
+          <span class="pill" [class.on]="ev.modulos.invitacion">Invitación<span *ngIf="plantilla"> · {{ plantilla }}</span></span>
+          <span class="pill" [class.on]="ev.modulos.galeria">Fotos</span>
+          <span class="pill" [class.on]="ev.modulos.musica">Música</span>
+        </div>
+        <div class="acts">
+          <a class="btn" *ngIf="ev.links.editarInvitacion" [href]="ev.links.editarInvitacion" target="_blank" rel="noopener">Editar invitación ↗</a>
+          <a class="ghost" *ngIf="ev.links.invitacion" [href]="ev.links.invitacion" target="_blank" rel="noopener">Ver invitación ↗</a>
+          <button type="button" class="ghost" (click)="abrirEdicion()">Editar datos</button>
+        </div>
+      </div>
+
+      <div class="stats" [class.solo]="!ev.modulos.invitacion">
+        <ng-container *ngIf="ev.modulos.invitacion">
+          <div class="stat"><b>{{ ev.confirmaciones?.confirmados ?? 0 }}</b><span>confirmados</span></div>
+          <div class="stat"><b>{{ ev.confirmaciones?.pendientes ?? 0 }}</b><span>por confirmar</span></div>
+          <div class="stat"><b>{{ ev.confirmaciones?.cancelados ?? 0 }}</b><span>no asisten</span></div>
+        </ng-container>
+        <div class="stat money" [attr.data-state]="ev.cobro.estado">
+          <b>{{ precio }}</b><span>{{ planNombre }} · {{ cobro }}</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Editar datos ===== -->
+    <form class="edit" *ngIf="editando" (ngSubmit)="guardar()" novalidate>
+      <h2>Datos del evento</h2>
+      <p class="note">Esto cambia cómo lo ves en tu panel. Los textos de la invitación se cambian en el editor.</p>
+      <div class="f">
+        <label for="ed-nombre">Nombre del evento</label>
+        <input id="ed-nombre" name="nombre" [(ngModel)]="fNombre" maxlength="80">
+      </div>
+      <div class="two">
+        <div class="f"><label for="ed-fecha">Fecha</label><input id="ed-fecha" name="fecha" type="date" [(ngModel)]="fFecha"></div>
+        <div class="f"><label for="ed-hora">Hora</label><input id="ed-hora" name="hora" type="time" [(ngModel)]="fHora"></div>
+      </div>
+      <div class="f">
+        <label for="ed-lugar">Lugar</label>
+        <input id="ed-lugar" name="lugar" [(ngModel)]="fLugar" maxlength="120">
+      </div>
+      <p class="err" *ngIf="errorEdit" role="alert">{{ errorEdit }}</p>
+      <div class="row-btns spread">
+        <button type="button" class="link-btn" *ngIf="ev.estado !== 'archivado'" (click)="archivar(true)" [disabled]="guardando">Archivar evento</button>
+        <button type="button" class="link-btn" *ngIf="ev.estado === 'archivado'" (click)="archivar(false)" [disabled]="guardando">Restaurar evento</button>
+        <div class="row-btns">
+          <button type="button" class="ghost" (click)="editando = false" [disabled]="guardando">Cancelar</button>
+          <button type="submit" class="btn" [disabled]="guardando">{{ guardando ? 'Guardando…' : 'Guardar' }}</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- ===== Pasar a Completa: Invitación → agrega fotos y música ===== -->
+    <section class="upsell" *ngIf="ev.modulos.invitacion && !ev.modulos.galeria">
+      <div>
+        <h2>Agrega fotos y música</h2>
+        <p>Los invitados suben sus fotos a un álbum privado y piden canciones al DJ desde el celular.</p>
+      </div>
+      <button type="button" class="btn" *ngIf="!confirmandoUpgrade" (click)="confirmandoUpgrade = true">Pasar a Completa</button>
+      <div class="confirm" *ngIf="confirmandoUpgrade">
+        <p *ngIf="ev.cobro.estado === 'pendiente' && precioUpgrade">El evento pasa a plan Completa por <b>{{ precioUpgrade }}</b> en total.</p>
+        <p *ngIf="ev.cobro.estado !== 'pendiente'">Este evento ya está pago. Coordinaremos contigo la diferencia.</p>
+        <p class="err" *ngIf="errorUpgrade" role="alert">{{ errorUpgrade }}</p>
+        <div class="row-btns">
+          <button type="button" class="ghost" (click)="confirmandoUpgrade = false" [disabled]="activando">Cancelar</button>
+          <button type="button" class="btn" (click)="activarExperiencia()" [disabled]="activando">{{ activando ? 'Activando…' : 'Sí, activar' }}</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Pasar a Completa: Fiesta → agrega la invitación ===== -->
+    <section class="upsell" *ngIf="!ev.modulos.invitacion">
+      <div>
+        <h2>Agrega la invitación</h2>
+        <p>Invitación digital con editor, confirmación de asistencia y mesas, en el mismo evento.</p>
+      </div>
+      <button type="button" class="btn" *ngIf="!confirmandoUpgrade" (click)="confirmandoUpgrade = true">Pasar a Completa</button>
+      <div class="confirm wide" *ngIf="confirmandoUpgrade">
+        <div class="tpl-pick" role="radiogroup" aria-label="Plantilla">
+          <button type="button" *ngFor="let p of plantillas" role="radio" [attr.aria-checked]="plantillaUpgrade === p.key"
+                  [class.on]="plantillaUpgrade === p.key" (click)="plantillaUpgrade = p.key">
+            <b>{{ p.nombre }}</b><span>{{ p.descripcion }}</span>
+          </button>
+        </div>
+        <p *ngIf="ev.cobro.estado === 'pendiente' && precioUpgrade">El evento pasa a plan Completa por <b>{{ precioUpgrade }}</b> en total.</p>
+        <p *ngIf="ev.cobro.estado !== 'pendiente'">Este evento ya está pago. Coordinaremos contigo la diferencia.</p>
+        <p class="err" *ngIf="errorUpgrade" role="alert">{{ errorUpgrade }}</p>
+        <div class="row-btns">
+          <button type="button" class="ghost" (click)="confirmandoUpgrade = false" [disabled]="activando">Cancelar</button>
+          <button type="button" class="btn" (click)="agregarInvitacion()" [disabled]="activando">{{ activando ? 'Creando invitación…' : 'Sí, agregar' }}</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Pestañas ===== -->
+    <nav class="tabs" role="tablist" aria-label="Secciones del evento">
+      <button type="button" role="tab" *ngIf="ev.modulos.invitacion" [attr.aria-selected]="tab === 'confirmaciones'" [class.on]="tab === 'confirmaciones'" (click)="setTab('confirmaciones')">
+        Confirmaciones <span>{{ respuestas.length }}</span>
+      </button>
+      <button type="button" role="tab" *ngIf="ev.modulos.invitacion" [attr.aria-selected]="tab === 'mesas'" [class.on]="tab === 'mesas'" (click)="setTab('mesas')">
+        Mesas <span>{{ ev.mesas.length }}</span>
+      </button>
+      <button type="button" role="tab" [attr.aria-selected]="tab === 'links'" [class.on]="tab === 'links'" (click)="setTab('links')">
+        Links
+      </button>
+    </nav>
+
+    <!-- ===== Confirmaciones: la misma pantalla que usan los novios ===== -->
+    <section class="embed" *ngIf="tab === 'confirmaciones' && ev.modulos.invitacion" role="tabpanel">
+      <div class="embed-bar">
+        <p>Crea, edita o borra confirmaciones y descarga la lista en Excel o PDF. Los novios ven los mismos cambios en su link.</p>
+      </div>
+      <app-confirmations-list [idEvento]="ev.id_invitacion" [embebido]="true"></app-confirmations-list>
+    </section>
+
+    <!-- ===== Mesas: la misma pantalla que usan los novios ===== -->
+    <section class="embed" *ngIf="tab === 'mesas' && ev.modulos.invitacion" role="tabpanel">
+      <div class="embed-bar">
+        <p>Crea mesas, asigna puestos y descarga la distribución en Excel o PDF. Los novios ven los mismos cambios en su link.</p>
+      </div>
+      <app-mesas [idEvento]="ev.id_invitacion" [embebido]="true"></app-mesas>
+    </section>
+
+    <!-- ===== Links ===== -->
+    <section *ngIf="tab === 'links'" role="tabpanel">
+      <app-panel-links [links]="ev.links"></app-panel-links>
+    </section>
+  </ng-container>
+
+  <p class="mock" *ngIf="auth.isMock">Modo de prueba: datos de ejemplo.</p>
+</main>

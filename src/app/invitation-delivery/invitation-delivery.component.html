@@ -1,9 +1,13 @@
+<app-novios-hub *ngIf="modoNovios" [idInvitacion]="id" (llaveInvalida)="onLlaveInvalida()"></app-novios-hub>
+
+<ng-container *ngIf="!modoNovios">
 <div class="delivery-page">
   <div class="delivery-atmosphere" aria-hidden="true"></div>
 
   <main class="delivery-shell" *ngIf="!notFound; else missing">
+    <p class="llave-vencida" *ngIf="llaveVencida" role="status">Este link ya no es válido. Pídele el nuevo a tu organizador.</p>
     <header class="delivery-header">
-      <p class="brand">InvitaPP</p>
+      <p class="brand">{{ marcaTexto }}</p>
       <div class="header-line" aria-hidden="true"></div>
       <p class="greeting" *ngIf="clientName">Hola Soy {{ clientName }}</p>
       <h1 class="couple">
@@ -61,3 +65,4 @@
     </main>
   </ng-template>
 </div>
+</ng-container>

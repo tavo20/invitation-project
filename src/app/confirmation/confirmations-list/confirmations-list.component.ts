@@ -1,7 +1,10 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, inject } from '@angular/core';
+import { activarEvento } from '../../shared/evento-access/evento-access';
+import { MarcaService, nombreDeMarca } from '../../shared/marca/marca.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { MesaService } from '../../shared/services/mesa.service';
 import {
   ConfirmationDocument,
   ConfirmationService
@@ -18,11 +21,19 @@ type StatusFilter = 'todos' | ConfirmationStatus;
   styleUrl: './confirmations-list.component.scss'
 })
 export class ConfirmationsListComponent implements OnInit {
+  /** Id del evento cuando se usa dentro de otra pantalla (panel); si no, sale de la URL. */
+  @Input() idEvento?: string;
+  /** Dentro del panel: sin fondo de página completa ni links a la otra pantalla. */
+  @Input() @HostBinding('class.embebido') embebido = false;
+
   invitationId: string | null = null;
   invitationSlug: string | null = null;
   invitationNames = '';
+  /** Fecha del evento tal como la muestra la invitación (para los archivos descargados). */
+  fechaTexto = '';
   typeConfirmation = '';
-  invitationPerUser = false;
+  /** Antes dependía de `invitation_per_user`; ahora la lista siempre permite crear, filtrar y copiar links. */
+  invitationPerUser = true;
   confirmations: ConfirmationDocument[] = [];
   loading = true;
   errorMessage = '';
@@ -47,11 +58,13 @@ export class ConfirmationsListComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private mesaService: MesaService
   ) {}
 
   async ngOnInit(): Promise<void> {
-    this.invitationId = this.route.snapshot.paramMap.get('id');
+    this.invitationId = this.idEvento || this.route.snapshot.paramMap.get('id');
+    activarEvento(this.invitationId);
     if (!this.invitationId) {
       this.loading = false;
       this.errorMessage = 'No se encontró el id de la invitación.';
@@ -68,12 +81,12 @@ export class ConfirmationsListComponent implements OnInit {
 
     this.invitationSlug = context.slug ?? null;
     // Revisa si el listado debe ser por invitado
-    this.invitationPerUser = this.toFlag(context.invitation_per_user ?? context.data?.invitation_per_user);
     this.typeConfirmation = context?.data?.typeConfirmation ?? context?.typeConfirmation ?? '';
     if (context?.data) {
       this.invitationNames = [context.data.names1, context.data.names2]
         .filter(Boolean)
         .join(' & ');
+      this.fechaTexto = context.data.dateText || context.data.date || context.data.weddingDate || '';
     }
 
     void this.loadConfirmations();
@@ -187,10 +200,35 @@ export class ConfirmationsListComponent implements OnInit {
     }
   }
 
-  private toFlag(value: unknown): boolean {
-    if (typeof value === 'boolean') return value;
-    if (typeof value === 'string') return value.trim().toLowerCase() === 'true';
-    return Boolean(value);
+
+  // ===== Descargas (Excel y PDF) =====
+  private readonly marcas = inject(MarcaService);
+  exportando: '' | 'excel' | 'pdf' = '';
+  errorExport = '';
+
+  async exportar(formato: 'excel' | 'pdf'): Promise<void> {
+    if (this.exportando) return;
+    this.exportando = formato;
+    this.errorExport = '';
+    try {
+      const ex = await import('../../shared/exportar/exportar-evento');
+      const marca = await this.marcas.porEvento(this.invitationId!);
+      // Marca blanca: el archivo lo firma el planner; si no, InvitApp y el nombre del organizador
+      const ev = {
+        nombre: this.invitationNames || 'Evento',
+        fecha: this.fechaTexto,
+        marca: nombreDeMarca(marca),
+        organizador: marca.marcaBlanca ? undefined : marca.nombre || undefined,
+      };
+      const mesas = await this.mesaService.getByInvitation(this.invitationId!).catch(() => []);
+      if (formato === 'excel') await ex.confirmacionesExcel(ev, this.confirmations as any, mesas);
+      else await ex.confirmacionesPdf(ev, this.confirmations as any, mesas);
+    } catch (e) {
+      console.error('Error exportando', e);
+      this.errorExport = 'No pudimos generar el archivo. Intenta de nuevo.';
+    } finally {
+      this.exportando = '';
+    }
   }
 
   get totalGuests(): number {

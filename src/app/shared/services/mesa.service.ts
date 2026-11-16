@@ -9,6 +9,10 @@ export interface Mesa {
   name: string;
   capacity: number;
   order: number;
+  /** Grupo (confirmación) que es capitán de la mesa. */
+  capitan?: string | null;
+  /** Nombre exacto de la persona capitana (opcional). */
+  capitanNombre?: string;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -52,7 +56,7 @@ export class MesaService {
 
   async update(
     mesaId: string,
-    payload: { name?: string; capacity?: number; order?: number }
+    payload: { name?: string; capacity?: number; order?: number; capitan?: string | null; capitanNombre?: string }
   ): Promise<Mesa> {
     const response = await lastValueFrom(
       this.http.put<MesaApiResponse<Mesa>>(`${this.API}/${mesaId}`, payload)

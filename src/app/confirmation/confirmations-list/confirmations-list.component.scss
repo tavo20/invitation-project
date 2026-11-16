@@ -781,3 +781,70 @@ $danger: #e8a0a8;
     }
   }
 }
+
+// ===== Dentro del panel (embebido) =====
+:host.embebido {
+  min-height: 0;
+  border-radius: 24px;
+  overflow: hidden;
+}
+:host.embebido .list-page {
+  min-height: 0;
+  padding: 8px 0 24px;
+}
+:host.embebido .list-shell {
+  max-width: none;
+  padding: 24px 20px;
+}
+
+// ===== Tema del panel (solo embebido) =====
+@import '../panel-skin';
+@include panel-skin-comun;
+
+:host.embebido .list-page,
+:host.embebido .list-page.list-page--basic {
+  .list-summary__totals { color: $p-soft; }
+
+  .status-filter {
+    font-family: $p-sans;
+    border: 1px solid $p-line;
+    border-radius: 999px;
+    background: transparent;
+    color: $p-soft;
+
+    &.is-active,
+    &.status-filter--confirmado.is-active,
+    &.status-filter--pendiente.is-active,
+    &.status-filter--cancelada.is-active {
+      background: rgba(232, 180, 160, 0.16);
+      border-color: rgba(232, 180, 160, 0.45);
+      color: $p-ink;
+    }
+  }
+
+  .confirm-item {
+    background: $p-card-2;
+    border: 1px solid $p-line;
+    border-radius: 16px;
+  }
+  .confirm-item__names {
+    font-family: $p-sans;
+    font-weight: 600;
+    color: $p-ink;
+  }
+  .confirm-item__meta,
+  .confirm-item__date { color: $p-mute; font-family: $p-sans; }
+  .confirm-item__comment { color: $p-soft; font-family: $p-sans; font-style: italic; }
+}
+
+// Botones de descarga: secundarios (contorno)
+.export-btn {
+  background: transparent !important;
+  opacity: 0.92;
+}
+:host.embebido .list-page .export-btn,
+:host.embebido .list-page.list-page--basic .export-btn {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  color: #F3EEF2 !important;
+}

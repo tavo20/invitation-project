@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { guardarLlave, llaveDe } from '../shared/evento-access/evento-access';
+import { NoviosHubComponent } from './novios-hub/novios-hub.component';
+import { MarcaService, nombreDeMarca } from '../shared/marca/marca.service';
 import { MainService } from '../shared/services/main.service';
 import { GaleriaService } from '../galeria/services/galeria.service';
 import { downloadDataUrl, galleryGuestUrl, galleryQrDataUrl } from '../galeria/services/galeria-qr';
@@ -18,7 +21,7 @@ interface DeliveryLink {
 @Component({
   selector: 'app-invitation-delivery',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NoviosHubComponent],
   templateUrl: './invitation-delivery.component.html',
   styleUrl: './invitation-delivery.component.scss'
 })
@@ -30,12 +33,20 @@ export class InvitationDeliveryComponent implements OnInit {
   links: DeliveryLink[] = [];
   notFound = false;
   copiedKey: string | null = null;
+  /** Con la llave de los novios (?k=) se muestra su página completa. */
+  modoNovios = false;
+  /** Marca visible: la del planner si es marca blanca, si no InvitApp. */
+  marcaTexto = 'InvitApp';
+  llaveVencida = false;
+  id = '';
   private copyTimeout?: ReturnType<typeof setTimeout>;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private main: MainService,
-    private galeria: GaleriaService
+    private galeria: GaleriaService,
+    private marcas: MarcaService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -44,6 +55,30 @@ export class InvitationDeliveryComponent implements OnInit {
       this.notFound = true;
       return;
     }
+    this.id = id;
+
+    // La llave llega una vez en el link: se guarda en este navegador y se quita de la URL
+    const k = this.route.snapshot.queryParamMap.get('k');
+    if (k) {
+      guardarLlave(id, k);
+      this.router.navigate([], { queryParams: {}, replaceUrl: true });
+    }
+    if (llaveDe(id)) {
+      this.modoNovios = true;
+      return;
+    }
+    await this.cargarVistaSinLlave(id);
+  }
+
+  /** La llave ya no sirve (se renovó): muestra la vista básica con un aviso. */
+  onLlaveInvalida(): void {
+    this.modoNovios = false;
+    this.llaveVencida = true;
+    void this.cargarVistaSinLlave(this.id);
+  }
+
+  private async cargarVistaSinLlave(id: string): Promise<void> {
+    void this.marcas.porEvento(id).then(m => (this.marcaTexto = nombreDeMarca(m)));
 
     const record =
       (await this.main.getDataById_Invitation({ id })) 
@@ -94,8 +129,6 @@ export class InvitationDeliveryComponent implements OnInit {
 
     const invitationId = record.id_invitation || record.id;
     if (invitationId) void this.addGalleryLink(invitationId);
-console.log(record);
-    console.log(this.links);
   }
 
   /** La sección del álbum solo aparece si ya se creó la galería de esta invitación. */

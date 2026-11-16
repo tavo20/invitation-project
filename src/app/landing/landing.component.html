@@ -1,0 +1,196 @@
+<ng-template #invScreen>
+  <div class="scr inv on">
+    <span class="pre">Nos casamos</span>
+    <span class="names">Valentina</span>
+    <span class="amp">&amp;</span>
+    <span class="names">Andrés</span>
+    <span class="rule"></span>
+    <span class="date">03 · 10 · 2026</span>
+    <span class="msg">Esta noche queremos compartir contigo el comienzo del capítulo más hermoso.</span>
+    <div class="cd"><span><b>124</b>días</span><span><b>06</b>horas</span><span><b>41</b>min</span></div>
+    <span class="btn">CONFIRMA AQUÍ</span>
+  </div>
+</ng-template>
+
+<main class="lp">
+  <!-- ===== Secuencia: el sobre se abre ===== -->
+  <section class="c-seq" #seq>
+    <div class="c-stage" #stage>
+      <div class="c-mesh" aria-hidden="true"></div>
+      <div class="c-grain" aria-hidden="true"></div>
+
+      <div class="c-top gut" #top>
+        <div class="inner">
+          <nav class="c-nav">
+            <span class="brand">Invit<i>App</i></span>
+            <a class="c-pill" [href]="whatsappUrl" target="_blank" rel="noopener">Escríbenos</a>
+          </nav>
+          <div class="c-hero-in">
+            <span class="c-badge"><b>Nuevo</b>Tus invitados ahora piden canciones al DJ</span>
+            <h1 class="c-h1">Tu boda en <i>un solo</i> link.</h1>
+            <p class="c-lede">Invitación, confirmaciones, mesas, las fotos de tus invitados y la música de la fiesta. Todo en un lugar.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="env" #env aria-hidden="true">
+        <div class="env-shadow"></div>
+        <div class="env-back"><div class="env-liner"></div></div>
+        <div class="env-front">
+          <div class="fw"><div class="fl fl-l"></div></div>
+          <div class="fw"><div class="fl fl-r"></div></div>
+          <div class="fw"><div class="fl fl-b"></div></div>
+        </div>
+        <div class="env-flap">
+          <div class="ff ff-out"><div class="ff-gold"></div><div class="ff-paper"></div></div>
+          <div class="ff ff-in"></div>
+        </div>
+        <div class="env-seal">V<span>&amp;</span>A</div>
+      </div>
+
+      <div class="phone seq-phone" #seqPhone>
+        <div class="screen"><ng-container *ngTemplateOutlet="invScreen"></ng-container></div>
+      </div>
+
+      <p class="c-hint" #hint>Desliza para abrir ↓</p>
+
+      <div class="c-cap gut" #cap>
+        <div class="inner">
+          <div class="c-cap-in">
+            <h2>Una invitación que <i>trabaja por ti.</i></h2>
+            <p>Confirma, organiza mesas, junta las fotos y pone la música. Tú solo mandas el link.</p>
+            <div class="c-ctas">
+              <a class="c-btn" href="#c-demo" (click)="scrollTo('c-demo', $event)">Míralo en acción ↓</a>
+              <a class="c-btn ghost" href="#c-precios" (click)="scrollTo('c-precios', $event)">Ver precios</a>
+            </div>
+            <div class="c-stats">
+              <span><b>1</b>link para todo</span>
+              <span><b>5</b>herramientas en una</span>
+              <span><b>0</b>hojas de Excel</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-meter">
+        <span #meterLabel>El sobre llega</span>
+        <i><b #meterBar></b></i>
+        <span class="n" #meterNum>0%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Recorrido por funciones ===== -->
+  <section class="gut" id="c-demo">
+    <div class="inner c-scrolly">
+      <div class="c-steps">
+        <div class="c-step" *ngFor="let s of steps; let i = index" [attr.data-s]="i" [class.on]="activeStep === i">
+          <span class="k">{{ s.k }}</span>
+          <h3>{{ s.h }} <i>{{ s.i }}</i></h3>
+          <p>{{ s.p }}</p>
+        </div>
+      </div>
+
+      <div class="c-stick">
+        <span class="glow"></span>
+        <div class="phone c-phone">
+          <div class="screen">
+            <div class="scr-wrap" [class.on]="activeStep === 0"><ng-container *ngTemplateOutlet="invScreen"></ng-container></div>
+
+            <div class="scr app" [class.on]="activeStep === 1">
+              <span class="s">Valentina &amp; Andrés · 03 · 10 · 2026</span>
+              <span class="t">¿Nos acompañas?</span>
+              <div class="opt"><span class="sel">Sí, ahí estaré</span><span>No podré</span></div>
+              <div class="row">Acompañantes <b>2</b></div>
+              <div class="row">Restricción alimentaria <b>Ninguna</b></div>
+              <span class="s mt">Panel de los novios</span>
+              <span class="big">142<span class="of"> / 180</span></span>
+              <div class="bar"><i></i></div>
+              <span class="s">38 por responder</span>
+            </div>
+
+            <div class="scr app" [class.on]="activeStep === 2">
+              <span class="s">Tu ticket</span>
+              <span class="t">Mesa 7 · Puesto 3</span>
+              <div class="tables">
+                <span *ngFor="let n of [1,2,3,4,5,6,7,8,9]" [class.me]="n === 7">{{ n }}</span>
+              </div>
+              <div class="row">Compartes mesa con <b>8 personas</b></div>
+              <div class="row">Ingreso con QR <b>Listo</b></div>
+            </div>
+
+            <div class="scr app" [class.on]="activeStep === 3">
+              <span class="s">Galería privada</span>
+              <span class="t">86 fotos de tus invitados</span>
+              <div class="gal"><span *ngFor="let bg of galleryTiles" [style.background]="bg"></span></div>
+              <div class="row center">+ Sube tu foto</div>
+            </div>
+
+            <div class="scr app queue" [class.on]="activeStep === 4">
+              <span class="s">Pista · pedidos en vivo</span>
+              <span class="t">Lo que viene</span>
+              <div class="row now">▶<span>Vivir mi vida<small>Pedida por Tía Marta</small></span><span class="v">AHORA</span></div>
+              <div class="row">2<span>La bicicleta<small>Pedida por Camilo</small></span><span class="v">▲ 24</span></div>
+              <div class="row">3<span>Perfect<small>Pedida por los novios</small></span><span class="v">▲ 19</span></div>
+              <div class="row">4<span>Tusa<small>Pedida por Sofi</small></span><span class="v">▲ 12</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Módulos ===== -->
+  <section class="gut">
+    <div class="inner c-bento">
+      <div class="c-box">
+        <h3>Confirmaciones en tiempo real</h3>
+        <p>El conteo se actualiza cada vez que alguien responde.</p>
+        <div class="viz live"><span class="dot"></span><b>{{ liveCount }}</b><span>/ 180 confirmados</span></div>
+      </div>
+      <div class="c-box">
+        <h3>Cámbialo tú mismo</h3>
+        <p>¿Cambió la hora o el lugar? Lo editas y todos ven la versión nueva.</p>
+        <div class="viz editor">
+          <label for="lp-ed-names">Nombres en la invitación</label>
+          <input id="lp-ed-names" [value]="editorNames" (input)="onNamesInput($event)" maxlength="40">
+          <span class="pv">{{ editorNames || ' ' }}</span>
+        </div>
+      </div>
+      <div class="c-box">
+        <h3>Ticket con código QR</h3>
+        <p>Cada invitado llega con su puesto asignado y entra escaneando.</p>
+        <div class="viz"><div class="qr"><canvas #qr width="25" height="25"></canvas></div></div>
+      </div>
+      <div class="c-box">
+        <h3>Funciona en cualquier celular</h3>
+        <p>Nada que descargar. Un link que mandas por WhatsApp y abre al instante.</p>
+        <div class="viz live"><b>1</b><span>link · sin apps · sin registro</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Precios ===== -->
+  <section class="gut c-price" id="c-precios">
+    <div class="inner">
+      <h2>Elige <i>tu plan.</i></h2>
+      <div class="c-cards">
+        <div class="c-card" *ngFor="let plan of plans" [class.star]="plan.star">
+          <div class="top"><h3>{{ plan.name }}</h3><span *ngIf="plan.star">Más elegida</span></div>
+          <p class="amt">{{ plan.price }}<small>COP</small></p>
+          <ul><li *ngFor="let it of plan.items" [class.off]="!it.on">{{ it.t }}</li></ul>
+          <a class="c-btn" [class.ghost]="!plan.star" [href]="whatsappUrl" target="_blank" rel="noopener">{{ plan.cta }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Cierre ===== -->
+  <section class="gut c-end">
+    <div class="inner">
+      <h2>Cada historia merece <i>una invitación inolvidable.</i></h2>
+      <div class="c-ctas"><a class="c-btn" [href]="whatsappUrl" target="_blank" rel="noopener">Escríbenos por WhatsApp</a></div>
+      <p>{{ whatsappNumber }}</p>
+    </div>
+  </section>
+</main>

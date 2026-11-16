@@ -1,0 +1,70 @@
+<main class="pi">
+  <div class="pi-bg" aria-hidden="true"></div>
+
+  <section class="pi-card" aria-live="polite">
+    <header class="pi-head">
+      <app-marca-logo class="brand" [class.cargando]="cargandoMarca" [marca]="marca" [alto]="40"></app-marca-logo>
+      <span class="tag">Panel de eventos</span>
+    </header>
+
+    <!-- ===== Paso 1: ingresar ===== -->
+    <form *ngIf="paso === 'ingresar'" (ngSubmit)="ingresar()" novalidate>
+      <h1>Bienvenido <i>de nuevo.</i></h1>
+      <p class="lede">Crea tus eventos, comparte los links y sigue las confirmaciones en un solo lugar.</p>
+
+      <label for="pi-email">Correo</label>
+      <input id="pi-email" name="email" type="email" autocomplete="email" inputmode="email"
+             [(ngModel)]="email" placeholder="tu@correo.com" [disabled]="cargando" required>
+
+      <label for="pi-password">Contraseña</label>
+      <div class="pwd">
+        <input id="pi-password" name="password" [type]="verClave ? 'text' : 'password'" autocomplete="current-password"
+               [(ngModel)]="password" [disabled]="cargando" required>
+        <button type="button" class="eye" (click)="verClave = !verClave" [attr.aria-pressed]="verClave">
+          {{ verClave ? 'Ocultar' : 'Ver' }}
+        </button>
+      </div>
+
+      <p class="err" *ngIf="error" role="alert">{{ error }}</p>
+
+      <button class="btn" type="submit" [disabled]="cargando">
+        <span *ngIf="!cargando">Ingresar</span>
+        <span *ngIf="cargando" class="spin" aria-label="Ingresando"></span>
+      </button>
+
+      <p class="help">¿Olvidaste tu contraseña o aún no tienes acceso? Escríbenos por WhatsApp al <b>321 858 1771</b>.</p>
+    </form>
+
+    <!-- ===== Paso 2: cambiar la contraseña temporal ===== -->
+    <form *ngIf="paso === 'clave'" (ngSubmit)="guardarClave()" novalidate>
+      <h1>Hola{{ nombre ? ', ' + nombre : '' }}. <i>Un último paso.</i></h1>
+      <p class="lede">Entraste con una contraseña temporal. Crea la tuya para proteger tus eventos.</p>
+
+      <ng-container *ngIf="!password">
+        <label for="pi-temp">Contraseña temporal</label>
+        <input id="pi-temp" name="temp" type="password" autocomplete="current-password"
+               [(ngModel)]="password" [disabled]="cargando" required>
+      </ng-container>
+
+      <label for="pi-new">Nueva contraseña</label>
+      <input id="pi-new" name="nueva" [type]="verClave ? 'text' : 'password'" autocomplete="new-password"
+             [(ngModel)]="nuevaClave" [disabled]="cargando" required minlength="8">
+      <p class="hint" [class.bad]="claveCorta">Mínimo 8 caracteres.</p>
+
+      <label for="pi-confirm">Repite la nueva contraseña</label>
+      <input id="pi-confirm" name="confirmar" [type]="verClave ? 'text' : 'password'" autocomplete="new-password"
+             [(ngModel)]="confirmarClave" [disabled]="cargando" required>
+      <p class="hint bad" *ngIf="noCoinciden">Las contraseñas no coinciden.</p>
+
+      <label class="check"><input type="checkbox" name="ver" [(ngModel)]="verClave"> Mostrar contraseñas</label>
+
+      <p class="err" *ngIf="error" role="alert">{{ error }}</p>
+
+      <button class="btn" type="submit" [disabled]="cargando">
+        <span *ngIf="!cargando">Guardar y entrar</span>
+        <span *ngIf="cargando" class="spin" aria-label="Guardando"></span>
+      </button>
+      <button class="link" type="button" (click)="salir()">Usar otra cuenta</button>
+    </form>
+  </section>
+</main>

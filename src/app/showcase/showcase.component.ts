@@ -29,6 +29,8 @@ export class ShowcaseComponent {
   public showImage: boolean = false;
   public imgPartner: string = '';
   public marca: string = '';
+  /** Partner con marca blanca: no se muestra InvitApp. */
+  public marcaBlanca = false;
   public showName: boolean = false;
   public showFooterInvitapp: boolean = false;
   public heightImg: string | number | null = null;
@@ -179,7 +181,8 @@ export class ShowcaseComponent {
       const cliente_data = await lastValueFrom(this.clientService.getClientBySlug(this.cliente));
       // const cliente_data = this.clientes_data.find((cliente: any) => cliente.slug === this.cliente);
       if (cliente_data) {
-        const { showPrices, img, marca, showFooter, heightImg, widthImg } = cliente_data.data ?? {};
+        const { showPrices, img, marca, showFooter, heightImg, widthImg, marcaBlanca } = cliente_data.data ?? {};
+        this.marcaBlanca = !!marcaBlanca;
         this.showShowcase = true;
         this.showPrices = showPrices || false;
         // this.showImage = cliente_data.img;
@@ -188,7 +191,7 @@ export class ShowcaseComponent {
         this.heightImg = heightImg ?? cliente_data.heightImg ?? null;
         this.widthImg = widthImg ?? cliente_data.widthImg ?? null;
         // this.showName = cliente_data.showName;
-        this.showFooterInvitapp = showFooter || false;
+        this.showFooterInvitapp = !this.marcaBlanca && (showFooter || false);
       }
       else {
         this.showPrices = true;

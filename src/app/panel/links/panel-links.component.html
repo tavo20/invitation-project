@@ -1,0 +1,26 @@
+<ng-container *ngFor="let g of grupos">
+<section class="pl-group" *ngIf="visibles(g.items).length">
+  <header>
+    <h3>{{ g.titulo }}</h3>
+    <p>{{ g.nota }}</p>
+  </header>
+
+  <ul>
+    <li *ngFor="let i of visibles(g.items)" [class.priv]="i.privado">
+      <div class="txt">
+        <span class="t">{{ i.titulo }}<span class="lock" *ngIf="i.privado" aria-label="Privado">Privado</span></span>
+        <span class="a">{{ i.ayuda }}</span>
+        <span class="u" *ngIf="url(i) as u">{{ corto(u) }}</span>
+        <span class="u bad" *ngIf="!url(i)">No disponible. Escríbenos para restablecerlo.</span>
+      </div>
+      <div class="acts" *ngIf="url(i) as u">
+        <input #fallback class="fallback" [value]="u" readonly hidden [attr.aria-label]="'Link de ' + i.titulo">
+        <button type="button" class="copy" [class.ok]="copiado === i.key" (click)="copiar(i, fallback)">
+          {{ copiado === i.key ? 'Copiado' : 'Copiar' }}
+        </button>
+        <a class="open" [href]="u" target="_blank" rel="noopener" [attr.aria-label]="'Abrir ' + i.titulo">Abrir ↗</a>
+      </div>
+    </li>
+  </ul>
+</section>
+</ng-container>

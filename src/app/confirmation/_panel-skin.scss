@@ -1,0 +1,192 @@
+// Tema del panel para las pantallas de confirmaciones y mesas cuando van embebidas en el panel de eventos.
+// Solo aplica con :host.embebido; la versión de la invitación (y su tema básico) no cambia.
+
+$p-bg: #0E0B12;
+$p-card: #17121A;
+$p-card-2: #1E1722;
+$p-ink: #F3EEF2;
+$p-soft: #D5CAD4;
+$p-rose: #E8B4A0;
+$p-mute: #A79BA8;
+$p-line: rgba(255, 255, 255, 0.09);
+$p-line-2: rgba(255, 255, 255, 0.16);
+$p-ok: #8FD9A8;
+$p-warn: #F2C47E;
+$p-err: #FFB4AE;
+$p-sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+$p-serif: "Cormorant Garamond", Georgia, serif;
+$p-mono: "Geist Mono", ui-monospace, Menlo, monospace;
+
+@mixin panel-skin-comun {
+  :host.embebido {
+    font-family: $p-sans;
+    color: $p-soft;
+    background: transparent;
+  }
+
+  :host.embebido .list-page,
+  :host.embebido .list-page.list-page--basic {
+    background: transparent;
+    color: $p-soft;
+    font-family: $p-sans;
+
+    .list-glow { display: none; }
+
+    .list-shell {
+      background: $p-card;
+      border: 1px solid $p-line;
+      border-radius: 24px;
+      box-shadow: none;
+    }
+
+    .list-header { text-align: left; }
+
+    .list-eyebrow,
+    .section-title,
+    .label-text,
+    .create-modal__eyebrow {
+      font-family: $p-mono;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: $p-rose;
+    }
+
+    .list-title,
+    .create-modal__title {
+      font-family: $p-serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(30px, 4vw, 40px);
+      letter-spacing: -0.01em;
+      color: $p-ink;
+    }
+
+    .list-summary,
+    .list-hint,
+    .list-state {
+      font-family: $p-sans;
+      color: $p-mute;
+    }
+
+    .list-state--error,
+    .error,
+    .action-message { color: $p-err; }
+
+    // Botones
+    .create-btn,
+    .assign-btn {
+      font-family: $p-sans;
+      font-weight: 600;
+      letter-spacing: 0;
+      text-transform: none;
+      border: 0;
+      border-radius: 999px;
+      background: $p-ink;
+      color: $p-bg;
+
+      &:hover:not(:disabled) {
+        background: #fff;
+        color: $p-bg;
+      }
+    }
+
+    .ghost-btn,
+    .create-modal__cancel {
+      font-family: $p-sans;
+      letter-spacing: 0;
+      text-transform: none;
+      border: 1px solid $p-line-2;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      color: $p-soft;
+
+      &:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.09);
+        color: $p-ink;
+      }
+    }
+
+    .ghost-btn--danger {
+      color: $p-err;
+      border-color: rgba(255, 180, 174, 0.35);
+    }
+
+    .icon-btn {
+      border: 1px solid $p-line-2;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      color: $p-soft;
+
+      &:hover:not(:disabled) {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: $p-rose;
+        color: $p-ink;
+      }
+
+      &.is-copied {
+        border-color: $p-ok;
+        background: rgba(143, 217, 168, 0.12);
+        color: $p-ok;
+      }
+    }
+
+    .icon-btn--danger {
+      color: $p-err;
+      border-color: rgba(255, 180, 174, 0.3);
+      background: rgba(255, 180, 174, 0.05);
+
+      &:hover:not(:disabled) {
+        color: $p-err;
+        border-color: rgba(255, 180, 174, 0.55);
+        background: rgba(255, 180, 174, 0.12);
+      }
+    }
+
+    // Campos
+    .search,
+    .guest-search,
+    .field input,
+    .field select,
+    .field textarea {
+      font-family: $p-sans;
+      border: 1px solid $p-line-2;
+      border-radius: 12px;
+      background-color: rgba(0, 0, 0, 0.28);
+      color: $p-ink;
+
+      &::placeholder { color: #6E6470; }
+      &:focus {
+        outline: none;
+        border-color: $p-rose;
+        box-shadow: 0 0 0 3px rgba(232, 180, 160, 0.18);
+      }
+    }
+
+    .counter {
+      border-color: $p-line-2;
+      background: rgba(0, 0, 0, 0.28);
+      border-radius: 12px;
+    }
+    .counter-btn { color: $p-ink; }
+
+    // Estados
+    .status,
+    .status--pendiente,
+    .summary-status--pendiente { color: $p-warn; }
+    .status--confirmado,
+    .summary-status--confirmado { color: $p-ok; }
+    .status--cancelada,
+    .summary-status--cancelada { color: $p-mute; }
+
+    // Modal
+    .create-modal { background: rgba(8, 6, 10, 0.7); }
+    .create-modal__dialog {
+      background: $p-card-2;
+      border: 1px solid $p-line-2;
+      border-radius: 24px;
+      box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.8);
+    }
+  }
+}

@@ -1,9 +1,10 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter, withViewTransitions } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { routes } from './app.routes';
 import { appSwitchTransition } from './shared/services/app-switch-transition';
+import { eventoAccessInterceptor } from './shared/evento-access/evento-access.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +13,6 @@ export const appConfig: ApplicationConfig = {
       routes,
       withViewTransitions({ skipInitialTransition: true, onViewTransitionCreated: appSwitchTransition }),
     ),
-    provideHttpClient()
+    provideHttpClient(withInterceptors([eventoAccessInterceptor]))
   ]
 };

@@ -3,17 +3,17 @@
 
   <div class="list-shell">
     <header class="list-header">
-      <p class="list-eyebrow">{{ invitationPerUser ? 'Invitaciones por persona' : 'Panel de confirmaciones' }}</p>
+      <p class="list-eyebrow">Panel de confirmaciones</p>
       <h1 class="list-title" *ngIf="invitationNames; else fallbackTitle">
         {{ invitationNames }}
       </h1>
       <ng-template #fallbackTitle>
-        <h1 class="list-title">{{ invitationPerUser ? 'Invitaciones' : 'Confirmaciones' }}</h1>
+        <h1 class="list-title">Confirmaciones</h1>
       </ng-template>
 
       <div class="list-summary" *ngIf="!loading && !errorMessage">
         <div class="list-summary__totals">
-          <span>{{ invitationPerUser ? confirmations.length : statusSummary.confirmado.items }} {{ invitationPerUser ? (confirmations.length === 1 ? 'invitación' : 'invitaciones') : (statusSummary.confirmado.items === 1 ? 'registro' : 'registros') }}</span>
+          <span>{{ confirmations.length }} {{ confirmations.length === 1 ? 'invitado' : 'invitados' }}</span>
           <span class="dot" aria-hidden="true">·</span>
           <span>{{ invitationPerUser ? totalGuests : statusSummary.confirmado.guests }} persona{{ (invitationPerUser ? totalGuests : statusSummary.confirmado.guests) === 1 ? '' : 's' }}</span>
         </div>
@@ -53,26 +53,33 @@
         [(ngModel)]="guestQuery"
         *ngIf="!loading && !errorMessage && confirmations.length" />
 
+      <p class="error" *ngIf="errorExport" role="alert">{{ errorExport }}</p>
       <div class="list-actions" *ngIf="invitationId || invitationPerUser">
-        <a class="mesas-link" *ngIf="invitationId" [routerLink]="['/invitation/mesas', invitationId]">
+        <a class="mesas-link" *ngIf="invitationId && !embebido" [routerLink]="['/invitation/mesas', invitationId]">
           Ver mesas
         </a>
+        <button type="button" class="create-btn export-btn" *ngIf="confirmations.length" (click)="exportar('excel')" [disabled]="!!exportando">
+          {{ exportando === 'excel' ? 'Generando…' : 'Descargar Excel' }}
+        </button>
+        <button type="button" class="create-btn export-btn" *ngIf="confirmations.length" (click)="exportar('pdf')" [disabled]="!!exportando">
+          {{ exportando === 'pdf' ? 'Generando…' : 'Descargar PDF' }}
+        </button>
         <button
           *ngIf="invitationPerUser"
           type="button"
           class="create-btn"
           (click)="onCreateInvitation()">
-          Crear invitación
+          Agregar invitado
         </button>
       </div>
     </header>
 
     <div class="list-state" *ngIf="loading">
-      {{ invitationPerUser ? 'Cargando invitaciones…' : 'Cargando confirmaciones…' }}
+      Cargando confirmaciones…
     </div>
     <div class="list-state list-state--error" *ngIf="!loading && errorMessage">{{ errorMessage }}</div>
     <div class="list-state" *ngIf="!loading && !errorMessage && confirmations.length === 0">
-      {{ invitationPerUser ? 'Aún no hay invitaciones creadas.' : 'Aún no hay confirmaciones.' }}
+      Aún no hay invitados. Agrega el primero o espera a que confirmen desde la invitación.
     </div>
     <div class="list-state" *ngIf="!loading && !errorMessage && confirmations.length > 0 && filteredConfirmations.length === 0 && guestQuery.trim()">
       Nadie coincide con esa búsqueda.
@@ -153,9 +160,9 @@
     *ngIf="showCreateModal"
     (click)="closeCreateModal()">
     <div class="create-modal__dialog" (click)="$event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="create-modal-title">
-      <p class="create-modal__eyebrow">{{ editingItem ? 'Editar invitación' : 'Nueva invitación' }}</p>
+      <p class="create-modal__eyebrow">{{ editingItem ? 'Editar invitado' : 'Nuevo invitado' }}</p>
       <h2 class="create-modal__title" id="create-modal-title">
-        {{ editingItem ? 'Editar invitación' : 'Crear invitación' }}
+        {{ editingItem ? 'Editar invitado' : 'Agregar invitado' }}
       </h2>
 
       <form class="create-modal__form" [formGroup]="createForm" (ngSubmit)="submitCreateInvitation()">
@@ -195,7 +202,7 @@
 
         <div class="create-modal__actions">
           <button type="submit" class="create-btn" [disabled]="isCreating">
-            {{ isCreating ? (editingItem ? 'Guardando…' : 'Creando…') : (editingItem ? 'Guardar' : 'Crear') }}
+            {{ isCreating ? (editingItem ? 'Guardando…' : 'Creando…') : (editingItem ? 'Guardar' : 'Agregar') }}
           </button>
           <button type="button" class="create-modal__cancel" (click)="closeCreateModal()" [disabled]="isCreating">
             Cancelar

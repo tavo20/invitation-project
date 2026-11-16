@@ -100,6 +100,18 @@ export const routes: Routes = [
             import('./plantillas/verde-oliva/verde-oliva.component')
                 .then(m => m.VerdeOlivaComponent)
     },
+    // ===== Panel de clientes (rutas en panel/panel.routes.ts) =====
+    {
+        path: 'panel',
+        loadChildren: () => import('./panel/panel.routes').then(m => m.panelRoutes)
+    },
+    // ===== Landing de InvitApp (en revisión antes de pasarla a la raíz) =====
+    {
+        path: 'landing',
+        loadComponent: () =>
+            import('./landing/landing.component')
+                .then(m => m.LandingComponent)
+    },
     {
         path: ':slug',
         component: HomeComponent
