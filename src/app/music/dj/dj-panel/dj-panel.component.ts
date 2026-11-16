@@ -1,4 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { MarcaLogoComponent } from '../../../shared/marca/marca-logo.component';
+import { Marca, MarcaService, SIN_MARCA } from '../../../shared/marca/marca.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -20,12 +22,16 @@ type DjFilter = 'all' | 'pending' | 'queued' | 'played' | 'rejected';
 @Component({
   selector: 'app-dj-panel',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MarcaLogoComponent],
   templateUrl: './dj-panel.component.html',
   styleUrl: './dj-panel.component.scss',
 })
 export class DjPanelComponent implements OnInit, OnDestroy {
   party: Party | null = null;
+  /** Marca visible: la del planner si es marca blanca, si no InvitApp. */
+  marca: Marca = SIN_MARCA;
+  private readonly marcas = inject(MarcaService);
+
   requests: SongRequest[] = [];
   sections: PartySection[] = [];
   selectedSectionId = '';
@@ -79,6 +85,7 @@ export class DjPanelComponent implements OnInit, OnDestroy {
     this.partyService.verifyAccess(code).subscribe({
       next: (party) => {
         this.party = party;
+        if (party?.id_invitacion) void this.marcas.porEvento(party.id_invitacion).then(m => (this.marca = m));
         this.loading = false;
         this.loadSections();
         this.startPolling();

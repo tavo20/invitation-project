@@ -1,4 +1,6 @@
-import { Component, ElementRef, HostListener, NgZone, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, NgZone, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
+import { MarcaLogoComponent } from '../../shared/marca/marca-logo.component';
+import { Marca, MarcaService, SIN_MARCA } from '../../shared/marca/marca.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, RouterLink } from '@angular/router';
@@ -21,12 +23,16 @@ const DOUBLE_TAP_MS = 300;
 @Component({
   selector: 'app-galeria-guest',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, MarcaLogoComponent],
   templateUrl: './galeria-guest.component.html',
   styleUrl: './galeria-guest.component.scss',
 })
 export class GaleriaGuestComponent implements OnInit, OnDestroy {
   invitationId = '';
+  /** Marca visible: la del planner si es marca blanca, si no InvitApp. */
+  marca: Marca = SIN_MARCA;
+  private readonly marcas = inject(MarcaService);
+
   title = '';
   gallery: Gallery | null = null;
   guest!: GalleryGuest;
@@ -101,6 +107,7 @@ export class GaleriaGuestComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.invitationId = this.route.snapshot.paramMap.get('id') ?? '';
+    if (this.invitationId) void this.marcas.porEvento(this.invitationId).then(m => (this.marca = m));
     this.restoreChrome = applyAppChrome('#faf7f4');
     if (this.route.snapshot.queryParamMap.get('mock')) this.galeria.useMock(this.invitationId);
 

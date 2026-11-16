@@ -916,3 +916,15 @@
     animation-duration: 0.01s;
   }
 }
+
+// ===== Marca: "por <planner>" (marca blanca) o "por InvitApp"
+.por-marca {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 0;
+  font-size: 12px;
+  letter-spacing: .02em;
+  opacity: .78;
+  app-marca-logo { font-size: 13px; }
+}

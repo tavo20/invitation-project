@@ -36,6 +36,7 @@
         </span>
         <span class="brand__name">Álbum</span>
       </p>
+      <p class="por-marca">por <app-marca-logo [marca]="marca" [alto]="16" [chip]="true"></app-marca-logo></p>
       <h1 class="gal__title">{{ title || 'Nuestros momentos' }}</h1>
       <p class="gal__subtitle" *ngIf="isOpen">Comparte tus fotos y videos de la celebración</p>
       <p class="gal__mock" *ngIf="isMock">Modo de prueba: nada se guarda</p>

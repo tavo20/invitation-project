@@ -31,6 +31,7 @@
 
     <header class="adm__header">
       <p class="adm__kicker">Panel del anfitrión</p>
+      <p class="por-marca">por <app-marca-logo [marca]="marca" [alto]="16" [chip]="true"></app-marca-logo></p>
       <h1 class="adm__title">{{ title || 'Álbum del evento' }}</h1>
       <p class="adm__private">🔒 Este enlace es solo para ti. No lo compartas.</p>
       <p class="adm__mock" *ngIf="isMock">Modo de prueba: nada se guarda</p>

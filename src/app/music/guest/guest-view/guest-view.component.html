@@ -17,6 +17,7 @@
         <span class="brand__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="2.5" /><path d="M12 6a6 6 0 0 0-6 6" /></svg></span>
         <span class="brand__name">La Pista</span>
       </p>
+      <p class="por-marca">por <app-marca-logo [marca]="marca" [alto]="16" [chip]="true"></app-marca-logo></p>
       <h1 class="entry-card__title">{{ party?.name }}</h1>
       <p class="entry-card__subtitle">Sugiere canciones para la fiesta</p>
 
@@ -50,6 +51,7 @@
         <span class="brand__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="2.5" /><path d="M12 6a6 6 0 0 0-6 6" /></svg></span>
         <span class="brand__name">La Pista</span>
       </p>
+      <p class="por-marca">por <app-marca-logo [marca]="marca" [alto]="16" [chip]="true"></app-marca-logo></p>
       <h1 class="header__title">{{ party?.name }}</h1>
       <p class="header__user">Hola, {{ session.name }} 👋</p>
     </header>

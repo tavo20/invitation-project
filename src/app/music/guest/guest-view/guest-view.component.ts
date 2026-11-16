@@ -1,4 +1,6 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import { MarcaLogoComponent } from '../../../shared/marca/marca-logo.component';
+import { Marca, MarcaService, SIN_MARCA } from '../../../shared/marca/marca.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -26,12 +28,16 @@ type ViewTab = 'pending' | 'played' | 'rejected' | 'mine';
 @Component({
   selector: 'app-guest-view',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink, MarcaLogoComponent],
   templateUrl: './guest-view.component.html',
   styleUrl: './guest-view.component.scss',
 })
 export class GuestViewComponent implements OnInit, OnDestroy {
   party: Party | null = null;
+  /** Marca visible: la del planner si es marca blanca, si no InvitApp. */
+  marca: Marca = SIN_MARCA;
+  private readonly marcas = inject(MarcaService);
+
   partyCode = '';
   loading = true;
   error = '';
@@ -110,6 +116,7 @@ export class GuestViewComponent implements OnInit, OnDestroy {
     this.partyService.getByCode(this.partyCode).subscribe({
       next: (party) => {
         this.party = party;
+        if (party?.id_invitacion) void this.marcas.porEvento(party.id_invitacion).then(m => (this.marca = m));
         this.loading = false;
         void this.loadAlbum(party);
         this.loadSections();

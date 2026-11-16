@@ -1,4 +1,6 @@
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit, inject } from '@angular/core';
+import { MarcaLogoComponent } from '../../shared/marca/marca-logo.component';
+import { Marca, MarcaService, SIN_MARCA } from '../../shared/marca/marca.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -19,12 +21,16 @@ const TOKEN_KEY = (id: string) => `galeria_host_${id}`;
 @Component({
   selector: 'app-galeria-admin',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, MarcaLogoComponent],
   templateUrl: './galeria-admin.component.html',
   styleUrl: './galeria-admin.component.scss',
 })
 export class GaleriaAdminComponent implements OnInit, OnDestroy {
   invitationId = '';
+  /** Marca visible: la del planner si es marca blanca, si no InvitApp. */
+  marca: Marca = SIN_MARCA;
+  private readonly marcas = inject(MarcaService);
+
   title = '';
   private token = '';
 
@@ -59,6 +65,7 @@ export class GaleriaAdminComponent implements OnInit, OnDestroy {
 
   async ngOnInit(): Promise<void> {
     this.invitationId = this.route.snapshot.paramMap.get('id') ?? '';
+    if (this.invitationId) void this.marcas.porEvento(this.invitationId).then(m => (this.marca = m));
     const query = this.route.snapshot.queryParamMap;
 
     if (query.get('mock')) {
